@@ -1,19 +1,16 @@
 package com.addonis.demo;
 
+import com.addonis.demo.utils.APIUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import javax.net.ssl.HttpsURLConnection;
 import java.io.*;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Scanner;
 
 public class Test {
     public static void main(String[] args) throws IOException, JSONException {
 
-        Object json = APIUtils.requestDataFromAPI("https://api.github.com", "/repos/stleary/JSON-java/pulls");
+        Object json = APIUtils.requestDataFromAPI("https://api.github.com", "/repos/stleary/JSON-java/commits");
 
         if (json instanceof JSONArray) {
             JSONArray arr = (JSONArray) json;
@@ -24,7 +21,10 @@ public class Test {
                 JSONObject j = (JSONObject) arr.get(i);
                 System.out.println(j);
             }
-
+            JSONObject j = (JSONObject) arr.get(0);
+            System.out.println(j);
+            System.out.println(j.getJSONObject("commit").getString("message").replaceAll("\n", " "));
+            System.out.println(j.getJSONObject("commit").getJSONObject("author").getString("date"));
             System.out.println("Size = " +  arr.length());
         } else {
             System.out.println(json);

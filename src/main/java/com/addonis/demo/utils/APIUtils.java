@@ -1,4 +1,4 @@
-package com.addonis.demo;
+package com.addonis.demo.utils;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
