@@ -6,7 +6,7 @@ import org.hibernate.annotations.Where;
 import javax.persistence.*;
 import java.util.Set;
 
-@Entity
+//@Entity
 @Table(name = "addons")
 @Data
 public class Addon {

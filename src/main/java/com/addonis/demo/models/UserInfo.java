@@ -7,7 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-@Entity
+//@Entity
 @Table(name = "usersinfo")
 @Where(clause = "enabled = 1")
 @Data

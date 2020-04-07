@@ -3,6 +3,7 @@ package com.addonis.demo.configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -18,6 +19,7 @@ import javax.sql.DataSource;
 @Configuration
 @EnableJpaRepositories("com.addonis.demo.repository.contracts")
 @EnableTransactionManagement
+//@PropertySource("classpath:application.properties")
 public class JPAConfig {
 
     private String dbUrl, dbUsername, dbPassword;

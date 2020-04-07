@@ -5,7 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.util.Date;
 
-@Entity
+//@Entity
 @Table(name = "last_commits")
 @Data
 public class LastCommit {

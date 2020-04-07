@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Data
 @Table(name = "tags")
-@Entity
+//@Entity
 public class Tag {
 
     @Id
@@ -17,6 +17,7 @@ public class Tag {
     @Column(name = "tag_name")
     private String tagName;
 
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private UserInfo userInfo;
 }
