@@ -4,6 +4,7 @@ import lombok.Data;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "addons")
@@ -40,6 +41,7 @@ public class Addon {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-
+    @OneToMany
+    private Set<Tag> tags;
 
 }
