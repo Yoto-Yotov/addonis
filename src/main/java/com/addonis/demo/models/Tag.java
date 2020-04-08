@@ -4,9 +4,9 @@ import lombok.Data;
 
 import javax.persistence.*;
 
+@Entity
 @Data
 @Table(name = "tags")
-//@Entity
 public class Tag {
 
     @Id
