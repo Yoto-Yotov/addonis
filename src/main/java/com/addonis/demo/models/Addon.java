@@ -6,7 +6,7 @@ import org.hibernate.annotations.Where;
 import javax.persistence.*;
 import java.util.Set;
 
-//@Entity
+@Entity
 @Table(name = "addons")
 @Data
 public class Addon {
@@ -44,4 +44,7 @@ public class Addon {
     @OneToMany
     private Set<Tag> tags;
 
+    @OneToOne
+    @JoinColumn(name = "last_commit_id")
+    private LastCommit lastCommit;
 }
