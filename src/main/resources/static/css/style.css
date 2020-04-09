@@ -30,9 +30,29 @@
 /*----------------------------------------*/
 /* Template default CSS
 /*----------------------------------------*/
-#email {
-	color: #007bff;
+.col-lg-8{
+	align: center;
 }
+/* The sticky class is added to the navbar with JS when it reaches its scroll position */
+.sticky {
+	position: fixed;
+	top: 0;
+	width: 100%;
+}
+
+/* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
+.sticky {
+	padding-top: 60px;
+}
+
+#myHeader {
+	z-index: 9999;
+}
+
+#email {
+	color: #38b6ff;
+}
+
 html,
 body {
 	height: 100%;
@@ -187,7 +207,7 @@ ol {
 	font-weight: 700;
 	padding: 12px 30px;
 	color: #ffffff;
-	background: #38b6ff;
+	background:#38b6ff;
 	text-transform: uppercase;
 }
 
