@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserInfoRepository extends BaseRepository<UserDetails, Integer> {
+public interface UserInfoRepository extends BaseRepository<UserInfo, Integer> {
 
     //Using Normal @Query Anotation
     @Query("select u from UserInfo u where u.email = ?1")
