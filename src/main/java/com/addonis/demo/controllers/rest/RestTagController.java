@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class RestTagController {
 
     private TagService tagService;
-    
+
     public RestTagController(TagService tagService) {
         this.tagService = tagService;
     }
