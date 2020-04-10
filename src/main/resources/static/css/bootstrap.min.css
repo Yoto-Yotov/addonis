@@ -1431,6 +1431,15 @@ pre code {
         -ms-flex: 0 0 40%;
         flex: 0 0 60%;
         max-width: 80%
+        /*-ms-flex: 0 0 40%;*/
+        /*flex: 0 0 45%;*/
+        /*max-width: 80%*/
+    }
+
+    .col-lg-99 {
+        -ms-flex: 0 0 40%;
+        flex: 0 0 45%;
+        max-width: 80%
     }
 
     .col-lg-9 {
