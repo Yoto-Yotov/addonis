@@ -3,7 +3,6 @@ package com.addonis.demo.services;
 import com.addonis.demo.models.LastCommit;
 import com.addonis.demo.services.contracts.LastCommitService;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service

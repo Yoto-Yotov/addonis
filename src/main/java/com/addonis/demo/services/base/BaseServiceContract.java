@@ -9,5 +9,4 @@ public interface BaseServiceContract<T, ID> {
     void deleteById(ID id);
     void update(T t);
     void create(T t);
-
 }
