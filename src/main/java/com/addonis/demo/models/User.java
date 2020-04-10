@@ -1,6 +1,7 @@
 package com.addonis.demo.models;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.Column;
@@ -9,9 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
+@Data
+@NoArgsConstructor
 @Table(name = "users")
 @Where(clause = "enabled = 1")
-@Data
 public class User {
 
     @Id
@@ -24,7 +26,4 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    public User() {
-
-    }
 }

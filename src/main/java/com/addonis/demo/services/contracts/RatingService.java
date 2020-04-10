@@ -1,4 +1,7 @@
 package com.addonis.demo.services.contracts;
 
-public interface RatingService {
+import com.addonis.demo.models.Rating;
+import com.addonis.demo.services.base.BaseServiceContract;
+
+public interface RatingService extends BaseServiceContract<Rating, Integer> {
 }

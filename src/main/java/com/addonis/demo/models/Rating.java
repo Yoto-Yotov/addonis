@@ -1,12 +1,14 @@
 package com.addonis.demo.models;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "rating")
 @Data
+@NoArgsConstructor
+@Table(name = "rating")
 public class Rating {
 
     @Id
@@ -22,7 +24,7 @@ public class Rating {
     @JoinColumn(name = "addon_id")
     private Addon addon;
 
-    public Rating() {
+    @Column(name = "rating")
+    private double rating;
 
-    }
 }

@@ -1,4 +1,7 @@
 package com.addonis.demo.services.contracts;
 
-public interface AddonService {
+import com.addonis.demo.models.Addon;
+import com.addonis.demo.services.base.BaseServiceContract;
+
+public interface AddonService extends BaseServiceContract<Addon, Integer> {
 }
