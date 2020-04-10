@@ -1,11 +1,13 @@
 package com.addonis.demo.models;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Data
+@NoArgsConstructor
 @Table(name = "tags")
 public class Tag {
 

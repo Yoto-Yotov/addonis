@@ -1,13 +1,15 @@
 package com.addonis.demo.models;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "last_commits")
 @Data
+@NoArgsConstructor
+@Table(name = "last_commits")
 public class LastCommit {
 
     @Id

@@ -1,6 +1,7 @@
 package com.addonis.demo.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -22,14 +23,14 @@ import javax.sql.DataSource;
 //@PropertySource("classpath:application.properties")
 public class JPAConfig {
 
-    private String dbUrl, dbUsername, dbPassword;
+    @Value("${database.url}")
+    private String dbUrl;
 
-    @Autowired
-    public JPAConfig(Environment env) {
-        dbUrl = env.getProperty("database.url");
-        dbUsername = env.getProperty("database.username");
-        dbPassword = env.getProperty("database.password");
-    }
+    @Value("${database.username}")
+    private String dbUsername;
+
+    @Value("${database.password}")
+    private String dbPassword;
 
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {

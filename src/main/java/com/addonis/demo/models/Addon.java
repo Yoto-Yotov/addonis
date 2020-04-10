@@ -1,14 +1,16 @@
 package com.addonis.demo.models;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.util.Set;
 
+@Data
+@NoArgsConstructor
 @Entity
 @Table(name = "addons")
-@Data
 public class Addon {
 
     @Id

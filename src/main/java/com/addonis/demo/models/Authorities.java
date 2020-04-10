@@ -1,12 +1,15 @@
 package com.addonis.demo.models;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Table(name = "authorities")
-//@Entity
+
+@Entity
+@NoArgsConstructor
 @Data
+@Table(name = "authorities")
 public class Authorities {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,6 +19,4 @@ public class Authorities {
     @Column(name = "authority")
     private String authority;
 
-    public Authorities() {
-    }
 }

@@ -1,6 +1,7 @@
 package com.addonis.demo.models;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -8,9 +9,10 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Entity
+@Data
+@NoArgsConstructor
 @Table(name = "usersinfo")
 @Where(clause = "enabled = 1")
-@Data
 public class UserInfo {
 
     @Id
@@ -42,7 +44,4 @@ public class UserInfo {
     @Column(name = "last_name")
     private String lastName;
 
-    public UserInfo() {
-
-    }
 }

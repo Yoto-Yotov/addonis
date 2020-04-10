@@ -4,11 +4,15 @@ import com.addonis.demo.utils.APIUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 
 import java.io.*;
 
 public class Test {
+
     public static void main(String[] args) throws IOException, JSONException {
+
 
         Object json = APIUtils.requestDataFromAPI("https://api.github.com", "/repos/stleary/JSON-java/commits");
 
