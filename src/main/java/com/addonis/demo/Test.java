@@ -18,18 +18,28 @@ import org.springframework.web.client.RestTemplate;
 import java.io.*;
 import java.text.ParseException;
 
+import static com.addonis.demo.utils.LastCommitMapper.mapLastCommitResponseToLastCommit;
+
 public class Test {
 
     public static void main(String[] args) throws IOException, JSONException, ParseException {
 
         GitHubService githubService = new GitHubServiceImpl();
 
-        LastCommitResponse lastCommitTest = githubService.getLastCommit("https://api.github.com/repos/YotoBG/projectjs-event-organizer/commits");
+        LastCommitResponse lastCommitTest = githubService.
+                getLastCommit("https://api.github.com/repos/YotoBG/projectjs-event-organizer/commits");
         System.out.println(lastCommitTest.getCommitObject().getMessage());
         System.out.println(lastCommitTest.getCommitObject().getAuthor().getDate());
 
+        LastCommit lastCommit = mapLastCommitResponseToLastCommit(lastCommitTest);
+        System.out.println(lastCommit);
 
-        Object json = APIUtils.requestDataFromAPI("https://api.github.com/repos/" + UrlParser.parseUrl("https://github.com/YotoBG/projectjs-event-organizer") + "/commits");
+        System.out.println(lastCommit.getDate());
+        System.out.println(lastCommit.getTitle());
+
+
+        Object json = APIUtils.requestDataFromAPI("https://api.github.com/repos/" +
+                UrlParser.parseUrl("https://github.com/YotoBG/projectjs-event-organizer") + "/commits");
             //https://github.com/YotoBG/projectjs-event-organizer
 
         if (json instanceof JSONArray) {

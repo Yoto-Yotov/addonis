@@ -19,4 +19,11 @@ public class GitHubServiceImpl implements GitHubService {
 
         return lastCommitResponse;
     }
+
+    @Override
+    public int getPullCount(String url) {
+        RestTemplate restTemplate = new RestTemplate();
+
+        return 0;
+    }
 }
