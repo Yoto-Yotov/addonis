@@ -35,10 +35,11 @@ public class AddonServiceImpl implements AddonService {
     @Override
     public void update(Addon addon) {
 
+        addonRepository.save(addon);
     }
 
     @Override
     public void create(Addon addon) {
-
+        addonRepository.save(addon);
     }
 }

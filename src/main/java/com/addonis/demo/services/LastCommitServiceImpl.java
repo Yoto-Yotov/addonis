@@ -7,6 +7,7 @@ import java.util.List;
 
 @Service
 public class LastCommitServiceImpl implements LastCommitService {
+
     @Override
     public List<LastCommit> getAll() {
         return null;
