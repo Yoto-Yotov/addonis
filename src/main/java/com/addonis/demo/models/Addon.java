@@ -1,5 +1,6 @@
 package com.addonis.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Where;
@@ -11,6 +12,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "addons")
+@Where(clause = "status = 'APPROVED'")
 public class Addon {
 
     @Id
@@ -49,4 +51,14 @@ public class Addon {
     @OneToOne
     @JoinColumn(name = "last_commit_id")
     private LastCommit lastCommit;
+
+    @JsonIgnore
+    @Lob
+    @Column(name = "picture")
+    private Byte[] picture;
+
+    @JsonIgnore
+    @Lob
+    @Column(name = "content")
+    private Byte[] content;
 }

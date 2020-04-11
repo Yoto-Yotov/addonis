@@ -1,12 +1,22 @@
 package com.addonis.demo.services;
 
 import com.addonis.demo.models.Tag;
+import com.addonis.demo.repository.contracts.TagRepository;
 import com.addonis.demo.services.contracts.TagService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
 public class TagServiceImpl implements TagService {
+
+    private TagRepository tagRepository;
+
+    @Autowired
+    public TagServiceImpl(TagRepository tagRepository) {
+        this.tagRepository = tagRepository;
+    }
+
     @Override
     public List<Tag> getAll() {
         return null;
@@ -30,5 +40,10 @@ public class TagServiceImpl implements TagService {
     @Override
     public void create(Tag tag) {
 
+    }
+
+    @Override
+    public void deleteTagByName(String name) {
+        tagRepository.deleteTagByName(name);
     }
 }

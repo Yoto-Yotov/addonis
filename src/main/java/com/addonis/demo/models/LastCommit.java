@@ -2,6 +2,7 @@ package com.addonis.demo.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -19,10 +20,12 @@ public class LastCommit {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int lastCommitId;
 
-    @JsonProperty("massage")
+    @JsonProperty("message")
+    @JsonUnwrapped
     @Column(name = "title")
     private String title;
 
+    @JsonUnwrapped
     @JsonProperty("date")
     @Column(name = "date")
     private java.util.Date date;
