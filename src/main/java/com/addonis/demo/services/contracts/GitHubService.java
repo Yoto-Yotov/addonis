@@ -6,5 +6,7 @@ import java.text.ParseException;
 
 public interface GitHubService {
 
-    public LastCommitResponse getLastCommit(String url) throws ParseException;
+    LastCommitResponse getLastCommit(String url) throws ParseException;
+
+    int getPullCount(String url);
 }
