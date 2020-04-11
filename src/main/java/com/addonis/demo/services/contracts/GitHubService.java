@@ -1,8 +1,10 @@
 package com.addonis.demo.services.contracts;
 
-import com.addonis.demo.models.LastCommit;
+import com.addonis.demo.models.commitresponse.LastCommitResponse;
+
+import java.text.ParseException;
 
 public interface GitHubService {
 
-    public LastCommit getLastCommit(String url);
+    public LastCommitResponse getLastCommit(String url) throws ParseException;
 }

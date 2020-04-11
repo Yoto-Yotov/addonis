@@ -14,8 +14,8 @@ public final class APIUtils {
 
     private APIUtils() {}
 
-    public static Object requestDataFromAPI(String endpoint, String uri) throws IOException {
-        URL url = new URL(endpoint + uri);
+    public static Object requestDataFromAPI(String uri) throws IOException {
+        URL url = new URL(uri);
         HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
 
         connection.setRequestMethod("GET");

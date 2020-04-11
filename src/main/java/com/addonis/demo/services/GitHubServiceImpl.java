@@ -1,28 +1,22 @@
 package com.addonis.demo.services;
 
-import com.addonis.demo.models.LastCommit;
-import com.addonis.demo.models.LastCommitList;
+import com.addonis.demo.models.commitresponse.LastCommitResponse;
 import com.addonis.demo.services.contracts.GitHubService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.List;
+import java.text.ParseException;
 
 public class GitHubServiceImpl implements GitHubService {
 
     @Override
-    public LastCommit getLastCommit(String url) {
+    public LastCommitResponse getLastCommit(String url) throws ParseException {
+
         RestTemplate restTemplate = new RestTemplate();
-        LastCommitList response = restTemplate.getForObject(url, LastCommitList.class);
-        List<LastCommit> commits = response.getCommitList();
-        return commits.get(0);
+        ResponseEntity<LastCommitResponse[]> arr = restTemplate.getForEntity(url, LastCommitResponse[].class);
+        LastCommitResponse[] array  = arr.getBody();
+        LastCommitResponse lastCommitResponse = array[0];
 
-
-
-
-//        RestTemplate restTemplate = new RestTemplate();
-//        ResponseEntity<LastCommit[]> arr = restTemplate.getForEntity(url, LastCommit[].class);
-//        LastCommit[] array  = arr.getBody();
-//        return array[0];
+        return lastCommitResponse;
     }
 }
