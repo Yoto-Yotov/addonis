@@ -20,18 +20,20 @@ public class RestAddonsController {
         this.addonService = addonService;
     }
 
+    //ToDo Exceprion
+    //ToDo CheckIfURLExist
     @PostMapping("/create")
     public Addon createBeer(@RequestBody Addon addon) {
         try {
             addonService.create(addon);
             return addon;
         } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "This addon already exist");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
         }
     }
 
     @GetMapping("/all")
-    public List<Addon> getAll () {
+    public List<Addon> getAll() {
         return addonService.getAll();
     }
 }

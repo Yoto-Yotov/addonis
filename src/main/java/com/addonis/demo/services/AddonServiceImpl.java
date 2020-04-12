@@ -2,23 +2,32 @@ package com.addonis.demo.services;
 
 import com.addonis.demo.models.Addon;
 import com.addonis.demo.models.LastCommit;
+import com.addonis.demo.models.commitresponse.LastCommitResponse;
 import com.addonis.demo.repository.contracts.AddonRepository;
 import com.addonis.demo.services.contracts.AddonService;
+import com.addonis.demo.services.contracts.GitHubService;
 import com.addonis.demo.services.contracts.LastCommitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.text.ParseException;
 import java.util.List;
+
+import static com.addonis.demo.utils.LastCommitMapper.mapLastCommitResponseToLastCommit;
 
 @Service
 public class AddonServiceImpl implements AddonService {
 
     AddonRepository addonRepository;
     LastCommitService lastCommitService;
+    GitHubService githubService;
 
     @Autowired
-    public AddonServiceImpl(AddonRepository addonRepository, LastCommitService lastCommitService) {
+    public AddonServiceImpl(AddonRepository addonRepository, LastCommitService lastCommitService,
+                            GitHubService githubService) {
         this.addonRepository = addonRepository;
         this.lastCommitService = lastCommitService;
+        this.githubService = githubService;
     }
 
     @Override
@@ -42,10 +51,12 @@ public class AddonServiceImpl implements AddonService {
     }
 
     @Override
-    public void create(Addon addon) {
+    public void create(Addon addon) throws ParseException {
+        String url = addon.getOriginLink();
+        LastCommitResponse response = githubService.getLastCommit(url);
+        LastCommit lastCommit = mapLastCommitResponseToLastCommit(response);
+        lastCommitService.create(lastCommit);
+        addon.setLastCommit(lastCommit);
         addonRepository.save(addon);
-        //LastCommit lastCommit //to create using the url
-        //lastCommitService.create(lastCommit);
-        //lastCommitService.create(addon.getOriginLink());
     }
 }
