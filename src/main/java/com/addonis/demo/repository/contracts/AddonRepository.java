@@ -12,4 +12,5 @@ public interface AddonRepository extends BaseRepository<Addon, Integer> {
 
     @Query("select a from Addon a where a.originLink = :originLink")
     Addon findAddonByOriginLink(@Param("originLink") String originLink);
+
 }

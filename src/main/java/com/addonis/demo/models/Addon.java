@@ -3,7 +3,9 @@ package com.addonis.demo.models;
 import com.addonis.demo.models.enums.Status;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
