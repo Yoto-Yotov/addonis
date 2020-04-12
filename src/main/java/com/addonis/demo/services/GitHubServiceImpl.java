@@ -3,10 +3,13 @@ package com.addonis.demo.services;
 import com.addonis.demo.models.commitresponse.LastCommitResponse;
 import com.addonis.demo.models.enums.EPParam;
 import com.addonis.demo.services.contracts.GitHubService;
+import com.addonis.demo.utils.APIUtils;
+import org.json.JSONArray;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.IOException;
 import java.text.ParseException;
 
 import static com.addonis.demo.utils.UrlParser.parseUrl;
@@ -26,8 +29,16 @@ public class GitHubServiceImpl implements GitHubService {
     }
 
     @Override
-    public int getPullCount(String url) {
-        RestTemplate restTemplate = new RestTemplate();
-        return 0;
+    public int getPullsCount(String url) throws IOException {
+        url = parseUrl(url, EPParam.PULLS);
+        JSONArray jsonArr = APIUtils.requestDataFromAPI(url);
+        return jsonArr.length();
+    }
+
+    @Override
+    public int getIssuesCount(String url) throws IOException {
+        url = parseUrl(url, EPParam.ISSUES);
+        JSONArray jsonArr = APIUtils.requestDataFromAPI(url);
+        return jsonArr.length();
     }
 }
