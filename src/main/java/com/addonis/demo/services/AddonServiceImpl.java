@@ -39,12 +39,12 @@ public class AddonServiceImpl implements AddonService {
 
     @Override
     public Addon getById(Integer integer) {
-        return null;
+        return addonRepository.getOne(integer);
     }
 
     @Override
     public void deleteById(Integer integer) {
-
+        addonRepository.deleteById(integer);
     }
 
     @Override
