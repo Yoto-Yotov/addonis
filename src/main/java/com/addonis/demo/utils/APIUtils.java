@@ -14,7 +14,7 @@ public final class APIUtils {
 
     private APIUtils() {}
 
-    public static Object requestDataFromAPI(String uri) throws IOException {
+    public static JSONArray requestDataFromAPI(String uri) throws IOException {
         URL url = new URL(uri);
         HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
 
@@ -24,7 +24,6 @@ public final class APIUtils {
 
         try (BufferedReader br = new BufferedReader(
                              new InputStreamReader(connection.getInputStream()))) {
-
             String input = null;
             while ((input = br.readLine()) != null){
                 sb.append(input);
@@ -32,10 +31,7 @@ public final class APIUtils {
         }
 
         String content = sb.toString();
-        if (content.startsWith("[")) {
-            return new JSONArray(content);
-        }
 
-        return new JSONObject(content);
+        return new JSONArray(content);
     }
 }
