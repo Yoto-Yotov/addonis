@@ -4,18 +4,9 @@ import com.addonis.demo.models.LastCommit;
 import com.addonis.demo.models.commitresponse.LastCommitResponse;
 import com.addonis.demo.services.GitHubServiceImpl;
 import com.addonis.demo.services.contracts.GitHubService;
-import com.addonis.demo.utils.APIUtils;
-import com.addonis.demo.utils.UrlParser;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
-import org.springframework.web.client.RestTemplate;
 
-import java.io.*;
+import java.io.IOException;
 import java.text.ParseException;
 
 import static com.addonis.demo.utils.LastCommitMapper.mapLastCommitResponseToLastCommit;
@@ -38,12 +29,12 @@ public class Test {
         System.out.println(lastCommit.getTitle());
 
 
-        Object json = APIUtils.requestDataFromAPI("https://api.github.com/repos/" +
-                UrlParser.parseUrl("https://github.com/YotoBG/projectjs-event-organizer") + "/commits");
+//        Object json = APIUtils.requestDataFromAPI("https://api.github.com/repos/" +
+//                UrlParser.parseUrl("https://github.com/YotoBG/projectjs-event-organizer") + "/commits");
             //https://github.com/YotoBG/projectjs-event-organizer
 
-        if (json instanceof JSONArray) {
-            JSONArray arr = (JSONArray) json;
+//        if (json instanceof JSONArray) {
+//            JSONArray arr = (JSONArray) json;
           //  for (int i = 0; i < arr.length(); i++) {
 //                //long id = j.getLong("id");
 //                //JSONObject owner = j.getJSONObject("owner");
@@ -51,15 +42,15 @@ public class Test {
               //  JSONObject j = (JSONObject) arr.get(0);
 //                System.out.println(j);
             //}
-            JSONObject j = (JSONObject) arr.get(0);
+//            JSONObject j = (JSONObject) arr.get(0);
            // System.out.println(j);
 //            System.out.println(j.getJSONObject("commit").getString("message").replaceAll("\n", " "));
 //            System.out.println(j.getJSONObject("commit").getJSONObject("author").getString("date"));
 //            System.out.println("Size = " +  arr.length());
 
-        } else {
-            System.out.println(json);
-        }
+//        } else {
+//            System.out.println(json);
+//        }
 
 
     }

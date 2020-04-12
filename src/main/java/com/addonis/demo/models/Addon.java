@@ -1,5 +1,6 @@
 package com.addonis.demo.models;
 
+import com.addonis.demo.models.enums.Status;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
