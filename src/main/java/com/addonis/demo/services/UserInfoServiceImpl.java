@@ -1,6 +1,7 @@
 package com.addonis.demo.services;
 
 import com.addonis.demo.exceptions.DuplicateEntityException;
+import com.addonis.demo.exceptions.EntityNotFoundException;
 import com.addonis.demo.models.UserInfo;
 import com.addonis.demo.repository.contracts.UserInfoRepository;
 import com.addonis.demo.services.contracts.UserInfoService;
@@ -56,5 +57,20 @@ public class UserInfoServiceImpl implements UserInfoService {
                 .stream()
                 .map(UserInfo::getEmail)
                 .anyMatch(b -> b.equalsIgnoreCase(email));
+    }
+
+    public boolean checkIfUserExistByName(String name) {
+        return getAll()
+                .stream()
+                .map(UserInfo::getName)
+                .anyMatch(b -> b.equalsIgnoreCase(name));
+    }
+
+    @Override
+    public UserInfo gerUserByUsername(String name) {
+        if (!checkIfUserExistByName(name)){
+            throw new EntityNotFoundException("User", name);
+        }
+        return userInfoRepository.getByUserName(name);
     }
 }

@@ -8,7 +8,6 @@ import org.hibernate.annotations.Where;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 
 @Entity
 @Data
@@ -16,7 +15,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Table(name = "usersinfo")
 @Where(clause = "enabled = 1")
-public class UserInfo implements Serializable {
+public class UserInfo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -18,8 +18,8 @@ public interface UserInfoRepository extends BaseRepository<UserInfo, Integer> {
     UserInfo findByEmailAddress(String emailAddress);
 
     //Using Named Parameters
-    @Query("select u from UserInfo u where u.firstName = :firstname")
-    UserInfo findByFirstname(@Param("firstname") String firstname);
+    @Query("select u from UserInfo u where u.name = :name")
+    UserInfo getByUserName(@Param("name") String name);
 
     @Modifying
     @Query("update UserInfo set enabled = 0 where name =: name")

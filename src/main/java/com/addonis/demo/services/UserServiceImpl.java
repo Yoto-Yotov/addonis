@@ -53,4 +53,5 @@ public class UserServiceImpl implements UserService {
                 .map(User::getUsername)
                 .anyMatch(b -> b.equalsIgnoreCase(username));
     }
+
 }

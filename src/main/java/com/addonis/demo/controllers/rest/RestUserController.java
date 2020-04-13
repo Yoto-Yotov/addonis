@@ -1,6 +1,7 @@
 package com.addonis.demo.controllers.rest;
 
 import com.addonis.demo.exceptions.DuplicateEntityException;
+import com.addonis.demo.exceptions.EntityNotFoundException;
 import com.addonis.demo.models.User;
 import com.addonis.demo.models.UserDTO;
 import com.addonis.demo.models.UserInfo;
@@ -60,6 +61,24 @@ public class RestUserController {
     public String deleteUser(@PathVariable int id) {
         userInfoService.deleteById(id);
         return String.format("User with id %d successfully deleted", id);
+    }
+
+    @GetMapping("/{username}")
+    public UserInfo getByUserName(@PathVariable String username) {
+        try {
+            return userInfoService.gerUserByUsername(username);
+        } catch (EntityNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
+    @GetMapping("id/{id}")
+    public UserInfo getByUserId(@PathVariable int id) {
+        try {
+            return userInfoService.getById(id);
+        } catch (EntityNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
     }
 
 }
