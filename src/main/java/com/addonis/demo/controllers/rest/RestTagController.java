@@ -1,10 +1,15 @@
 package com.addonis.demo.controllers.rest;
 
+import com.addonis.demo.models.Addon;
 import com.addonis.demo.models.Tag;
+import com.addonis.demo.services.contracts.AddonService;
 import com.addonis.demo.services.contracts.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @RestController
@@ -12,6 +17,7 @@ import java.util.List;
 public class RestTagController {
 
     private TagService tagService;
+    private AddonService addonService;
 
     @Autowired
     public RestTagController(TagService tagService) {
@@ -27,5 +33,14 @@ public class RestTagController {
     public String deleteTag( @PathVariable String tagName) {
         tagService.deleteTagByName(tagName);
         return String.format("Tag with name %s was successfully deleted", tagName);
+    }
+
+    @PutMapping("/{addonId}/{tagName}")
+    public Tag addTagToAddon(@PathVariable int addonId, @PathVariable String tagName, @RequestHeader(name = "Authorization") String authorization) {
+        try {
+            return tagService.addTagToAddon(addonId, tagName, authorization);
+        } catch (Exception ex) { // todo replace this exception
+            throw new ResponseStatusException(HttpStatus.CONFLICT, ex.getMessage());
+        }
     }
 }
