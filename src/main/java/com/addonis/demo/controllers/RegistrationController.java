@@ -1,15 +1,13 @@
 package com.addonis.demo.controllers;
 
 import com.addonis.demo.exceptions.DuplicateEntityException;
-import com.addonis.demo.exceptions.InvalidDataException;
+import com.addonis.demo.models.User;
 import com.addonis.demo.models.UserDTO;
 import com.addonis.demo.models.UserInfo;
 import com.addonis.demo.services.contracts.ImageService;
 import com.addonis.demo.services.contracts.UserInfoService;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
+import com.addonis.demo.services.contracts.UserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,21 +17,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import java.util.List;
+
+import static com.addonis.demo.utils.UserUtils.mergeUserInfo;
 
 @Controller
 public class RegistrationController {
 
     private PasswordEncoder passwordEncoder;
-    private UserDetailsManager userDetailsManager;
     private UserInfoService userInfoService;
     private ImageService imageService;
+    private UserService userService;
 
-    public RegistrationController(PasswordEncoder passwordEncoder, UserDetailsManager userDetailsManager, UserInfoService userInfoService, ImageService imageService) {
+    public RegistrationController(PasswordEncoder passwordEncoder, UserInfoService userInfoService, ImageService imageService, UserService userService) {
         this.passwordEncoder = passwordEncoder;
-        this.userDetailsManager = userDetailsManager;
         this.userInfoService = userInfoService;
         this.imageService = imageService;
+        this.userService = userService;
     }
 
     @GetMapping("/register")
@@ -47,28 +46,24 @@ public class RegistrationController {
     public String registerUser(@Valid @ModelAttribute(name = "userDto") UserDTO userDto, Model model,
                                @RequestParam("imagefile") MultipartFile file) {
 
-        List<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList("ROLE_USER");
-        org.springframework.security.core.userdetails.User newUser =
-                new org.springframework.security.core.userdetails.User(
-                        userDto.getName(),
-                        passwordEncoder.encode(userDto.getPassword()),
-                        authorities);
+        User user = new User();
+        user.setUsername(userDto.getName());
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
 
-        UserInfo userToCreate = new UserInfo();
-        userToCreate.setEmail(userDto.getEmail());
-        userToCreate.setName(userDto.getName());
+        UserInfo userInfo = mergeUserInfo(userDto);
 
         try {
-            userDetailsManager.createUser(newUser);
-            userInfoService.create(userToCreate);
-        } catch (DuplicateEntityException | InvalidDataException e) {
+            userService.create(user);
+            userInfoService.create(userInfo);
+        } catch (DuplicateEntityException e) {
             model.addAttribute("error", e.getMessage());
             return "register";
         }
+
         try {
-            imageService.saveImageFile(userToCreate.getId(), file);
+            imageService.saveImageFile(userInfo.getId(), file);
         } catch (IllegalStateException ex) {
-            model.addAttribute("error", "Image to Large for upload");
+            model.addAttribute("error", "Image is too large! Please try again!");
             return "register";
         }
         return "registration-confirmation";
