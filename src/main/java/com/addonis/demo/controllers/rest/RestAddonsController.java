@@ -28,16 +28,25 @@ public class RestAddonsController {
 
     //ToDo Exceprion
     //ToDo CheckIfURLExist
-    @PostMapping(value = "/create", consumes = "multipart/form-data")
-    public Addon createBeer(/*@RequestBody Addon addon,*/ @RequestParam MultipartFile file) {
+    @PostMapping(value = "/create")
+    public Addon createAddon(@RequestBody Addon addon) {
         try {
-            //addonService.create(addon);
-            if(file != null) {
-                fileService.saveAddonFile(8, file);
-            }
-            return new Addon();
+            addonService.create(addon);
+            return addonService.getById(addon.getId());
         } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());//todo change exception
+        }
+    }
+
+    @PostMapping(value = "/upload/{id}", consumes = "multipart/form-data")
+    public Addon uploadAddon(@PathVariable int id, @RequestParam MultipartFile file) {
+        try {
+            if(file != null) {
+                fileService.saveAddonFile(id, file);
+            }
+            return addonService.getById(id);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());//todo change exception
         }
     }
 

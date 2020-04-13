@@ -2,6 +2,7 @@ package com.addonis.demo.models;
 
 import com.addonis.demo.models.enums.Status;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,6 +10,7 @@ import lombok.Setter;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 @Data
@@ -16,7 +18,8 @@ import java.util.Set;
 @Entity
 @Table(name = "addons")
 @Where(clause = "status = 'APPROVED'")
-public class Addon {
+@JsonSerialize
+public class Addon{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
