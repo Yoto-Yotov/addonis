@@ -48,21 +48,20 @@
             </div>
             <div class="ht-right">
                 <a href="#" th:href="@{/login}" sec:authorize="!isAuthenticated()" class="login-panel"><i class="fa fa-user"></i>Login</a>
-                <a href="#" th:href="@{/logout}" sec:authorize="isAuthenticated()" class="logout-panel"><i class="fa fa-user"></i>Log out</a>
                 <div class="top-social">
-                    <a href="#"><i class="ti-facebook"></i></a>
+                    <a href="https://www.facebook.com/Addonis-109059887435247/?modal=admin_todo_tour"><i class="ti-facebook"></i></a>
                     <a href="#"><i class="ti-twitter-alt"></i></a>
                     <a href="#"><i class="ti-linkedin"></i></a>
-                    <a href="#"><i class="ti-pinterest"></i></a>
+                    <a href="https://www.pinterest.com/addonisteam/tried/"><i class="ti-pinterest"></i></a>
                 </div>
-
                 <a href="#" th:href="@{/register}" sec:authorize="!isAuthenticated()" class="login-panel"><i
                         class="fas fa-registered"></i>Register</a>
+                <a href="#" th:href="@{/logout}" sec:authorize="isAuthenticated()" class="logout-panel2">Log out</a>
             </div>
         </div>
     </div>
     <div class="container">
-        <div class="inner-header">
+        <div class="inner-header" >
             <div class="row">
                 <div class="col-lg-2 col-md-2">
                     <div class="logo">
@@ -92,7 +91,7 @@
             <nav class="nav-menu mobile-menu">
                 <ul>
                     <li class="active"><a th:href="@{/}">Home</a></li>
-                    <li><a href="/shop.html">Addons</a></li>
+                    <li><a href="shop.html">Addons</a></li>
                     <li><a href="#">Collection</a>
                         <ul class="dropdown">
                             <li><a href="#">Men's</a></li>
@@ -580,7 +579,7 @@
                         <a href="#"><i class="fa fa-facebook"></i></a>
                         <a href="#"><i class="fa fa-instagram"></i></a>
                         <a href="#"><i class="fa fa-twitter"></i></a>
-                        <a href="#"><i class="fa fa-pinterest"></i></a>
+                        <a href="https://www.pinterest.com/addonisteam/tried/"><i class="fa fa-pinterest"></i></a>
                     </div>
                 </div>
             </div>
