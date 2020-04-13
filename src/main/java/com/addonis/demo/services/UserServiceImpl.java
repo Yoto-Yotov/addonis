@@ -38,8 +38,18 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
+
+    //ToDo checkIfExist
     @Override
     public void create(User user) {
         userRepository.save(user);
     }
+
+    public boolean checkIfUserExistByName(String username) {
+        return getAll()
+                .stream()
+                .map(User::getUsername)
+                .anyMatch(b -> b.equalsIgnoreCase(username));
+    }
+
 }
