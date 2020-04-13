@@ -50,6 +50,11 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public void deleteTagByName(String name) {
+        Tag tagToDelete = tagRepository.getTagByName(name);
+        if(tagToDelete == null) {
+            throw new EntityNotFoundException("tag", name);
+        }
+        tagRepository.deleteTagFromAllAddons(tagToDelete.getTagId());
         tagRepository.deleteTagByName(name);
     }
 

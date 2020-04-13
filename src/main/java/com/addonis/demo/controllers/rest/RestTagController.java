@@ -28,9 +28,13 @@ public class RestTagController {
         return tagService.getAll();
     }
 
-    @DeleteMapping("/delete/{tagName}")
+    @DeleteMapping("/{tagName}")
     public String deleteTag( @PathVariable String tagName) {
-        tagService.deleteTagByName(tagName);
+        try {
+            tagService.deleteTagByName(tagName);
+        } catch (EntityNotFoundException ex) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, ex.getMessage());
+        }
         return String.format("Tag with name %s was successfully deleted", tagName);
     }
 
@@ -44,4 +48,6 @@ public class RestTagController {
             throw new ResponseStatusException(HttpStatus.CONFLICT, ex.getMessage());
         }
     }
+
+
 }
