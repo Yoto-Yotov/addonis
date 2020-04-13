@@ -38,7 +38,6 @@ public class JPAConfig {
         factory.setJpaVendorAdapter(vendorAdapter);
         factory.setPackagesToScan("com.addonis.demo.models");
         factory.setDataSource(dataSource());
-//        factory.afterPropertiesSet();
         return factory;
     }
 

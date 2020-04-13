@@ -28,9 +28,8 @@ public class UserInfo implements Serializable {
 
     @NotNull
     @NotBlank
-    @OneToOne
-    @JoinColumn(name = "username")
-    private User name;
+    @Column(name = "username")
+    private String name;
 
     @NotNull
     @NotBlank
