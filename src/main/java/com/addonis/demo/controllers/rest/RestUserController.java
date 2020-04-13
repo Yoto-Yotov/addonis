@@ -9,7 +9,6 @@ import com.addonis.demo.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
@@ -35,11 +34,10 @@ public class RestUserController {
     }
 
     @PostMapping("/create")
-    public void createUser(@RequestBody @Valid UserDTO userDTO) {
+    public void createUser(@RequestBody UserDTO userDTO) {
         try {
             User user = new User();
             user.setUsername(userDTO.getName());
-            user.setPassword(userDTO.getPassword());
             user.setPassword(userDTO.getPassword());
             userService.create(user);
 

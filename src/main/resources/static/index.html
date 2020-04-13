@@ -48,7 +48,7 @@
             </div>
             <div class="ht-right">
                 <a href="#" th:href="@{/login}" sec:authentication="!isAuthenticated()" class="login-panel"><i class="fa fa-user"></i>Login</a>
-                <a href="#" th:href="@{/logout}" sec:authorize="isAuthenticated()" class="logout-panel"><i class="fa fa-user"></i>Log out</a>
+<!--                <a href="#" th:href="@{/logout}" sec:authorize="isAuthenticated()" class="logout-panel"><i class="fa fa-user"></i>Log out</a>-->
                 <div class="top-social">
                     <a href="#"><i class="ti-facebook"></i></a>
                     <a href="#"><i class="ti-twitter-alt"></i></a>
@@ -67,7 +67,7 @@
                 <div class="col-lg-2 col-md-2">
                     <div class="logo">
                         <a href="index.html">
-                            <img src="/img/addonis.PNG" alt="">
+                            <img src="/static/img/addonis.PNG" alt="">
                         </a>
                     </div>
                 </div>
@@ -101,14 +101,14 @@
                         </ul>
                     </li>
                     <li><a href="/blog.html">Blog</a></li>
-                    <li><a href="/contact.html">Contact</a></li>
+                    <li><a th:href="@{/contact}">Contact</a></li>
                     <li><a href="#">Pages</a>
                         <ul class="dropdown">
                             <li><a href="/blog-details.html">Blog Details</a></li>
                             <li><a href="shopping-cart.html">Shopping Cart</a></li>
                             <li><a href="/check-out.html">Checkout</a></li>
                             <li><a href="faq.html">Faq</a></li>
-                            <li><a href="/templates/register.html">Register</a></li>
+                            <li><a href="/static/register.html">Register</a></li>
                             <li><a href="login.html">Login</a></li>
                         </ul>
                     </li>
@@ -569,7 +569,7 @@
             <div class="col-lg-3">
                 <div class="footer-left">
                     <div class="footer-logo">
-                        <a href="#"><img src="../static/img/addonis.PNG" alt=""></a>
+                        <a href="#"><img src="img/addonis.PNG" alt=""></a>
                     </div>
                     <ul>
                         <li>Address: 60-49 Road 11378 New York</li>
@@ -631,7 +631,7 @@
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     </div>
                     <div class="payment-pic">
-                        <img src="../static/img/payment-method.png" alt="">
+                        <img src="img/payment-method.png" alt="">
                     </div>
                 </div>
             </div>

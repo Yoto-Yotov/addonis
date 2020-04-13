@@ -14,15 +14,15 @@
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" href="/css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}" href="/css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" th:href="@{/css/themify-icons.css}" href="/css/themify-icons.css" type="text/css">
-    <link rel="stylesheet" th:href="@{/css/elegant-icons.css}" href="/css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}" href="/css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" th:href="@{/css/nice-select.css}" href="/css/nice-select.css">
-    <link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}" href="/css/jquery-ui.min.css">
-    <link rel="stylesheet" th:href="@{/css/slicknav.min.css}" href="/css/slicknav.min.css">
-    <link rel="stylesheet" th:href="@{/css/style.css}" href="/css/style.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="css/themify-icons.css" type="text/css">
+    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
 </head>
 
 <body>
@@ -32,7 +32,7 @@
     </div>
 
     <!-- Header Section Begin -->
-    <header lass="header-section">
+    <header class="header-section">
         <div class="header-top">
             <div class="container">
                 <div class="ht-left">
@@ -62,7 +62,7 @@
                     <div class="col-lg-2 col-md-2">
                         <div class="logo">
                             <a href="index.html">
-                                <img src="../static/img/addonis.PNG" alt="">
+                                <img src="img/addonis.PNG" alt="">
                             </a>
                         </div>
                     </div>
@@ -122,7 +122,7 @@
                 <div class="col-lg-12">
                     <div class="breadcrumb-text">
                         <a href="#"><i class="fa fa-home"></i> Home</a>
-                        <span>Login</span>
+                        <span>Register</span>
                     </div>
                 </div>
             </div>
@@ -135,31 +135,34 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 offset-lg-3">
-                    <div class="login-form">
-                        <h2>Login</h2>
-                        <form action="#">
+                    <div class="register-form">
+                        <h2>Register</h2>
+                        <form action="#" th:action="@{/register}" th:object="${userDto}" method="post"
+                              enctype="multipart/form-data">
                             <div class="group-input">
                                 <label for="username">Username *</label>
                                 <input type="text" id="username">
                             </div>
                             <div class="group-input">
+                                <label for="username">Email address *</label>
+                                <input type="text" id="email2">
+                            </div>
+                            <div class="group-input">
                                 <label for="pass">Password *</label>
                                 <input type="text" id="pass">
                             </div>
-                            <div class="group-input gi-check">
-                                <div class="gi-more">
-                                    <label for="save-pass">
-                                        Save Password
-                                        <input type="checkbox" id="save-pass">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <a href="#" class="forget-pass">Forget your Password</a>
-                                </div>
+                            <div class="group-input">
+                                <label for="con-pass">Confirm Password *</label>
+                                <input type="text" id="con-pass">
                             </div>
-                            <button type="submit" class="site-btn login-btn">Sign In</button>
+                            <div>
+                                <label for="con-pass">Upload your image *</label>
+                                <input id="imagefile" name="imagefile" type="file" class="file" value="Upload File">
+                            </div>
+                            <button type="submit" class="site-btn register-btn">REGISTER</button>
                         </form>
                         <div class="switch-login">
-                            <a href="register.html" class="or-login">Or Create An Account</a>
+                            <a href="login.html" class="or-login">Or Login</a>
                         </div>
                     </div>
                 </div>
@@ -167,34 +170,34 @@
         </div>
     </div>
     <!-- Register Form Section End -->
-
+    
     <!-- Partner Logo Section Begin -->
     <div class="partner-logo">
         <div class="container">
             <div class="logo-carousel owl-carousel">
                 <div class="logo-item">
                     <div class="tablecell-inner">
-                        <img src="../static/img/logo-carousel/logo-1.png" alt="">
+                        <img src="img/logo-carousel/logo-1.png" alt="">
                     </div>
                 </div>
                 <div class="logo-item">
                     <div class="tablecell-inner">
-                        <img src="../static/img/logo-carousel/logo-2.png" alt="">
+                        <img src="img/logo-carousel/logo-2.png" alt="">
                     </div>
                 </div>
                 <div class="logo-item">
                     <div class="tablecell-inner">
-                        <img src="../static/img/logo-carousel/logo-3.png" alt="">
+                        <img src="img/logo-carousel/logo-3.png" alt="">
                     </div>
                 </div>
                 <div class="logo-item">
                     <div class="tablecell-inner">
-                        <img src="../static/img/logo-carousel/logo-4.png" alt="">
+                        <img src="img/logo-carousel/logo-4.png" alt="">
                     </div>
                 </div>
                 <div class="logo-item">
                     <div class="tablecell-inner">
-                        <img src="../static/img/logo-carousel/logo-5.png" alt="">
+                        <img src="img/logo-carousel/logo-5.png" alt="">
                     </div>
                 </div>
             </div>
@@ -209,7 +212,7 @@
                 <div class="col-lg-3">
                     <div class="footer-left">
                         <div class="footer-logo">
-                            <a href="#"><img src="../static/img/footer-logo.png" alt=""></a>
+                            <a href="#"><img src="img/footer-logo.png" alt=""></a>
                         </div>
                         <ul>
                             <li>Address: 60-49 Road 11378 New York</li>
@@ -268,7 +271,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                         </div>
                         <div class="payment-pic">
-                            <img src="../static/img/payment-method.png" alt="">
+                            <img src="img/payment-method.png" alt="">
                         </div>
                     </div>
                 </div>
@@ -278,17 +281,16 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <!-- Footer Section End -->
 
     <!-- Js Plugins -->
-    <script src="/js/jquery-3.3.1.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/jquery-ui.min.js"></script>
-    <script src="/js/jquery.countdown.min.js"></script>
-    <script src="/js/jquery.nice-select.min.js"></script>
-    <script src="/js/jquery.zoom.min.js"></script>
-    <script src="/js/jquery.dd.min.js"></script>
-    <script src="/js/jquery.slicknav.js"></script>
-    <script src="/js/owl.carousel.min.js"></script>
-    <script src="/js/main.js"></script>
-    <script src="/js/pin-header.js"></script>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/jquery.countdown.min.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/jquery.zoom.min.js"></script>
+    <script src="js/jquery.dd.min.js"></script>
+    <script src="js/jquery.slicknav.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/main.js"></script>
 </body>
 
 </html>
