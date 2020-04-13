@@ -23,26 +23,26 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Override
     public List<UserInfo> getAll() {
-        return null;
+        return userInfoRepository.findAll();
     }
 
     @Override
     public UserInfo getById(Integer integer) {
-        return null;
+        return userInfoRepository.getOne(integer);
     }
 
     @Override
     public void deleteById(Integer integer) {
-
+        userInfoRepository.getOne(integer);
     }
 
     @Override
     public void update(UserInfo userInfo) {
-
+        userInfoRepository.save(userInfo);
     }
 
     @Override
     public void create(UserInfo userInfo) {
-
+        userInfoRepository.save(userInfo);
     }
 }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="zxx">
+<html class="no-js" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="UTF-8">
@@ -136,10 +137,15 @@
                 <div class="col-lg-6 offset-lg-3">
                     <div class="register-form">
                         <h2>Register</h2>
-                        <form action="#">
+                        <form action="#" th:action="@{/register}" th:object="${userDto}" method="post"
+                              enctype="multipart/form-data">
                             <div class="group-input">
-                                <label for="username">Username or email address *</label>
+                                <label for="username">Username *</label>
                                 <input type="text" id="username">
+                            </div>
+                            <div class="group-input">
+                                <label for="username">Email address *</label>
+                                <input type="text" id="email2">
                             </div>
                             <div class="group-input">
                                 <label for="pass">Password *</label>
@@ -149,10 +155,14 @@
                                 <label for="con-pass">Confirm Password *</label>
                                 <input type="text" id="con-pass">
                             </div>
+                            <div>
+                                <label for="con-pass">Upload your image *</label>
+                                <input id="imagefile" name="imagefile" type="file" class="file" value="Upload File">
+                            </div>
                             <button type="submit" class="site-btn register-btn">REGISTER</button>
                         </form>
                         <div class="switch-login">
-                            <a href="./login.html" class="or-login">Or Login</a>
+                            <a href="login.html" class="or-login">Or Login</a>
                         </div>
                     </div>
                 </div>

@@ -43,7 +43,7 @@ public class AddonServiceImpl implements AddonService {
 
     @Override
     public void deleteById(Integer integer) {
-
+        addonRepository.deleteById(integer);
     }
 
     @Override

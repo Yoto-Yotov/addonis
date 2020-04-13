@@ -12,7 +12,6 @@ import javax.persistence.*;
 @Table(name = "authorities")
 public class Authorities {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "username")
     private String username;
 

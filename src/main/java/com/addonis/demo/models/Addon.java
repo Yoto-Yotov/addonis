@@ -39,6 +39,10 @@ public class Addon{
     @Column(name = "downloads_count")
     private int downloadsCount;
 
+    @OneToOne
+    @JoinColumn(name = "ide_name")
+    private IDE ideId;
+
     @Column(name = "origin_link")
     private String originLink;
 
