@@ -2,7 +2,6 @@ package com.addonis.demo.services;
 
 import com.addonis.demo.exceptions.DuplicateEntityException;
 import com.addonis.demo.exceptions.EntityNotFoundException;
-import com.addonis.demo.models.Addon;
 import com.addonis.demo.models.Tag;
 import com.addonis.demo.repository.contracts.TagRepository;
 import com.addonis.demo.services.contracts.AddonService;
@@ -10,7 +9,6 @@ import com.addonis.demo.services.contracts.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 @Service
@@ -64,14 +62,15 @@ public class TagServiceImpl implements TagService {
             tagToAdd.setTagName(tagName);
             create(tagToAdd);
         }
+
         if(!addonService.checkAddonExistsById(addonId)) {
             throw new EntityNotFoundException("Addon", addonId);
         }
 
         try {
             tagRepository.addTagToAddon(addonId, tagToAdd.getTagId());
-        } catch (ConstraintViolationException ex) {
-            throw new DuplicateEntityException("This add-on already has this tag");
+        } catch (org.springframework.dao.DataIntegrityViolationException ex) {
+            throw new DuplicateEntityException("addon", "tag");
         }
 
         return tagToAdd;

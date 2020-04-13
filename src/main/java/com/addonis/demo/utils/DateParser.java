@@ -22,8 +22,6 @@ public class DateParser {
         }
 
         return new java.sql.Date(date.getTime());
-
-
     }
 
 }

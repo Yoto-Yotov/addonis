@@ -1,6 +1,7 @@
 package com.addonis.demo.controllers.rest;
 
-import com.addonis.demo.models.Addon;
+import com.addonis.demo.exceptions.DuplicateEntityException;
+import com.addonis.demo.exceptions.EntityNotFoundException;
 import com.addonis.demo.models.Tag;
 import com.addonis.demo.services.contracts.AddonService;
 import com.addonis.demo.services.contracts.TagService;
@@ -9,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @RestController
@@ -39,7 +39,9 @@ public class RestTagController {
     public Tag addTagToAddon(@PathVariable int addonId, @PathVariable String tagName, @RequestHeader(name = "Authorization") String authorization) {
         try {
             return tagService.addTagToAddon(addonId, tagName, authorization);
-        } catch (Exception ex) { // todo replace this exception
+        } catch (EntityNotFoundException ex) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, ex.getMessage());
+        } catch (DuplicateEntityException ex) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, ex.getMessage());
         }
     }
