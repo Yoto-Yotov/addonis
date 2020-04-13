@@ -38,8 +38,8 @@
             <div class="ht-left">
                 <div class="mail-service">
                     <i class=" fa fa-envelope"></i>
-                    <a id="email" href="mailto:addonis@gmail.com?Subject=Hello%20again"
-                       target="_top">addonis@gmail.com </a>
+                    <a id="email" href="mailto:addonis.team@gmail.com?Subject=Hello%20again"
+                       target="_top">addonis.team@gmail.com </a>
                 </div>
                 <div class="phone-service">
                     <i class=" fa fa-phone"></i>
@@ -47,6 +47,8 @@
                 </div>
             </div>
             <div class="ht-right">
+                <a href="#" th:href="@{/logout}" sec:authorize="isAuthenticated()" class="login-panel">Log out</a>
+                <a href="#" th:href="@{/my-account}" sec:authorize="isAuthenticated()" class="login-panel"></i>My account   </a>
                 <a href="#" th:href="@{/login}" sec:authorize="!isAuthenticated()" class="login-panel"><i class="fa fa-user"></i>Login</a>
                 <div class="top-social">
                     <a href="https://www.facebook.com/Addonis-109059887435247/?modal=admin_todo_tour"><i class="ti-facebook"></i></a>
@@ -56,7 +58,6 @@
                 </div>
                 <a href="#" th:href="@{/register}" sec:authorize="!isAuthenticated()" class="login-panel"><i
                         class="fas fa-registered"></i>Register</a>
-                <a href="#" th:href="@{/logout}" sec:authorize="isAuthenticated()" class="logout-panel2">Log out</a>
             </div>
         </div>
     </div>
@@ -571,12 +572,12 @@
                         <a href="#"><img src="img/addonis.PNG" alt=""></a>
                     </div>
                     <ul>
-                        <li>Address: 60-49 Road 11378 New York</li>
-                        <li>Phone: +65 11.188.888</li>
-                        <li>Email: hello.colorlib@gmail.com</li>
+                        <li>Address: 51 Aleksandar Malinov 1000 Sofia</li>
+                        <li>Phone: +359 888.888.888</li>
+                        <li>Email: addonis.team@gmail.com</li>
                     </ul>
                     <div class="footer-social">
-                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="https://www.facebook.com/Addonis-109059887435247/?modal=admin_todo_tour"><i class="fa fa-facebook"></i></a>
                         <a href="#"><i class="fa fa-instagram"></i></a>
                         <a href="#"><i class="fa fa-twitter"></i></a>
                         <a href="https://www.pinterest.com/addonisteam/tried/"><i class="fa fa-pinterest"></i></a>
