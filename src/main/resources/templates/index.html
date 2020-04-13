@@ -56,7 +56,7 @@
                     <a href="#"><i class="ti-pinterest"></i></a>
                 </div>
 
-                <a href="register.html" sec:authorize="!isAuthenticated()" class="login-panel"><i
+                <a href="#" th:href="@{/register}" sec:authorize="!isAuthenticated()" class="login-panel"><i
                         class="fas fa-registered"></i>Register</a>
             </div>
         </div>

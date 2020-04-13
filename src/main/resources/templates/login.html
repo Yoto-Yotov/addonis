@@ -87,7 +87,7 @@
                 <nav class="nav-menu mobile-menu">
                     <ul>
                         <li class="active"><a href="index.html">Home</a></li>
-                        <li><a href="shop.html">Addons</a></li>
+                        <li><a href="addon.html">Addons</a></li>
                         <li><a href="#">Collection</a>
                             <ul class="dropdown">
                                 <li><a href="#">Men's</a></li>
@@ -137,7 +137,13 @@
                 <div class="col-lg-6 offset-lg-3">
                     <div class="login-form">
                         <h2>Login</h2>
-                        <form action="#">
+                        <form th:action="@{/authenticate}" method="post">
+                            <p>
+                                <i th:if="${param.error}" class="error"> Wrong username or password. </i>
+                            </p>
+                            <p>
+                                <i th:if="${param.logout}" class="error"> You have logged out</i>
+                            </p>
                             <div class="group-input">
                                 <label for="username">Username *</label>
                                 <input type="text" id="username">
@@ -148,18 +154,18 @@
                             </div>
                             <div class="group-input gi-check">
                                 <div class="gi-more">
-                                    <label for="save-pass">
-                                        Save Password
-                                        <input type="checkbox" id="save-pass">
-                                        <span class="checkmark"></span>
-                                    </label>
+<!--                                    <label for="save-pass">-->
+<!--                                        Save Password-->
+<!--                                        <input type="checkbox" id="save-pass">-->
+<!--                                        <span class="checkmark"></span>-->
+<!--                                    </label>-->
                                     <a href="#" class="forget-pass">Forget your Password</a>
                                 </div>
                             </div>
                             <button type="submit" class="site-btn login-btn">Sign In</button>
                         </form>
                         <div class="switch-login">
-                            <a href="register.html" class="or-login">Or Create An Account</a>
+                            <a th:href="@{/register}" class="or-login">Or Create An Account</a>
                         </div>
                     </div>
                 </div>

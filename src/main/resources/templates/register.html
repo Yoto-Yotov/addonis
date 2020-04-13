@@ -14,15 +14,15 @@
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="css/themify-icons.css" type="text/css">
-    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
-    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" href="/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}" href="/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/themify-icons.css}" href="/css/themify-icons.css" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/elegant-icons.css}" href="/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}" href="/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/nice-select.css}" href="/css/nice-select.css">
+    <link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}" href="/css/jquery-ui.min.css">
+    <link rel="stylesheet" th:href="@{/css/slicknav.min.css}" href="/css/slicknav.min.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="/css/style.css">
 </head>
 
 <body>
@@ -87,7 +87,7 @@
                 <nav class="nav-menu mobile-menu">
                     <ul>
                         <li class="active"><a href="index.html">Home</a></li>
-                        <li><a href="shop.html">Addons</a></li>
+                        <li><a href="addon.html">Addons</a></li>
                         <li><a href="#">Collection</a>
                             <ul class="dropdown">
                                 <li><a href="#">Men's</a></li>
@@ -141,19 +141,19 @@
                               enctype="multipart/form-data">
                             <div class="group-input">
                                 <label for="username">Username *</label>
-                                <input type="text" id="username">
+                                <input th:field="*{name}" type="text" id="username">
                             </div>
                             <div class="group-input">
                                 <label for="username">Email address *</label>
-                                <input type="text" id="email2">
+                                <input th:field="*{email}" type="text" id="email2">
                             </div>
                             <div class="group-input">
                                 <label for="pass">Password *</label>
-                                <input type="text" id="pass">
+                                <input th:field="*{password}" type="text" id="pass">
                             </div>
                             <div class="group-input">
                                 <label for="con-pass">Confirm Password *</label>
-                                <input type="text" id="con-pass">
+                                <input th:field="*{confirmPassword}" type="text" id="con-pass">
                             </div>
                             <div>
                                 <label for="con-pass">Upload your image *</label>
@@ -281,16 +281,17 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <!-- Footer Section End -->
 
     <!-- Js Plugins -->
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery-ui.min.js"></script>
-    <script src="js/jquery.countdown.min.js"></script>
-    <script src="js/jquery.nice-select.min.js"></script>
-    <script src="js/jquery.zoom.min.js"></script>
-    <script src="js/jquery.dd.min.js"></script>
-    <script src="js/jquery.slicknav.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/main.js"></script>
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/jquery-ui.min.js"></script>
+    <script src="/js/jquery.countdown.min.js"></script>
+    <script src="/js/jquery.nice-select.min.js"></script>
+    <script src="/js/jquery.zoom.min.js"></script>
+    <script src="/js/jquery.dd.min.js"></script>
+    <script src="/js/jquery.slicknav.js"></script>
+    <script src="/js/owl.carousel.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/pin-header.js"></script>
 </body>
 
 </html>
