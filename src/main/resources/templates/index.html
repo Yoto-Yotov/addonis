@@ -47,8 +47,8 @@
                 </div>
             </div>
             <div class="ht-right">
-                <a href="#" th:href="@{/login}" sec:authentication="!isAuthenticated()" class="login-panel"><i class="fa fa-user"></i>Login</a>
-<!--                <a href="#" th:href="@{/logout}" sec:authorize="isAuthenticated()" class="logout-panel"><i class="fa fa-user"></i>Log out</a>-->
+                <a href="#" th:href="@{/login}" sec:authorize="!isAuthenticated()" class="login-panel"><i class="fa fa-user"></i>Login</a>
+                <a href="#" th:href="@{/logout}" sec:authorize="isAuthenticated()" class="logout-panel"><i class="fa fa-user"></i>Log out</a>
                 <div class="top-social">
                     <a href="#"><i class="ti-facebook"></i></a>
                     <a href="#"><i class="ti-twitter-alt"></i></a>
@@ -67,7 +67,7 @@
                 <div class="col-lg-2 col-md-2">
                     <div class="logo">
                         <a href="index.html">
-                            <img src="/static/img/addonis.PNG" alt="">
+                            <img src="img/addonis.PNG" alt="">
                         </a>
                     </div>
                 </div>
@@ -91,7 +91,7 @@
         <div class="container">
             <nav class="nav-menu mobile-menu">
                 <ul>
-                    <li class="active"><a href="index.html">Home</a></li>
+                    <li class="active"><a th:href="@{/}">Home</a></li>
                     <li><a href="/shop.html">Addons</a></li>
                     <li><a href="#">Collection</a>
                         <ul class="dropdown">
