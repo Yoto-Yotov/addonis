@@ -17,7 +17,6 @@ import java.util.List;
 public class RestTagController {
 
     private TagService tagService;
-    private AddonService addonService;
 
     @Autowired
     public RestTagController(TagService tagService) {
