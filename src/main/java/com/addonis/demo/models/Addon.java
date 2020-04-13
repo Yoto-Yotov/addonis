@@ -35,8 +35,8 @@ public class Addon {
     private int downloadsCount;
 
     @OneToOne
-    @JoinColumn(name = "ide_id")
-    private IDE IDEType;
+    @JoinColumn(name = "ide_name")
+    private IDE ideId;
 
     @Column(name = "origin_link")
     private String originLink;

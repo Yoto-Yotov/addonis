@@ -5,6 +5,7 @@ import com.addonis.demo.repository.contracts.UserRepository;
 import com.addonis.demo.services.contracts.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
@@ -19,26 +20,26 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAll() {
-        return null;
+        return userRepository.findAll();
     }
 
     @Override
     public User getById(String s) {
-        return null;
+        return userRepository.getOne(s);
     }
 
     @Override
     public void deleteById(String s) {
-
+        userRepository.deleteById(s);
     }
 
     @Override
     public void update(User user) {
-
+        userRepository.save(user);
     }
 
     @Override
     public void create(User user) {
-
+        userRepository.save(user);
     }
 }

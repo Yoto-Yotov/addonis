@@ -1,5 +1,6 @@
 package com.addonis.demo.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Where;
@@ -7,13 +8,15 @@ import org.hibernate.annotations.Where;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "usersinfo")
 @Where(clause = "enabled = 1")
-public class UserInfo {
+public class UserInfo implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,14 +26,14 @@ public class UserInfo {
     @Column(name = "enabled")
     private Integer enabled = 1;
 
-    @NotBlank
     @NotNull
+    @NotBlank
     @OneToOne
     @JoinColumn(name = "username")
     private User name;
 
-    @NotBlank
     @NotNull
+    @NotBlank
     @Column(name = "user_email")
     private String email;
 
