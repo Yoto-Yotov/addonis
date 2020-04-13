@@ -4,6 +4,7 @@ import com.addonis.demo.exceptions.DuplicateEntityException;
 import com.addonis.demo.exceptions.InvalidDataException;
 import com.addonis.demo.models.UserDTO;
 import com.addonis.demo.models.UserInfo;
+import com.addonis.demo.services.contracts.ImageService;
 import com.addonis.demo.services.contracts.UserInfoService;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -26,11 +27,13 @@ public class RegistrationController {
     private PasswordEncoder passwordEncoder;
     private UserDetailsManager userDetailsManager;
     private UserInfoService userInfoService;
+    private ImageService imageService;
 
-    public RegistrationController(PasswordEncoder passwordEncoder, UserDetailsManager userDetailsManager, UserInfoService userInfoService) {
+    public RegistrationController(PasswordEncoder passwordEncoder, UserDetailsManager userDetailsManager, UserInfoService userInfoService, ImageService imageService) {
         this.passwordEncoder = passwordEncoder;
         this.userDetailsManager = userDetailsManager;
         this.userInfoService = userInfoService;
+        this.imageService = imageService;
     }
 
     @GetMapping("/register")
@@ -62,12 +65,12 @@ public class RegistrationController {
             model.addAttribute("error", e.getMessage());
             return "register";
         }
-//        try {
-//            imageService.saveUserImageFile(userToCreate.getId(), file);
-//        } catch (IllegalStateException ex) {
-//            model.addAttribute("error", "Image to Large for upload");
-//            return "register";
-//        }
+        try {
+            imageService.saveImageFile(userToCreate.getId(), file);
+        } catch (IllegalStateException ex) {
+            model.addAttribute("error", "Image to Large for upload");
+            return "register";
+        }
         return "registration-confirmation";
     }
 
