@@ -1,5 +1,6 @@
 package com.addonis.demo.services;
 
+import com.addonis.demo.exceptions.InvalidDataException;
 import com.addonis.demo.models.commitresponse.LastCommitResponse;
 import com.addonis.demo.models.enums.EPParam;
 import com.addonis.demo.services.contracts.GitHubService;
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
-import java.text.ParseException;
 
 import static com.addonis.demo.utils.UrlParser.parseUrl;
 
@@ -18,7 +18,7 @@ import static com.addonis.demo.utils.UrlParser.parseUrl;
 public class GitHubServiceImpl implements GitHubService {
 
     @Override
-    public LastCommitResponse getLastCommit(String url) throws ParseException {
+    public LastCommitResponse getLastCommit(String url) {
         url = parseUrl(url, EPParam.COMMITS);
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<LastCommitResponse[]> arr = restTemplate.getForEntity(url, LastCommitResponse[].class);
@@ -29,16 +29,26 @@ public class GitHubServiceImpl implements GitHubService {
     }
 
     @Override
-    public int getPullsCount(String url) throws IOException {
+    public int getPullsCount(String url) {
         url = parseUrl(url, EPParam.PULLS);
-        JSONArray jsonArr = APIUtils.requestDataFromAPI(url);
+        JSONArray jsonArr = null;
+        try {
+            jsonArr = APIUtils.requestDataFromAPI(url);
+        } catch (IOException e) {
+            throw new InvalidDataException("url");
+        }
         return jsonArr.length();
     }
 
     @Override
-    public int getIssuesCount(String url) throws IOException {
+    public int getIssuesCount(String url) {
         url = parseUrl(url, EPParam.ISSUES);
-        JSONArray jsonArr = APIUtils.requestDataFromAPI(url);
+        JSONArray jsonArr = null;
+        try {
+            jsonArr = APIUtils.requestDataFromAPI(url);
+        } catch (IOException e) {
+            throw new InvalidDataException("url");
+        }
         return jsonArr.length();
     }
 }

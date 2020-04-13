@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import java.io.IOException;
-import java.text.ParseException;
 import java.util.List;
 
 public class RegistrationController {
@@ -54,14 +52,14 @@ public class RegistrationController {
         userToCreate.setEmail(userDto.getEmail());
         userToCreate.setName(userDto.getName());
 
-        try {
-            userDetailsManager.createUser(newUser);
-            userInfoService.create(userToCreate);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            userDetailsManager.createUser(newUser);
+//            userInfoService.create(userToCreate);
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 //        } catch (DuplicateUserException | InvalidDataException e) {
 //            model.addAttribute("error", e.getMessage());
 //            return "register";

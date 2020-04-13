@@ -11,8 +11,6 @@ import com.addonis.demo.services.contracts.LastCommitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.text.ParseException;
 import java.util.List;
 
 import static com.addonis.demo.utils.LastCommitMapper.mapLastCommitResponseToLastCommit;
@@ -53,7 +51,7 @@ public class AddonServiceImpl implements AddonService {
     }
 
     @Override
-    public void create(Addon addon) throws ParseException, IOException {
+    public void create(Addon addon) {
         String url = addon.getOriginLink();
         LastCommitResponse response = githubService.getLastCommit(url);
         LastCommit lastCommit = mapLastCommitResponseToLastCommit(response);
