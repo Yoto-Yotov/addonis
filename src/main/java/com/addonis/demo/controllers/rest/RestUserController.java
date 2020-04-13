@@ -1,5 +1,6 @@
 package com.addonis.demo.controllers.rest;
 
+import com.addonis.demo.exceptions.DuplicateEntityException;
 import com.addonis.demo.models.User;
 import com.addonis.demo.models.UserDTO;
 import com.addonis.demo.models.UserInfo;
@@ -7,7 +8,9 @@ import com.addonis.demo.services.contracts.UserInfoService;
 import com.addonis.demo.services.contracts.UserService;
 import com.addonis.demo.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -36,13 +39,27 @@ public class RestUserController {
         User user = new User();
         user.setUsername(userDTO.getName());
         user.setPassword(userDTO.getPassword());
-        userService.create(user);
+        try {
+            userService.create(user);
+        } catch (DuplicateEntityException e) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
+        }
 
         UserInfo userInfo = new UserInfo();
         userInfo.setName(userDTO.getName());
         userInfo.setEmail(userDTO.getEmail());
-        userInfoService.create(userInfo);
+        try {
+            userInfoService.create(userInfo);
+        } catch (DuplicateEntityException e) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
+        }
         System.out.println("User was created");
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public String deleteUser(@PathVariable int id) {
+        userInfoService.deleteById(id);
+        return String.format("User with id %d successfully deleted", id);
     }
 
 }
