@@ -28,8 +28,17 @@ public class RestTagController {
         return tagService.getAll();
     }
 
+    @GetMapping("/{tagId}")
+    public Tag getTagById(@PathVariable int tagId) {
+        try {
+            return tagService.getById(tagId);
+        } catch (EntityNotFoundException ex) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, ex.getMessage());
+        }
+    }
+
     @DeleteMapping("/{tagName}")
-    public String deleteTag( @PathVariable String tagName) {
+    public String deleteTag(@PathVariable String tagName) {
         try {
             tagService.deleteTagByName(tagName);
         } catch (EntityNotFoundException ex) {
@@ -49,5 +58,14 @@ public class RestTagController {
         }
     }
 
+    @PutMapping("/{addonId}/remove/{tagName}")
+    public String removeTagFromAddon(@PathVariable int addonId, @PathVariable String tagName) {
+        try {
+            tagService.removeTagFromAddon(addonId, tagName);
+        } catch (EntityNotFoundException ex) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, ex.getMessage());
+        }
+        return String.format("Tag %s successfully removed from addon", tagName);
+    }
 
 }

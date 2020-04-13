@@ -3,7 +3,6 @@ package com.addonis.demo.exceptions;
 public class DuplicateEntityException extends RuntimeException {
 
     public DuplicateEntityException(String type) {
-
         super(String.format("This %s already exist", type));
     }
 

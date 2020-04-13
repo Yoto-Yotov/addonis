@@ -2,6 +2,7 @@ package com.addonis.demo.services;
 
 import com.addonis.demo.exceptions.DuplicateEntityException;
 import com.addonis.demo.exceptions.EntityNotFoundException;
+import com.addonis.demo.models.Addon;
 import com.addonis.demo.models.Tag;
 import com.addonis.demo.repository.contracts.TagRepository;
 import com.addonis.demo.services.contracts.AddonService;
@@ -25,22 +26,26 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public List<Tag> getAll() {
-        return null;
+        return tagRepository.findAll();
     }
 
     @Override
-    public Tag getById(Integer integer) {
-        return null;
+    public Tag getById(Integer tagId) {
+        return tagRepository.findById(tagId).orElseThrow(() -> new EntityNotFoundException("tag", tagId));
     }
 
     @Override
-    public void deleteById(Integer integer) {
-
+    public void deleteById(Integer tagId) {
+        if(!tagRepository.existsById(tagId)) {
+            throw new EntityNotFoundException("tag", tagId);
+        }
+        tagRepository.deleteTagFromAllAddons(tagId);
+        tagRepository.deleteById(tagId);
     }
 
     @Override
     public void update(Tag tag) {
-
+        tagRepository.save(tag);
     }
 
     @Override
@@ -79,6 +84,12 @@ public class TagServiceImpl implements TagService {
         }
 
         return tagToAdd;
+    }
+
+    @Override
+    public void removeTagFromAddon(int addonId, String tagName) {
+        Tag tagToRemove = tagRepository.getTagByName(tagName);
+        tagRepository.removeTagFromAddon(tagToRemove.getTagId(), addonId);
     }
 
 }
