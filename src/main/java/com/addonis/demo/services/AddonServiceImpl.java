@@ -3,6 +3,7 @@ package com.addonis.demo.services;
 import com.addonis.demo.models.Addon;
 import com.addonis.demo.models.Authorities;
 import com.addonis.demo.models.LastCommit;
+import com.addonis.demo.models.Tag;
 import com.addonis.demo.models.commitresponse.LastCommitResponse;
 import com.addonis.demo.models.enums.Status;
 import com.addonis.demo.repository.contracts.AddonRepository;
@@ -63,5 +64,10 @@ public class AddonServiceImpl implements AddonService {
         addon.setIssuesCount(githubService.getIssuesCount(url));
         addonRepository.save(addon);
         return null;
+    }
+
+    @Override
+    public boolean checkAddonExistsById(int addonId) {
+        return addonRepository.existsById(addonId);
     }
 }
