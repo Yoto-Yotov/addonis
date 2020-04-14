@@ -1,6 +1,7 @@
 package com.addonis.demo.services;
 
 import com.addonis.demo.models.Addon;
+import com.addonis.demo.models.Authorities;
 import com.addonis.demo.models.LastCommit;
 import com.addonis.demo.models.commitresponse.LastCommitResponse;
 import com.addonis.demo.models.enums.Status;
@@ -51,7 +52,7 @@ public class AddonServiceImpl implements AddonService {
     }
 
     @Override
-    public void create(Addon addon) {
+    public Authorities create(Addon addon) {
         String url = addon.getOriginLink();
         LastCommitResponse response = githubService.getLastCommit(url);
         LastCommit lastCommit = mapLastCommitResponseToLastCommit(response);
@@ -61,5 +62,6 @@ public class AddonServiceImpl implements AddonService {
         addon.setStatus(Status.PENDING);
         addon.setIssuesCount(githubService.getIssuesCount(url));
         addonRepository.save(addon);
+        return null;
     }
 }

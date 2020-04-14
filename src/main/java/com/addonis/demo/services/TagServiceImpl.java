@@ -1,5 +1,6 @@
 package com.addonis.demo.services;
 
+import com.addonis.demo.models.Authorities;
 import com.addonis.demo.models.Tag;
 import com.addonis.demo.repository.contracts.TagRepository;
 import com.addonis.demo.services.contracts.TagService;
@@ -38,8 +39,9 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public void create(Tag tag) {
+    public Authorities create(Tag tag) {
 
+        return null;
     }
 
     @Override

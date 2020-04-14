@@ -1,9 +1,11 @@
 package com.addonis.demo.controllers;
 
 import com.addonis.demo.exceptions.DuplicateEntityException;
+import com.addonis.demo.models.Authorities;
 import com.addonis.demo.models.User;
 import com.addonis.demo.models.UserDTO;
 import com.addonis.demo.models.UserInfo;
+import com.addonis.demo.services.contracts.AuthorityService;
 import com.addonis.demo.services.contracts.ImageService;
 import com.addonis.demo.services.contracts.UserInfoService;
 import com.addonis.demo.services.contracts.UserService;
@@ -27,12 +29,15 @@ public class RegistrationController {
     private UserInfoService userInfoService;
     private ImageService imageService;
     private UserService userService;
+    private AuthorityService authorityService;
 
-    public RegistrationController(PasswordEncoder passwordEncoder, UserInfoService userInfoService, ImageService imageService, UserService userService) {
+    public RegistrationController(PasswordEncoder passwordEncoder, UserInfoService userInfoService,
+                                  ImageService imageService, UserService userService, AuthorityService authorityService) {
         this.passwordEncoder = passwordEncoder;
         this.userInfoService = userInfoService;
         this.imageService = imageService;
         this.userService = userService;
+        this.authorityService = authorityService;
     }
 
     @GetMapping("/register")
@@ -51,6 +56,11 @@ public class RegistrationController {
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
 
         UserInfo userInfo = mergeUserInfo(userDto);
+
+        Authorities authority = new Authorities();
+        authority.setUsername(userDto.getName());
+        authority.setAuthority("ROLE_USER");
+        authorityService.create(authority);
 
         try {
             userService.create(user);

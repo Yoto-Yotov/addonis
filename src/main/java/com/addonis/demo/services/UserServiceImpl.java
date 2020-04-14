@@ -1,6 +1,7 @@
 package com.addonis.demo.services;
 
 import com.addonis.demo.exceptions.DuplicateEntityException;
+import com.addonis.demo.models.Authorities;
 import com.addonis.demo.models.User;
 import com.addonis.demo.repository.contracts.UserRepository;
 import com.addonis.demo.services.contracts.UserService;
@@ -40,11 +41,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void create(User user) {
+    public Authorities create(User user) {
         if (checkIfUserExistByName(user.getUsername())) {
             throw new DuplicateEntityException("user");
         }
         userRepository.save(user);
+        return null;
     }
 
     public boolean checkIfUserExistByName(String username) {

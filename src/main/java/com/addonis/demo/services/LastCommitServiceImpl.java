@@ -1,5 +1,6 @@
 package com.addonis.demo.services;
 
+import com.addonis.demo.models.Authorities;
 import com.addonis.demo.models.LastCommit;
 import com.addonis.demo.repository.contracts.LastCommitRepository;
 import com.addonis.demo.services.contracts.LastCommitService;
@@ -39,7 +40,8 @@ public class LastCommitServiceImpl implements LastCommitService {
     }
 
     @Override
-    public void create(LastCommit lastCommit) {
+    public Authorities create(LastCommit lastCommit) {
         lastCommitRepository.save(lastCommit);
+        return null;
     }
 }
