@@ -39,7 +39,7 @@ public class LastCommitServiceImpl implements LastCommitService {
     }
 
     @Override
-    public void create(LastCommit lastCommit) {
-        lastCommitRepository.save(lastCommit);
+    public LastCommit create(LastCommit lastCommit) {
+        return lastCommitRepository.save(lastCommit);
     }
 }

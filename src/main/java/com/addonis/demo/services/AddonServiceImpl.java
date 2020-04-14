@@ -3,7 +3,6 @@ package com.addonis.demo.services;
 import com.addonis.demo.exceptions.DuplicateEntityException;
 import com.addonis.demo.models.Addon;
 import com.addonis.demo.models.LastCommit;
-import com.addonis.demo.models.Tag;
 import com.addonis.demo.models.commitresponse.LastCommitResponse;
 import com.addonis.demo.models.enums.Status;
 import com.addonis.demo.repository.contracts.AddonRepository;
@@ -53,7 +52,7 @@ public class AddonServiceImpl implements AddonService {
     }
 
     @Override
-    public void create(Addon addon) {
+    public Addon create(Addon addon) {
         String url = addon.getOriginLink();
         try {
             LastCommitResponse response = githubService.getLastCommit(url);
