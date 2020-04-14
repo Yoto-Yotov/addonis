@@ -62,7 +62,7 @@ public class AddonServiceImpl implements AddonService {
             addon.setPullsCount(githubService.getPullsCount(url));
             addon.setStatus(Status.PENDING);
             addon.setIssuesCount(githubService.getIssuesCount(url));
-            addonRepository.save(addon);
+            return addonRepository.save(addon);
         }  catch (org.springframework.dao.DataIntegrityViolationException ex) {
             throw new DuplicateEntityException("addon");
         }
