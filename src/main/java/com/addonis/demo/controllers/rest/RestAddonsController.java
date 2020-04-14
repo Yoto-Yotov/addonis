@@ -1,5 +1,7 @@
 package com.addonis.demo.controllers.rest;
 
+import com.addonis.demo.exceptions.DuplicateEntityException;
+import com.addonis.demo.exceptions.InvalidDataException;
 import com.addonis.demo.models.Addon;
 import com.addonis.demo.services.contracts.AddonService;
 import com.addonis.demo.services.contracts.FileService;
@@ -25,16 +27,14 @@ public class RestAddonsController {
         this.addonService = addonService;
         this.fileService = fileService;
     }
-
-    //ToDo Exceprion
-    //ToDo CheckIfURLExist
+    
     @PostMapping(value = "/create")
     public Addon createAddon(@RequestBody Addon addon) {
         try {
             addonService.create(addon);
             return addonService.getById(addon.getId());
-        } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());//todo change exception
+        } catch (DuplicateEntityException e) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
         }
     }
 
@@ -45,8 +45,8 @@ public class RestAddonsController {
                 fileService.saveAddonFile(id, file);
             }
             return addonService.getById(id);
-        } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());//todo change exception
+        } catch (InvalidDataException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
 
