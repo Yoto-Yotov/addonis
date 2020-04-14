@@ -13,23 +13,13 @@ import javax.transaction.Transactional;
 @Repository
 public interface TagRepository extends BaseRepository<Tag, Integer> {
 
-    @Modifying
     @Query("delete from Tag t where t.tagName = :tagName")
     void deleteTagByName(@Param("tagName") String tagName);
-
-    @Modifying
-    @Query(value = "DELETE FROM addons_tags WHERE tags_tag_id = :tagId", nativeQuery = true)
-    void deleteTagFromAllAddons(@Param("tagId") int tagId);
-
-    @Modifying
-    @Query(value = "DELETE FROM addons_tags WHERE tags_tag_id = :tagId and addon_addon_id = :addonId", nativeQuery = true)
-    void removeTagFromAddon(@Param("tagId") int tagId, @Param("addonId") int addonId);
 
     @Modifying
     @Query(value = "INSERT INTO addons_tags (addon_addon_id, tags_tag_id) VALUES (:addonId, :tagId)", nativeQuery = true)
     void addTagToAddon(@Param("addonId") int addonId, @Param("tagId") int tagId);
 
-    Tag getTagByTagName(@Param("tagName") String tagName);
-
-    boolean existsByTagName(String tagName);
+    @Query("from Tag t where t.tagName = :tagName")
+    Tag getTagByName(@Param("tagName") String tagName);
 }

@@ -1,6 +1,5 @@
 package com.addonis.demo.services;
 
-import com.addonis.demo.exceptions.DuplicateEntityException;
 import com.addonis.demo.models.Addon;
 import com.addonis.demo.models.LastCommit;
 import com.addonis.demo.models.commitresponse.LastCommitResponse;
@@ -54,18 +53,15 @@ public class AddonServiceImpl implements AddonService {
     @Override
     public Addon create(Addon addon) {
         String url = addon.getOriginLink();
-        try {
-            LastCommitResponse response = githubService.getLastCommit(url);
-            LastCommit lastCommit = mapLastCommitResponseToLastCommit(response);
-            lastCommitService.create(lastCommit);
-            addon.setLastCommit(lastCommit);
-            addon.setPullsCount(githubService.getPullsCount(url));
-            addon.setStatus(Status.PENDING);
-            addon.setIssuesCount(githubService.getIssuesCount(url));
-            return addonRepository.save(addon);
-        }  catch (org.springframework.dao.DataIntegrityViolationException ex) {
-            throw new DuplicateEntityException("addon");
-        }
+        LastCommitResponse response = githubService.getLastCommit(url);
+        LastCommit lastCommit = mapLastCommitResponseToLastCommit(response);
+        lastCommitService.create(lastCommit);
+        addon.setLastCommit(lastCommit);
+        addon.setPullsCount(githubService.getPullsCount(url));
+        addon.setStatus(Status.PENDING);
+        addon.setIssuesCount(githubService.getIssuesCount(url));
+        addonRepository.save(addon);
+        return addon;
     }
 
     @Override
