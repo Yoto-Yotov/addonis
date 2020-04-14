@@ -1,9 +1,9 @@
 package com.addonis.demo.services;
 
-import com.addonis.demo.models.Authorities;
 import com.addonis.demo.models.Rating;
 import com.addonis.demo.services.contracts.RatingService;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
@@ -30,7 +30,7 @@ public class RatingServiceImpl implements RatingService {
     }
 
     @Override
-    public Authorities create(Rating rating) {
+    public Rating create(Rating rating) {
 
         return null;
     }

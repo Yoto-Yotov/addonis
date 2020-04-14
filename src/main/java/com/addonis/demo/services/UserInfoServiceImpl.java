@@ -2,7 +2,6 @@ package com.addonis.demo.services;
 
 import com.addonis.demo.exceptions.DuplicateEntityException;
 import com.addonis.demo.exceptions.EntityNotFoundException;
-import com.addonis.demo.models.Authorities;
 import com.addonis.demo.models.UserInfo;
 import com.addonis.demo.repository.contracts.UserInfoRepository;
 import com.addonis.demo.services.contracts.UserInfoService;
@@ -46,7 +45,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     @Override
-    public Authorities create(UserInfo userInfo) {
+    public UserInfo create(UserInfo userInfo) {
         if (checkIfUserExistByEmail(userInfo.getEmail())) {
             throw new DuplicateEntityException("User", "email", userInfo.getEmail());
         }
