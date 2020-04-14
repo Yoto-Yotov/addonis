@@ -28,6 +28,19 @@ public class RestTagController {
         return tagService.getAll();
     }
 
+    @PostMapping("/{tagName}")
+    public Tag createTag(@PathVariable("tagName") String tagName) {
+        Tag tag = new Tag();
+        tag.setTagName(tagName);
+
+        try {
+            tagService.create(tag);
+        } catch (DuplicateEntityException e) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
+        }
+        return tag;
+    }
+
     @GetMapping("/{tagId}")
     public Tag getTagById(@PathVariable int tagId) {
         try {

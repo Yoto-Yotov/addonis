@@ -29,6 +29,7 @@ public interface TagRepository extends BaseRepository<Tag, Integer> {
     @Query(value = "INSERT INTO addons_tags (addon_addon_id, tags_tag_id) VALUES (:addonId, :tagId)", nativeQuery = true)
     void addTagToAddon(@Param("addonId") int addonId, @Param("tagId") int tagId);
 
-    @Query("from Tag t where t.tagName = :tagName")
-    Tag getTagByName(@Param("tagName") String tagName);
+    Tag getTagByTagName(@Param("tagName") String tagName);
+
+    boolean existsByTagName(String tagName);
 }
