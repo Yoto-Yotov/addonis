@@ -20,21 +20,22 @@ public class AuthorityServiceImpl implements AuthorityService {
 
     @Override
     public List<Authorities> getAll() {
-        return null;
+        return authorityRepository.findAll();
     }
 
     @Override
     public Authorities getById(String s) {
-        return null;
+        return authorityRepository.getOne(s);
     }
 
     @Override
     public void deleteById(String s) {
-
+        authorityRepository.deleteById(s);
     }
 
     @Override
     public void update(Authorities authorities) {
+        authorityRepository.save(authorities);
     }
 
     @Override

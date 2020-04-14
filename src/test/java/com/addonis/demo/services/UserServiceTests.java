@@ -70,7 +70,7 @@ public class UserServiceTests {
     }
 
     @Test
-    public void updateBeer_Should_ReturnUpdatedBeer_WhenExist() {
+    public void updateUser_Should_ReturnUpdatedUser_WhenExist() {
         //Arrange
         User originalUser = User.builder().username("teo").password("123456").build();
         User updateUser = User.builder().username("teo").password("123456").build();
