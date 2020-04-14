@@ -44,8 +44,14 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
+<<<<<<< src/main/java/com/addonis/demo/services/TagServiceImpl.java
+    public Authorities create(Tag tag) {
+
+        return null;
+=======
     public void create(Tag tag) {
         tagRepository.save(tag);
+>>>>>>> src/main/java/com/addonis/demo/services/TagServiceImpl.java
     }
 
     @Override

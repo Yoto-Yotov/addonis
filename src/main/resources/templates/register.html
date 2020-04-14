@@ -32,7 +32,7 @@
     </div>
 
     <!-- Header Section Begin -->
-    <header lass="header-section">
+    <header class="header-section">
         <div class="header-top">
             <div class="container">
                 <div class="ht-left">
@@ -87,7 +87,7 @@
                 <nav class="nav-menu mobile-menu">
                     <ul>
                         <li class="active"><a href="index.html">Home</a></li>
-                        <li><a href="shop.html">Addons</a></li>
+                        <li><a href="addon.html">Addons</a></li>
                         <li><a href="#">Collection</a>
                             <ul class="dropdown">
                                 <li><a href="#">Men's</a></li>
@@ -99,7 +99,7 @@
                         <li><a href="contact.html">Contact</a></li>
                         <li><a href="#">Pages</a>
                             <ul class="dropdown">
-                                <li><a href="blog-details.html">Blog Details</a></li>
+                                <li><a href="my-account.html">Blog Details</a></li>
                                 <li><a href="shopping-cart.html">Shopping Cart</a></li>
                                 <li><a href="check-out.html">Checkout</a></li>
                                 <li><a href="faq.html">Faq</a></li>
@@ -122,7 +122,7 @@
                 <div class="col-lg-12">
                     <div class="breadcrumb-text">
                         <a href="#"><i class="fa fa-home"></i> Home</a>
-                        <span>Login</span>
+                        <span>Register</span>
                     </div>
                 </div>
             </div>
@@ -135,31 +135,34 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 offset-lg-3">
-                    <div class="login-form">
-                        <h2>Login</h2>
-                        <form action="#">
+                    <div class="register-form">
+                        <h2>Register</h2>
+                        <form action="#" th:action="@{/register}" th:object="${userDto}" method="post"
+                              enctype="multipart/form-data">
                             <div class="group-input">
                                 <label for="username">Username *</label>
-                                <input type="text" id="username">
+                                <input th:field="*{name}" type="text" id="username">
+                            </div>
+                            <div class="group-input">
+                                <label for="username">Email address *</label>
+                                <input th:field="*{email}" type="text" id="email2">
                             </div>
                             <div class="group-input">
                                 <label for="pass">Password *</label>
-                                <input type="text" id="pass">
+                                <input th:field="*{password}" type="text" id="pass">
                             </div>
-                            <div class="group-input gi-check">
-                                <div class="gi-more">
-                                    <label for="save-pass">
-                                        Save Password
-                                        <input type="checkbox" id="save-pass">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <a href="#" class="forget-pass">Forget your Password</a>
-                                </div>
+                            <div class="group-input">
+                                <label for="con-pass">Confirm Password *</label>
+                                <input th:field="*{confirmPassword}" type="text" id="con-pass">
                             </div>
-                            <button type="submit" class="site-btn login-btn">Sign In</button>
+                            <div>
+                                <label for="con-pass">Upload your image *</label>
+                                <input id="imagefile" name="imagefile" type="file" class="file" value="Upload File">
+                            </div>
+                            <button type="submit" class="site-btn register-btn">REGISTER</button>
                         </form>
                         <div class="switch-login">
-                            <a href="register.html" class="or-login">Or Create An Account</a>
+                            <a href="login.html" class="or-login">Or Login</a>
                         </div>
                     </div>
                 </div>
@@ -167,7 +170,7 @@
         </div>
     </div>
     <!-- Register Form Section End -->
-
+    
     <!-- Partner Logo Section Begin -->
     <div class="partner-logo">
         <div class="container">

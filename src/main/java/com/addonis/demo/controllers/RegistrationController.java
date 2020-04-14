@@ -1,12 +1,16 @@
 package com.addonis.demo.controllers;
 
+import com.addonis.demo.exceptions.DuplicateEntityException;
+import com.addonis.demo.models.Authorities;
+import com.addonis.demo.models.User;
 import com.addonis.demo.models.UserDTO;
 import com.addonis.demo.models.UserInfo;
+import com.addonis.demo.services.contracts.AuthorityService;
+import com.addonis.demo.services.contracts.ImageService;
 import com.addonis.demo.services.contracts.UserInfoService;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
+import com.addonis.demo.services.contracts.UserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.UserDetailsManager;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,18 +19,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import java.util.List;
 
+import static com.addonis.demo.utils.UserUtils.mergeUserInfo;
+
+@Controller
 public class RegistrationController {
 
     private PasswordEncoder passwordEncoder;
-    private UserDetailsManager userDetailsManager;
     private UserInfoService userInfoService;
+    private ImageService imageService;
+    private UserService userService;
+    private AuthorityService authorityService;
 
-    public RegistrationController(PasswordEncoder passwordEncoder, UserDetailsManager userDetailsManager, UserInfoService userInfoService) {
+    public RegistrationController(PasswordEncoder passwordEncoder, UserInfoService userInfoService,
+                                  ImageService imageService, UserService userService, AuthorityService authorityService) {
         this.passwordEncoder = passwordEncoder;
-        this.userDetailsManager = userDetailsManager;
         this.userInfoService = userInfoService;
+        this.imageService = imageService;
+        this.userService = userService;
+        this.authorityService = authorityService;
     }
 
     @GetMapping("/register")
@@ -35,48 +46,42 @@ public class RegistrationController {
         return "register";
     }
 
+    //ToDo Check Validations
     @PostMapping("/register")
     public String registerUser(@Valid @ModelAttribute(name = "userDto") UserDTO userDto, Model model,
                                @RequestParam("imagefile") MultipartFile file) {
-//        if (UserUtils.validateData(userDto, bindingResult, model, file, userDetailsManager, userService)) {
-//            return "register";
-//        }
-        List<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList("ROLE_USER");
-        org.springframework.security.core.userdetails.User newUser =
-                new org.springframework.security.core.userdetails.User(
-                        userDto.getName(),
-                        passwordEncoder.encode(userDto.getPassword()),
-                        authorities);
 
-        UserInfo userToCreate = new UserInfo();
-        userToCreate.setEmail(userDto.getEmail());
-        userToCreate.setName(userDto.getName());
+        User user = new User();
+        user.setUsername(userDto.getName());
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
 
-//        try {
-//            userDetailsManager.createUser(newUser);
-//            userInfoService.create(userToCreate);
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        } catch (DuplicateUserException | InvalidDataException e) {
-//            model.addAttribute("error", e.getMessage());
-//            return "register";
-//        }
-//        try {
-//            imageService.saveUserImageFile(userToCreate.getId(), file);
-//        } catch (IllegalStateException ex) {
-//            model.addAttribute("error", "Image to Large for upload");
-//            return "register";
-//        }
+        UserInfo userInfo = mergeUserInfo(userDto);
 
-        return "register-confirmation";
+        Authorities authority = new Authorities();
+        authority.setUsername(userDto.getName());
+        authority.setAuthority("ROLE_USER");
+        authorityService.create(authority);
+
+        try {
+            userService.create(user);
+            userInfoService.create(userInfo);
+        } catch (DuplicateEntityException e) {
+            model.addAttribute("error", e.getMessage());
+            return "register";
+        }
+
+        try {
+            imageService.saveImageFile(userInfo.getId(), file);
+        } catch (IllegalStateException ex) {
+            model.addAttribute("error", "Image is too large! Please try again!");
+            return "register";
+        }
+        return "registration-confirmation";
     }
 
 
-    @GetMapping("/register-confirmation")
+    @GetMapping("/registration-confirmation")
     public String showRegisterConfirmation() {
-        return "register-confirmation";
+        return "registration-confirmation";
     }
 }
