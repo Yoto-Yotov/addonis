@@ -9,6 +9,7 @@ import com.addonis.demo.services.contracts.AuthorityService;
 import com.addonis.demo.services.contracts.ImageService;
 import com.addonis.demo.services.contracts.UserInfoService;
 import com.addonis.demo.services.contracts.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +32,7 @@ public class RegistrationController {
     private UserService userService;
     private AuthorityService authorityService;
 
+    @Autowired
     public RegistrationController(PasswordEncoder passwordEncoder, UserInfoService userInfoService,
                                   ImageService imageService, UserService userService, AuthorityService authorityService) {
         this.passwordEncoder = passwordEncoder;

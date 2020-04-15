@@ -21,10 +21,6 @@ public class UserInfoServiceImpl implements UserInfoService {
         this.userInfoRepository = userInfoRepository;
     }
 
-    public UserInfo findByEmailAddress(String emailAddress) {
-        return userInfoRepository.findByEmailAddress(emailAddress);
-    }
-
     @Override
     public List<UserInfo> getAll() {
         return userInfoRepository.findAll();
@@ -37,40 +33,32 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Override
     public void deleteById(Integer integer) {
+        if (!userInfoRepository.existsById(integer)) {
+            throw new EntityNotFoundException("User", integer);
+        }
         userInfoRepository.deleteById(integer);
     }
 
     @Override
     public void update(UserInfo userInfo) {
+        if (!userInfoRepository.existsByEmail(userInfo.getEmail())) {
+            throw new EntityNotFoundException("User", userInfo.getEmail());
+        }
         userInfoRepository.save(userInfo);
     }
 
     @Override
     public UserInfo create(UserInfo userInfo) {
-        if (checkIfUserExistByEmail(userInfo.getEmail())) {
+        if (userInfoRepository.existsByEmail(userInfo.getEmail())) {
             throw new DuplicateEntityException("User", "email", userInfo.getEmail());
         }
         UserUtils.send_2(userInfo.getEmail(), userInfo.getName());
         return userInfoRepository.save(userInfo);
     }
 
-    public boolean checkIfUserExistByEmail(String email) {
-        return getAll()
-                .stream()
-                .map(UserInfo::getEmail)
-                .anyMatch(b -> b.equalsIgnoreCase(email));
-    }
-
-    public boolean checkIfUserExistByName(String name) {
-        return getAll()
-                .stream()
-                .map(UserInfo::getName)
-                .anyMatch(b -> b.equalsIgnoreCase(name));
-    }
-
     @Override
     public UserInfo gerUserByUsername(String name) {
-        if (!checkIfUserExistByName(name)){
+        if (!userInfoRepository.existsByName(name)){
             throw new EntityNotFoundException("User", name);
         }
         return userInfoRepository.getByUserName(name);

@@ -20,22 +20,22 @@ public class LastCommitServiceImpl implements LastCommitService {
 
     @Override
     public List<LastCommit> getAll() {
-        return null;
+        return lastCommitRepository.findAll();
     }
 
     @Override
     public LastCommit getById(Integer integer) {
-        return null;
+        return lastCommitRepository.getOne(integer);
     }
 
     @Override
     public void deleteById(Integer integer) {
-
+        lastCommitRepository.deleteById(integer);
     }
 
     @Override
     public void update(LastCommit lastCommit) {
-
+        lastCommitRepository.save(lastCommit);
     }
 
     @Override

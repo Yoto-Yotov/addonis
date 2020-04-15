@@ -1,6 +1,7 @@
 package com.addonis.demo.models;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Where;
@@ -15,6 +16,7 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Table(name = "users")
 @Where(clause = "enabled = 1")
 public class User implements Serializable {
