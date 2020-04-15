@@ -31,6 +31,31 @@
 /* Template default CSS
 
  */
+
+#profileName{
+	color: #38b6ff;
+	font-size: 18px;
+	line-height: 250%;
+}
+
+#email1{
+	color: #38b6ff;
+	font-size: 18px;
+	line-height: 250%;
+}
+
+#firstname{
+	color: #38b6ff;
+	font-size: 18px;
+	line-height: 250%;
+}
+
+#lastname{
+	color: #38b6ff;
+	font-size: 18px;
+	line-height: 250%;
+}
+
 .col-lg-8{
 	align: center;
 }

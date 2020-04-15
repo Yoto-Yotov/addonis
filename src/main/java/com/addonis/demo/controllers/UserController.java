@@ -50,5 +50,4 @@ public class UserController {
             IOUtils.copy(is, response.getOutputStream());
         }
     }
-
 }

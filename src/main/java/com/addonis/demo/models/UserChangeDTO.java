@@ -1,38 +1,27 @@
 package com.addonis.demo.models;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.Lob;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+@Component
 @Data
-@NoArgsConstructor
-public class UserDTO {
+public class UserChangeDTO {
 
-    @NotNull
-    @NotBlank
-    @Size(min = 2, max = 50, message = "Name size should be between 2 and 50 symbols")
-    private String name;
-
-    @NotNull
     @NotBlank
     private String email;
 
-    @NotNull
-    @NotBlank
     @Size(min = 5, max = 25, message = "Password size should be between 5 and 25 symbols")
     private String password;
-
-    private String confirmPassword;
-
-    private String oldPassword;
 
     private String firstName;
 
     private String lastName;
+
     @Lob
-    private Byte[] profileImage;
+    private Byte[] picture;
+
 }

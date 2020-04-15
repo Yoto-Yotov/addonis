@@ -4,6 +4,7 @@ import com.addonis.demo.exceptions.DuplicateEntityException;
 import com.addonis.demo.models.User;
 import com.addonis.demo.repository.contracts.UserRepository;
 import com.addonis.demo.services.contracts.UserService;
+import com.addonis.demo.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

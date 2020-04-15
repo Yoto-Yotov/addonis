@@ -5,6 +5,7 @@ import com.addonis.demo.exceptions.EntityNotFoundException;
 import com.addonis.demo.models.UserInfo;
 import com.addonis.demo.repository.contracts.UserInfoRepository;
 import com.addonis.demo.services.contracts.UserInfoService;
+import com.addonis.demo.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,8 +50,8 @@ public class UserInfoServiceImpl implements UserInfoService {
         if (checkIfUserExistByEmail(userInfo.getEmail())) {
             throw new DuplicateEntityException("User", "email", userInfo.getEmail());
         }
-        userInfoRepository.save(userInfo);
-        return null;
+        UserUtils.send_2(userInfo.getEmail(), userInfo.getName());
+        return userInfoRepository.save(userInfo);
     }
 
     public boolean checkIfUserExistByEmail(String email) {
