@@ -33,7 +33,6 @@ public class ImageServiceImpl implements ImageService {
             }
 
             user.setProfileImage(byteObjects);
-
             userInfoRepository.save(user);
 
         } catch (IOException ex) {

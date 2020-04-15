@@ -24,4 +24,10 @@ public interface UserInfoRepository extends BaseRepository<UserInfo, Integer> {
     @Modifying
     @Query("update UserInfo set enabled = 0 where name =: name")
     UserInfo softDelete(@Param("name") String name);
+
+    boolean existsByEmail(String email);
+
+    boolean existsByName(String name);
+
+    boolean existsById(Integer id);
 }

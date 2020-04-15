@@ -1,6 +1,5 @@
 package com.addonis.demo.services;
 
-import com.addonis.demo.Factory;
 import com.addonis.demo.exceptions.DuplicateEntityException;
 import com.addonis.demo.exceptions.EntityNotFoundException;
 import com.addonis.demo.models.Tag;
