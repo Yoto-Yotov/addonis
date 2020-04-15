@@ -24,8 +24,7 @@ public class UserController {
     public UserController(UserInfoService userInfoService) {
         this.userInfoService = userInfoService;
     }
-
-    //ToDo Get all user addons
+    
     @GetMapping("/my-account")
     public String showUserAccount(Model model, Principal principal) {
         model.addAttribute("userinfo", userInfoService.gerUserByUsername(principal.getName()));
