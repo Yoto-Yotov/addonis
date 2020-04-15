@@ -1,6 +1,5 @@
 package com.addonis.demo.services;
 
-import com.addonis.demo.exceptions.InvalidDataException;
 import com.addonis.demo.models.Addon;
 import com.addonis.demo.services.contracts.AddonService;
 import com.addonis.demo.services.contracts.FileService;
@@ -39,7 +38,7 @@ public class FileServiceImpl implements FileService {
             addonService.update(addon);
 
         } catch (IOException ex) {
-            throw new InvalidDataException(ex.getMessage());
+            ex.printStackTrace();
         }
     }
 
