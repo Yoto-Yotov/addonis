@@ -2,8 +2,6 @@ package com.addonis.demo.services;
 
 import com.addonis.demo.exceptions.DuplicateEntityException;
 import com.addonis.demo.models.User;
-import com.addonis.demo.models.UserInfo;
-import com.addonis.demo.repository.contracts.UserInfoRepository;
 import com.addonis.demo.repository.contracts.UserRepository;
 import org.junit.Assert;
 import org.junit.Test;
@@ -101,7 +99,7 @@ public class UserServiceTests {
         User user = User.builder().username("teo").password("123456").build();
 
         //Arrange
-        Mockito.when(userRepository.existsByName(anyString()))
+        Mockito.when(userRepository.existsByUsername(anyString()))
                 .thenReturn(true);
         //Act, Assert
         Assertions.assertThrows(DuplicateEntityException.class,
