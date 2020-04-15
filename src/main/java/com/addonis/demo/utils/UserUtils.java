@@ -1,6 +1,7 @@
 package com.addonis.demo.utils;
 
 import com.addonis.demo.models.User;
+import com.addonis.demo.models.UserChangeDTO;
 import com.addonis.demo.models.UserDTO;
 import com.addonis.demo.models.UserInfo;
 import com.addonis.demo.services.contracts.UserService;
@@ -22,11 +23,19 @@ public class UserUtils {
         this.userService = userService;
     }
 
-    public static User mergeUser(UserDTO userDto) {
-        User user = new User();
-        user.setUsername(userDto.getName());
-        user.setPassword(userDto.getPassword());
-        return user;
+    public static UserInfo mergeTwoUsers(UserInfo oldUser, UserChangeDTO newUser) {
+        oldUser.setEmail(getNotNullValue(oldUser.getEmail(), newUser.getEmail()));
+        if (!newUser.getFirstName().equals("")) {
+            oldUser.setFirstName(getNotNullValue(oldUser.getFirstName(), newUser.getFirstName()));
+        }
+        if (!newUser.getFirstName().equals("")) {
+            oldUser.setLastName(getNotNullValue(oldUser.getLastName(), newUser.getLastName()));
+        }
+        return oldUser;
+    }
+
+    public static <T> T getNotNullValue(T a, T b) {
+        return b != null && a != null && !b.equals(a) ? b : a;
     }
 
     public static UserInfo mergeUserInfo(UserDTO userDto) {
@@ -59,7 +68,7 @@ public class UserUtils {
         try {
 
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("addonis_team@gmail.com"));
+            message.setFrom(new InternetAddress("addonis.team@gmail.com"));
             message.setRecipients(
                     Message.RecipientType.TO,
                     InternetAddress.parse(emailRecipient)

@@ -1,7 +1,10 @@
 package com.addonis.demo.controllers;
 
+import com.addonis.demo.exceptions.DuplicateEntityException;
+import com.addonis.demo.exceptions.InvalidDataException;
 import com.addonis.demo.models.UserChangeDTO;
 import com.addonis.demo.models.UserInfo;
+import com.addonis.demo.services.contracts.ImageService;
 import com.addonis.demo.services.contracts.UserInfoService;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +22,18 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.Principal;
 
+import static com.addonis.demo.utils.UserUtils.mergeTwoUsers;
+
 @Controller
 public class UserController {
 
     private UserInfoService userInfoService;
+    private ImageService imageService;
 
     @Autowired
-    public UserController(UserInfoService userInfoService) {
+    public UserController(UserInfoService userInfoService, ImageService imageService) {
         this.userInfoService = userInfoService;
+        this.imageService = imageService;
     }
 
     //ToDo Get all user addons
@@ -57,8 +64,9 @@ public class UserController {
 
     @GetMapping("/my-account/edit")
     public String editAccountEdit(Model model, Principal principal) {
-        UserChangeDTO userEditDTO = new UserChangeDTO();
+        UserChangeDTO newuser = new UserChangeDTO();
         UserInfo user = userInfoService.gerUserByUsername(principal.getName());
+        model.addAttribute("newuser", newuser);
         model.addAttribute("olduser", user);
         return "edit-profile";
     }
@@ -66,37 +74,30 @@ public class UserController {
     @PostMapping("/my-account/edit")
     public String updateUser(@Valid @ModelAttribute("newuser") UserChangeDTO newuser, Principal principal, BindingResult errors, Model model,
                              @RequestParam("imagefile") MultipartFile file, Authentication authentication) {
+
         if(errors.hasErrors()) {
             model.addAttribute("error", errors.getAllErrors().get(0));
             return "my-profile-edit";
         }
 
-        UserInfo userToUpdate = userInfoService.gerUserByUsername(principal.getName());
+        UserInfo oldUser = userInfoService.gerUserByUsername(principal.getName());
+        mergeTwoUsers(oldUser, newuser);
 
-//        if(!newuser.getEmail().equalsIgnoreCase(userToUpdate.getEmail())) {
-//            if(!userService.checkUserExistsEmail(newuser.getEmail())) {
-//                userToUpdate.setEmail(newuser.getEmail());
-//            } else {
-//                model.addAttribute("error", "User with this email already exists");
-//                return "my-profile-edit";
-//            }
-//        }
-//
-//        if(file.getSize() > 2) {
-//            try {
-//                imageService.setUserImageFile(userToUpdate, file);
-//            } catch (IllegalStateException | IllegalArgumentException ex) {
-//                model.addAttribute("error", ex.getMessage());
-//                return "my-profile-edit";
-//            }
-//        }
-//
-//        try {
-//            userService.updateUser(userToUpdate);
-//        } catch (DuplicateEntityException | InvalidDataException ex) {
-//            model.addAttribute("error", ex.getMessage());
-//            return "my-profile-edit";
-//        }
+        if(file.getSize() > 2) {
+            try {
+                imageService.saveImageFile(oldUser.getId(), file);
+            } catch (IllegalStateException | IllegalArgumentException ex) {
+                model.addAttribute("error", ex.getMessage());
+                return "my-profile-edit";
+            }
+        }
+
+        try {
+            userInfoService.update(oldUser);
+        } catch (DuplicateEntityException | InvalidDataException ex) {
+            model.addAttribute("error", ex.getMessage());
+            return "my-profile-edit";
+        }
 
         return  "redirect:/my-account";
     }

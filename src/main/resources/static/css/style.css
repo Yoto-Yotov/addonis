@@ -32,6 +32,19 @@
 
  */
 
+.grid-users {
+	display: grid;
+	justify-content: start;
+	grid-template-columns: 400px 400px 400px;
+	grid-gap: 20px;
+	padding: 20px;
+}
+
+.img-fluid {
+	height: 330px;
+	width: 500px;
+}
+
 #profileName{
 	color: #38b6ff;
 	font-size: 18px;

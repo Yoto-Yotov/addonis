@@ -11,7 +11,6 @@ import javax.validation.constraints.Size;
 @Data
 public class UserChangeDTO {
 
-    @NotBlank
     private String email;
 
     @Size(min = 5, max = 25, message = "Password size should be between 5 and 25 symbols")

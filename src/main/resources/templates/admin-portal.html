@@ -41,52 +41,46 @@
             <div class="col-lg-12">
                 <div class="blog-details-inner">
                     <div class="blog-detail-title">
-                        <h2>Here is your personal data</h2>
+                        <h2>Welcome to yor admin portal</h2>
                         <p>ADDONIS<span></span></p>
                     </div>
-                    <form th:action="@{/my-account/edit}" th:object="${newuser}" enctype="multipart/form-data" th:method="put">
-                        <div class="blog-large-pic">
-                            <img id="profileImage" th:href="@{'/my-account/' + ${olduser.id} + '/userimage'}"
-                                 th:src="@{'/my-account/' + ${olduser.id} + '/userimage'}" alt=""
-                                 height="300" width="300" align="left" hspace="80">
-                        </div>
-                        <div class="cell">
-                            <a id="profileName">Username:</a>
-                            <a id="profileName1" th:text="${olduser.name}"></a>
-                        </div>
-                        <div class="cell">
-                            <a id="email1">Email:</a>
-                            <a th:text="${olduser.email}"></a>
-                        </div>
-                        <div class="group-input">
-                            <label for="emailnew">New username: </label>
-                            <input th:field="${newuser.email}" type="text" id="emailnew">
-                        </div>
-                        <div class="cell">
-                            <a id="firstname">First name:</a>
-                            <a th:if="${olduser.firstName == null}">Not given</a>
-                            <a th:unless="${olduser.firstName == null}" th:text="${olduser.firstName}"></a>
-                        </div>
-                        <div class="group-input">
-                            <label for="newfirtname">New first name: </label>
-                            <input th:field="${newuser.firstName}" type="text" id="newfirtname">
-                        </div>
-                        <div class="cell">
-                            <a id="lastname">Last name:</a>
-                            <a th:if="${olduser.lastName == null}">Not given</a>
-                            <a th:unless="${olduser.lastName == null}" th:text="${olduser.lastName}"></a>
-                        </div>
-                        <div class="group-input">
-                            <label for="newlastname">New last name: </label>
-                            <input th:field="${newuser.lastName}" type="text" id="newlastname">
-                        </div>
-                        </br>
-                        <div>
-                            <label for="newimage">Change your profile image</label>
-                            <input id="newimage" name="imagefile" type="file" class="file" value="Upload File">
-                        </div>
-                        <button type="submit" class="site-btn login-btn">EDIT</button>
-                    </form>
+                    <div class="blog-large-pic">
+                        <img id="profileImage" th:href="@{'/my-account/' + ${admin.id} + '/userimage'}"
+                             th:src="@{'/my-account/' + ${admin.id} + '/userimage'}" alt=""
+                             height="300" width="300" align="left" hspace="80">
+                    </div>
+                    <div class="cell">
+                        <a id="profileName">Username:</a>
+                        <a id="profileName1" th:text="${admin.name}"></a>
+                    </div>
+                    <div class="cell">
+                        <a id="email1">Email:</a>
+                        <a th:text="${admin.email}"></a>
+                    </div>
+                    <div class="cell">
+                        <a id="firstname">First name:</a>
+                        <a th:if="${admin.firstName == null}">Not given</a>
+                        <a th:unless="${admin.firstName == null}" th:text="${admin.firstName}"></a>
+                    </div>
+                    <div class="cell">
+                        <a id="lastname">Last name:</a>
+                        <a th:if="${admin.lastName == null}">Not given</a>
+                        <a th:unless="${admin.lastName == null}" th:text="${admin.lastName}"></a>
+                    </div>
+                    </br>
+                    <div class="cell">
+                        <a th:href="@{/admin/users}" type="submit" class="primary-btn">
+                            See users </a>
+                        <a th:href="@{admin/addons}" type="submit" class="primary-btn">
+                            Pending addons </a>
+                    </div>
+                    </br>
+                    <div class="cell">
+                        <a th:href="@{/my-account/edit}" type="submit" class="primary-btn">
+                            Edit Profile </a>
+                        <a th:href="@{my-account/pass}" type="submit" class="primary-btn">
+                            Change Password </a>
+                    </div>
                     <div class="tag-share">
                         <div class="details-tag">
                             <ul>
