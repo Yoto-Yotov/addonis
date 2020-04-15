@@ -25,37 +25,49 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public List<Tag> getAll() {
-        return null;
+        return tagRepository.findAll();
     }
 
     @Override
-    public Tag getById(Integer integer) {
-        return null;
+    public Tag getById(Integer tagId) {
+        return tagRepository.findById(tagId).orElseThrow(() -> new EntityNotFoundException("tag", tagId));
     }
 
     @Override
-    public void deleteById(Integer integer) {
-
+    public void deleteById(Integer tagId) {
+        if(!tagRepository.existsById(tagId)) {
+            throw new EntityNotFoundException("tag", tagId);
+        }
+        tagRepository.deleteTagFromAllAddons(tagId);
+        tagRepository.deleteById(tagId);
     }
 
     @Override
     public void update(Tag tag) {
-
+        tagRepository.save(tag);
     }
 
     @Override
-    public Tag create(Tag tag) {
-        return tagRepository.save(tag);
+    public void create(Tag tag) {
+        if(tagRepository.existsByTagName(tag.getTagName())) {
+            throw new DuplicateEntityException("tag", "name", tag.getTagName());
+        }
+        tagRepository.save(tag);
     }
 
     @Override
     public void deleteTagByName(String name) {
+        Tag tagToDelete = tagRepository.getTagByTagName(name);
+        if(tagToDelete == null) {
+            throw new EntityNotFoundException("tag", name);
+        }
+        tagRepository.deleteTagFromAllAddons(tagToDelete.getTagId());
         tagRepository.deleteTagByName(name);
     }
 
     @Override
     public Tag addTagToAddon(int addonId, String tagName, String userName) {
-        Tag tagToAdd = tagRepository.getTagByName(tagName);
+        Tag tagToAdd = tagRepository.getTagByTagName(tagName);
 
         if(tagToAdd == null) {
             tagToAdd = new Tag();
@@ -74,6 +86,12 @@ public class TagServiceImpl implements TagService {
         }
 
         return tagToAdd;
+    }
+
+    @Override
+    public void removeTagFromAddon(int addonId, String tagName) {
+        Tag tagToRemove = tagRepository.getTagByTagName(tagName);
+        tagRepository.removeTagFromAddon(tagToRemove.getTagId(), addonId);
     }
 
 }
