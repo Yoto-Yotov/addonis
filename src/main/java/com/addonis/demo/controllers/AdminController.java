@@ -49,6 +49,6 @@ public class AdminController {
         UserInfo userToDel = userInfoService.gerUserByUsername(username);
         userInfoService.softDeleteUserInfo(userToDel.getName());
         userService.softDeleteUser(userToDel.getName());
-        return "users";
+        return "redirect:/admin/users";
     }
 }

@@ -45,7 +45,9 @@
                             <p>ADDONIS<span></span></p>
                         </div>
                         <div class="blog-large-pic">
-                            <img id="profileImage" th:href="@{'/my-account/' + ${userinfo.id} + '/userimage'}"
+                            <img th:if="${userinfo.profileImage} == null" src="img/blank-profile-picture-973460_640.png" height="300" width="300" align="left" hspace="80">
+                            <img th:unless="${userinfo.profileImage} == null"
+                                    th:href="@{'/my-account/' + ${userinfo.id} + '/userimage'}"
                                  th:src="@{'/my-account/' + ${userinfo.id} + '/userimage'}" alt=""
                                  height="300" width="300" align="left" hspace="80">
                         </div>

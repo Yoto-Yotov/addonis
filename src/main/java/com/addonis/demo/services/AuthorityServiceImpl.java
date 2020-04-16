@@ -46,4 +46,5 @@ public class AuthorityServiceImpl implements AuthorityService {
     public Authorities create(Authorities authorities) {
         return authorityRepository.save(authorities);
     }
+
 }

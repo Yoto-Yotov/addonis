@@ -6,8 +6,14 @@ import com.addonis.demo.services.contracts.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.thymeleaf.util.ArrayUtils;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 /**
  * ImageServiceImpl
@@ -30,6 +36,14 @@ public class ImageServiceImpl implements ImageService {
 
             Byte[] byteObjects = new Byte[file.getBytes().length];
 
+            if (file.getBytes().length == 0) {
+                URL url = new URL("https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png");
+                BufferedImage myPicture = ImageIO.read(url);
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                ImageIO.write( myPicture, "png", baos );
+                byte[] imageInByte = baos.toByteArray();
+                byteObjects = new Byte[imageInByte.length];
+            }
 
             int i = 0;
 

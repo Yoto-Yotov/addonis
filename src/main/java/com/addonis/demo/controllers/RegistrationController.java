@@ -68,10 +68,10 @@ public class RegistrationController {
         Authorities authority = new Authorities();
         authority.setUsername(userDto.getName());
         authority.setAuthority("ROLE_USER");
-        authorityService.create(authority);
 
         try {
             userService.create(user);
+            authorityService.create(authority);
             userInfoService.create(userInfo);
         } catch (DuplicateEntityException e) {
             model.addAttribute("error", e.getMessage());

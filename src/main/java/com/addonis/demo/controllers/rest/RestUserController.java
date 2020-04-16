@@ -2,9 +2,12 @@ package com.addonis.demo.controllers.rest;
 
 import com.addonis.demo.exceptions.DuplicateEntityException;
 import com.addonis.demo.exceptions.EntityNotFoundException;
+import com.addonis.demo.exceptions.NotAuthorizedException;
+import com.addonis.demo.models.Authorities;
 import com.addonis.demo.models.User;
 import com.addonis.demo.models.UserDTO;
 import com.addonis.demo.models.UserInfo;
+import com.addonis.demo.services.contracts.AuthorityService;
 import com.addonis.demo.services.contracts.UserInfoService;
 import com.addonis.demo.services.contracts.UserService;
 import com.addonis.demo.utils.UserUtils;
@@ -30,17 +33,19 @@ public class RestUserController {
 
     private UserInfoService userInfoService;
     private UserService userService;
-    private UserUtils userUtils;
+    private AuthorityService authorityService;
 
     @Autowired
-    public RestUserController(UserInfoService userInfoService, UserService userService, UserUtils userUtils) {
+    public RestUserController(UserInfoService userInfoService, UserService userService) {
         this.userInfoService = userInfoService;
         this.userService = userService;
-        this.userUtils = userUtils;
     }
 
     @GetMapping
-    public List<UserInfo> getAllsers() {
+    public List<UserInfo> getAllsers(@RequestHeader(name = "Authorization") String authorization) {
+//        if (!authorityService.getAuthority(authorization).equals("ROLE_ADMIN")) {
+//            throw new NotAuthorizedException("You should be admin to see all users");
+//        }
         return userInfoService.getAll();
     }
 

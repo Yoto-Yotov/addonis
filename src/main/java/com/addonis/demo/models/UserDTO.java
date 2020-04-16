@@ -1,5 +1,6 @@
 package com.addonis.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -36,6 +37,8 @@ public class UserDTO {
     private String firstName;
 
     private String lastName;
+
+    @JsonIgnore
     @Lob
     private Byte[] profileImage;
 }
