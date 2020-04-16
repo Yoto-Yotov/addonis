@@ -42,4 +42,9 @@ public class AuthorityServiceImpl implements AuthorityService {
     public Authorities create(Authorities authorities) {
         return authorityRepository.save(authorities);
     }
+
+    @Override
+    public List<Authorities> getUserAuthorities(String userName) {
+        return authorityRepository.getByUsername(userName);
+    }
 }
