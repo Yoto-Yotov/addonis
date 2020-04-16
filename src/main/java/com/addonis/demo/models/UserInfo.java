@@ -10,6 +10,11 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+/**
+ * UserInfo
+ * This model is containing the whole user information and is used also for visualization.
+ * UserInfo has 2 options - enabled / disabled.
+ */
 @Entity
 @Data
 @NoArgsConstructor

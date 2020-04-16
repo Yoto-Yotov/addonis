@@ -6,6 +6,10 @@ import lombok.Data;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * LastCommitList
+ * list with commits
+ */
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class LastCommitList {

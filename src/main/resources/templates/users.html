@@ -68,7 +68,7 @@
                                         </div>
                                         <a id="user2">Email:</a>
                                         <a id="adminUserEmail" th:text="${user.email}">abv.bg</a>
-                                        <form action="#" th:action="@{/admin/users/d}" method="post"
+                                        <form action="#" th:action="@{'/admin/users/d/' + ${user.name}}" method="post"
                                               enctype="multipart/form-data">
                                         <button type="submit" class="site-btn register-btn">Disable</button>
                                         </form>

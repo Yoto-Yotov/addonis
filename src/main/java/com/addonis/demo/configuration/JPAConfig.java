@@ -14,6 +14,11 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
+/**
+ * JPA configuration for CRUD operations and queries.
+ * Provides create, get all, update, delete (hard) operation, get by id, get by name ect.
+ */
+
 @Configuration
 @EnableJpaRepositories("com.addonis.demo.repository.contracts")
 @EnableTransactionManagement

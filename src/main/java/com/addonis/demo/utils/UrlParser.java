@@ -2,6 +2,10 @@ package com.addonis.demo.utils;
 
 import com.addonis.demo.models.enums.EPParam;
 
+/**
+ * UrlParser
+ * Parses the addon link provided from the user and rebuilds it depending on our needs using the EPParam (enumerator)
+ */
 public class UrlParser {
 
     final static String GIT_HUB_LINK = "https://api.github.com/repos/";

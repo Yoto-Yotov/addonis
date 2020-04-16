@@ -13,6 +13,11 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
+/**
+ * UserUtils
+ * Merging DTOs to UserInfo
+ * Send method for sending email when registering.
+ */
 @Component
 public class UserUtils {
 

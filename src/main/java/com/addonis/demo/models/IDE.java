@@ -5,6 +5,10 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+/**
+ * IDE
+ * Type of the IDE that the addon will work on.
+ */
 @Entity
 @Data
 @NoArgsConstructor

@@ -1,5 +1,9 @@
 package com.addonis.demo.exceptions;
 
+/**
+ * DuplicateEntityException
+ * Exception for data that already exists.
+ */
 public class DuplicateEntityException extends RuntimeException {
 
     public DuplicateEntityException(String type) {

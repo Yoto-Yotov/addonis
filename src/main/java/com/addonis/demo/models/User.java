@@ -12,6 +12,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 
+/**
+ * User
+ * This model is used for authorising users with username and password.
+ * Users can be enabled or disabled.
+ */
 @Entity
 @Data
 @NoArgsConstructor

@@ -2,6 +2,7 @@ package com.addonis.demo.services;
 
 import com.addonis.demo.exceptions.DuplicateEntityException;
 import com.addonis.demo.models.User;
+import com.addonis.demo.models.UserInfo;
 import com.addonis.demo.repository.contracts.UserRepository;
 import com.addonis.demo.services.contracts.UserService;
 import com.addonis.demo.utils.UserUtils;
@@ -10,6 +11,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * UserServiceImpl
+ * CRUD operation for user.
+ */
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -42,9 +47,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User create(User user) {
-        if (userRepository.existsByName(user.getUsername())) {
+        if (userRepository.existsByUsername(user.getUsername())) {
             throw new DuplicateEntityException("user");
         }
         return userRepository.save(user);
     }
+
+
+    @Override
+    public void softDeleteUser(String username) {
+        User user = userRepository.getByName(username);
+        user.setEnabled(0);
+    }
+
 }

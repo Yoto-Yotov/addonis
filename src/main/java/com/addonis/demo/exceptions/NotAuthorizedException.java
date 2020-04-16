@@ -1,5 +1,9 @@
 package com.addonis.demo.exceptions;
 
+/**
+ * NotAuthorizedException
+ * Exception for entering data, when user is not authenticated.
+ */
 public class NotAuthorizedException extends RuntimeException {
 
     public NotAuthorizedException(String name) {

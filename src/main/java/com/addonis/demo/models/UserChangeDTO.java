@@ -7,6 +7,10 @@ import javax.persistence.Lob;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+/**
+ * UserChangeDTO
+ * Used when users edit their profiles. Users are allowed to change theis first name, last name, email and profile picture.
+ */
 @Component
 @Data
 public class UserChangeDTO {

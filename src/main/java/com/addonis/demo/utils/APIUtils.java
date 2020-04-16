@@ -8,6 +8,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 
+/**
+ * APIUtils
+ * Connection to GitHub.
+ * Takes string and returns JSON array used for getting addon information.
+ */
 public final class APIUtils {
 
     private APIUtils() {}

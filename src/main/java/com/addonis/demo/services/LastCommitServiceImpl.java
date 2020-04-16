@@ -8,6 +8,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * LastCommitServiceImpl
+ * Takes the information about the last commit of addon
+ */
 @Service
 public class LastCommitServiceImpl implements LastCommitService {
 

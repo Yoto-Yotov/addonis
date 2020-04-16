@@ -8,6 +8,10 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serializable;
 
+/**
+ * Tag
+ * Addons have Set of Tags. Each tag has name and can be added from registered user or admin to addon.
+ */
 @Entity
 @Data
 @NoArgsConstructor

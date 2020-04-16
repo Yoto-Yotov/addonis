@@ -7,6 +7,11 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+/**
+ * Authorities
+ * Model used for managing user role.
+ * User can be either admin, registered user or just user (no permissions and no Authority)
+ */
 
 @Entity
 @NoArgsConstructor
@@ -15,7 +20,7 @@ import javax.persistence.*;
 @Builder
 @Table(name = "authorities")
 public class Authorities {
-    @Id
+
     @Column(name = "username")
     private String username;
 

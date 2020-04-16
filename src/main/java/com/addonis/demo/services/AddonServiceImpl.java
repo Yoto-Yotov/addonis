@@ -16,6 +16,16 @@ import java.util.List;
 
 import static com.addonis.demo.utils.LastCommitMapper.mapLastCommitResponseToLastCommit;
 
+/**
+ * AddonServiceImpl
+ * Service for Addon
+ * Takes information from LastCommitService, AddonRepository, GitHubService
+ * Provides methods for getting all Addons. No authentication needed,
+ * Get addon by id. No authentication needed.
+ * Delete addon. Authentication needed - user or admin.
+ * Update addon. Authentication needed - user or admin.
+ * Create addon + create last commit. Authentication needed - user or admin.
+ */
 @Service
 public class AddonServiceImpl implements AddonService {
 

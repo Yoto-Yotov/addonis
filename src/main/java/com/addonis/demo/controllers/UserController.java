@@ -24,6 +24,11 @@ import java.security.Principal;
 
 import static com.addonis.demo.utils.UserUtils.mergeTwoUsers;
 
+/**
+ * UserController
+ * Page MyAccount. Show users count. Authentication needed - user.
+ * Page MyAccountEdit. Edit account - first name, last name, email, picture. Authentication needed.
+ */
 @Controller
 public class UserController {
 

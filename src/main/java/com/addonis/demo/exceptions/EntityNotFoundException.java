@@ -1,5 +1,9 @@
 package com.addonis.demo.exceptions;
 
+/**
+ * EntityNotFoundException
+ * Exception for entering data, that can not be found.
+ */
 public class EntityNotFoundException extends RuntimeException {
 
     public EntityNotFoundException(String type, int id) {

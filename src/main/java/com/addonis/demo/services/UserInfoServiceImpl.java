@@ -11,6 +11,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * UserInfoServiceImpl
+ * Takes information about a user. Authentication needed - user
+ * Create user. No authentication needed.
+ * Get user by id. No authentication needed.
+ * Delete user. (Hard delete + soft delete) Authentication needed - admin.
+ * Update user. Authentication needed - user
+ */
 @Service
 public class UserInfoServiceImpl implements UserInfoService {
 
@@ -62,5 +70,12 @@ public class UserInfoServiceImpl implements UserInfoService {
             throw new EntityNotFoundException("User", name);
         }
         return userInfoRepository.getByUserName(name);
+    }
+
+    @Override
+    public void softDeleteUserInfo(String name) {
+        UserInfo userInfo = userInfoRepository.getByUserName(name);
+        userInfo.setEnabled(0);
+//                userInfoRepository.softDeleteUserInfo(name);
     }
 }
