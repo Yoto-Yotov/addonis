@@ -1,7 +1,10 @@
 package com.addonis.demo.services;
 
 import com.addonis.demo.exceptions.DuplicateEntityException;
+import com.addonis.demo.exceptions.EntityNotFoundException;
+import com.addonis.demo.models.Authorities;
 import com.addonis.demo.models.User;
+import com.addonis.demo.repository.contracts.AuthorityRepository;
 import com.addonis.demo.repository.contracts.UserRepository;
 import org.junit.Assert;
 import org.junit.Test;
@@ -23,6 +26,9 @@ public class UserServiceTests {
 
     @Mock
     UserRepository userRepository;
+
+    @Mock
+    AuthorityRepository authorityRepository;
 
     @InjectMocks
     UserServiceImpl userService;
@@ -105,5 +111,51 @@ public class UserServiceTests {
         Assertions.assertThrows(DuplicateEntityException.class,
                 () -> userService.create(user));
 
+    }
+
+    @Test
+    public void getUserByUsername_ShouldThrowException_WhenUserNotExist() {
+    //Arrange
+    Mockito.when(userRepository.findUserByUsername(anyString())).thenReturn(null);
+
+    //Act //Assert
+        Assertions.assertThrows(EntityNotFoundException.class,
+                () -> userService.getUserByName(anyString()));
+    }
+
+    @Test
+    public void getUserByUsername_ShouldReturnUser_WhenUserExist() {
+        //Arrange
+        User user = User.builder().username("test").build();
+        Mockito.when(userRepository.findUserByUsername(anyString())).thenReturn(user);
+
+        //Act
+        User result = userService.getUserByName(anyString());
+
+        // Assert
+        Assert.assertSame(user, result);
+    }
+
+    @Test
+    public void getUserAuthorities_should_ThrowException_When_UserNotFound() {
+    //Arrange
+        Mockito.when(userRepository.existsByUsername(anyString())).thenReturn(false);
+
+        //Act //Assert
+        Assertions.assertThrows(EntityNotFoundException.class,
+                () -> userService.getUserAuthorities(anyString()));
+    }
+
+    @Test
+    public void getUserAuthorities_should_returnAuthorities_When_UserExists() {
+    //Arrange
+        Mockito.when(userRepository.existsByUsername(anyString())).thenReturn(true);
+        Mockito.when(authorityRepository.getByUsername(anyString())).thenReturn(new ArrayList<Authorities>());
+
+    //Act
+        userService.getUserAuthorities(anyString());
+        // Assert
+        Mockito.verify(authorityRepository,
+                times(1)).getByUsername(anyString());
     }
 }

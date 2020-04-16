@@ -85,7 +85,11 @@ public class RestUserController {
 
     @GetMapping("/{name}/roles")
     public Collection<Authorities> getUserAuthorities(@PathVariable String name) {
-        return userService.getUserAuthorities(name);
+        try {
+            return userService.getUserAuthorities(name);
+        } catch (EntityNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
     }
 
 }
