@@ -64,6 +64,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<Authorities> getUserAuthorities(String userName) {
+        if (!userRepository.existsByUsername(userName)) {
+            throw new EntityNotFoundException("user", userName);
+        }
         return authorityRepository.getByUsername(userName);
     }
 }
