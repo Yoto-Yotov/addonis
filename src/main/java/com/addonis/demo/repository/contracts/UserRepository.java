@@ -5,6 +5,6 @@ import com.addonis.demo.repository.base.BaseRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends BaseRepository<User, String>{
-    boolean existsByName(String name);
+public interface UserRepository extends BaseRepository<User, String> {
+    boolean existsByUsername(String name);
 }

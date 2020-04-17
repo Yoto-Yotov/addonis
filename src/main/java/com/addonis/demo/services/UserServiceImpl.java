@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User create(User user) {
-        if (userRepository.existsByName(user.getUsername())) {
+        if (userRepository.existsByUsername(user.getUsername())) {
             throw new DuplicateEntityException("user");
         }
         return userRepository.save(user);
