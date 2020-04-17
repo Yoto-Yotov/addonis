@@ -66,7 +66,7 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public Tag addTagToAddon(int addonId, String tagName, String userName) {
+    public Tag addTagToAddon(int addonId, String tagName) {
         Tag tagToAdd = tagRepository.getTagByTagName(tagName);
 
         if(tagToAdd == null) {
