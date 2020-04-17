@@ -2,6 +2,7 @@ package com.addonis.demo.controllers.rest;
 
 import com.addonis.demo.exceptions.DuplicateEntityException;
 import com.addonis.demo.exceptions.EntityNotFoundException;
+import com.addonis.demo.models.Authorities;
 import com.addonis.demo.models.User;
 import com.addonis.demo.models.UserDTO;
 import com.addonis.demo.models.UserInfo;
@@ -13,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -78,6 +80,15 @@ public class RestUserController {
             return userInfoService.getById(id);
         } catch (EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
+    @GetMapping("/{name}/roles")
+    public Collection<Authorities> getUserAuthorities(@PathVariable String name) {
+        try {
+            return userService.getUserAuthorities(name);
+        } catch (EntityNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
 
