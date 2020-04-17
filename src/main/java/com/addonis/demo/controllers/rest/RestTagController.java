@@ -70,9 +70,9 @@ public class RestTagController {
     }
 
     @PutMapping("/{addonId}/{tagName}")
-    public Tag addTagToAddon(@PathVariable int addonId, @PathVariable String tagName, @RequestHeader(name = "Authorization") String authorization) {
+    public Tag addTagToAddon(@PathVariable int addonId, @PathVariable String tagName) {
         try {
-            return tagService.addTagToAddon(addonId, tagName, authorization);
+            return tagService.addTagToAddon(addonId, tagName);
         } catch (EntityNotFoundException ex) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, ex.getMessage());
         } catch (DuplicateEntityException ex) {

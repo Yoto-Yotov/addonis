@@ -1,6 +1,7 @@
 package com.addonis.demo.services;
 
 import com.addonis.demo.exceptions.DuplicateEntityException;
+import com.addonis.demo.exceptions.EntityNotFoundException;
 import com.addonis.demo.models.Addon;
 import com.addonis.demo.models.LastCommit;
 import com.addonis.demo.models.commitresponse.LastCommitResponse;
@@ -49,6 +50,11 @@ public class AddonServiceImpl implements AddonService {
     @Override
     public Addon getById(Integer integer) {
         return addonRepository.getOne(integer);
+    }
+
+    @Override
+    public Addon getAddonById(int addonId) {
+        return addonRepository.findById(addonId).orElseThrow(() -> new EntityNotFoundException("addon", addonId));
     }
 
     @Override
