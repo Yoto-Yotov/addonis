@@ -6,4 +6,5 @@ import com.addonis.demo.services.base.BaseServiceContract;
 
 public interface AddonService extends BaseServiceContract<Addon, Integer> {
     boolean checkAddonExistsById(int addonId);
+    Addon getAddonById(int addonId);
 }

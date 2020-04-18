@@ -1,7 +1,7 @@
 package com.addonis.demo.services.contracts;
 
-import com.addonis.demo.models.Rating;
-import com.addonis.demo.services.base.BaseServiceContract;
-
-public interface RatingService extends BaseServiceContract<Rating, Integer> {
+public interface RatingService {
+    void rateAddon(int addonId, String username, int rating);
+    double getUserRating(int addonId, String username);
+    double getAddonRating(int addonId);
 }
