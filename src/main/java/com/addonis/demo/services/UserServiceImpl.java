@@ -61,16 +61,13 @@ public class UserServiceImpl implements UserService {
         }
         return userRepository.save(user);
     }
-
-<<<<<<< src/main/java/com/addonis/demo/services/UserServiceImpl.java
-
+    
     @Override
     public void softDeleteUser(String username) {
         User user = userRepository.getByName(username);
         user.setEnabled(0);
     }
 
-=======
     @Override
     public User getUserByName(String userName) {
         User user =  userRepository.findUserByUsername(userName);
@@ -87,5 +84,4 @@ public class UserServiceImpl implements UserService {
         }
         return authorityRepository.getByUsername(userName);
     }
->>>>>>> src/main/java/com/addonis/demo/services/UserServiceImpl.java
 }
