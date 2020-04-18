@@ -1,6 +1,7 @@
 package com.addonis.demo.repository.base;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -8,6 +9,6 @@ import org.springframework.stereotype.Repository;
  * @param <T> model type
  * @param <K> primary key
  */
-@Repository
+@NoRepositoryBean
 public interface BaseRepository<T, K> extends JpaRepository<T, K> {
 }

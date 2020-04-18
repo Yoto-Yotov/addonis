@@ -15,8 +15,10 @@ import com.addonis.demo.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * UserServiceImpl
@@ -84,4 +86,10 @@ public class UserServiceImpl implements UserService {
         }
         return authorityRepository.getByUsername(userName);
     }
+
+    @Override
+    public boolean isAdmin(String userName) {
+        return getUserAuthorities(userName).stream().map(Authorities::getAuthority).anyMatch(authority -> authority.equals("ROLE_ADMIN"));
+    }
+
 }

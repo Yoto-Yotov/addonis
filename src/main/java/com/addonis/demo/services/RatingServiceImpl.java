@@ -1,6 +1,5 @@
 package com.addonis.demo.services;
 
-import com.addonis.demo.exceptions.EntityNotFoundException;
 import com.addonis.demo.models.Addon;
 import com.addonis.demo.models.Rating;
 import com.addonis.demo.models.UserInfo;
