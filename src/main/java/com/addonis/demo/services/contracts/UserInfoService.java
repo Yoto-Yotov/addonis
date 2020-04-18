@@ -6,4 +6,5 @@ import com.addonis.demo.services.base.BaseServiceContract;
 public interface UserInfoService extends BaseServiceContract<UserInfo, Integer> {
 
     UserInfo gerUserByUsername(String name);
+    void softDeleteUserInfo(String username);
 }

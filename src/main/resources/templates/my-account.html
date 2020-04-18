@@ -8,7 +8,8 @@
     <meta name="keywords" content="Fashi, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Addonis</title>
+    <title>My profile</title>
+    <link rel="shortcut icon" type="image/x-icon" href="img/addonis1.png">
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
@@ -44,42 +45,37 @@
                             <p>ADDONIS<span></span></p>
                         </div>
                         <div class="blog-large-pic">
-                            <img th:href="@{'/my-account/' + ${userinfo.id} + '/userimage'}"
-                                 th:src="@{'/my-account/' + ${userinfo.id} + '/userimage'}" alt="" height="300" width="300">
+                            <img th:if="${userinfo.profileImage} == null" src="img/blank-profile-picture-973460_640.png" height="300" width="300" align="left" hspace="80">
+                            <img th:unless="${userinfo.profileImage} == null"
+                                    th:href="@{'/my-account/' + ${userinfo.id} + '/userimage'}"
+                                 th:src="@{'/my-account/' + ${userinfo.id} + '/userimage'}" alt=""
+                                 height="300" width="300" align="left" hspace="80">
                         </div>
-                        <div class="blog-detail-desc">
-                            <p>psum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                                labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                                laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure Lorem ipsum dolor sit
-                                amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                                magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                                aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate.
-                            </p>
+                        <div class="cell">
+                            <a id="profileName">Username:</a>
+                            <a id="profileName1" th:text="${userinfo.name}"></a>
                         </div>
-                        <div class="blog-quote">
-                            <p>“ Technology is nothing. What's important is that you have a faith in people, that
-                                they're basically good and smart, and if you give them tools, they'll do wonderful
-                                things with them.” <span>- Steven Jobs</span></p>
+                        <div class="cell">
+                            <a id="email1">Email:</a>
+                            <a th:text="${userinfo.email}"></a>
                         </div>
-                        <div class="blog-more">
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <img src="img/blog/blog-detail-1.jpg" alt="">
-                                </div>
-                                <div class="col-sm-4">
-                                    <img src="img/blog/blog-detail-2.jpg" alt="">
-                                </div>
-                                <div class="col-sm-4">
-                                    <img src="img/blog/blog-detail-3.jpg" alt="">
-                                </div>
-                            </div>
+                        <div class="cell">
+                            <a id="firstname">First name:</a>
+                            <a th:if="${userinfo.firstName == null}">Not given</a>
+                            <a th:unless="${userinfo.firstName == null}" th:text="${userinfo.firstName}"></a>
                         </div>
-                        <p>Sum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                            et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                            nisi ut aliquip ex ea commodo consequat. Duis aute irure Lorem ipsum dolor sit amet,
-                            consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                            aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                            ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate.</p>
+                        <div class="cell">
+                            <a id="lastname">Last name:</a>
+                            <a th:if="${userinfo.lastName == null}">Not given</a>
+                            <a th:unless="${userinfo.lastName == null}" th:text="${userinfo.lastName}"></a>
+                        </div>
+                        </br>
+                        <div class="cell">
+                            <a th:href="@{/my-account/edit}" type="submit" class="primary-btn">
+                                Edit Profile </a>
+                            <a th:href="@{my-account/pass}" type="submit" class="primary-btn">
+                                Change Password </a>
+                        </div>
                         <div class="tag-share">
                             <div class="details-tag">
                                 <ul>
@@ -88,47 +84,6 @@
                                     <li>Beauty</li>
                                     <li>Fashion</li>
                                 </ul>
-                            </div>
-                        </div>
-                        <div class="blog-post">
-                            <div class="row">
-                                <div class="col-lg-5 col-md-6">
-                                    <a href="#" class="prev-blog">
-                                        <div class="pb-pic">
-                                            <i class="ti-arrow-left"></i>
-                                            <img src="img/blog/prev-blog.png" alt="">
-                                        </div>
-                                        <div class="pb-text">
-                                            <span>Previous Post:</span>
-                                            <h5>The Personality Trait That Makes People Happier</h5>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="col-lg-5 offset-lg-2 col-md-6">
-                                    <a href="#" class="next-blog">
-                                        <div class="nb-pic">
-                                            <img src="img/blog/next-blog.png" alt="">
-                                            <i class="ti-arrow-right"></i>
-                                        </div>
-                                        <div class="nb-text">
-                                            <span>Next Post:</span>
-                                            <h5>The Personality Trait That Makes People Happier</h5>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="posted-by">
-                            <div class="pb-pic">
-                                <img src="img/blog/post-by.png" alt="">
-                            </div>
-                            <div class="pb-text">
-                                <a href="#">
-                                    <h5>Shane Lynch</h5>
-                                </a>
-                                <p>Aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                                    velit esse cillum bore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                    amodo</p>
                             </div>
                         </div>
                     </div>

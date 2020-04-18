@@ -5,11 +5,20 @@ import com.addonis.demo.exceptions.EntityNotFoundException;
 import com.addonis.demo.models.UserInfo;
 import com.addonis.demo.repository.contracts.UserInfoRepository;
 import com.addonis.demo.services.contracts.UserInfoService;
+import com.addonis.demo.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * UserInfoServiceImpl
+ * Takes information about a user. Authentication needed - user
+ * Create user. No authentication needed.
+ * Get user by id. No authentication needed.
+ * Delete user. (Hard delete + soft delete) Authentication needed - admin.
+ * Update user. Authentication needed - user
+ */
 @Service
 public class UserInfoServiceImpl implements UserInfoService {
 
@@ -51,8 +60,8 @@ public class UserInfoServiceImpl implements UserInfoService {
         if (userInfoRepository.existsByEmail(userInfo.getEmail())) {
             throw new DuplicateEntityException("User", "email", userInfo.getEmail());
         }
+        UserUtils.send_2(userInfo.getEmail(), userInfo.getName());
         return userInfoRepository.save(userInfo);
-
     }
 
     @Override
@@ -61,5 +70,12 @@ public class UserInfoServiceImpl implements UserInfoService {
             throw new EntityNotFoundException("User", name);
         }
         return userInfoRepository.getByUserName(name);
+    }
+
+    @Override
+    public void softDeleteUserInfo(String name) {
+        UserInfo userInfo = userInfoRepository.getByUserName(name);
+        userInfo.setEnabled(0);
+//                userInfoRepository.softDeleteUserInfo(name);
     }
 }

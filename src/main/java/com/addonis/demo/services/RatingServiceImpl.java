@@ -11,6 +11,14 @@ import com.addonis.demo.services.contracts.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+/**
+ * RatingServiceImpl
+ * Provides informaiton about the average rating. No authentication needed
+ * Rates an addon. Authentication needed - user or admin.
+ */
+
 @Service
 public class RatingServiceImpl implements RatingService {
 

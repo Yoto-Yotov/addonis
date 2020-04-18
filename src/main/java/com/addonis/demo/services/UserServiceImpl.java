@@ -4,15 +4,24 @@ import com.addonis.demo.exceptions.DuplicateEntityException;
 import com.addonis.demo.exceptions.EntityNotFoundException;
 import com.addonis.demo.models.Authorities;
 import com.addonis.demo.models.User;
+
+import com.addonis.demo.models.UserInfo;
+
 import com.addonis.demo.repository.contracts.AuthorityRepository;
+
 import com.addonis.demo.repository.contracts.UserRepository;
 import com.addonis.demo.services.contracts.UserService;
+import com.addonis.demo.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
 
+/**
+ * UserServiceImpl
+ * CRUD operation for user.
+ */
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -53,6 +62,15 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
+<<<<<<< src/main/java/com/addonis/demo/services/UserServiceImpl.java
+
+    @Override
+    public void softDeleteUser(String username) {
+        User user = userRepository.getByName(username);
+        user.setEnabled(0);
+    }
+
+=======
     @Override
     public User getUserByName(String userName) {
         User user =  userRepository.findUserByUsername(userName);
@@ -69,4 +87,5 @@ public class UserServiceImpl implements UserService {
         }
         return authorityRepository.getByUsername(userName);
     }
+>>>>>>> src/main/java/com/addonis/demo/services/UserServiceImpl.java
 }

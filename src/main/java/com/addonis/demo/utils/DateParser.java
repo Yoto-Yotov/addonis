@@ -7,6 +7,10 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
 
+/**
+ * DateParser
+ * Takes date form GitHub and parses it.
+ */
 public class DateParser {
 
     public static java.util.Date parseDate(String value) {

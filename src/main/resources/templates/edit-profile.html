@@ -8,7 +8,7 @@
     <meta name="keywords" content="Fashi, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Addonis</title>
+    <title>My profile</title>
     <link rel="shortcut icon" type="image/x-icon" href="img/addonis1.png">
 
     <!-- Google Font -->
@@ -31,40 +31,78 @@
 <div id="preloder">
     <div class="loader"></div>
 </div>
-
 <header th:insert="index.html :: header"></header>
 
-<!-- Breadcrumb Section Begin -->
-<div class="breacrumb-section">
+
+<!-- Blog Details Section Begin -->
+<section class="blog-details spad">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <div class="breadcrumb-text">
-                    <a href="#"><i class="fa fa-home"></i> Home</a>
-                    <span>Register</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Breadcrumb Form Section Begin -->
-
-<!-- Register Section Begin -->
-<div class="register-login-section spad">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 offset-lg-3">
-                <div class="register-form">
-                    <h3>You have successfully registered</h3>
-                    <div class="switch-login">
-                        <a href="login.html" class="or-login">Pleace log in</a>
+                <div class="blog-details-inner">
+                    <div class="blog-detail-title">
+                        <h2>Here is your personal data</h2>
+                        <p>ADDONIS<span></span></p>
+                    </div>
+                    <form th:action="@{/my-account/edit}" th:object="${newuser}" enctype="multipart/form-data" th:method="put">
+                        <div class="blog-large-pic">
+                            <img id="profileImage" th:href="@{'/my-account/' + ${olduser.id} + '/userimage'}"
+                                 th:src="@{'/my-account/' + ${olduser.id} + '/userimage'}" alt=""
+                                 height="300" width="300" align="left" hspace="80">
+                        </div>
+                        <div class="cell">
+                            <a id="profileName">Username:</a>
+                            <a id="profileName1" th:text="${olduser.name}"></a>
+                        </div>
+                        <div class="cell">
+                            <a id="email1">Email:</a>
+                            <a th:text="${olduser.email}"></a>
+                        </div>
+                        <div class="group-input">
+                            <label for="emailnew">New email: </label>
+                            <input th:field="${newuser.email}" type="text" id="emailnew">
+                        </div>
+                        <div class="cell">
+                            <a id="firstname">First name:</a>
+                            <a th:if="${olduser.firstName == null}">Not given</a>
+                            <a th:unless="${olduser.firstName == null}" th:text="${olduser.firstName}"></a>
+                        </div>
+                        <div class="group-input">
+                            <label for="newfirtname">New first name: </label>
+                            <input th:field="${newuser.firstName}" type="text" id="newfirtname">
+                        </div>
+                        <div class="cell">
+                            <a id="lastname">Last name:</a>
+                            <a th:if="${olduser.lastName == null}">Not given</a>
+                            <a th:unless="${olduser.lastName == null}" th:text="${olduser.lastName}"></a>
+                        </div>
+                        <div class="group-input">
+                            <label for="newlastname">New last name: </label>
+                            <input th:field="${newuser.lastName}" type="text" id="newlastname">
+                        </div>
+                        </br>
+                        <div>
+                            <label for="newimage">Change your profile image</label>
+                            <input id="newimage" name="imagefile" type="file" class="file" value="Upload File">
+                        </div>
+                        <button type="submit" class="site-btn login-btn">EDIT</button>
+                    </form>
+                    <div class="tag-share">
+                        <div class="details-tag">
+                            <ul>
+                                <li><i class="fa fa-tags"></i></li>
+                                <li>Travel</li>
+                                <li>Beauty</li>
+                                <li>Fashion</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<!-- Register Form Section End -->
+</section>
+<!-- Blog Details Section End -->
 
 <!-- Partner Logo Section Begin -->
 <div class="partner-logo">

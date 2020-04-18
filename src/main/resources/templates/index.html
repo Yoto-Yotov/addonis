@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Addonis</title>
+    <link rel="shortcut icon" type="image/x-icon" href="img/addonis1.png">
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
@@ -47,17 +48,29 @@
                 </div>
             </div>
             <div class="ht-right">
-                <a href="#" th:href="@{/logout}" sec:authorize="isAuthenticated()" class="login-panel">Log out</a>
-                <a href="#" th:href="@{/my-account}" sec:authorize="isAuthenticated()" class="login-panel"></i>My account   </a>
-                <a href="#" th:href="@{/login}" sec:authorize="!isAuthenticated()" class="login-panel"><i class="fa fa-user"></i>Login</a>
-                <div class="top-social">
-                    <a href="https://www.facebook.com/Addonis-109059887435247/?modal=admin_todo_tour"><i class="ti-facebook"></i></a>
-                    <a href="#"><i class="ti-twitter-alt"></i></a>
-                    <a href="#"><i class="ti-linkedin"></i></a>
-                    <a href="https://www.pinterest.com/addonisteam/tried/"><i class="ti-pinterest"></i></a>
-                </div>
-                <a href="#" th:href="@{/register}" sec:authorize="!isAuthenticated()" class="login-panel"><i
-                        class="fas fa-registered"></i>Register</a>
+                <form th:action="@{/login}" sec:authorize="isAuthenticated()" method="post">
+                    <a href="#" th:href="@{/logout}" class="login-panel">Log out</a>
+                    <a href="№" th:href="@{/admin}" sec:authorize="hasRole('ADMIN')" class="login-panel">Admin Portal</a>
+                    <a href="#" th:href="@{/my-account}" sec:authorize="hasRole('USER') && !hasRole('ADMIN')" class="login-panel"></i>My account   </a>
+                    <a href="#" th:href="@{/login}" sec:authorize="!isAuthenticated()" class="login-panel"><i class="fa fa-user"></i>Login</a>
+                    <div class="top-social">
+                        <a href="https://www.facebook.com/Addonis-109059887435247/?modal=admin_todo_tour"><i class="ti-facebook"></i></a>
+                        <a href="#"><i class="ti-twitter-alt"></i></a>
+                        <a href="#"><i class="ti-linkedin"></i></a>
+                        <a href="https://www.pinterest.com/addonisteam/tried/"><i class="ti-pinterest"></i></a>
+                    </div>
+                </form>
+                <form th:action="@{/login}" sec:authorize="!isAuthenticated()" method="post">
+                    <a href="#" th:href="@{/login}" sec:authorize="!isAuthenticated()" class="login-panel"><i class="fa fa-user"></i>Login</a>
+                    <div class="top-social">
+                        <a href="https://www.facebook.com/Addonis-109059887435247/?modal=admin_todo_tour"><i class="ti-facebook"></i></a>
+                        <a href="#"><i class="ti-twitter-alt"></i></a>
+                        <a href="#"><i class="ti-linkedin"></i></a>
+                        <a href="https://www.pinterest.com/addonisteam/tried/"><i class="ti-pinterest"></i></a>
+                    </div>
+                    <a href="#" th:href="@{/register}" sec:authorize="!isAuthenticated()" class="login-panel"><i
+                            class="fas fa-registered"></i>Register</a>
+                </form>
             </div>
         </div>
     </div>
@@ -92,7 +105,7 @@
             <nav class="nav-menu mobile-menu">
                 <ul>
                     <li class="active"><a th:href="@{/}">Home</a></li>
-                    <li><a href="shop.html">Addons</a></li>
+                    <li><a th:href="@{/addons}">Addons</a></li>
                     <li><a href="#">Collection</a>
                         <ul class="dropdown">
                             <li><a href="#">Men's</a></li>

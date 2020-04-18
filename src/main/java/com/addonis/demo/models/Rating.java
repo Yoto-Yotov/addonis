@@ -7,6 +7,11 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+/**
+ * Rating
+ * Every addon has rating. Defaut rating value by creation - 0.
+ * User that are registered and admin can rate addon. Once.
+ */
 @Entity
 @Data
 @Builder

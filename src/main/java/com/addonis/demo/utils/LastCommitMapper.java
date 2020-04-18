@@ -3,6 +3,10 @@ package com.addonis.demo.utils;
 import com.addonis.demo.models.LastCommit;
 import com.addonis.demo.models.commitresponse.LastCommitResponse;
 
+/**
+ * LastCommitMapper
+ * Maps last commit response to out LasrCommit model
+ */
 public class LastCommitMapper {
 
     public static LastCommit mapLastCommitResponseToLastCommit(LastCommitResponse lastCommitResponse) {

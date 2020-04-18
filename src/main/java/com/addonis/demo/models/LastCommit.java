@@ -10,6 +10,12 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+/**
+ * LastCommit
+ * Information about the last commit of the addon.
+ * Should be updated every 60 mins. ??
+ * Provides information about the last commit - message, date
+ */
 @Entity
 @Data
 @NoArgsConstructor

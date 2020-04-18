@@ -9,6 +9,7 @@ import com.addonis.demo.services.contracts.AuthorityService;
 import com.addonis.demo.services.contracts.ImageService;
 import com.addonis.demo.services.contracts.UserInfoService;
 import com.addonis.demo.services.contracts.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +23,12 @@ import javax.validation.Valid;
 
 import static com.addonis.demo.utils.UserUtils.mergeUserInfo;
 
+/**
+ * RegistrationController
+ * Show registration page. Needed information for registration - username, email, first name (not required), last name (not required), password, confirm password, image (not requiered).
+ * For registering using UserDTO
+ * Page for successful registration
+ */
 @Controller
 public class RegistrationController {
 
@@ -31,6 +38,7 @@ public class RegistrationController {
     private UserService userService;
     private AuthorityService authorityService;
 
+    @Autowired
     public RegistrationController(PasswordEncoder passwordEncoder, UserInfoService userInfoService,
                                   ImageService imageService, UserService userService, AuthorityService authorityService) {
         this.passwordEncoder = passwordEncoder;

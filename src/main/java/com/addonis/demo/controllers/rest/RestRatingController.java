@@ -7,6 +7,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+/**
+ * RatingController
+ * Read - get addon average rating
+ * Create - rate an addon, authentication needed (user or admin)
+ */
 @RestController
 @RequestMapping("api/rating")
 public class RestRatingController {

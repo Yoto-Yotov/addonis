@@ -15,6 +15,15 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
+/**
+ * Rest controller for addons
+ * Get all addons with details - name, creater, last commit information, addon tags. No authentication needed
+ * Create addon - authentication needed (user or admin)
+ * Update addon - authentication needed (user or addon)
+ * Upload content - upload binary file
+ * Add tag to addon - authentication needed (user or admin)
+ * Delete addon - authentication needed (user or admin)
+ */
 @RestController
 @RequestMapping("/api/addons")
 public class RestAddonsController {
