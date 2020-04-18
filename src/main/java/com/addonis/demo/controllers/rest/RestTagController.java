@@ -2,8 +2,8 @@ package com.addonis.demo.controllers.rest;
 
 import com.addonis.demo.exceptions.DuplicateEntityException;
 import com.addonis.demo.exceptions.EntityNotFoundException;
+import com.addonis.demo.exceptions.NotAuthorizedException;
 import com.addonis.demo.models.Tag;
-import com.addonis.demo.services.contracts.AddonService;
 import com.addonis.demo.services.contracts.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -45,7 +45,7 @@ public class RestTagController {
         try {
             tagService.create(tag);
         } catch (DuplicateEntityException e) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
         return tag;
     }
@@ -60,12 +60,15 @@ public class RestTagController {
     }
 
     @DeleteMapping("/{tagName}")
-    public String deleteTag(@PathVariable String tagName) {
+    public String deleteTag(@PathVariable String tagName, @RequestHeader(name = "Authorization") String authorization) {
         try {
-            tagService.deleteTagByName(tagName);
+            tagService.deleteTagByName(tagName, authorization);
         } catch (EntityNotFoundException ex) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, ex.getMessage());
+        } catch (NotAuthorizedException ex) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, ex.getMessage());
         }
+
         return String.format("Tag with name %s was successfully deleted", tagName);
     }
 
@@ -81,9 +84,9 @@ public class RestTagController {
     }
 
     @PutMapping("/{addonId}/remove/{tagName}")
-    public String removeTagFromAddon(@PathVariable int addonId, @PathVariable String tagName) {
+    public String removeTagFromAddon(@PathVariable int addonId, @PathVariable String tagName, @RequestHeader(name = "Authorization") String authorization) {
         try {
-            tagService.removeTagFromAddon(addonId, tagName);
+            tagService.removeTagFromAddon(addonId, tagName, authorization);
         } catch (EntityNotFoundException ex) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, ex.getMessage());
         }
