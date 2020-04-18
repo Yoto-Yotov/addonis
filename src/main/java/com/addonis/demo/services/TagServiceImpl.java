@@ -2,10 +2,12 @@ package com.addonis.demo.services;
 
 import com.addonis.demo.exceptions.DuplicateEntityException;
 import com.addonis.demo.exceptions.EntityNotFoundException;
+import com.addonis.demo.exceptions.NotAuthorizedException;
 import com.addonis.demo.models.Tag;
 import com.addonis.demo.repository.contracts.TagRepository;
 import com.addonis.demo.services.contracts.AddonService;
 import com.addonis.demo.services.contracts.TagService;
+import com.addonis.demo.services.contracts.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,11 +24,13 @@ public class TagServiceImpl implements TagService {
 
     private TagRepository tagRepository;
     private AddonService addonService;
+    private UserService userService;
 
     @Autowired
-    public TagServiceImpl(TagRepository tagRepository, AddonService addonService) {
+    public TagServiceImpl(TagRepository tagRepository, AddonService addonService, UserService userService) {
         this.tagRepository = tagRepository;
         this.addonService = addonService;
+        this.userService = userService;
     }
 
     @Override
@@ -62,7 +66,10 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public void deleteTagByName(String name) {
+    public void deleteTagByName(String name, String userName) {
+        if(!userService.isAdmin(userName)) {
+            throw new NotAuthorizedException(userName);
+        }
         Tag tagToDelete = tagRepository.getTagByTagName(name);
         if(tagToDelete == null) {
             throw new EntityNotFoundException("tag", name);
@@ -72,7 +79,7 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public Tag addTagToAddon(int addonId, String tagName) {
+    public Tag addTagToAddon(int addonId, String tagName, String userName) {
         Tag tagToAdd = tagRepository.getTagByTagName(tagName);
 
         if(tagToAdd == null) {
@@ -95,9 +102,20 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public void removeTagFromAddon(int addonId, String tagName) {
+    public void removeTagFromAddon(int addonId, String tagName, String userName) {
         Tag tagToRemove = tagRepository.getTagByTagName(tagName);
         tagRepository.removeTagFromAddon(tagToRemove.getTagId(), addonId);
+    }
+
+    @Override
+    public void renameTag(int tagId, String tagName, String userName) {
+        if(!userService.isAdmin(userName)) {
+            throw new NotAuthorizedException(userName);
+        }
+        Tag tagToUpdate = tagRepository.getOne(tagId);
+        tagToUpdate.setTagName(tagName);
+
+
     }
 
 }
