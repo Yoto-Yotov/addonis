@@ -38,7 +38,7 @@ public class RatingServiceImpl implements RatingService {
         UserInfo userInfo = userInfoService.gerUserByUsername(username);
         Addon addon = addonService.getAddonById(addonId);
 
-        Rating ratingObj = ratingRepository.getByUserInfo_IdAndAddon_Id(userInfo.getId(), addonId); //returns null if not exist //returns rating if exists
+        Rating ratingObj = ratingRepository.getByUserInfoIdAndAddonId(userInfo.getId(), addonId); //returns null if not exist //returns rating if exists
 
         if(ratingObj != null) {
             ratingObj.setRating(rating);
@@ -55,7 +55,7 @@ public class RatingServiceImpl implements RatingService {
         UserInfo userInfo = userInfoService.gerUserByUsername(username);
         Addon addon = addonService.getAddonById(addonId);
 
-        Rating rating = ratingRepository.getByUserInfo_IdAndAddon_Id(userInfo.getId(), addon.getId());
+        Rating rating = ratingRepository.getByUserInfoIdAndAddonId(userInfo.getId(), addon.getId());
         if(rating == null) {
             return 0;
         }

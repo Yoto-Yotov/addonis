@@ -22,4 +22,5 @@ public interface UserRepository extends BaseRepository<User, String>{
     void softDelete(@Param("name") String userName);
 
     boolean existsByUsername(String name);
+    User findUserByUsername(String username);
 }
