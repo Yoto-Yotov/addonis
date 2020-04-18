@@ -2,6 +2,7 @@ package com.addonis.demo.services;
 
 import com.addonis.demo.exceptions.DuplicateEntityException;
 import com.addonis.demo.exceptions.EntityNotFoundException;
+import com.addonis.demo.exceptions.InvalidDataException;
 import com.addonis.demo.models.UserInfo;
 import com.addonis.demo.repository.contracts.UserInfoRepository;
 import com.addonis.demo.services.contracts.UserInfoService;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static com.addonis.demo.utils.UserUtils.isValidEmailAddress;
 
 /**
  * UserInfoServiceImpl
@@ -57,6 +60,12 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Override
     public UserInfo create(UserInfo userInfo) {
+        if (userInfoRepository.existsByName(userInfo.getName())) {
+            throw new DuplicateEntityException("user");
+        }
+        if(!isValidEmailAddress(userInfo.getEmail())){
+            throw new InvalidDataException("email");
+        }
         if (userInfoRepository.existsByEmail(userInfo.getEmail())) {
             throw new DuplicateEntityException("User", "email", userInfo.getEmail());
         }
@@ -77,5 +86,13 @@ public class UserInfoServiceImpl implements UserInfoService {
         UserInfo userInfo = userInfoRepository.getByUserName(name);
         userInfo.setEnabled(0);
 //                userInfoRepository.softDeleteUserInfo(name);
+    }
+
+    public boolean checkUserExistByName(String name) {
+        return userInfoRepository.existsByName(name);
+    }
+
+    public boolean checkUserExistByEmail(String email) {
+        return userInfoRepository.existsByEmail(email);
     }
 }

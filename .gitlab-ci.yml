@@ -1,0 +1,40 @@
+image: java:8-jdk
+
+stages:
+  - build
+  - deploy
+
+variables:
+  GRADLE_USER_HOME: "cache/.gradle"
+  GRADLE_ARGS_CI: "--no-daemon --stacktrace"
+
+cache:
+  paths:
+    - $GRADLE_USER_HOME/wrapper/
+    - $GRADLE_USER_HOME/caches/
+
+before_script:
+  - chmod +x ./gradlew
+
+build:
+  stage: build
+  allow_failure: false
+  script:
+    - ./gradlew $GRADLE_ARGS_CI -g $GRADLE_USER_HOME bootJar
+  artifacts:
+    paths:
+      - build/libs/application.jar 
+
+deploy:
+  image: python:latest
+  stage: deploy
+  script:
+    - pip install awscli
+    - aws configure set aws_access_key_id $AWS_ACCESS_KEY
+    - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+    - aws configure set region eu-west-3
+    - aws s3 cp build/libs/application.jar s3://elasticbeanstalk-eu-west-3-021686473990/application-$CI_PIPELINE_ID.jar
+    - aws elasticbeanstalk create-application-version --application-name addonis --version-label addonis-$CI_PIPELINE_ID --source-bundle S3Bucket=elasticbeanstalk-eu-west-3-021686473990,S3Key=application-$CI_PIPELINE_ID.jar
+    - aws elasticbeanstalk update-environment --application-name addonis --environment-name addonis-dev --version-label addonis-$CI_PIPELINE_ID
+  dependencies:
+    - build

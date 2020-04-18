@@ -3,9 +3,9 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
     id 'java'
 }
-
-group = 'com.addonis'
-version = '0.0.1-SNAPSHOT'
+bootJar {
+    archiveName("application.jar")
+}
 sourceCompatibility = '1.8'
 
 repositories {

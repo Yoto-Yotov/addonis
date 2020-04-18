@@ -27,7 +27,7 @@ public interface UserInfoRepository extends BaseRepository<UserInfo, Integer> {
 
     boolean existsByEmail(String email);
 
-    boolean existsByName(String name);
+    boolean existsByName(String username);
 
     boolean existsById(Integer id);
 }

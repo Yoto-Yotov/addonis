@@ -70,6 +70,7 @@ public class UserController {
     public String editAccountEdit(Model model, Principal principal) {
         UserChangeDTO newuser = new UserChangeDTO();
         UserInfo user = userInfoService.gerUserByUsername(principal.getName());
+        newuser.setEmail(user.getEmail());
         model.addAttribute("newuser", newuser);
         model.addAttribute("olduser", user);
         return "edit-profile";

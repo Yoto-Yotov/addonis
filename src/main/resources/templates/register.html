@@ -56,6 +56,9 @@
                 <div class="col-lg-6 offset-lg-3">
                     <div class="register-form">
                         <h2>Register</h2>
+                        <p>
+                            <i th:if="${error != null}" th:text="${error}" class="error"/>
+                        </p>
                         <form action="#" th:action="@{/register}" th:object="${userDto}" method="post"
                               enctype="multipart/form-data">
                             <div class="group-input">
@@ -71,16 +74,17 @@
                                 <input th:field="*{firstName}" type="text" id="fist_name">
                             </div>
                             <div class="group-input">
-                                <label for="username">Lst name</label>
+                                <label for="username">Last name</label>
                                 <input th:field="*{lastName}" type="text" id="last_name">
                             </div>
                             <div class="group-input">
                                 <label for="pass">Password *</label>
-                                <input th:field="*{password}" type="text" id="pass">
+                                <input type="password" th:field="*{password}" id="pass">
+<!--                                <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>-->
                             </div>
                             <div class="group-input">
                                 <label for="con-pass">Confirm Password *</label>
-                                <input th:field="*{confirmPassword}" type="text" id="con-pass">
+                                <input type="password" th:field="*{confirmPassword}" id="con-pass">
                             </div>
                             <div>
                                 <label for="con-pass">Upload your image *</label>
@@ -146,6 +150,7 @@
     <script src="/js/owl.carousel.min.js"></script>
     <script src="/js/main.js"></script>
     <script src="/js/pin-header.js"></script>
+<!--<script src="/js/toggle-password.js"></script>-->
 </body>
 
 </html>

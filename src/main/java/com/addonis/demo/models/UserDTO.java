@@ -20,7 +20,7 @@ public class UserDTO {
 
     @NotNull
     @NotBlank
-    @Size(min = 2, max = 50, message = "Name size should be between 2 and 50 symbols")
+    @Size(min = 2, max = 50, message = "Name length should be between 2 and 50 symbols")
     private String name;
 
     @NotNull
@@ -29,7 +29,7 @@ public class UserDTO {
 
     @NotNull
     @NotBlank
-    @Size(min = 5, max = 25, message = "Password size should be between 5 and 25 symbols")
+    @Size(min = 5, max = 25, message = "Password length should be between 5 and 25 symbols")
     private String password;
 
     private String confirmPassword;

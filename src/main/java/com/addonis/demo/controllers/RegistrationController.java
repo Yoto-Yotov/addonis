@@ -1,10 +1,12 @@
 package com.addonis.demo.controllers;
 
 import com.addonis.demo.exceptions.DuplicateEntityException;
+import com.addonis.demo.exceptions.InvalidDataException;
 import com.addonis.demo.models.Authorities;
 import com.addonis.demo.models.User;
 import com.addonis.demo.models.UserDTO;
 import com.addonis.demo.models.UserInfo;
+import com.addonis.demo.services.UserInfoServiceImpl;
 import com.addonis.demo.services.contracts.AuthorityService;
 import com.addonis.demo.services.contracts.ImageService;
 import com.addonis.demo.services.contracts.UserInfoService;
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,8 +42,8 @@ public class RegistrationController {
     private AuthorityService authorityService;
 
     @Autowired
-    public RegistrationController(PasswordEncoder passwordEncoder, UserInfoService userInfoService,
-                                  ImageService imageService, UserService userService, AuthorityService authorityService) {
+    public RegistrationController(PasswordEncoder passwordEncoder,
+                                  UserInfoService userInfoService, ImageService imageService, UserService userService, AuthorityService authorityService) {
         this.passwordEncoder = passwordEncoder;
         this.userInfoService = userInfoService;
         this.imageService = imageService;
@@ -57,6 +60,7 @@ public class RegistrationController {
     //ToDo Check Validations
     @PostMapping("/register")
     public String registerUser(@Valid @ModelAttribute(name = "userDto") UserDTO userDto, Model model,
+                               BindingResult bindingResult,
                                @RequestParam("imagefile") MultipartFile file) {
 
         User user = new User();
@@ -73,7 +77,7 @@ public class RegistrationController {
             userService.create(user);
             authorityService.create(authority);
             userInfoService.create(userInfo);
-        } catch (DuplicateEntityException e) {
+        } catch (DuplicateEntityException | InvalidDataException e) {
             model.addAttribute("error", e.getMessage());
             return "register";
         }

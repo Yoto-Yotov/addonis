@@ -31,13 +31,23 @@
 /* Template default CSS
 
  */
+/*.headerMenu{*/
+/*	padding-left: 5px;!important*/
+/*	padding-right: 5px;!important*/
+/*}*/
 
 .grid-users {
 	display: grid;
+	width: 100vw;
 	justify-content: start;
 	grid-template-columns: 400px 400px 400px;
 	grid-gap: 20px;
 	padding: 20px;
+}
+
+.single_product_item {
+	margin-right: 20px;
+	border: 3px solid #003eff;
 }
 
 .img-fluid {
@@ -330,7 +340,7 @@ ol {
 -----------------------*/
 
 .ht-right .lan-selector {
-	max-width: 142px;
+	max-width: 500px;
 	cursor: pointer;
 	display: inline-block;
 	position: relative;
@@ -442,7 +452,8 @@ ol {
 	font-size: 14px;
 	color: #252525;
 	display: inline-block;
-	padding-left: 20px;
+	padding-left: 10px;
+	padding-right: 10px;
 	border-left: 1px solid #e5e5e5;
 	padding-top: 18px;
 	padding-bottom: 15px;
@@ -1227,7 +1238,7 @@ ol {
 
 .product-item .pi-pic {
 	overflow: hidden;
-	position: relative;
+	position: center;
 }
 
 .product-item .pi-pic img {
@@ -4066,7 +4077,8 @@ ol {
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
 	.header-top .ht-right .login-panel {
-		padding-left: 10px;
+		padding-left: 5px;
+		padding-right:5px;
 	}
 	.header-top .ht-right .top-social {
 		padding-right: 10px;

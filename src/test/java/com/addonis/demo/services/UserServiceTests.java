@@ -101,7 +101,7 @@ public class UserServiceTests {
         User user = User.builder().username("teo").password("123456").build();
 
         //Arrange
-        Mockito.when(userRepository.existsByName(anyString()))
+        Mockito.when(userRepository.existsByUsername(anyString()))
                 .thenReturn(true);
         //Act, Assert
         Assertions.assertThrows(DuplicateEntityException.class,
