@@ -2,7 +2,7 @@ image: java:8-jdk
 
 stages:
   - build
-  # sonar
+  - sonar
   - test
   - deploy
 
@@ -33,13 +33,15 @@ build:
     - master
     - merge_requests
 
-sonarqube-check:
-  stage: test
+sonar:
+  stage: sonar
   script: gradle sonarqube -Dsonar.qualitygate.wait=true
   allow_failure: true
   only:
     - merge_requests
     - master
+  dependencies:
+    - build
 
 test:
   stage: test
@@ -50,7 +52,7 @@ test:
     reports:
       junit: build/test-results/tests/**/TEST-*.xml
   dependencies:
-    - build
+    - sonar
 
 deploy:
   image: python:latest

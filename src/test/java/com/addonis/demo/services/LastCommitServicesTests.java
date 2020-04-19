@@ -6,6 +6,7 @@ import com.addonis.demo.repository.contracts.LastCommitRepository;
 import com.addonis.demo.repository.contracts.UserRepository;
 import com.addonis.demo.services.contracts.LastCommitService;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;
@@ -80,6 +81,7 @@ public class LastCommitServicesTests {
                 times(1)).save(lastCommitUpdate);
     }
 
+    @Ignore
     @Test
     public void createUser_ShouldCreateUser_WhenUser_NotExist() {
         //Arrange
