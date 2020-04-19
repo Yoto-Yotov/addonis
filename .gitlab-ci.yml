@@ -34,7 +34,7 @@ build:
 sonar:
   stage: sonar
   script:
-    - sonar-scanner -Dsonar.qualitygate.wait=true
+    - ./gradlew sonarqube -Dsonar.projectKey=adonis -Dsonar.host.url=http://localhost:9000 -Dsonar.login=00fc81a190edd9972e937b0ac742f4c689f41329
   allow_failure: false
   only:
     - merge_requests
