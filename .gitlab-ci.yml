@@ -1,6 +1,4 @@
-image:
-  java:8-jdk
-  gradle:alpine
+image: java:8-jdk
 
 stages:
   - build
@@ -37,7 +35,7 @@ build:
 
 sonar:
   stage: sonar
-  script: ./gradlew -Dsonar.host.url=http://myhost:9000 sonarqube
+  script: ./gradlew -Dsonar.host.url=http://localhost:9000 sonarqube
   allow_failure: false
   only:
     - merge_requests
