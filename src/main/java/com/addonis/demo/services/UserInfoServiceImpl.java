@@ -63,7 +63,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         if (userInfoRepository.existsByName(userInfo.getName())) {
             throw new DuplicateEntityException("user");
         }
-        if(!isValidEmailAddress(userInfo.getEmail())){
+        if(isValidEmailAddress(userInfo.getEmail())){
             throw new InvalidDataException("email");
         }
         if (userInfoRepository.existsByEmail(userInfo.getEmail())) {

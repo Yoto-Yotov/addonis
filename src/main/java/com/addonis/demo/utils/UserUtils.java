@@ -53,10 +53,7 @@ public class UserUtils {
     }
 
     public static boolean isValidEmailAddress(String email) {
-        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
-                "[a-zA-Z0-9_+&*-]+)*@" +
-                "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
-                "A-Z]{2,7}$";
+        String emailRegex = "([a-zA-Z0-9/_/./-]+@[a-zA-Z]+.[a-z]+)";
 
         Pattern pat = Pattern.compile(emailRegex);
         if (email == null) {

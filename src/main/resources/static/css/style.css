@@ -340,14 +340,14 @@ ol {
 -----------------------*/
 
 .ht-right .lan-selector {
-	max-width: 500px;
+	max-width: 800px;
 	cursor: pointer;
 	display: inline-block;
 	position: relative;
 }
 
 .ht-right .lan-selector .ddcommon {
-	max-width: 142px;
+	max-width: 800px;
 	-webkit-box-shadow: none !important;
 	box-shadow: none !important;
 	outline: none;
@@ -3976,7 +3976,7 @@ ol {
 
 @media only screen and (min-width: 1200px) {
 	.container {
-		max-width: 1170px;
+		max-width: 1080px;
 	}
 }
 
