@@ -35,7 +35,7 @@ build:
 
 sonar:
   stage: sonar
-  script: gradle sonarqube -Dsonar.qualitygate.wait=true
+  script: .\gradle.bat -Dsonar.host.url=http://myhost:9000 sonarqube
   allow_failure: false
   only:
     - merge_requests
