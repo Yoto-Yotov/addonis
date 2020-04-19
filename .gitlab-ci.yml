@@ -9,7 +9,7 @@ stages:
 variables:
   GRADLE_USER_HOME: "cache/.gradle"
   GRADLE_ARGS_CI: "--no-daemon --stacktrace"
-  K8S_SECRET_SONAR_TOKEN: 51157eb70423e44bd55267de73ea46c03bf0d213
+  K8S_SECRET_SONAR_QUBE: 51157eb70423e44bd55267de73ea46c03bf0d213
   GIT_DEPTH: 0
   K8S_SECRET_SONAR_HOST_URL: "http://localhost:9000"
 
@@ -35,7 +35,7 @@ build:
 
 sonar:
   stage: sonar
-  script: ./gradlew sonarqube -Dsonar.qualitygate.wait=true
+  script: gradle sonarqube -Dsonar.qualitygate.wait=true
   allow_failure: false
   only:
     - merge_requests
