@@ -33,8 +33,11 @@ build:
 
 sonar:
   stage: sonar
+
   script:
-    - ./gradlew sonarqube -Dsonar.projectKey=adonis -Dsonar.host.url=http://localhost:9000 -Dsonar.login=00fc81a190edd9972e937b0ac742f4c689f41329
+#    - ./gradlew sonarqube -Dsonar.projectKey=adonis -Dsonar.host.url=http://localhost:9000 -Dsonar.login=00fc81a190edd9972e937b0ac742f4c689f41329
+    - chcp 65001
+    - scripts\SonarQube\sonar_run.bat
   allow_failure: false
   only:
     - merge_requests
