@@ -9,9 +9,9 @@ stages:
 variables:
   GRADLE_USER_HOME: "cache/.gradle"
   GRADLE_ARGS_CI: "--no-daemon --stacktrace"
-#  K8S_SECRET_SONAR_QUBE: 51157eb70423e44bd55267de73ea46c03bf0d213
+  SONAR_TOKEN: 3e3ae7df8333eac07264d7771918696acce58a3d
   GIT_DEPTH: 0
-#  K8S_SECRET_SONAR_HOST_URL: "http://localhost:9000"
+  SONAR_HOST_URL: "http://localhost:9000"
 
 cache:
   paths:
