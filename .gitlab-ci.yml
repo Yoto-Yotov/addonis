@@ -2,15 +2,8 @@ image: java:8-jdk
 
 stages:
   - build
-  - sonar
   - test
   - deploy
-
-variables:
-  GRADLE_USER_HOME: "cache/.gradle"
-  GRADLE_ARGS_CI: "--no-daemon --stacktrace"
-  SONAR_TOKEN: 00fc81a190edd9972e937b0ac742f4c689f41329
-  GIT_DEPTH: 0
 
 cache:
   paths:
@@ -32,26 +25,26 @@ build:
     - master
     - merge_requests
 
-sonar:
-  stage: sonar
-
-  script:
-    - ./gradlew sonarqube -Dsonar.projectKey=adonis -Dsonar.host.url=http://localhost:9000 -Dsonar.login=00fc81a190edd9972e937b0ac742f4c689f41329
-  allow_failure: false
-  only:
-    - merge_requests
-    - master
-  dependencies:
-    - build
+#sonar:
+#  stage: sonar
+#
+#  script:
+#    - ./gradlew sonarqube -Dsonar.projectKey=adonis -Dsonar.host.url=http://localhost:9000 -Dsonar.login=00fc81a190edd9972e937b0ac742f4c689f41329
+#  allow_failure: false
+#  only:
+#    - merge_requests
+#    - master
+#  dependencies:
+#    - build
 
 test:
   stage: test
   allow_failure: false
   script:
     - ./gradlew test
-#  artifacts:
-#    reports:
-#      junit: build/test-results/tests/**/TEST-*.xml
+  artifacts:
+    reports:
+      junit: build/test-results/tests/**/TEST-*.xml
   dependencies:
     - build
 
