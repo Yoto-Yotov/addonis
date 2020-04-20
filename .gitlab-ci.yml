@@ -5,6 +5,10 @@ stages:
   - test
   - deploy
 
+variables:
+  GRADLE_USER_HOME: "cache/.gradle"
+  GRADLE_ARGS_CI: "--no-daemon --stacktrace"
+
 cache:
   paths:
     - $GRADLE_USER_HOME/wrapper/
@@ -17,7 +21,7 @@ build:
   stage: build
   allow_failure: false
   script:
-    - ./gradlew $GRADLE_ARGS_CI -g $GRADLE_USER_HOME assemble
+    - ./gradlew $GRADLE_ARGS_CI -g $GRADLE_USER_HOME bootJar
   artifacts:
     paths:
       - /build/libs/application.jar
