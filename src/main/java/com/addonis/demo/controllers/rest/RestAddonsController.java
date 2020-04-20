@@ -2,13 +2,18 @@ package com.addonis.demo.controllers.rest;
 
 import com.addonis.demo.exceptions.DuplicateEntityException;
 import com.addonis.demo.exceptions.InvalidDataException;
+import com.addonis.demo.exceptions.NotAuthorizedException;
 import com.addonis.demo.models.Addon;
+import com.addonis.demo.models.AddonDTO;
+import com.addonis.demo.models.Authorities;
+import com.addonis.demo.models.UserInfo;
 import com.addonis.demo.services.contracts.AddonService;
 import com.addonis.demo.services.contracts.FileService;
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.addonis.demo.services.contracts.UserInfoService;
+import com.addonis.demo.services.contracts.UserService;
+import com.addonis.demo.utils.AddonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
@@ -30,21 +35,38 @@ public class RestAddonsController {
 
     private AddonService addonService;
     private FileService fileService;
+    private UserInfoService userInfoService;
+    private UserService userService;
 
     @Autowired
-    public RestAddonsController(AddonService addonService, FileService fileService) {
+    public RestAddonsController(AddonService addonService, FileService fileService, UserInfoService userInfoService) {
         this.addonService = addonService;
         this.fileService = fileService;
+        this.userInfoService = userInfoService;
+    }
+
+    @GetMapping("/all")
+    public List<Addon> getAll() {
+        return addonService.getAll();
     }
     
     @PostMapping(value = "/create")
-    public Addon createAddon(@RequestBody Addon addon) {
+    public Addon createAddon(@RequestBody AddonDTO addonDto,
+                             @RequestHeader(name = "Authorization") String username) {
         try {
-            addonService.create(addon);
-            return addonService.getById(addon.getId());
+            UserInfo userInfo = userInfoService.gerUserByUsername(username);
+            addonDto.setCreator(userInfo);
+            Addon addonToCreate = AddonUtils.mapDtoToAddon(addonDto);
+            addonService.create(addonToCreate);
+            return addonService.getById(addonToCreate.getId());
         } catch (DuplicateEntityException e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
         }
+    }
+
+    @GetMapping("/{addonId}")
+    public Addon getAddonById(@PathVariable int addonId) {
+        return addonService.getAddonById(addonId);
     }
 
     @PostMapping(value = "/upload/{id}", consumes = "multipart/form-data")
@@ -59,8 +81,25 @@ public class RestAddonsController {
         }
     }
 
-    @GetMapping("/all")
-    public List<Addon> getAll() {
-        return addonService.getAll();
+    @GetMapping("/pending")
+    public List<Addon> getPendingAddons(@RequestHeader(name = "Authorization") String username) {
+
+//        if (!userService.isAdmin(username)) {
+//            throw new NotAuthorizedException(username);
+//        }
+        return addonService.getAllPendingAddons();
+    }
+
+    @GetMapping("/approved")
+    public List<Addon> getApprovedAddons(@RequestHeader(name = "Authorization") String username) {
+//        if (!userService.isAdmin(username)) {
+//            throw new NotAuthorizedException(username);
+//        }
+        return addonService.getAllApprovedAddons();
+    }
+
+    @GetMapping("/name/{name}")
+    public Addon getByName(@PathVariable String name) {
+        return addonService.getAddonByName(name);
     }
 }

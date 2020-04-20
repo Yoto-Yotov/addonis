@@ -52,7 +52,7 @@
                 <form th:action="@{/login}" sec:authorize="isAuthenticated()" method="post">
                     <a href="#" th:href="@{/logout}" class="login-panel">Log out</a>
                     <a href="№" th:href="@{/admin}" sec:authorize="hasRole('ADMIN')" class="login-panel">Admin Portal</a>
-                    <a href="#" th:href="@{/my-account}" sec:authorize="hasRole('USER') || hasRole('ADMIN')" class="login-panel"></i>Create addon</a>
+                    <a href="#" th:href="@{/addon-create}" sec:authorize="hasRole('USER') || hasRole('ADMIN')" class="login-panel"></i>Create addon</a>
                     <a href="#" th:href="@{/my-account}" sec:authorize="hasRole('USER') && !hasRole('ADMIN')" class="login-panel"></i>My account</a>
                     <a href="#" th:href="@{/login}" sec:authorize="!isAuthenticated()" class="login-panel"><i class="fa fa-user"></i>Login</a>
                     <div class="top-social">

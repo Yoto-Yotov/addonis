@@ -24,7 +24,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "addons")
-@Where(clause = "status = 'APPROVED'")
+//@Where(clause = "status = 'APPROVED'")
 @JsonSerialize
 public class Addon{
 
@@ -78,4 +78,5 @@ public class Addon{
     @Lob
     @Column(name = "content")
     private Byte[] content;
+
 }

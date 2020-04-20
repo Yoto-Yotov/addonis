@@ -20,10 +20,11 @@ public class AddonDTO {
     @NotBlank
     private String description;
 
-
     private UserInfo creator;
 
     @NotNull
     @NotBlank
     private String link;
+
+    private Byte[] addonPicture;
 }

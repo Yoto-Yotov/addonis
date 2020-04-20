@@ -45,9 +45,17 @@
                         <p>ADDONIS<span></span></p>
                     </div>
                     <div class="blog-large-pic">
-                        <img id="profileImage" th:href="@{'/my-account/' + ${admin.id} + '/userimage'}"
-                             th:src="@{'/my-account/' + ${admin.id} + '/userimage'}" alt=""
-                             height="300" width="300" align="left" hspace="80">
+                        <div class="pi-pic">
+                            <img th:if="${admin.profileImage == null || admin.profileImage == ''}" src="/img/blank-profile-picture-973460_640.png" alt=""
+                                 height="295" width="263" align="left" hspace="80">
+                            <img th:unless="${admin.profileImage == null || admin.profileImage == ''}"
+                                 th:href="@{'/my-account/' + ${admin.id} + '/userimage'}"
+                                 th:src="@{'/my-account/' + ${admin.id} + '/userimage'}" alt=""
+                                 height="295" width="263" align="left" hspace="80">
+                        </div>
+<!--                        <img id="profileImage" th:href="@{'/my-account/' + ${admin.id} + '/userimage'}"-->
+<!--                             th:src="@{'/my-account/' + ${admin.id} + '/userimage'}" alt=""-->
+<!--                             height="300" width="300" align="left" hspace="80">-->
                     </div>
                     <div class="cell">
                         <a id="profileName">Username:</a>
@@ -71,7 +79,7 @@
                     <div class="cell">
                         <a th:href="@{/admin/users}" type="submit" class="primary-btn">
                             See users </a>
-                        <a th:href="@{admin/addons}" type="submit" class="primary-btn">
+                        <a th:href="@{/addons/pending}" type="submit" class="primary-btn">
                             Pending addons </a>
                     </div>
                     </br>

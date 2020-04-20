@@ -106,4 +106,26 @@ public class UserController {
 
         return  "redirect:/my-account";
     }
+
+    @GetMapping("/my-account/password-change")
+    public String showPasswordChangePage(Model model) {
+        model.addAttribute("newpass", new UserPass);
+        return "password-change";
+    }
+
+    @PostMapping("/my-account/pass")
+    public String updateUserPassword(@Valid @ModelAttribute("newpass") UserPasswordDTO newpass, BindingResult errors, Model model) {
+        if(errors.hasErrors()) {
+            model.addAttribute("errors", errors.getAllErrors().get(0));
+            return "profile-password";
+        }
+
+        if(!newpass.getPassword().equals(newpass.getConfirmPassword()) ) {
+            model.addAttribute("error", "Password does not match!");
+            return "profile-password";
+        }
+
+        userDetailsManager.changePassword(passwordEncoder.encode(newpass.getOldPassword()), passwordEncoder.encode(newpass.getPassword()));
+        return  "redirect:/my-account";
+    }
 }

@@ -3,6 +3,7 @@ package com.addonis.demo.services;
 import com.addonis.demo.exceptions.DuplicateEntityException;
 import com.addonis.demo.exceptions.EntityNotFoundException;
 import com.addonis.demo.models.Addon;
+import com.addonis.demo.models.Authorities;
 import com.addonis.demo.models.LastCommit;
 import com.addonis.demo.models.commitresponse.LastCommitResponse;
 import com.addonis.demo.models.enums.Status;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.addonis.demo.utils.LastCommitMapper.mapLastCommitResponseToLastCommit;
 
@@ -58,6 +60,22 @@ public class AddonServiceImpl implements AddonService {
     }
 
     @Override
+    public Addon getAddonByName(String name) {
+        return addonRepository.getByName(name);
+    }
+
+    @Override
+    public List<Addon> getAllPendingAddons() {
+        return addonRepository.getAddonByStatus(Status.PENDING);
+    }
+
+    @Override
+    public List<Addon> getAllApprovedAddons() {
+        return addonRepository.getAddonByStatus(Status.APPROVED);
+    }
+
+
+    @Override
     public void deleteById(Integer integer) {
         addonRepository.deleteById(integer);
     }
@@ -69,6 +87,9 @@ public class AddonServiceImpl implements AddonService {
 
     @Override
     public Addon create(Addon addon) {
+        if (checkAddonExistsByName(addon.getName())) {
+            throw new DuplicateEntityException("Addon", "name", addon.getName());
+        }
         String url = addon.getOriginLink();
         try {
             LastCommitResponse response = githubService.getLastCommit(url);
@@ -87,5 +108,10 @@ public class AddonServiceImpl implements AddonService {
     @Override
     public boolean checkAddonExistsById(int addonId) {
         return addonRepository.existsById(addonId);
+    }
+
+    @Override
+    public boolean checkAddonExistsByName(String name) {
+        return addonRepository.existsByName(name);
     }
 }

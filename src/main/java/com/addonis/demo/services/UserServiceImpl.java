@@ -89,7 +89,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean isAdmin(String userName) {
-        return getUserAuthorities(userName).stream().map(Authorities::getAuthority).anyMatch(authority -> authority.equals("ROLE_ADMIN"));
+        return getUserAuthorities(userName)
+                .stream()
+                .map(Authorities::getAuthority)
+                .anyMatch(authority -> authority.equalsIgnoreCase("ROLE_ADMIN"));
     }
 
 }
