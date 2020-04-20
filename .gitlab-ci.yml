@@ -9,7 +9,7 @@ stages:
 variables:
   GRADLE_USER_HOME: "cache/.gradle"
   GRADLE_ARGS_CI: "--no-daemon --stacktrace"
-  SONAR_TOKEN: 3e3ae7df8333eac07264d7771918696acce58a3d
+  SONAR_TOKEN: 00fc81a190edd9972e937b0ac742f4c689f41329
   GIT_DEPTH: 0
   SONAR_HOST_URL: "http://localhost:9000"
 
