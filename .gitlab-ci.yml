@@ -17,7 +17,7 @@ build:
   stage: build
   allow_failure: false
   script:
-    - ./gradlew $GRADLE_ARGS_CI -g $GRADLE_USER_HOME bootJar
+    - ./gradlew $GRADLE_ARGS_CI -g $GRADLE_USER_HOME assemble
   artifacts:
     paths:
       - /build/libs/application.jar
