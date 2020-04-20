@@ -20,7 +20,7 @@ build:
     - ./gradlew $GRADLE_ARGS_CI -g $GRADLE_USER_HOME bootJar
   artifacts:
     paths:
-      - build/libs/application.jar
+      - /build/libs/application.jar
 
 test:
   stage: test
