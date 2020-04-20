@@ -48,11 +48,11 @@ test:
   allow_failure: false
   script:
     - ./gradlew test
-  artifacts:
-    reports:
-      junit: build/test-results/tests/**/TEST-*.xml
+#  artifacts:
+#    reports:
+#      junit: build/test-results/tests/**/TEST-*.xml
   dependencies:
-    - sonar
+    - build
 
 deploy:
   image: python:latest
