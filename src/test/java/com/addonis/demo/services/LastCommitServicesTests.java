@@ -80,8 +80,7 @@ public class LastCommitServicesTests {
         Mockito.verify(lastCommitRepository,
                 times(1)).save(lastCommitUpdate);
     }
-
-    @Ignore
+    
     @Test
     public void createUser_ShouldCreateUser_WhenUser_NotExist() {
         //Arrange
