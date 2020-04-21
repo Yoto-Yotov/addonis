@@ -28,7 +28,6 @@ public class FileServiceImpl implements FileService {
     public void saveAddonFile(int addonId, MultipartFile file) {
 
         try {
-//            BinaryFile binary = new BinaryFile();
             Addon addon = addonService.getById(addonId);
 
             Byte[] byteObjects = new Byte[file.getBytes().length];
@@ -39,16 +38,15 @@ public class FileServiceImpl implements FileService {
                 byteObjects[i++] = b;
             }
 
-//            binary.setContent(byteObjects);
-//            binary.setAddon(addon);
             addon.setContent(byteObjects);
-//            binaryFileService.creteBinaryFile(binary);
+
             addonService.update(addon);
 
         } catch (IOException ex) {
             throw new InvalidDataException(ex.getMessage());
         }
     }
+
 
     public Byte[] getFile(int addonId) {
         return addonService.getContent(addonId);

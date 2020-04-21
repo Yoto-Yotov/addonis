@@ -66,7 +66,7 @@ public class AddonsController {
 
     @PostMapping("/addon-create")
     public String createAddon(@Valid @ModelAttribute("addon") AddonDTO addonDto, BindingResult errors, Model model, Principal user,
-                              @RequestParam("imagefile") MultipartFile imagefile, MultipartFile content){
+                              @RequestParam("imagefile") MultipartFile imagefile, @RequestParam("binaryFile") MultipartFile binaryFile){
 
         if (errors.hasErrors()) {
             model.addAttribute("error", errors.getAllErrors().get(0));
@@ -87,14 +87,14 @@ public class AddonsController {
 
         try {
             imageService.saveImageFileToAddon(addonToCreate.getId(), imagefile);
-//            dbFileService.storeFile(content, addonToCreate.getId());
-            fileService.saveAddonFile(addonToCreate.getId(), content);
+            fileService.saveAddonFile(addonToCreate.getId(), binaryFile);
         } catch (IllegalStateException ex) {
             model.addAttribute("error", "Image cant't be uploaded. Please try again!");
             return "addons";
         }
         return "redirect:/addons";
     }
+
 
     @GetMapping("/addon/{addonName}/image")
     public void renderBeerImageFromDb(@PathVariable String addonName, HttpServletResponse response) throws IOException {

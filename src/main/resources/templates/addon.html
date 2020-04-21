@@ -57,7 +57,7 @@
                 <div class="register-form">
                     <h2>Create addon</h2>
                     <form action="#" th:action="@{/addon-create}" th:object="${addonDto}" method="post"
-                          enctype="multipart/form-data">
+                          enctype="multipart/form-data" multiple="multiple">
                         <div class="group-input">
                             <label for="username">Addon name *</label>
                             <input th:field="*{name}" type="text" id="username">
@@ -76,7 +76,7 @@
                         </div>
                         <div>
                             <label for="binaryFile">Upload addon content *</label>
-                            <input id="binaryFile" name="imagefile" type="file" class="file" value="Upload file">
+                            <input id="binaryFile" name="binaryFile" type="file" class="file" value="Upload file">
                         </div>
                         <button type="submit" class="site-btn register-btn">CREATE ADDON</button>
                     </form>

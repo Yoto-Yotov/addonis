@@ -125,7 +125,7 @@ public class AddonServiceImpl implements AddonService {
 
     @Override
     public Byte[] getContent(int id) {
-        return null;
+        return addonRepository.getFile(id);
     }
 
 }

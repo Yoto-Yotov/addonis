@@ -25,5 +25,8 @@ public interface AddonRepository extends BaseRepository<Addon, Integer> {
     @Query("select a from Addon a where a.name = :name")
     Addon getByName(@Param("name") String name);
 
+    @Query("select a.content from Addon a where a.id = :id")
+    Byte[] getFile(@Param(value = "id") int id);
+
     boolean existsByName(String name);
 }

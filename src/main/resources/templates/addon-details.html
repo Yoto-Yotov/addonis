@@ -81,6 +81,9 @@
 <!--                    <form th:action="${'/downloadFile/' + ${addon.id}}">-->
 <!--                        <button type="submit" class="site-btn register-btn">DOWNLOAD</button>-->
 <!--                    </form>-->
+                    <a th:href="${'/downloadFile/' + ${addon.id}}" download>
+                        <img th:src="${'/downloadFile/' + ${addon.id}}" alt="W3Schools">
+                    </a>
                     <div class="tag-share">
                         <div class="details-tag" hspace="80">
                             <ul>

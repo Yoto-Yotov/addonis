@@ -139,8 +139,8 @@
                 </div>
                 <div class="product-list">
                     <div class="row">
-                        <div class="col-lg-41 col-sm-6">
-                            <div class="product-item" th:each="myAdd : ${myAddons}">
+                        <div class="col-lg-41 col-sm-6" th:each="myAdd : ${myAddons}">
+                            <div class="product-item">
                                 <form th:action="@{'/addons/details/' + ${myAdd.name}}">
                                     <div class="pi-pic">
                                         <img th:href="@{'/addon/' + ${myAdd.name} + '/image'}"
