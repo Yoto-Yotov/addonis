@@ -20,6 +20,9 @@ public interface AddonRepository extends BaseRepository<Addon, Integer> {
     @Query("SELECT a from Addon a WHERE a.status = :status")
     List<Addon> getAddonByStatus(@Param(value = "status") Status status);
 
+    @Query("SELECT a from Addon a WHERE a.userInfo = :user")
+    List<Addon> getMyAddons(@Param(value = "user") UserInfo user);
+
     @Query("select a from Addon a where a.name = :name")
     Addon getByName(@Param("name") String name);
 

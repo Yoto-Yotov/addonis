@@ -1,8 +1,11 @@
 package com.addonis.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
+import javax.persistence.Lob;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -26,5 +29,9 @@ public class AddonDTO {
     @NotBlank
     private String link;
 
+    @Lob
     private Byte[] addonPicture;
+
+    @Lob
+    private Byte[] content;
 }

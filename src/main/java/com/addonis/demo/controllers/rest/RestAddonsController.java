@@ -102,4 +102,10 @@ public class RestAddonsController {
     public Addon getByName(@PathVariable String name) {
         return addonService.getAddonByName(name);
     }
+
+    @GetMapping("my-addons")
+    public List<Addon> getMyAddons(@RequestHeader(name = "Authorization") String username) {
+        UserInfo user = userInfoService.gerUserByUsername(username);
+        return addonService.getMyAddons(user);
+    }
 }

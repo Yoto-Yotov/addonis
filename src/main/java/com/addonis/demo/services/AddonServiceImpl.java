@@ -5,9 +5,11 @@ import com.addonis.demo.exceptions.EntityNotFoundException;
 import com.addonis.demo.models.Addon;
 import com.addonis.demo.models.Authorities;
 import com.addonis.demo.models.LastCommit;
+import com.addonis.demo.models.UserInfo;
 import com.addonis.demo.models.commitresponse.LastCommitResponse;
 import com.addonis.demo.models.enums.Status;
 import com.addonis.demo.repository.contracts.AddonRepository;
+import com.addonis.demo.repository.contracts.UserInfoRepository;
 import com.addonis.demo.services.contracts.AddonService;
 import com.addonis.demo.services.contracts.GitHubService;
 import com.addonis.demo.services.contracts.LastCommitService;
@@ -35,6 +37,7 @@ public class AddonServiceImpl implements AddonService {
     AddonRepository addonRepository;
     LastCommitService lastCommitService;
     GitHubService githubService;
+    UserInfoRepository userInfoRepository;
 
     @Autowired
     public AddonServiceImpl(AddonRepository addonRepository, LastCommitService lastCommitService,
@@ -114,4 +117,10 @@ public class AddonServiceImpl implements AddonService {
     public boolean checkAddonExistsByName(String name) {
         return addonRepository.existsByName(name);
     }
+
+    @Override
+    public List<Addon> getMyAddons(UserInfo user) {
+        return addonRepository.getMyAddons(user);
+    }
+
 }

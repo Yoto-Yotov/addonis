@@ -53,9 +53,6 @@
                                  th:src="@{'/my-account/' + ${admin.id} + '/userimage'}" alt=""
                                  height="295" width="263" align="left" hspace="80">
                         </div>
-<!--                        <img id="profileImage" th:href="@{'/my-account/' + ${admin.id} + '/userimage'}"-->
-<!--                             th:src="@{'/my-account/' + ${admin.id} + '/userimage'}" alt=""-->
-<!--                             height="300" width="300" align="left" hspace="80">-->
                     </div>
                     <div class="cell">
                         <a id="profileName">Username:</a>
@@ -86,7 +83,7 @@
                     <div class="cell">
                         <a th:href="@{/my-account/edit}" type="submit" class="primary-btn">
                             Edit Profile </a>
-                        <a th:href="@{my-account/pass}" type="submit" class="primary-btn">
+                        <a th:href="@{/my-account/password-change}" type="submit" class="primary-btn">
                             Change Password </a>
                     </div>
                     <div class="tag-share">

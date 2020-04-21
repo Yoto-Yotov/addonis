@@ -5,6 +5,7 @@ import com.addonis.demo.models.Addon;
 import com.addonis.demo.models.AddonDTO;
 import com.addonis.demo.models.UserInfo;
 import com.addonis.demo.services.contracts.AddonService;
+import com.addonis.demo.services.contracts.FileService;
 import com.addonis.demo.services.contracts.ImageService;
 import com.addonis.demo.services.contracts.UserInfoService;
 import com.addonis.demo.utils.AddonUtils;
@@ -39,12 +40,14 @@ public class AddonsController {
     private AddonService addonService;
     private UserInfoService userInfoService;
     private ImageService imageService;
+    private FileService fileService;
 
     @Autowired
-    public AddonsController(AddonService addonService, UserInfoService userInfoService, ImageService imageService) {
+    public AddonsController(AddonService addonService, UserInfoService userInfoService, ImageService imageService, FileService fileService) {
         this.addonService = addonService;
         this.userInfoService = userInfoService;
         this.imageService = imageService;
+        this.fileService = fileService;
     }
 
     @GetMapping("/addons")
@@ -61,7 +64,7 @@ public class AddonsController {
 
     @PostMapping("/addon-create")
     public String createAddon(@Valid @ModelAttribute("addon") AddonDTO addonDto, BindingResult errors, Model model, Principal user,
-                              @RequestParam("imagefile") MultipartFile file){
+                              @RequestParam("imagefile") MultipartFile imagefile, MultipartFile content){
 
         if (errors.hasErrors()) {
             model.addAttribute("error", errors.getAllErrors().get(0));
@@ -81,7 +84,8 @@ public class AddonsController {
         }
 
         try {
-            imageService.saveImageFileToAddon(addonToCreate.getId(), file);
+            imageService.saveImageFileToAddon(addonToCreate.getId(), imagefile);
+            fileService.saveAddonFile(addonToCreate.getId(), content);
         } catch (IllegalStateException ex) {
             model.addAttribute("error", "Image cant't be uploaded. Please try again!");
             return "addons";
@@ -110,6 +114,21 @@ public class AddonsController {
     public String getPending(Model model) {
         model.addAttribute("addons", addonService.getAllPendingAddons());
         return "addons";
+    }
+
+    @GetMapping("/addons/details/{addonName}")
+    public String showAddinDetails(@PathVariable String addonName,
+                                  Model model) {
+        Addon addon = addonService.getAddonByName(addonName);
+        model.addAttribute("addon", addon);
+        return "addon-details";
+    }
+
+    @GetMapping("/addons/my-addons")
+    public String getMyAddons(Model model, Principal user) {
+        UserInfo userInfo = userInfoService.gerUserByUsername(user.getName());
+        model.addAttribute("myAddons", addonService.getMyAddons(userInfo));
+        return "my-addons";
     }
 
 }

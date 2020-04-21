@@ -36,6 +36,46 @@
 /*	padding-right: 5px;!important*/
 /*}*/
 
+/*label {*/
+/*	color: #38b6ff;*/
+/*	font-size: 18px;*/
+/*	line-height: 250%;*/
+/*}*/
+
+#addonDesc{
+	color: #38b6ff;
+	font-size: 18px;
+	line-height: 250%;
+}
+
+#pullsCount{
+	color: #38b6ff;
+	font-size: 18px;
+	line-height: 250%;
+}
+
+#downCount{
+	color: #38b6ff;
+	font-size: 18px;
+	line-height: 250%;
+}
+
+#issuesCount{
+	color: #38b6ff;
+	font-size: 18px;
+	line-height: 250%;
+}
+
+#gitLink{
+	color: #38b6ff;
+	font-size: 18px;
+	line-height: 250%;
+}
+
+#addPic {
+	border: 1px solid #1d2124;
+}
+
 .grid-users {
 	display: grid;
 	width: 100vw;
@@ -104,6 +144,7 @@
 
 html,
 body {
+	width: 100%;
 	height: 100%;
 	font-family: "Muli", sans-serif;
 	-webkit-font-smoothing: antialiased;
@@ -1785,6 +1826,7 @@ ol {
 -----------------------*/
 
 .product-shop {
+	width: 100%;
 	padding-top: 80px;
 	padding-bottom: 80px;
 }
@@ -3976,7 +4018,7 @@ ol {
 
 @media only screen and (min-width: 1200px) {
 	.container {
-		max-width: 1080px;
+		max-width: 1000px;
 	}
 }
 
