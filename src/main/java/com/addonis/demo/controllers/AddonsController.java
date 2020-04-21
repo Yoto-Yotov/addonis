@@ -4,13 +4,15 @@ import com.addonis.demo.exceptions.DuplicateEntityException;
 import com.addonis.demo.models.Addon;
 import com.addonis.demo.models.AddonDTO;
 import com.addonis.demo.models.UserInfo;
-import com.addonis.demo.services.contracts.AddonService;
-import com.addonis.demo.services.contracts.FileService;
-import com.addonis.demo.services.contracts.ImageService;
-import com.addonis.demo.services.contracts.UserInfoService;
+import com.addonis.demo.services.contracts.*;
 import com.addonis.demo.utils.AddonUtils;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -85,6 +87,7 @@ public class AddonsController {
 
         try {
             imageService.saveImageFileToAddon(addonToCreate.getId(), imagefile);
+//            dbFileService.storeFile(content, addonToCreate.getId());
             fileService.saveAddonFile(addonToCreate.getId(), content);
         } catch (IllegalStateException ex) {
             model.addAttribute("error", "Image cant't be uploaded. Please try again!");
@@ -131,4 +134,15 @@ public class AddonsController {
         return "my-addons";
     }
 
+    @GetMapping("/downloadFile/{addonId}")
+    public ResponseEntity<Resource> downloadFile(@PathVariable int addonId) {
+        Addon addon = addonService.getAddonById(addonId);
+        Byte[] fileToReturn = fileService.getFile(addonId);
+        byte[] b = new byte[fileToReturn.length];
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(addon.getName()))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + addon.getName() + "\"")
+                .body(new ByteArrayResource(b));
+    }
 }

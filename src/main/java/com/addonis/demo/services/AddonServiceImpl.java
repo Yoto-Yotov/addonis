@@ -123,4 +123,9 @@ public class AddonServiceImpl implements AddonService {
         return addonRepository.getMyAddons(user);
     }
 
+    @Override
+    public Byte[] getContent(int id) {
+        return null;
+    }
+
 }

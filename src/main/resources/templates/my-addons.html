@@ -146,7 +146,7 @@
                                         <img th:href="@{'/addon/' + ${myAdd.name} + '/image'}"
                                              th:src="@{'/addon/' + ${myAdd.name} + '/image'}" alt=""
                                              height="263" width="263" style="background-size: contain">
-                                        <div th:if="${myAdd.status == 'PENDING'}" class="sale pp-sale">PENDING</div>
+                                        <div th:if="${myAdd.status == T(com.addonis.demo.models.enums.Status).PENDING}" class="sale pp-sale">PENDING</div>
                                         <div class="icon">
                                             <i class="icon_heart_alt"></i>
                                         </div>

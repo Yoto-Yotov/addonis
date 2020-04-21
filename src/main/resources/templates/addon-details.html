@@ -73,8 +73,14 @@
                         <a id="gitLink">GitHub link:</a>
                         <a th:text="${addon.originLink}"></a>
                     </div>
+                    <div class="cell">
+                        <a id="creator">Creator:</a>
+                        <a th:text="${addon.userInfo.name}"></a>
+                    </div>
                     </br>
-                    <button type="submit" class="site-btn register-btn">DOWNLOAD</button>
+<!--                    <form th:action="${'/downloadFile/' + ${addon.id}}">-->
+<!--                        <button type="submit" class="site-btn register-btn">DOWNLOAD</button>-->
+<!--                    </form>-->
                     <div class="tag-share">
                         <div class="details-tag" hspace="80">
                             <ul>
