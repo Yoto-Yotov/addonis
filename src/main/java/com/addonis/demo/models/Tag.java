@@ -14,6 +14,7 @@ import java.io.Serializable;
  * Tag
  * Addons have Set of Tags. Each tag has name and can be added from registered user or admin to addon.
  */
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Data
 @NoArgsConstructor
@@ -30,6 +31,7 @@ public class Tag {
     @Column(name = "tag_name")
     private String tagName;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserInfo userInfo;

@@ -58,6 +58,11 @@ public class AddonServiceImpl implements AddonService {
     }
 
     @Override
+    public String getCreatorName(int addonId) {
+        return getAddonById(addonId).getUserInfo().getName();
+    }
+
+    @Override
     public void deleteById(Integer integer) {
         addonRepository.deleteById(integer);
     }
@@ -88,4 +93,6 @@ public class AddonServiceImpl implements AddonService {
     public boolean checkAddonExistsById(int addonId) {
         return addonRepository.existsById(addonId);
     }
+
+
 }

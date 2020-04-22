@@ -45,7 +45,7 @@ public class RestTagController {
         try {
             tagService.create(tag);
         } catch (DuplicateEntityException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, e.getMessage());
         }
         return tag;
     }
@@ -73,13 +73,15 @@ public class RestTagController {
     }
 
     @PutMapping("/{addonId}/{tagName}")
-    public Tag addTagToAddon(@PathVariable int addonId, @PathVariable String tagName, @RequestHeader(name = "Authorization") String authorization) {
+    public Tag addTagToAddon(@PathVariable("addonId") int addonId, @PathVariable("tagName") String tagName, @RequestHeader(name = "Authorization") String authorization) {
         try {
             return tagService.addTagToAddon(addonId, tagName, authorization);
         } catch (EntityNotFoundException ex) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, ex.getMessage());
         } catch (DuplicateEntityException ex) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, ex.getMessage());
+        } catch (NotAuthorizedException ex) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, ex.getMessage());
         }
     }
 
@@ -89,8 +91,23 @@ public class RestTagController {
             tagService.removeTagFromAddon(addonId, tagName, authorization);
         } catch (EntityNotFoundException ex) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, ex.getMessage());
+        } catch (NotAuthorizedException ex) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, ex.getMessage());
         }
         return String.format("Tag %s successfully removed from addon", tagName);
     }
 
+    @PutMapping("/{newName}")
+    public Tag renameTag(@RequestParam("id") int id, @PathVariable("newName") String newName, @RequestHeader(name = "Authorization") String authorization) {
+        try {
+            tagService.renameTag(id, newName, authorization);
+            return tagService.getById(id);
+        } catch (NotAuthorizedException ex) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, ex.getMessage());
+        } catch (EntityNotFoundException ex) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, ex.getMessage());
+        } catch (DuplicateEntityException ex) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, ex.getMessage());
+        }
+    }
 }
