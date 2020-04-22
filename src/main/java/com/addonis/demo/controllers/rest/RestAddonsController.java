@@ -63,4 +63,19 @@ public class RestAddonsController {
     public List<Addon> getAll() {
         return addonService.getAll();
     }
+
+    @GetMapping("/featured")
+    public List<Addon> getFeaturedAddons() {
+        return addonService.get6Random();
+    }
+
+    @GetMapping("/newest")
+    public List<Addon> getNewestAddons() {
+        return addonService.getNewest();
+    }
+
+    @GetMapping("/popular")
+    public List<Addon> getPopularAddons() {
+        return addonService.getTopByDownloads();
+    }
 }

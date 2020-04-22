@@ -27,7 +27,7 @@ public class AddonsController {
     }
 
     @GetMapping("/addons")
-    public String showBeers(Model model) {
+    public String showAddons(Model model) {
         model.addAttribute("addon", addonService.getAll());
         return "addon";
     }
