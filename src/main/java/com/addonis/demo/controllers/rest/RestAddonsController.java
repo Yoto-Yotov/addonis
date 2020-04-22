@@ -2,6 +2,7 @@ package com.addonis.demo.controllers.rest;
 
 import com.addonis.demo.exceptions.DuplicateEntityException;
 import com.addonis.demo.exceptions.InvalidDataException;
+import com.addonis.demo.exceptions.NotAuthorizedException;
 import com.addonis.demo.models.Addon;
 import com.addonis.demo.models.AddonDTO;
 import com.addonis.demo.models.UserInfo;
@@ -36,11 +37,13 @@ public class RestAddonsController {
     private BinaryContentService binaryContentService;
 
     @Autowired
-    public RestAddonsController(AddonService addonService, FileService fileService, UserInfoService userInfoService, BinaryContentService binaryContentService) {
+    public RestAddonsController(AddonService addonService, FileService fileService, UserInfoService userInfoService,
+                                BinaryContentService binaryContentService, UserService userService) {
         this.addonService = addonService;
         this.fileService = fileService;
         this.userInfoService = userInfoService;
         this.binaryContentService = binaryContentService;
+        this.userService = userService;
     }
 
     @GetMapping("/all")
@@ -81,18 +84,17 @@ public class RestAddonsController {
 
     @GetMapping("/pending")
     public List<Addon> getPendingAddons(@RequestHeader(name = "Authorization") String username) {
-
-//        if (!userService.isAdmin(username)) {
-//            throw new NotAuthorizedException(username);
-//        }
+        if (!userService.isAdmin(username)) {
+            throw new NotAuthorizedException(username);
+        }
         return addonService.getAllPendingAddons();
     }
 
     @GetMapping("/approved")
     public List<Addon> getApprovedAddons(@RequestHeader(name = "Authorization") String username) {
-//        if (!userService.isAdmin(username)) {
-//            throw new NotAuthorizedException(username);
-//        }
+        if (!userService.isAdmin(username)) {
+            throw new NotAuthorizedException(username);
+        }
         return addonService.getAllApprovedAddons();
     }
 
