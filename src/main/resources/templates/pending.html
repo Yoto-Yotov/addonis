@@ -8,7 +8,7 @@
     <meta name="keywords" content="Fashi, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Addonis</title>
+    <title>Pending</title>
     <link rel="shortcut icon" type="image/x-icon" href="img/addonis1.png">
 
     <!-- Google Font -->
@@ -141,7 +141,7 @@
                     <div class="row">
                         <div class="col-lg-41 col-sm-6" th:each="addon : ${addons}">
                             <div class="product-item">
-                                <form th:action="@{'/addons/details/' + ${addon.name}}">
+                                <form th:action="@{'/addons/enable/' + ${addon.name}}" method="post">
                                     <div class="pi-pic">
                                         <img th:href="@{'/addon/' + ${addon.name} + '/image'}"
                                              th:src="@{'/addon/' + ${addon.name} + '/image'}" alt=""
@@ -156,7 +156,7 @@
                                         <a href="#">
                                             <h5><a th:text="${addon.name}"></a></h5>
                                         </a>
-                                        <button type="submit" class="site-btn login-btn">VIEW</button>
+                                        <button type="submit" class="site-btn login-btn">APPROVE</button>
                                     </div>
                                 </form>
                             </div>

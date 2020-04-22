@@ -2,15 +2,10 @@ package com.addonis.demo.controllers.rest;
 
 import com.addonis.demo.exceptions.DuplicateEntityException;
 import com.addonis.demo.exceptions.InvalidDataException;
-import com.addonis.demo.exceptions.NotAuthorizedException;
 import com.addonis.demo.models.Addon;
 import com.addonis.demo.models.AddonDTO;
-import com.addonis.demo.models.Authorities;
 import com.addonis.demo.models.UserInfo;
-import com.addonis.demo.services.contracts.AddonService;
-import com.addonis.demo.services.contracts.FileService;
-import com.addonis.demo.services.contracts.UserInfoService;
-import com.addonis.demo.services.contracts.UserService;
+import com.addonis.demo.services.contracts.*;
 import com.addonis.demo.utils.AddonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -37,12 +33,14 @@ public class RestAddonsController {
     private FileService fileService;
     private UserInfoService userInfoService;
     private UserService userService;
+    private BinaryContentService binaryContentService;
 
     @Autowired
-    public RestAddonsController(AddonService addonService, FileService fileService, UserInfoService userInfoService) {
+    public RestAddonsController(AddonService addonService, FileService fileService, UserInfoService userInfoService, BinaryContentService binaryContentService) {
         this.addonService = addonService;
         this.fileService = fileService;
         this.userInfoService = userInfoService;
+        this.binaryContentService = binaryContentService;
     }
 
     @GetMapping("/all")
@@ -56,10 +54,10 @@ public class RestAddonsController {
         try {
             UserInfo userInfo = userInfoService.gerUserByUsername(username);
             addonDto.setCreator(userInfo);
-            Addon addonToCreate = AddonUtils.mapDtoToAddon(addonDto);
+            Addon addonToCreate = AddonUtils.mapDtoToAddon(addonDto, binaryContentService);
             addonService.create(addonToCreate);
             return addonService.getById(addonToCreate.getId());
-        } catch (DuplicateEntityException e) {
+        } catch (DuplicateEntityException | IOException e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
         }
     }

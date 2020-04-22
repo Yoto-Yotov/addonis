@@ -125,7 +125,15 @@ public class AddonServiceImpl implements AddonService {
 
     @Override
     public Byte[] getContent(int id) {
-        return addonRepository.getFile(id);
+//        return addonRepository.getFile(id);
+        return null;
+    }
+
+    @Override
+    public void enableAddon(String name) {
+        Addon addon = addonRepository.getByName(name);
+        addon.setStatus(Status.APPROVED);
+        addonRepository.save(addon);
     }
 
 }

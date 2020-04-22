@@ -3,6 +3,7 @@ package com.addonis.demo.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.Column;
 import javax.persistence.Lob;
@@ -32,6 +33,5 @@ public class AddonDTO {
     @Lob
     private Byte[] addonPicture;
 
-    @Lob
-    private Byte[] content;
+    private MultipartFile file;
 }

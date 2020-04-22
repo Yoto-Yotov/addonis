@@ -74,8 +74,6 @@ public class Addon{
     @Column(name = "picture")
     private Byte[] picture;
 
-    @JsonIgnore
-    @Lob
     @Column(name = "content")
-    private Byte[] content;
+    private int binaryFile;
 }

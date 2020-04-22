@@ -4,6 +4,7 @@ import com.addonis.demo.models.Addon;
 import com.addonis.demo.models.UserInfo;
 import com.addonis.demo.models.enums.Status;
 import com.addonis.demo.repository.base.BaseRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -25,8 +26,6 @@ public interface AddonRepository extends BaseRepository<Addon, Integer> {
     @Query("select a from Addon a where a.name = :name")
     Addon getByName(@Param("name") String name);
 
-    @Query("select a.content from Addon a where a.id = :id")
-    Byte[] getFile(@Param(value = "id") int id);
-
     boolean existsByName(String name);
+
 }
