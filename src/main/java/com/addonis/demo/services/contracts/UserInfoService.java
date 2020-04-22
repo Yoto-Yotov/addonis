@@ -7,4 +7,6 @@ public interface UserInfoService extends BaseServiceContract<UserInfo, Integer> 
 
     UserInfo gerUserByUsername(String name);
     void softDeleteUserInfo(String username);
+    boolean checkUserExistByName(String name);
+    boolean checkUserExistByEmail(String email);
 }

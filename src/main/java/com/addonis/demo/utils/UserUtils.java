@@ -1,10 +1,9 @@
 package com.addonis.demo.utils;
 
-import com.addonis.demo.models.User;
 import com.addonis.demo.models.UserChangeDTO;
 import com.addonis.demo.models.UserDTO;
 import com.addonis.demo.models.UserInfo;
-import com.addonis.demo.services.contracts.UserService;
+import com.addonis.demo.services.contracts.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +11,7 @@ import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
+import java.util.regex.Pattern;
 
 /**
  * UserUtils
@@ -21,11 +21,11 @@ import java.util.Properties;
 @Component
 public class UserUtils {
 
-    private UserService userService;
+    UserInfoService userInfoService;
 
     @Autowired
-    public UserUtils(UserService userService) {
-        this.userService = userService;
+    public UserUtils(UserInfoService userInfoService) {
+        this.userInfoService = userInfoService;
     }
 
     public static UserInfo mergeTwoUsers(UserInfo oldUser, UserChangeDTO newUser) {
@@ -50,6 +50,16 @@ public class UserUtils {
         userInfo.setFirstName(userDto.getFirstName());
         userInfo.setLastName(userDto.getLastName());
         return userInfo;
+    }
+
+    public static boolean isValidEmailAddress(String email) {
+        String emailRegex = "([a-zA-Z0-9/_/./-]+@[a-zA-Z]+.[a-z]+)";
+
+        Pattern pat = Pattern.compile(emailRegex);
+        if (email == null) {
+            return false;
+        }
+        return !pat.matcher(email).matches();
     }
 
     public static void send_2(String emailRecipient, String userName) {

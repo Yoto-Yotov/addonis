@@ -70,7 +70,7 @@ public class LastCommitServicesTests {
     }
 
     @Test
-    public void updateUser_Should_ReturnUpdatedUser_WhenExist() {
+    public void updateLastCommit_Should_ReturnUpdatedUser_WhenExist() {
         //Arrange
         LastCommit lastCommit = LastCommit.builder().title("LastCommit").lastCommitId(1).build();
         LastCommit lastCommitUpdate = LastCommit.builder().title("LastCommit New").lastCommitId(1).build();
@@ -83,7 +83,7 @@ public class LastCommitServicesTests {
 
     @Ignore
     @Test
-    public void createUser_ShouldCreateUser_WhenUser_NotExist() {
+    public void createLastCommit_ShouldCreateCommit() {
         //Arrange
         LastCommit lastCommit = LastCommit.builder().title("LastCommit").lastCommitId(1).build();
 
@@ -93,7 +93,7 @@ public class LastCommitServicesTests {
         //Act
         LastCommit lastCommitToReturn = lastCommitService.create(lastCommit);
         //Assert
-        Assertions.assertEquals(lastCommitToReturn.getLastCommitId(), lastCommit.getDate());
+        Assertions.assertEquals(lastCommitToReturn.getLastCommitId(), lastCommit.getLastCommitId());
         Assertions.assertEquals(lastCommitToReturn.getTitle(), lastCommit.getTitle());
     }
 }

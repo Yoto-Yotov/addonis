@@ -921,8 +921,8 @@ pre code {
 
     .col-sm-6 {
         -ms-flex: 0 0 50%;
-        flex: 0 0 50%;
-        max-width: 50%
+        flex: 0 0 30%;
+        max-width: 30%
     }
 
     .col-sm-7 {
@@ -1366,6 +1366,7 @@ pre code {
         max-width: 25%
     }
 
+
     .row-cols-lg-5 > * {
         -ms-flex: 0 0 20%;
         flex: 0 0 20%;
@@ -1376,6 +1377,12 @@ pre code {
         -ms-flex: 0 0 16.666667%;
         flex: 0 0 16.666667%;
         max-width: 16.666667%
+    }
+
+    .row-cols-lg-41 > * {
+        -ms-flex:0 0 33.333333%;
+        flex:0 0 33.333333%;
+        max-width:33.333333%
     }
 
     .col-lg-auto {
@@ -1404,9 +1411,9 @@ pre code {
     }
 
     .col-lg-4 {
-        -ms-flex: 0 0 33.333333%;
-        flex: 0 0 33.333333%;
-        max-width: 33.333333%
+        -ms-flex: 0 0 40%;
+        flex: 0 0 25%;
+        max-width: 75%
     }
 
     .col-lg-5 {
@@ -1444,14 +1451,20 @@ pre code {
 
     .col-lg-9 {
         -ms-flex: 0 0 75%;
-        flex: 0 0 75%;
-        max-width: 75%
+        /*flex: 0 0;*/
+        /*max-width: 75%*/
     }
 
     .col-lg-10 {
         -ms-flex: 0 0 83.333333%;
         flex: 0 0 83.333333%;
         max-width: 83.333333%
+    }
+
+    .col-lg-101 {
+        -ms-flex:0 0 75%;
+        flex:0 0 75%;
+        max-width:75%
     }
 
     .col-lg-11 {

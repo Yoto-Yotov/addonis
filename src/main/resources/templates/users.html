@@ -57,232 +57,29 @@
             <div class="col-lg-9 order-1 order-lg-2">
                 <div class="product-list">
                     <div class="row">
-                        <div class="col-lg-4 col-sm-6">
+                        <div class="col-lg-4 col-sm-6" th:each="user : ${users}">
                             <div class="product-item">
-                                <div class="grid-users">
-                                    <div class="single_product_item" th:each="user : ${users}">
-                                        <img th:href="@{'/my-account/'+ ${user.id} + '/userimage'}"
-                                             th:src="@{'/my-account/' + ${user.id} + '/userimage'}" alt="Profile picture" class="img-fluid" height="230" width="320">
-                                        <div class="cell">
-                                            <h3><a th:text="${user.name}"></a></h3>
-                                        </div>
-                                        <a id="user2">Email:</a>
-                                        <a id="adminUserEmail" th:text="${user.email}">abv.bg</a>
-                                        <form action="#" th:action="@{'/admin/users/d/' + ${user.name}}" method="post"
-                                              enctype="multipart/form-data">
-                                        <button type="submit" class="site-btn register-btn">Disable</button>
-                                        </form>
+                                <div class="pi-pic">
+                                    <img th:if="${user.profileImage == null || user.profileImage == ''}" src="/img/blank-profile-picture-973460_640.png" alt=""
+                                         height="295" width="263" style="background-size: contain">
+                                    <img th:unless="${user.profileImage == null || user.profileImage == ''}"
+                                         th:href="@{'/my-account/' + ${user.id} + '/userimage'}"
+                                         th:src="@{'/my-account/' + ${user.id} + '/userimage'}" alt=""
+                                         height="295" width="263" style="background-size: contain">
+                                </div>
+                                <div class="pi-text">
+                                    <div class="cell">
+                                        <h3><a th:text="${user.name}"></a></h3>
                                     </div>
+                                    <a id="adminUserEmail" th:text="${user.email}">abv.bg</a>
+                                    <form action="#" th:action="@{'/admin/users/d/' + ${user.name}}" method="post"
+                                          enctype="multipart/form-data">
+                                        <button type="submit" class="site-btn register-btn">Disable</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
-<!--                        <div class="col-lg-4 col-sm-6">-->
-<!--                            <div class="product-item">-->
-<!--                                <div class="pi-pic" th:each="user : ${users}">-->
-<!--                                    <img th:href="@{'/my-account/'+ ${user.id} + '/userimage'}"-->
-<!--                                         th:src="@{'/my-account/' + ${user.id} + '/userimage'}" alt="">-->
-<!--                                    <div class="cell">-->
-<!--                                        <h3><a th:text="${user.name}"></a></h3>-->
-<!--                                    </div>-->
-<!--                                    <a id="user2">Email:</a>-->
-<!--                                    <a id="adminUserEmail" th:text="${user.email}">abv.bg</a>-->
-<!--                                </div>-->
-<!--                                <div class="pi-text">-->
-<!--                                    <div class="catagory-name">Coat</div>-->
-<!--                                    <a href="#">-->
-<!--                                        <h5>Guangzhou sweater</h5>-->
-<!--                                    </a>-->
-<!--                                    <div class="product-price">-->
-<!--                                        $13.00-->
-<!--                                        <span>$35.00</span>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="col-lg-4 col-sm-6">-->
-<!--                            <div class="product-item">-->
-<!--                                <div class="pi-pic">-->
-<!--                                    <img src="img/products/product-3.jpg" alt="">-->
-<!--                                    <div class="icon">-->
-<!--                                        <i class="icon_heart_alt"></i>-->
-<!--                                    </div>-->
-<!--                                    <ul>-->
-<!--                                        <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>-->
-<!--                                        <li class="quick-view"><a href="#">+ Quick View</a></li>-->
-<!--                                        <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>-->
-<!--                                    </ul>-->
-<!--                                </div>-->
-<!--                                <div class="pi-text">-->
-<!--                                    <div class="catagory-name">Shoes</div>-->
-<!--                                    <a href="#">-->
-<!--                                        <h5>Guangzhou sweater</h5>-->
-<!--                                    </a>-->
-<!--                                    <div class="product-price">-->
-<!--                                        $34.00-->
-<!--                                        <span>$35.00</span>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="col-lg-4 col-sm-6">-->
-<!--                            <div class="product-item">-->
-<!--                                <div class="pi-pic">-->
-<!--                                    <img src="img/products/product-4.jpg" alt="">-->
-<!--                                    <div class="icon">-->
-<!--                                        <i class="icon_heart_alt"></i>-->
-<!--                                    </div>-->
-<!--                                    <ul>-->
-<!--                                        <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>-->
-<!--                                        <li class="quick-view"><a href="#">+ Quick View</a></li>-->
-<!--                                        <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>-->
-<!--                                    </ul>-->
-<!--                                </div>-->
-<!--                                <div class="pi-text">-->
-<!--                                    <div class="catagory-name">Coat</div>-->
-<!--                                    <a href="#">-->
-<!--                                        <h5>Microfiber Wool Scarf</h5>-->
-<!--                                    </a>-->
-<!--                                    <div class="product-price">-->
-<!--                                        $64.00-->
-<!--                                        <span>$35.00</span>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="col-lg-4 col-sm-6">-->
-<!--                            <div class="product-item">-->
-<!--                                <div class="pi-pic">-->
-<!--                                    <img src="img/products/product-5.jpg" alt="">-->
-<!--                                    <div class="icon">-->
-<!--                                        <i class="icon_heart_alt"></i>-->
-<!--                                    </div>-->
-<!--                                    <ul>-->
-<!--                                        <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>-->
-<!--                                        <li class="quick-view"><a href="#">+ Quick View</a></li>-->
-<!--                                        <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>-->
-<!--                                    </ul>-->
-<!--                                </div>-->
-<!--                                <div class="pi-text">-->
-<!--                                    <div class="catagory-name">Shoes</div>-->
-<!--                                    <a href="#">-->
-<!--                                        <h5>Men's Painted Hat</h5>-->
-<!--                                    </a>-->
-<!--                                    <div class="product-price">-->
-<!--                                        $44.00-->
-<!--                                        <span>$35.00</span>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="col-lg-4 col-sm-6">-->
-<!--                            <div class="product-item">-->
-<!--                                <div class="pi-pic">-->
-<!--                                    <img src="img/products/product-6.jpg" alt="">-->
-<!--                                    <div class="icon">-->
-<!--                                        <i class="icon_heart_alt"></i>-->
-<!--                                    </div>-->
-<!--                                    <ul>-->
-<!--                                        <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>-->
-<!--                                        <li class="quick-view"><a href="#">+ Quick View</a></li>-->
-<!--                                        <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>-->
-<!--                                    </ul>-->
-<!--                                </div>-->
-<!--                                <div class="pi-text">-->
-<!--                                    <div class="catagory-name">Shoes</div>-->
-<!--                                    <a href="#">-->
-<!--                                        <h5>Converse Shoes</h5>-->
-<!--                                    </a>-->
-<!--                                    <div class="product-price">-->
-<!--                                        $34.00-->
-<!--                                        <span>$35.00</span>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="col-lg-4 col-sm-6">-->
-<!--                            <div class="product-item">-->
-<!--                                <div class="pi-pic">-->
-<!--                                    <img src="img/products/product-7.jpg" alt="">-->
-<!--                                    <div class="sale pp-sale">Sale</div>-->
-<!--                                    <div class="icon">-->
-<!--                                        <i class="icon_heart_alt"></i>-->
-<!--                                    </div>-->
-<!--                                    <ul>-->
-<!--                                        <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>-->
-<!--                                        <li class="quick-view"><a href="#">+ Quick View</a></li>-->
-<!--                                        <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>-->
-<!--                                    </ul>-->
-<!--                                </div>-->
-<!--                                <div class="pi-text">-->
-<!--                                    <div class="catagory-name">Towel</div>-->
-<!--                                    <a href="#">-->
-<!--                                        <h5>Pure Pineapple</h5>-->
-<!--                                    </a>-->
-<!--                                    <div class="product-price">-->
-<!--                                        $64.00-->
-<!--                                        <span>$35.00</span>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="col-lg-4 col-sm-6">-->
-<!--                            <div class="product-item">-->
-<!--                                <div class="pi-pic">-->
-<!--                                    <img src="img/products/product-8.jpg" alt="">-->
-<!--                                    <div class="icon">-->
-<!--                                        <i class="icon_heart_alt"></i>-->
-<!--                                    </div>-->
-<!--                                    <ul>-->
-<!--                                        <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>-->
-<!--                                        <li class="quick-view"><a href="#">+ Quick View</a></li>-->
-<!--                                        <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>-->
-<!--                                    </ul>-->
-<!--                                </div>-->
-<!--                                <div class="pi-text">-->
-<!--                                    <div class="catagory-name">Coat</div>-->
-<!--                                    <a href="#">-->
-<!--                                        <h5>2 Layer Windbreaker</h5>-->
-<!--                                    </a>-->
-<!--                                    <div class="product-price">-->
-<!--                                        $44.00-->
-<!--                                        <span>$35.00</span>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="col-lg-4 col-sm-6">-->
-<!--                            <div class="product-item">-->
-<!--                                <div class="pi-pic">-->
-<!--                                    <img src="img/products/product-9.jpg" alt="">-->
-<!--                                    <div class="icon">-->
-<!--                                        <i class="icon_heart_alt"></i>-->
-<!--                                    </div>-->
-<!--                                    <ul>-->
-<!--                                        <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>-->
-<!--                                        <li class="quick-view"><a href="#">+ Quick View</a></li>-->
-<!--                                        <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>-->
-<!--                                    </ul>-->
-<!--                                </div>-->
-<!--                                <div class="pi-text">-->
-<!--                                    <div class="catagory-name">Shoes</div>-->
-<!--                                    <a href="#">-->
-<!--                                        <h5>Converse Shoes</h5>-->
-<!--                                    </a>-->
-<!--                                    <div class="product-price">-->
-<!--                                        $34.00-->
-<!--                                        <span>$35.00</span>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="loading-more">-->
-<!--                    <i class="icon_loading"></i>-->
-<!--                    <a href="#">-->
-<!--                        Loading More-->
-<!--                    </a>-->
-<!--                </div>-->
+                    </div>
             </div>
         </div>
     </div>

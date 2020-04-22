@@ -47,11 +47,13 @@
                     +359 888.888.888
                 </div>
             </div>
+            </div>
             <div class="ht-right">
                 <form th:action="@{/login}" sec:authorize="isAuthenticated()" method="post">
                     <a href="#" th:href="@{/logout}" class="login-panel">Log out</a>
                     <a href="№" th:href="@{/admin}" sec:authorize="hasRole('ADMIN')" class="login-panel">Admin Portal</a>
-                    <a href="#" th:href="@{/my-account}" sec:authorize="hasRole('USER') && !hasRole('ADMIN')" class="login-panel"></i>My account   </a>
+                    <a href="#" th:href="@{/my-account}" sec:authorize="hasRole('USER') || hasRole('ADMIN')" class="login-panel"></i>Create addon</a>
+                    <a href="#" th:href="@{/my-account}" sec:authorize="hasRole('USER') && !hasRole('ADMIN')" class="login-panel"></i>My account</a>
                     <a href="#" th:href="@{/login}" sec:authorize="!isAuthenticated()" class="login-panel"><i class="fa fa-user"></i>Login</a>
                     <div class="top-social">
                         <a href="https://www.facebook.com/Addonis-109059887435247/?modal=admin_todo_tour"><i class="ti-facebook"></i></a>
@@ -255,21 +257,16 @@
                             <div class="icon">
                                 <i class="icon_heart_alt"></i>
                             </div>
-                            <ul>
-                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                            </ul>
                         </div>
                         <div class="pi-text">
                             <div class="catagory-name">Coat</div>
                             <a href="#">
                                 <h5>Pure Pineapple</h5>
                             </a>
-                            <div class="product-price">
-                                $14.00
-                                <span>$35.00</span>
-                            </div>
+<!--                            <div class="product-price">-->
+<!--                                $14.00-->
+<!--                                <span>$35.00</span>-->
+<!--                            </div>-->
                         </div>
                     </div>
                     <div class="product-item">
@@ -278,20 +275,12 @@
                             <div class="icon">
                                 <i class="icon_heart_alt"></i>
                             </div>
-                            <ul>
-                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                            </ul>
                         </div>
                         <div class="pi-text">
                             <div class="catagory-name">Shoes</div>
                             <a href="#">
                                 <h5>Guangzhou sweater</h5>
                             </a>
-                            <div class="product-price">
-                                $13.00
-                            </div>
                         </div>
                     </div>
                     <div class="product-item">
@@ -300,20 +289,12 @@
                             <div class="icon">
                                 <i class="icon_heart_alt"></i>
                             </div>
-                            <ul>
-                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                            </ul>
                         </div>
                         <div class="pi-text">
                             <div class="catagory-name">Towel</div>
                             <a href="#">
                                 <h5>Pure Pineapple</h5>
                             </a>
-                            <div class="product-price">
-                                $34.00
-                            </div>
                         </div>
                     </div>
                     <div class="product-item">
@@ -322,20 +303,12 @@
                             <div class="icon">
                                 <i class="icon_heart_alt"></i>
                             </div>
-                            <ul>
-                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                            </ul>
                         </div>
                         <div class="pi-text">
                             <div class="catagory-name">Towel</div>
                             <a href="#">
                                 <h5>Converse Shoes</h5>
                             </a>
-                            <div class="product-price">
-                                $34.00
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -376,7 +349,7 @@
                     <p>Secs</p>
                 </div>
             </div>
-            <a href="#" class="primary-btn">Shop Now</a>
+            <a th:href="@{/addons}" class="primary-btn">See addons</a>
         </div>
     </div>
 </section>

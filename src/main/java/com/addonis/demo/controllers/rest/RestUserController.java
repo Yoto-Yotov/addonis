@@ -44,9 +44,6 @@ public class RestUserController {
 
     @GetMapping
     public List<UserInfo> getAllsers(@RequestHeader(name = "Authorization") String authorization) {
-//        if (!authorityService.getAuthority(authorization).equals("ROLE_ADMIN")) {
-//            throw new NotAuthorizedException("You should be admin to see all users");
-//        }
         return userInfoService.getAll();
     }
 

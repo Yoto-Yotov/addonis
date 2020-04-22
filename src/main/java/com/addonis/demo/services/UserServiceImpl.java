@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService {
         }
         return userRepository.save(user);
     }
-    
+
     @Override
     public void softDeleteUser(String username) {
         User user = userRepository.getByName(username);
@@ -91,4 +91,5 @@ public class UserServiceImpl implements UserService {
     public boolean isAdmin(String userName) {
         return getUserAuthorities(userName).stream().map(Authorities::getAuthority).anyMatch(authority -> authority.equals("ROLE_ADMIN"));
     }
+
 }
