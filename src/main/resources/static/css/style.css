@@ -42,6 +42,12 @@
 /*	line-height: 250%;*/
 /*}*/
 
+#download {
+	color: #38b6ff;
+	font-size: 18px;
+	line-height: 250%;
+}
+
 #addonDesc{
 	color: #38b6ff;
 	font-size: 18px;
