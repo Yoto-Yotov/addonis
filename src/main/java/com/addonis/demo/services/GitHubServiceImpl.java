@@ -5,6 +5,7 @@ import com.addonis.demo.models.commitresponse.LastCommitResponse;
 import com.addonis.demo.models.enums.EPParam;
 import com.addonis.demo.services.contracts.GitHubService;
 import com.addonis.demo.utils.APIUtils;
+import com.addonis.demo.utils.Constants;
 import org.json.JSONArray;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -40,7 +41,7 @@ public class GitHubServiceImpl implements GitHubService {
         try {
             jsonArr = APIUtils.requestDataFromAPI(url);
         } catch (IOException e) {
-            throw new InvalidDataException("url");
+            throw new InvalidDataException(Constants.URL);
         }
         return jsonArr.length();
     }
@@ -52,7 +53,7 @@ public class GitHubServiceImpl implements GitHubService {
         try {
             jsonArr = APIUtils.requestDataFromAPI(url);
         } catch (IOException e) {
-            throw new InvalidDataException("url");
+            throw new InvalidDataException(Constants.URL);
         }
         return jsonArr.length();
     }

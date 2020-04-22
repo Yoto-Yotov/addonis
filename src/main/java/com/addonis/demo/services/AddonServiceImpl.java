@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.addonis.demo.utils.Constants.ADDON;
 import static com.addonis.demo.utils.LastCommitMapper.mapLastCommitResponseToLastCommit;
 
 /**
@@ -54,7 +55,7 @@ public class AddonServiceImpl implements AddonService {
 
     @Override
     public Addon getAddonById(int addonId) {
-        return addonRepository.findById(addonId).orElseThrow(() -> new EntityNotFoundException("addon", addonId));
+        return addonRepository.findById(addonId).orElseThrow(() -> new EntityNotFoundException(ADDON, addonId));
     }
 
     @Override
@@ -85,7 +86,7 @@ public class AddonServiceImpl implements AddonService {
             addon.setIssuesCount(githubService.getIssuesCount(url));
             return addonRepository.save(addon);
         }  catch (org.springframework.dao.DataIntegrityViolationException ex) {
-            throw new DuplicateEntityException("addon");
+            throw new DuplicateEntityException(ADDON);
         }
     }
 

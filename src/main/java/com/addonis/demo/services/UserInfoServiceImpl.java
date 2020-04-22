@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.addonis.demo.utils.Constants.*;
 import static com.addonis.demo.utils.UserUtils.isValidEmailAddress;
 
 /**
@@ -45,7 +46,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Override
     public void deleteById(Integer integer) {
         if (!userInfoRepository.existsById(integer)) {
-            throw new EntityNotFoundException("User", integer);
+            throw new EntityNotFoundException(USER_U, integer);
         }
         userInfoRepository.deleteById(integer);
     }
@@ -53,7 +54,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Override
     public void update(UserInfo userInfo) {
         if (!userInfoRepository.existsByEmail(userInfo.getEmail())) {
-            throw new EntityNotFoundException("User", userInfo.getEmail());
+            throw new EntityNotFoundException(USER_U, userInfo.getEmail());
         }
         userInfoRepository.save(userInfo);
     }
@@ -61,13 +62,13 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Override
     public UserInfo create(UserInfo userInfo) {
         if (userInfoRepository.existsByName(userInfo.getName())) {
-            throw new DuplicateEntityException("user");
+            throw new DuplicateEntityException(USER);
         }
         if(isValidEmailAddress(userInfo.getEmail())){
-            throw new InvalidDataException("email");
+            throw new InvalidDataException(EMAIL);
         }
         if (userInfoRepository.existsByEmail(userInfo.getEmail())) {
-            throw new DuplicateEntityException("User", "email", userInfo.getEmail());
+            throw new DuplicateEntityException(USER_U, EMAIL, userInfo.getEmail());
         }
         UserUtils.send_2(userInfo.getEmail(), userInfo.getName());
         return userInfoRepository.save(userInfo);
@@ -76,7 +77,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Override
     public UserInfo gerUserByUsername(String name) {
         if (!userInfoRepository.existsByName(name)){
-            throw new EntityNotFoundException("User", name);
+            throw new EntityNotFoundException(USER_U, name);
         }
         return userInfoRepository.getByUserName(name);
     }
