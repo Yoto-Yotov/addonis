@@ -35,15 +35,17 @@ public class RestAddonsController {
     private UserInfoService userInfoService;
     private UserService userService;
     private BinaryContentService binaryContentService;
+    private ReadmeService readmeService;
 
     @Autowired
     public RestAddonsController(AddonService addonService, FileService fileService, UserInfoService userInfoService,
-                                BinaryContentService binaryContentService, UserService userService) {
+                                BinaryContentService binaryContentService, UserService userService, ReadmeService readmeService) {
         this.addonService = addonService;
         this.fileService = fileService;
         this.userInfoService = userInfoService;
         this.binaryContentService = binaryContentService;
         this.userService = userService;
+        this.readmeService = readmeService;
     }
 
     @GetMapping("/all")
@@ -108,4 +110,10 @@ public class RestAddonsController {
         UserInfo user = userInfoService.gerUserByUsername(username);
         return addonService.getMyAddons(user);
     }
+
+    @GetMapping("readme/{id}")
+    public String getReadme(@PathVariable int id) {
+        return readmeService.gerReadmeString(id);
+    }
+
 }

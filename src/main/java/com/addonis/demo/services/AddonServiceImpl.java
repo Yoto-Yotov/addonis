@@ -2,20 +2,20 @@ package com.addonis.demo.services;
 
 import com.addonis.demo.exceptions.DuplicateEntityException;
 import com.addonis.demo.exceptions.EntityNotFoundException;
-import com.addonis.demo.models.Addon;
-import com.addonis.demo.models.Authorities;
-import com.addonis.demo.models.LastCommit;
-import com.addonis.demo.models.UserInfo;
+import com.addonis.demo.models.*;
 import com.addonis.demo.models.commitresponse.LastCommitResponse;
 import com.addonis.demo.models.enums.Status;
 import com.addonis.demo.repository.contracts.AddonRepository;
+import com.addonis.demo.repository.contracts.ReadmeRepository;
 import com.addonis.demo.repository.contracts.UserInfoRepository;
 import com.addonis.demo.services.contracts.AddonService;
 import com.addonis.demo.services.contracts.GitHubService;
 import com.addonis.demo.services.contracts.LastCommitService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,14 +37,15 @@ public class AddonServiceImpl implements AddonService {
     AddonRepository addonRepository;
     LastCommitService lastCommitService;
     GitHubService githubService;
-    UserInfoRepository userInfoRepository;
+    ReadmeRepository readmeRepository;
 
     @Autowired
     public AddonServiceImpl(AddonRepository addonRepository, LastCommitService lastCommitService,
-                            GitHubService githubService) {
+                            GitHubService githubService, ReadmeRepository readmeRepository) {
         this.addonRepository = addonRepository;
         this.lastCommitService = lastCommitService;
         this.githubService = githubService;
+        this.readmeRepository =readmeRepository;
     }
 
     @Override
@@ -102,8 +103,11 @@ public class AddonServiceImpl implements AddonService {
             addon.setPullsCount(githubService.getPullsCount(url));
             addon.setStatus(Status.PENDING);
             addon.setIssuesCount(githubService.getIssuesCount(url));
+            Readme readme = githubService.getReadme(url);
+            readmeRepository.save(readme);
+            addon.setReadmeId(readme.getReadmeId());
             return addonRepository.save(addon);
-        }  catch (org.springframework.dao.DataIntegrityViolationException ex) {
+        }  catch (DataIntegrityViolationException | IOException ex) {
             throw new DuplicateEntityException("addon");
         }
     }

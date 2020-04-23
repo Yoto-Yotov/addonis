@@ -43,16 +43,16 @@ public class AddonsController {
     private AddonService addonService;
     private UserInfoService userInfoService;
     private ImageService imageService;
-    private FileService fileService;
     private BinaryContentService binaryContentService;
+    private ReadmeService readmeService;
 
     @Autowired
-    public AddonsController(AddonService addonService, UserInfoService userInfoService, ImageService imageService, FileService fileService, BinaryContentService binaryContentService) {
+    public AddonsController(AddonService addonService, UserInfoService userInfoService, ImageService imageService, BinaryContentService binaryContentService, ReadmeService readmeService) {
         this.addonService = addonService;
         this.userInfoService = userInfoService;
         this.imageService = imageService;
-        this.fileService = fileService;
         this.binaryContentService = binaryContentService;
+        this.readmeService = readmeService;
     }
 
     @GetMapping("/addons")
@@ -144,7 +144,7 @@ public class AddonsController {
     }
 
     //ToDo update download count
-    @GetMapping("/download/{addonId}")
+    @GetMapping("addons/download/{addonId}")
     public ResponseEntity<Resource> downloadFileFromLocal(@PathVariable int addonId) {
         Addon addon = addonService.getAddonById(addonId);
         BinaryContent fileToDownload = binaryContentService.getById(addon.getBinaryFile());
@@ -153,5 +153,14 @@ public class AddonsController {
                 .contentType(MediaType.parseMediaType(fileToDownload.getType()))
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileToDownload.getDocName() + "\"")
                 .body(new ByteArrayResource(fileToDownload.getFile()));
+    }
+
+    @GetMapping("/addon/{addonId}/readme")
+    public String getReadme(@PathVariable int addonId, Model model) {
+        Addon addon = addonService.getAddonById(addonId);
+        int readmeId = addon.getReadmeId();
+//        String readmeInfo = readmeService.gerReadmeString()
+        model.addAttribute("readme", readmeService.gerReadmeString(readmeId));
+        return "readme";
     }
 }

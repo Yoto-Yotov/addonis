@@ -10,6 +10,7 @@ import lombok.Setter;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Set;
 
@@ -76,4 +77,7 @@ public class Addon{
 
     @Column(name = "content")
     private int binaryFile;
+
+    @Column(name = "readme")
+    private int readmeId;
 }

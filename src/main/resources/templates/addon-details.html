@@ -74,20 +74,25 @@
                         <a th:text="${addon.originLink}"></a>
                     </div>
                     <div class="cell">
-                        <a id="creator">Last commit title:</a>
+                        <a id="creator1">Last commit title:</a>
                         <a th:text="${addon.lastCommit.title}"></a>
                     </div>
                     <div class="cell">
-                        <a id="creator">Last commit date:</a>
+                        <a id="creator2">Last commit date:</a>
                         <a th:text="${addon.lastCommit.date}"></a>
                     </div>
                     <div class="cell">
                         <a id="creator">Creator:</a>
                         <a th:text="${addon.userInfo.name}"></a>
                     </div>
-                    </br>
-                    <form th:action="@{'/download/' + ${addon.id}}">
+                    <form th:action="@{'addons/download/' + ${addon.id}}">
                         <button type="submit" class="site-btn register-btn" style="float: right;">DOWNLOAD</button>
+                    </form>
+                    </br>
+                    </br>
+                    </br>
+                    <form th:action="@{'/addons/' + ${addon.id} + '/readme'}">
+                        <button type="submit" class="site-btn register-btn" style="float: right;">README</button>
                     </form>
 <!--                    <div id="download" style="text-align: center">-->
 <!--                    <a th:href="@{'/download/' + ${addon.id}}" >DOWNLOAD</a>-->
