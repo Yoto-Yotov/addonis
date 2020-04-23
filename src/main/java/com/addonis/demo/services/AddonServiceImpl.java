@@ -79,6 +79,11 @@ public class AddonServiceImpl implements AddonService {
 
 
     @Override
+    public String getCreatorName(int addonId) {
+        return getAddonById(addonId).getUserInfo().getName();
+    }
+
+    @Override
     public void deleteById(Integer integer) {
         addonRepository.deleteById(integer);
     }
@@ -135,5 +140,6 @@ public class AddonServiceImpl implements AddonService {
         addon.setStatus(Status.APPROVED);
         addonRepository.save(addon);
     }
+
 
 }
