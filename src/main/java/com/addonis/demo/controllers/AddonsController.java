@@ -56,13 +56,13 @@ public class AddonsController {
     }
 
     @GetMapping("/addons")
-    public String showBeers(Model model) {
+    public String showAddons(Model model) {
         model.addAttribute("addons", addonService.getAllApprovedAddons());
         return "addons";
     }
 
     @GetMapping("/addon-create")
-    public String showNewBeerForm(Model model) {
+    public String showNewAddonForm(Model model) {
         model.addAttribute("addonDto", new AddonDTO());
         return "addon";
     }
@@ -100,7 +100,7 @@ public class AddonsController {
 
 
     @GetMapping("/addon/{addonName}/image")
-    public void renderBeerImageFromDb(@PathVariable String addonName, HttpServletResponse response) throws IOException {
+    public void renderAddonImageFromDb(@PathVariable String addonName, HttpServletResponse response) throws IOException {
         Addon addon = addonService.getAddonByName(addonName);
         if (addon.getPicture() != null) {
             byte[] byteArray = new byte[addon.getPicture().length];
