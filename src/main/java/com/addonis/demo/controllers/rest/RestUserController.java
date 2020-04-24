@@ -2,7 +2,6 @@ package com.addonis.demo.controllers.rest;
 
 import com.addonis.demo.exceptions.DuplicateEntityException;
 import com.addonis.demo.exceptions.EntityNotFoundException;
-import com.addonis.demo.exceptions.NotAuthorizedException;
 import com.addonis.demo.models.Authorities;
 import com.addonis.demo.models.User;
 import com.addonis.demo.models.UserDTO;
@@ -10,7 +9,6 @@ import com.addonis.demo.models.UserInfo;
 import com.addonis.demo.services.contracts.AuthorityService;
 import com.addonis.demo.services.contracts.UserInfoService;
 import com.addonis.demo.services.contracts.UserService;
-import com.addonis.demo.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -78,7 +76,7 @@ public class RestUserController {
     @GetMapping("/{username}")
     public UserInfo getByUserName(@PathVariable String username) {
         try {
-            return userInfoService.gerUserByUsername(username);
+            return userInfoService.getUserByUsername(username);
         } catch (EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }

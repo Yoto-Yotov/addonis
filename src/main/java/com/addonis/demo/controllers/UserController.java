@@ -43,7 +43,7 @@ public class UserController {
     
     @GetMapping("/my-account")
     public String showUserAccount(Model model, Principal principal) {
-        model.addAttribute("userinfo", userInfoService.gerUserByUsername(principal.getName()));
+        model.addAttribute("userinfo", userInfoService.getUserByUsername(principal.getName()));
         return "my-account";
     }
 
@@ -69,7 +69,7 @@ public class UserController {
     @GetMapping("/my-account/edit")
     public String editAccountEdit(Model model, Principal principal) {
         UserChangeDTO newuser = new UserChangeDTO();
-        UserInfo user = userInfoService.gerUserByUsername(principal.getName());
+        UserInfo user = userInfoService.getUserByUsername(principal.getName());
         newuser.setEmail(user.getEmail());
         model.addAttribute("newuser", newuser);
         model.addAttribute("olduser", user);
@@ -85,7 +85,7 @@ public class UserController {
             return "my-profile-edit";
         }
 
-        UserInfo oldUser = userInfoService.gerUserByUsername(principal.getName());
+        UserInfo oldUser = userInfoService.getUserByUsername(principal.getName());
         mergeTwoUsers(oldUser, newuser);
 
         if(file.getSize() > 2) {

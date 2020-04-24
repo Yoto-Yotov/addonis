@@ -74,7 +74,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     @Override
-    public UserInfo gerUserByUsername(String name) {
+    public UserInfo getUserByUsername(String name) {
         if (!userInfoRepository.existsByName(name)){
             throw new EntityNotFoundException("User", name);
         }
