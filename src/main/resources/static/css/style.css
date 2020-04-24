@@ -42,6 +42,27 @@
 /*	line-height: 250%;*/
 /*}*/
 
+.splitLeft {
+	float: left;
+	width: 50%;
+}
+
+.splitLeft1 {
+	float: left;
+	width: 100%;
+}
+
+.split {
+	width: 100%;
+	text-align: justify;
+}
+
+.splitRight {
+	float: right;
+	width: 50%;
+}
+
+
 #download {
 	color: #38b6ff;
 	font-size: 18px;
@@ -78,7 +99,23 @@
 	line-height: 250%;
 }
 
-#creator #creator1 #creator2{
+#gitLink1{
+	color: #1d2124;
+}
+
+#creator {
+	color: #38b6ff;
+	font-size: 18px;
+	line-height: 250%;
+}
+
+#creator1 {
+	color: #38b6ff;
+	font-size: 18px;
+	line-height: 250%;
+}
+
+#creator2{
 	color: #38b6ff;
 	font-size: 18px;
 	line-height: 250%;
@@ -223,7 +260,7 @@ a:hover,
 a:focus {
 	text-decoration: none;
 	outline: none;
-	color: #fff;
+	color: #38b6ff;
 }
 
 ul,
@@ -3497,6 +3534,8 @@ ol {
 	border-bottom: 1px solid #ebebeb;
 	padding-bottom: 54px;
 	margin-top: 46px;
+	margin-left: 80px;
+	margin-right: 10px;
 }
 
 .blog-details-inner .tag-share .details-tag {
@@ -3510,7 +3549,7 @@ ol {
 	font-size: 12px;
 	font-weight: 700;
 	text-transform: uppercase;
-	margin-right: 16px;
+	margin-right: 10px;
 }
 
 .blog-details-inner .tag-share .details-tag ul li i {
@@ -4312,7 +4351,7 @@ ol {
 		margin-right: 10px;
 	}
 	.blog-details-inner .tag-share .blog-share .social-links a {
-		margin-left: 15px;
+		margin-left: 80px;
 	}
 	.blog-details-inner .blog-detail-title p:before {
 		left: -135px;

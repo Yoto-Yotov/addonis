@@ -126,6 +126,9 @@ public class AddonsController {
     public String showAddinDetails(@PathVariable String addonName,
                                    Model model) {
         Addon addon = addonService.getAddonByName(addonName);
+        int readmeId = addon.getReadmeId();
+        String[] readmeFile = readmeService.gerReadmeString(readmeId).split("(\\*)|(\\#)");
+        model.addAttribute("readme", readmeFile);
         model.addAttribute("addon", addon);
         return "addon-details";
     }
@@ -144,7 +147,7 @@ public class AddonsController {
     }
 
     //ToDo update download count
-    @GetMapping("addons/download/{addonId}")
+    @GetMapping("/addons/download/{addonId}")
     public ResponseEntity<Resource> downloadFileFromLocal(@PathVariable int addonId) {
         Addon addon = addonService.getAddonById(addonId);
         BinaryContent fileToDownload = binaryContentService.getById(addon.getBinaryFile());
@@ -159,7 +162,6 @@ public class AddonsController {
     public String getReadme(@PathVariable int addonId, Model model) {
         Addon addon = addonService.getAddonById(addonId);
         int readmeId = addon.getReadmeId();
-//        String readmeInfo = readmeService.gerReadmeString()
         model.addAttribute("readme", readmeService.gerReadmeString(readmeId));
         return "readme";
     }
