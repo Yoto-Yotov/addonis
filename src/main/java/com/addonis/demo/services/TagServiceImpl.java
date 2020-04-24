@@ -123,7 +123,7 @@ public class TagServiceImpl implements TagService {
         Tag tagToUpdate = tagRepository.getOne(tagId);
         tagToUpdate.setTagName(tagName);
         try {
-            update(tagToUpdate);
+            tagRepository.save(tagToUpdate);
         } catch (org.springframework.dao.DataIntegrityViolationException ex) {
             throw new DuplicateEntityException("tag", "name", tagName);
         }
