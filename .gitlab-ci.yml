@@ -2,6 +2,7 @@ image: java:8-jdk
 
 stages:
   - build
+  - test
   - deploy
 
 variables:
@@ -23,7 +24,13 @@ build:
     - ./gradlew $GRADLE_ARGS_CI -g $GRADLE_USER_HOME bootJar
   artifacts:
     paths:
-      - build/libs/application.jar 
+      - build/libs/application.jar
+
+test:
+  stage: test
+  allow_failure: false
+  script:
+      - ./gradlew test
 
 deploy:
   image: python:latest
@@ -36,5 +43,3 @@ deploy:
     - aws s3 cp build/libs/application.jar s3://elasticbeanstalk-eu-west-3-634222083792/application-$CI_PIPELINE_ID.jar
     - aws elasticbeanstalk create-application-version --application-name addonis --version-label addonis-$CI_PIPELINE_ID --source-bundle S3Bucket=elasticbeanstalk-eu-west-3-634222083792,S3Key=application-$CI_PIPELINE_ID.jar
     - aws elasticbeanstalk update-environment --application-name addonis --environment-name Addonis-env --version-label addonis-$CI_PIPELINE_ID
-  dependencies:
-    - build

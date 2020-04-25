@@ -3,6 +3,7 @@ package com.addonis.demo.services;
 import com.addonis.demo.exceptions.DuplicateEntityException;
 import com.addonis.demo.exceptions.EntityNotFoundException;
 import com.addonis.demo.exceptions.NotAuthorizedException;
+import com.addonis.demo.models.Addon;
 import com.addonis.demo.models.Tag;
 import com.addonis.demo.repository.contracts.TagRepository;
 import com.addonis.demo.services.contracts.AddonService;
@@ -80,6 +81,10 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public Tag addTagToAddon(int addonId, String tagName, String userName) {
+        if(!userService.isAdmin(userName) && !addonService.getCreatorName(addonId).equals(userName)) {
+            throw new NotAuthorizedException(userName);
+        }
+
         Tag tagToAdd = tagRepository.getTagByTagName(tagName);
 
         if(tagToAdd == null) {
@@ -103,6 +108,9 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public void removeTagFromAddon(int addonId, String tagName, String userName) {
+        if(!userService.isAdmin(userName) && !addonService.getCreatorName(addonId).equals(userName)) {
+            throw new NotAuthorizedException(userName);
+        }
         Tag tagToRemove = tagRepository.getTagByTagName(tagName);
         tagRepository.removeTagFromAddon(tagToRemove.getTagId(), addonId);
     }
@@ -114,8 +122,11 @@ public class TagServiceImpl implements TagService {
         }
         Tag tagToUpdate = tagRepository.getOne(tagId);
         tagToUpdate.setTagName(tagName);
-
-
+        try {
+            update(tagToUpdate);
+        } catch (org.springframework.dao.DataIntegrityViolationException ex) {
+            throw new DuplicateEntityException("tag", "name", tagName);
+        }
     }
 
 }
