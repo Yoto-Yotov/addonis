@@ -85,6 +85,14 @@ public class AddonServiceImpl implements AddonService {
     }
 
     @Override
+    public void changeDownloadCount(int addonId) {
+        Addon addon = getAddonById(addonId);
+        int downloadCount = addon.getDownloadsCount() + 1;
+        addon.setDownloadsCount(downloadCount);
+        update(addon);
+    }
+
+    @Override
     public void deleteById(Integer integer) {
         addonRepository.deleteById(integer);
     }
@@ -144,6 +152,8 @@ public class AddonServiceImpl implements AddonService {
         addon.setStatus(Status.APPROVED);
         addonRepository.save(addon);
     }
+
+
 
 
 }

@@ -127,8 +127,7 @@ public class AddonsController {
                                    Model model) {
         Addon addon = addonService.getAddonByName(addonName);
         int readmeId = addon.getReadmeId();
-        String[] readmeFile = readmeService.gerReadmeString(readmeId).split("(\\*)|(\\#)");
-        model.addAttribute("readme", readmeFile);
+        model.addAttribute("readmeFile", readmeService.gerReadmeString(readmeId));
         model.addAttribute("addon", addon);
         return "addon-details";
     }
@@ -151,6 +150,7 @@ public class AddonsController {
     public ResponseEntity<Resource> downloadFileFromLocal(@PathVariable int addonId) {
         Addon addon = addonService.getAddonById(addonId);
         BinaryContent fileToDownload = binaryContentService.getById(addon.getBinaryFile());
+        addonService.changeDownloadCount(addonId);
 
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(fileToDownload.getType()))

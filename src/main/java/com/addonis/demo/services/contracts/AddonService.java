@@ -20,4 +20,5 @@ public interface AddonService extends BaseServiceContract<Addon, Integer> {
     Byte[] getContent(int id);
     void enableAddon(String name);
     String getCreatorName(int addonId);
+    void changeDownloadCount(int addonId);
 }
