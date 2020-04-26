@@ -86,6 +86,21 @@ public class AddonServiceImpl implements AddonService {
     }
 
     @Override
+    public List<Addon> getNewest() {
+        return addonRepository.findTop6ByOrderByIdDesc();
+    }
+
+    @Override
+    public List<Addon> getTopByDownloads() {
+        return addonRepository.findTop6ByOrderByDownloadsCountDesc();
+    }
+
+    @Override
+    public List<Addon> get6Random() {
+        return addonRepository.get6Random();
+    }
+
+    @Override
     public void deleteById(Integer integer) {
         addonRepository.deleteById(integer);
     }

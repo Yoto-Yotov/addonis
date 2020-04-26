@@ -92,6 +92,21 @@ public class RestAddonsController {
         return addonService.getAllPendingAddons();
     }
 
+    @GetMapping("/featured")
+    public List<Addon> getFeaturedAddons() {
+        return addonService.get6Random();
+    }
+
+    @GetMapping("/newest")
+    public List<Addon> getNewestAddons() {
+        return addonService.getNewest();
+    }
+
+    @GetMapping("/popular")
+    public List<Addon> getPopularAddons() {
+        return addonService.getTopByDownloads();
+    }
+
     @GetMapping("/approved")
     public List<Addon> getApprovedAddons(@RequestHeader(name = "Authorization") String username) {
         if (!userService.isAdmin(username)) {

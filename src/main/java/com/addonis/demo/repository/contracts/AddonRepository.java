@@ -1,8 +1,11 @@
 package com.addonis.demo.repository.contracts;
 
 import com.addonis.demo.models.Addon;
+<<<<<<< src/main/java/com/addonis/demo/repository/contracts/AddonRepository.java
+=======
 import com.addonis.demo.models.UserInfo;
 import com.addonis.demo.models.enums.Status;
+>>>>>>> src/main/java/com/addonis/demo/repository/contracts/AddonRepository.java
 import com.addonis.demo.repository.base.BaseRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -16,6 +19,12 @@ public interface AddonRepository extends BaseRepository<Addon, Integer> {
 
     @Query("select a from Addon a where a.originLink = :originLink")
     Addon findAddonByOriginLink(@Param("originLink") String originLink);
+
+    List<Addon> findTop6ByOrderByIdDesc();
+    List<Addon> findTop6ByOrderByDownloadsCountDesc();
+
+    @Query(value = "SELECT * FROM addons ORDER BY RAND() LIMIT 6", nativeQuery = true)
+    List<Addon> get6Random();
 
     @Query("SELECT a from Addon a WHERE a.status = :status")
     List<Addon> getAddonByStatus(@Param(value = "status") Status status);

@@ -71,8 +71,7 @@
                         <a href="#"><i class="ti-linkedin"></i></a>
                         <a href="https://www.pinterest.com/addonisteam/tried/"><i class="ti-pinterest"></i></a>
                     </div>
-                    <a href="#" th:href="@{/register}" sec:authorize="!isAuthenticated()" class="login-panel"><i
-                            class="fas fa-registered"></i>Register</a>
+                    <a href="#" th:href="@{/register}" sec:authorize="!isAuthenticated()" class="login-panel"><i class="far fa-registered"></i>Register</a>
                 </form>
             </div>
         </div>
@@ -82,7 +81,7 @@
             <div class="row">
                 <div class="col-lg-2 col-md-2">
                     <div class="logo">
-                        <a href="index.html">
+                        <a href="index.html" th:href="@{/}">
                             <img src="img/addonis.PNG" alt="">
                         </a>
                     </div>
@@ -117,16 +116,7 @@
                     </li>
                     <li><a href="/blog.html">Blog</a></li>
                     <li><a th:href="@{/contact}">Contact</a></li>
-                    <li><a href="#">Pages</a>
-                        <ul class="dropdown">
-                            <li><a href="/blog-details.html">Blog Details</a></li>
-                            <li><a href="shopping-cart.html">Shopping Cart</a></li>
-                            <li><a href="/check-out.html">Checkout</a></li>
-                            <li><a href="faq.html">Faq</a></li>
-                            <li><a href="/static/register.html">Register</a></li>
-                            <li><a href="login.html">Login</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="#" th:href="@{/about}">About</a></li>
                 </ul>
             </nav>
             <div id="mobile-menu-wrap"></div>
@@ -147,7 +137,6 @@
                     <div class="product-item">
                         <div class="pi-pic">
                             <img src="img/download.png" alt="">
-                            <div class="sale">Sale</div>
                             <div class="icon">
                                 <i class="icon_heart_alt"></i>
                             </div>
@@ -233,7 +222,6 @@
                     <div class="product-item">
                         <div class="pi-pic">
                             <img src="img/products/women-1.jpg" alt="">
-                            <div class="sale">Sale</div>
                             <div class="icon">
                                 <i class="icon_heart_alt"></i>
                             </div>
@@ -296,7 +284,98 @@
         </div>
     </div>
 </section>
-<!-- Women Banner Section End -->
+<!-- New Addons Section End -->
+
+<!-- Popular Addons Section Begin -->
+<section class="women-banner spad">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-99 offset-lg-1">
+                <div class="filter-control">
+                    <h5 align="left">Popular</h5>
+                </div>
+                <div class="product-slider owl-carousel">
+                    <div class="product-item">
+                        <div class="pi-pic">
+                            <img src="img/products/women-1.jpg" alt="">
+                            <div class="icon">
+                                <i class="icon_heart_alt"></i>
+                            </div>
+                        </div>
+                        <div class="pi-text">
+                            <div class="catagory-name">Coat</div>
+                            <a href="#">
+                                <h5>Pure Pineapple</h5>
+                            </a>
+                            <div class="product-price">
+                                $14.00
+                                <span>$35.00</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-item">
+                        <div class="pi-pic">
+                            <img src="img/products/women-2.jpg" alt="">
+                            <div class="icon">
+                                <i class="icon_heart_alt"></i>
+                            </div>
+                        </div>
+                        <div class="pi-text">
+                            <div class="catagory-name">Shoes</div>
+                            <a href="#">
+                                <h5>Guangzhou sweater</h5>
+                            </a>
+                            <div class="product-price">
+                                $13.00
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-item">
+                        <div class="pi-pic">
+                            <img src="img/products/women-3.jpg" alt="">
+                            <div class="icon">
+                                <i class="icon_heart_alt"></i>
+                            </div>
+                        </div>
+                        <div class="pi-text">
+                            <div class="catagory-name">Towel</div>
+                            <a href="#">
+                                <h5>Pure Pineapple</h5>
+                            </a>
+                            <div class="product-price">
+                                $34.00
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-item">
+                        <div class="pi-pic">
+                            <img src="img/products/women-4.jpg" alt="">
+                            <div class="icon">
+                                <i class="icon_heart_alt"></i>
+                            </div>
+<!--                            <ul>-->
+<!--                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>-->
+<!--                                <li class="quick-view"><a href="#">+ Quick View</a></li>-->
+<!--                                <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>-->
+<!--                            </ul>-->
+                        </div>
+                        <div class="pi-text">
+                            <div class="catagory-name">Towel</div>
+                            <a href="#">
+                                <h5>Converse Shoes</h5>
+                            </a>
+                            <div class="product-price">
+                                $34.00
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Popular Addons Section End -->
+
 
 <!-- Deal Of The Week Section Begin-->
 <section class="deal-of-week set-bg spad" data-setbg="img/silver-laptop-in-white-wooden-table-3759098.jpg">
@@ -340,159 +419,19 @@
 <!-- Instagram Section Begin -->
 <div class="instagram-photo">
     <div class="insta-item set-bg" data-setbg="img/38b6ff.png">
-        <div class="inside-text">
-            <i class="ti-instagram"></i>
-            <h5><a href="#">colorlib_Collection</a></h5>
-        </div>
     </div>
     <div class="insta-item set-bg" data-setbg="img/pexels-photo-1851415.jpeg">
-        <div class="inside-text">
-            <i class="ti-instagram"></i>
-            <h5><a href="#">colorlib_Collection</a></h5>
-        </div>
     </div>
     <div class="insta-item set-bg" data-setbg="img/SteveJobs.png">
-        <div class="inside-text">
-            <i class="ti-instagram"></i>
-            <h5><a href="#">colorlib_Collection</a></h5>
-        </div>
     </div>
     <div class="insta-item set-bg" data-setbg="img/pexels-photo-262488.jpeg">
-        <div class="inside-text">
-            <i class="ti-instagram"></i>
-            <h5><a href="#">colorlib_Collection</a></h5>
-        </div>
     </div>
     <div class="insta-item set-bg" data-setbg="img/nnnnn.png">
-        <div class="inside-text">
-            <i class="ti-instagram"></i>
-            <h5><a href="#">colorlib_Collection</a></h5>
-        </div>
     </div>
     <div class="insta-item set-bg" data-setbg="img/desk-technology-music-white.jpg">
-        <div class="inside-text">
-            <i class="ti-instagram"></i>
-            <h5><a href="#">colorlib_Collection</a></h5>
-        </div>
     </div>
 </div>
 <!-- Instagram Section End -->
-
-<!-- Latest Blog Section Begin -->
-<section class="latest-blog spad">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="section-title">
-                    <h2>From The Blog</h2>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-4 col-md-6">
-                <div class="single-latest-blog">
-                    <img src="img/Technology_Future.jpg" alt="">
-                    <div class="latest-text">
-                        <div class="tag-list">
-                            <div class="tag-item">
-                                <i class="fa fa-calendar-o"></i>
-                                Dec 15,2019
-                            </div>
-                            <div class="tag-item">
-                                <i class="fa fa-comment-o"></i>
-                                5
-                            </div>
-                        </div>
-                        <a href="#">
-                            <h4>Latest Technology Trends That Will Impact Businesses in 2020</h4>
-                        </a>
-                        <p>SGive breath of fresh air to your business by embracing these latest technology trends </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="single-latest-blog">
-                    <img src="img/1_EE4IrlniNAhubIUrFqV3FQ.jpeg" alt="">
-                    <div class="latest-text">
-                        <div class="tag-list">
-                            <div class="tag-item">
-                                <i class="fa fa-calendar-o"></i>
-                                May 4,2019
-                            </div>
-                            <div class="tag-item">
-                                <i class="fa fa-comment-o"></i>
-                                5
-                            </div>
-                        </div>
-                        <a href="#">
-                            <h4>9 Useful Browser Extensions for Developers</h4>
-                        </a>
-                        <p>As web developers, we have the luxury of making use of web browser extensions.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="single-latest-blog">
-                    <img src="img/networking-100733179-large.jpg" alt="">
-                    <div class="latest-text">
-                        <div class="tag-list">
-                            <div class="tag-item">
-                                <i class="fa fa-calendar-o"></i>
-                                May 4,2019
-                            </div>
-                            <div class="tag-item">
-                                <i class="fa fa-comment-o"></i>
-                                5
-                            </div>
-                        </div>
-                        <a href="#">
-                            <h4>Power Platform: 2020 release wave 1 plan</h4>
-                        </a>
-                        <p>The Power Platform release plan (formerly release notes) for the 2020 release ...</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="benefit-items">
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="single-benefit">
-                        <div class="sb-icon">
-                            <img src="img/icon-1.png" alt="">
-                        </div>
-                        <div class="sb-text">
-                            <h6>Free Shipping</h6>
-                            <p>For all order over 99$</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="single-benefit">
-                        <div class="sb-icon">
-                            <img src="img/icon-2.png" alt="">
-                        </div>
-                        <div class="sb-text">
-                            <h6>Delivery On Time</h6>
-                            <p>If good have prolems</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="single-benefit">
-                        <div class="sb-icon">
-                            <img src="img/icon-1.png" alt="">
-                        </div>
-                        <div class="sb-text">
-                            <h6>Secure Payment</h6>
-                            <p>100% secure payment</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Latest Blog Section End -->
 
 <!-- Partner Logo Section Begin -->
 <div class="partner-logo">
@@ -577,7 +516,7 @@
                     <h5>Join Our Newsletter Now</h5>
                     <p>Get E-mail updates about our latest shop and special offers.</p>
                     <form action="#" class="subscribe-form">
-                        <input type="text" placeholder="Enter Your Mail">
+                        <input type="text" placeholder="Email">
                         <button type="button">Subscribe</button>
                     </form>
                 </div>
@@ -597,7 +536,6 @@
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     </div>
                     <div class="payment-pic">
-                        <img src="img/payment-method.png" alt="">
                     </div>
                 </div>
             </div>
