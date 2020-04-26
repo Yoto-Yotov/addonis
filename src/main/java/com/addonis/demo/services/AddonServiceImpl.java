@@ -11,9 +11,11 @@ import com.addonis.demo.services.contracts.AddonService;
 import com.addonis.demo.services.contracts.GitHubService;
 import com.addonis.demo.services.contracts.LastCommitService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 import static com.addonis.demo.utils.LastCommitMapper.mapLastCommitResponseToLastCommit;
 
@@ -94,5 +96,10 @@ public class AddonServiceImpl implements AddonService {
         return addonRepository.existsById(addonId);
     }
 
-
+    public List<Addon> getAllSortBy(String sortBy) { //enum
+        if (sortBy.equals("date")) {
+            sortBy = "lastCommit.date";
+        }
+        return addonRepository.findAll(Sort.by(Sort.Direction.DESC, sortBy));
+    }
 }

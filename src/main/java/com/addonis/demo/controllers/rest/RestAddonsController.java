@@ -63,4 +63,9 @@ public class RestAddonsController {
     public List<Addon> getAll() {
         return addonService.getAll();
     }
+
+    @GetMapping("")
+    public List<Addon> getAllSortBy(@RequestParam("v") String sortBy) {
+        return addonService.getAllSortBy(sortBy);
+    }
 }
