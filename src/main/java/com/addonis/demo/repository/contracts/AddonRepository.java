@@ -1,11 +1,8 @@
 package com.addonis.demo.repository.contracts;
 
 import com.addonis.demo.models.Addon;
-<<<<<<< src/main/java/com/addonis/demo/repository/contracts/AddonRepository.java
-=======
 import com.addonis.demo.models.UserInfo;
 import com.addonis.demo.models.enums.Status;
->>>>>>> src/main/java/com/addonis/demo/repository/contracts/AddonRepository.java
 import com.addonis.demo.repository.base.BaseRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

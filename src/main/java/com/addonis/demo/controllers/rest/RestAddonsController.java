@@ -57,7 +57,7 @@ public class RestAddonsController {
     public Addon createAddon(@RequestBody AddonDTO addonDto,
                              @RequestHeader(name = "Authorization") String username) {
         try {
-            UserInfo userInfo = userInfoService.gerUserByUsername(username);
+            UserInfo userInfo = userInfoService.getUserByUsername(username);
             addonDto.setCreator(userInfo);
             Addon addonToCreate = AddonUtils.mapDtoToAddon(addonDto, binaryContentService);
             addonService.create(addonToCreate);
@@ -122,7 +122,7 @@ public class RestAddonsController {
 
     @GetMapping("my-addons")
     public List<Addon> getMyAddons(@RequestHeader(name = "Authorization") String username) {
-        UserInfo user = userInfoService.gerUserByUsername(username);
+        UserInfo user = userInfoService.getUserByUsername(username);
         return addonService.getMyAddons(user);
     }
 

@@ -128,7 +128,7 @@ public class AddonServiceImpl implements AddonService {
             readmeRepository.save(readme);
             addon.setReadmeId(readme.getReadmeId());
             return addonRepository.save(addon);
-        }  catch (org.springframework.dao.DataIntegrityViolationException ex) {
+        }  catch (DataIntegrityViolationException | IOException ex) {
             throw new DuplicateEntityException(ADDON);
         }
     }

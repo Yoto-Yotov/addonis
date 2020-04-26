@@ -79,7 +79,7 @@ public class AddonsController {
 
         Addon addonToCreate;
         try {
-            UserInfo creator = userInfoService.gerUserByUsername(user.getName());
+            UserInfo creator = userInfoService.getUserByUsername(user.getName());
             addonDto.setCreator(creator);
             addonToCreate = AddonUtils.mapDtoToAddon(addonDto, binaryContentService);
             addonService.create(addonToCreate);
@@ -135,7 +135,7 @@ public class AddonsController {
 
     @GetMapping("/addons/my-addons")
     public String getMyAddons(Model model, Principal user) {
-        UserInfo userInfo = userInfoService.gerUserByUsername(user.getName());
+        UserInfo userInfo = userInfoService.getUserByUsername(user.getName());
         model.addAttribute("myAddons", addonService.getMyAddons(userInfo));
         return "my-addons";
     }
