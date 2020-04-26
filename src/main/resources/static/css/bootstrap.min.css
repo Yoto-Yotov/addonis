@@ -920,9 +920,9 @@ pre code {
     }
 
     .col-sm-6 {
-        -ms-flex: 0 0 50%;
-        flex: 0 0 30%;
-        max-width: 30%
+        -ms-flex: 0 0 30%;
+        flex: 0 0 33%;
+        max-width: 35%
     }
 
     .col-sm-7 {
@@ -7345,7 +7345,7 @@ a.bg-dark:focus, a.bg-dark:hover, button.bg-dark:focus, button.bg-dark:hover {
     align-self: stretch !important
 }
 
-@media (min-width: 576px) {
+@media (min-width: 800px) {
     .flex-sm-row {
         -ms-flex-direction: row !important;
         flex-direction: row !important

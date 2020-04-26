@@ -2,6 +2,7 @@ package com.addonis.demo.controllers;
 
 import com.addonis.demo.exceptions.DuplicateEntityException;
 import com.addonis.demo.exceptions.InvalidDataException;
+import com.addonis.demo.models.ChangePassword;
 import com.addonis.demo.models.UserChangeDTO;
 import com.addonis.demo.models.UserInfo;
 import com.addonis.demo.services.contracts.ImageService;
@@ -9,6 +10,8 @@ import com.addonis.demo.services.contracts.UserInfoService;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -34,11 +37,15 @@ public class UserController {
 
     private UserInfoService userInfoService;
     private ImageService imageService;
+    private UserDetailsManager userdetailsManager;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserController(UserInfoService userInfoService, ImageService imageService) {
+    public UserController(UserInfoService userInfoService, ImageService imageService, UserDetailsManager userdetailsManager, PasswordEncoder passwordEncoder) {
         this.userInfoService = userInfoService;
         this.imageService = imageService;
+        this.userdetailsManager = userdetailsManager;
+        this.passwordEncoder = passwordEncoder;
     }
     
     @GetMapping("/my-account")
@@ -104,6 +111,29 @@ public class UserController {
             return "my-profile-edit";
         }
 
+        return  "redirect:/my-account";
+    }
+
+    @GetMapping("/my-account/password-change")
+    public String showPasswordChangePage(Model model) {
+        model.addAttribute("newpass", new ChangePassword());
+        return "password-change";
+    }
+
+    @PostMapping("/my-account/password-change")
+    public String updateUserPassword(@Valid @ModelAttribute("newpass") ChangePassword newpass, BindingResult errors, Model model) {
+
+        if(errors.hasErrors()) {
+            model.addAttribute("errors", errors.getAllErrors().get(0));
+            return "password-change";
+        }
+
+        if(!newpass.getPassword().equals(newpass.getConfirmPassword()) ) {
+            model.addAttribute("error", "Password does not match!");
+            return "password-change";
+        }
+
+        userdetailsManager.changePassword(passwordEncoder.encode(newpass.getOldPassword()), passwordEncoder.encode(newpass.getPassword()));
         return  "redirect:/my-account";
     }
 }
