@@ -1,6 +1,7 @@
 package com.addonis.demo.utils;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
@@ -36,5 +37,26 @@ public final class APIUtils {
         String content = sb.toString();
 
         return new JSONArray(content);
+    }
+
+    public static JSONObject requestDataObject(String uri) throws IOException {
+        URL url1 = new URL(uri);
+        HttpsURLConnection connection = (HttpsURLConnection) url1.openConnection();
+
+        connection.setRequestMethod("GET");
+        connection.setDoOutput(true);
+        StringBuilder sb = new StringBuilder();
+
+        try (BufferedReader br = new BufferedReader(
+                new InputStreamReader(connection.getInputStream()))) {
+            String input = null;
+            while ((input = br.readLine()) != null){
+                sb.append(input);
+            }
+        }
+
+        String content = sb.toString();
+
+        return new JSONObject(content);
     }
 }

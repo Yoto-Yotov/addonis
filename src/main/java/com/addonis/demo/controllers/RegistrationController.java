@@ -1,5 +1,6 @@
 package com.addonis.demo.controllers;
 
+import com.addonis.demo.exceptions.DataConflictException;
 import com.addonis.demo.exceptions.DuplicateEntityException;
 import com.addonis.demo.exceptions.InvalidDataException;
 import com.addonis.demo.models.Authorities;
@@ -11,6 +12,7 @@ import com.addonis.demo.services.contracts.AuthorityService;
 import com.addonis.demo.services.contracts.ImageService;
 import com.addonis.demo.services.contracts.UserInfoService;
 import com.addonis.demo.services.contracts.UserService;
+import com.addonis.demo.utils.UserDtoValidator;
 import com.addonis.demo.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -65,6 +67,12 @@ public class RegistrationController {
                                BindingResult bindingResult,
                                @RequestParam("imagefile") MultipartFile file) {
 
+        try {
+            UserDtoValidator.validateDto(userDto, userInfoService);
+        } catch (DuplicateEntityException | DataConflictException | InvalidDataException e) {
+            model.addAttribute("error", e.getMessage());
+            return "register";
+        }
         User user = new User();
         user.setUsername(userDto.getName());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));

@@ -2,18 +2,22 @@ package com.addonis.demo.services;
 
 import com.addonis.demo.exceptions.DuplicateEntityException;
 import com.addonis.demo.exceptions.EntityNotFoundException;
-import com.addonis.demo.models.Addon;
-import com.addonis.demo.models.LastCommit;
+import com.addonis.demo.models.*;
 import com.addonis.demo.models.commitresponse.LastCommitResponse;
 import com.addonis.demo.models.enums.Status;
 import com.addonis.demo.repository.contracts.AddonRepository;
+import com.addonis.demo.repository.contracts.ReadmeRepository;
+import com.addonis.demo.repository.contracts.UserInfoRepository;
 import com.addonis.demo.services.contracts.AddonService;
 import com.addonis.demo.services.contracts.GitHubService;
 import com.addonis.demo.services.contracts.LastCommitService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.addonis.demo.utils.Constants.ADDON;
 import static com.addonis.demo.utils.LastCommitMapper.mapLastCommitResponseToLastCommit;
@@ -34,13 +38,15 @@ public class AddonServiceImpl implements AddonService {
     AddonRepository addonRepository;
     LastCommitService lastCommitService;
     GitHubService githubService;
+    ReadmeRepository readmeRepository;
 
     @Autowired
     public AddonServiceImpl(AddonRepository addonRepository, LastCommitService lastCommitService,
-                            GitHubService githubService) {
+                            GitHubService githubService, ReadmeRepository readmeRepository) {
         this.addonRepository = addonRepository;
         this.lastCommitService = lastCommitService;
         this.githubService = githubService;
+        this.readmeRepository =readmeRepository;
     }
 
     @Override
@@ -59,6 +65,22 @@ public class AddonServiceImpl implements AddonService {
     }
 
     @Override
+    public Addon getAddonByName(String name) {
+        return addonRepository.getByName(name);
+    }
+
+    @Override
+    public List<Addon> getAllPendingAddons() {
+        return addonRepository.getAddonByStatus(Status.PENDING);
+    }
+
+    @Override
+    public List<Addon> getAllApprovedAddons() {
+        return addonRepository.getAddonByStatus(Status.APPROVED);
+    }
+
+
+    @Override
     public String getCreatorName(int addonId) {
         return getAddonById(addonId).getUserInfo().getName();
     }
@@ -75,6 +97,9 @@ public class AddonServiceImpl implements AddonService {
 
     @Override
     public Addon create(Addon addon) {
+        if (checkAddonExistsByName(addon.getName())) {
+            throw new DuplicateEntityException("Addon", "name", addon.getName());
+        }
         String url = addon.getOriginLink();
         try {
             LastCommitResponse response = githubService.getLastCommit(url);
@@ -84,6 +109,9 @@ public class AddonServiceImpl implements AddonService {
             addon.setPullsCount(githubService.getPullsCount(url));
             addon.setStatus(Status.PENDING);
             addon.setIssuesCount(githubService.getIssuesCount(url));
+            Readme readme = githubService.getReadme(url);
+            readmeRepository.save(readme);
+            addon.setReadmeId(readme.getReadmeId());
             return addonRepository.save(addon);
         }  catch (org.springframework.dao.DataIntegrityViolationException ex) {
             throw new DuplicateEntityException(ADDON);
@@ -93,6 +121,29 @@ public class AddonServiceImpl implements AddonService {
     @Override
     public boolean checkAddonExistsById(int addonId) {
         return addonRepository.existsById(addonId);
+    }
+
+    @Override
+    public boolean checkAddonExistsByName(String name) {
+        return addonRepository.existsByName(name);
+    }
+
+    @Override
+    public List<Addon> getMyAddons(UserInfo user) {
+        return addonRepository.getMyAddons(user);
+    }
+
+    @Override
+    public Byte[] getContent(int id) {
+//        return addonRepository.getFile(id);
+        return null;
+    }
+
+    @Override
+    public void enableAddon(String name) {
+        Addon addon = addonRepository.getByName(name);
+        addon.setStatus(Status.APPROVED);
+        addonRepository.save(addon);
     }
 
 

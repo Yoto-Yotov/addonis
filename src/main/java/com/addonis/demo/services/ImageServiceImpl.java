@@ -1,19 +1,15 @@
 package com.addonis.demo.services;
 
+import com.addonis.demo.models.Addon;
 import com.addonis.demo.models.UserInfo;
+import com.addonis.demo.repository.contracts.AddonRepository;
 import com.addonis.demo.repository.contracts.UserInfoRepository;
 import com.addonis.demo.services.contracts.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.thymeleaf.util.ArrayUtils;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 
 /**
  * ImageServiceImpl
@@ -23,10 +19,12 @@ import java.net.URL;
 public class ImageServiceImpl implements ImageService {
 
     private UserInfoRepository userInfoRepository;
+    private AddonRepository addonRepository;
 
     @Autowired
-    public ImageServiceImpl(UserInfoRepository userInfoRepository) {
+    public ImageServiceImpl(UserInfoRepository userInfoRepository, AddonRepository addonRepository) {
         this.userInfoRepository = userInfoRepository;
+        this.addonRepository = addonRepository;
     }
 
     @Override
@@ -44,6 +42,27 @@ public class ImageServiceImpl implements ImageService {
 
             user.setProfileImage(byteObjects);
             userInfoRepository.save(user);
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @Override
+    public void saveImageFileToAddon(int addonId, MultipartFile file) {
+        try {
+            Addon addon = addonRepository.getOne(addonId);
+
+            Byte[] byteObjects = new Byte[file.getBytes().length];
+
+            int i = 0;
+
+            for (byte b : file.getBytes()) {
+                byteObjects[i++] = b;
+            }
+
+            addon.setPicture(byteObjects);
+            addonRepository.save(addon);
 
         } catch (IOException ex) {
             ex.printStackTrace();

@@ -38,13 +38,18 @@ public class FileServiceImpl implements FileService {
                 byteObjects[i++] = b;
             }
 
-            addon.setContent(byteObjects);
+//            addon.setContent(byteObjects);
 
             addonService.update(addon);
 
         } catch (IOException ex) {
             throw new InvalidDataException(ex.getMessage());
         }
+    }
+
+
+    public Byte[] getFile(int addonId) {
+        return addonService.getContent(addonId);
     }
 
 }

@@ -52,7 +52,8 @@
                 <form th:action="@{/login}" sec:authorize="isAuthenticated()" method="post">
                     <a href="#" th:href="@{/logout}" class="login-panel">Log out</a>
                     <a href="№" th:href="@{/admin}" sec:authorize="hasRole('ADMIN')" class="login-panel">Admin Portal</a>
-                    <a href="#" th:href="@{/my-account}" sec:authorize="hasRole('USER') || hasRole('ADMIN')" class="login-panel"></i>Create addon</a>
+                    <a href="#" th:href="@{/addon-create}" sec:authorize="hasRole('USER') && !hasRole('ADMIN')" class="login-panel"></i>Create addon</a>
+                    <a href="#" th:href="@{/addons/my-addons}" sec:authorize="hasRole('USER') && !hasRole('ADMIN')" class="login-panel"></i>My addons</a>
                     <a href="#" th:href="@{/my-account}" sec:authorize="hasRole('USER') && !hasRole('ADMIN')" class="login-panel"></i>My account</a>
                     <a href="#" th:href="@{/login}" sec:authorize="!isAuthenticated()" class="login-panel"><i class="fa fa-user"></i>Login</a>
                     <div class="top-social">
@@ -88,9 +89,8 @@
                 </div>
                 <div class="col-lg-7 col-md-7">
                     <div class="advanced-search">
-                        <button type="button" class="category-btn">All Categories</button>
                         <div class="input-group">
-                            <input type="text" placeholder="What do you need?">
+                            <input type="text" placeholder="What are you searching for?">
                             <button type="button"><i class="ti-search"></i></button>
                         </div>
                     </div>
@@ -151,11 +151,6 @@
                             <div class="icon">
                                 <i class="icon_heart_alt"></i>
                             </div>
-                            <ul>
-                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                            </ul>
                         </div>
                         <div class="pi-text">
                             <div class="catagory-name">Coat</div>
@@ -174,11 +169,6 @@
                             <div class="icon">
                                 <i class="icon_heart_alt"></i>
                             </div>
-                            <ul>
-                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                            </ul>
                         </div>
                         <div class="pi-text">
                             <div class="catagory-name">Shoes</div>
@@ -196,11 +186,6 @@
                             <div class="icon">
                                 <i class="icon_heart_alt"></i>
                             </div>
-                            <ul>
-                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                            </ul>
                         </div>
                         <div class="pi-text">
                             <div class="catagory-name">Towel</div>
@@ -218,11 +203,6 @@
                             <div class="icon">
                                 <i class="icon_heart_alt"></i>
                             </div>
-                            <ul>
-                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                            </ul>
                         </div>
                         <div class="pi-text">
                             <div class="catagory-name">Towel</div>
