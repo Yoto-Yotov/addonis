@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.addonis.demo.utils.Constants.ADDON;
 import static com.addonis.demo.utils.LastCommitMapper.mapLastCommitResponseToLastCommit;
 
 /**
@@ -60,7 +61,7 @@ public class AddonServiceImpl implements AddonService {
 
     @Override
     public Addon getAddonById(int addonId) {
-        return addonRepository.findById(addonId).orElseThrow(() -> new EntityNotFoundException("addon", addonId));
+        return addonRepository.findById(addonId).orElseThrow(() -> new EntityNotFoundException(ADDON, addonId));
     }
 
     @Override
@@ -112,8 +113,8 @@ public class AddonServiceImpl implements AddonService {
             readmeRepository.save(readme);
             addon.setReadmeId(readme.getReadmeId());
             return addonRepository.save(addon);
-        }  catch (DataIntegrityViolationException | IOException ex) {
-            throw new DuplicateEntityException("addon");
+        }  catch (org.springframework.dao.DataIntegrityViolationException ex) {
+            throw new DuplicateEntityException(ADDON);
         }
     }
 
