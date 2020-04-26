@@ -32,7 +32,7 @@ public class AdminController {
 
     @GetMapping("/admin")
     public String showAdminPortal(Model model, Principal principal) {
-        model.addAttribute("admin", userInfoService.gerUserByUsername(principal.getName()));
+        model.addAttribute("admin", userInfoService.getUserByUsername(principal.getName()));
         model.addAttribute("users", userInfoService.getAll());
         model.addAttribute("addons", addonService.getAll());
         return "admin-portal";
@@ -46,7 +46,7 @@ public class AdminController {
 
     @PostMapping("/admin/users/d/{username}")
     public String disableUser(@PathVariable String username) {
-        UserInfo userToDel = userInfoService.gerUserByUsername(username);
+        UserInfo userToDel = userInfoService.getUserByUsername(username);
         userInfoService.softDeleteUserInfo(userToDel.getName());
         userService.softDeleteUser(userToDel.getName());
         return "redirect:/admin/users";
