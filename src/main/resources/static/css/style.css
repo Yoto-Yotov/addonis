@@ -36,6 +36,95 @@
 /*	padding-right: 5px;!important*/
 /*}*/
 
+/*label {*/
+/*	color: #38b6ff;*/
+/*	font-size: 18px;*/
+/*	line-height: 250%;*/
+/*}*/
+
+.splitLeft {
+	float: left;
+	width: 50%;
+}
+
+.splitLeft1 {
+	float: left;
+	width: 100%;
+}
+
+.split {
+	width: 100%;
+	text-align: justify;
+}
+
+.splitRight {
+	float: right;
+	width: 50%;
+}
+
+
+#download {
+	color: #38b6ff;
+	font-size: 18px;
+	line-height: 250%;
+}
+
+#addonDesc{
+	color: #38b6ff;
+	font-size: 18px;
+	line-height: 250%;
+}
+
+#pullsCount{
+	color: #38b6ff;
+	font-size: 18px;
+	line-height: 250%;
+}
+
+#downCount{
+	color: #38b6ff;
+	font-size: 18px;
+	line-height: 250%;
+}
+
+#issuesCount{
+	color: #38b6ff;
+	font-size: 18px;
+	line-height: 250%;
+}
+
+#gitLink{
+	color: #38b6ff;
+	font-size: 18px;
+	line-height: 250%;
+}
+
+#gitLink1{
+	color: #1d2124;
+}
+
+#creator {
+	color: #38b6ff;
+	font-size: 18px;
+	line-height: 250%;
+}
+
+#creator1 {
+	color: #38b6ff;
+	font-size: 18px;
+	line-height: 250%;
+}
+
+#creator2{
+	color: #38b6ff;
+	font-size: 18px;
+	line-height: 250%;
+}
+
+#addPic {
+	border: 1px solid #1d2124;
+}
+
 .grid-users {
 	display: grid;
 	width: 100vw;
@@ -104,6 +193,7 @@
 
 html,
 body {
+	width: 100%;
 	height: 100%;
 	font-family: "Muli", sans-serif;
 	-webkit-font-smoothing: antialiased;
@@ -170,7 +260,7 @@ a:hover,
 a:focus {
 	text-decoration: none;
 	outline: none;
-	color: #fff;
+	color: #38b6ff;
 }
 
 ul,
@@ -1786,6 +1876,7 @@ ol {
 -----------------------*/
 
 .product-shop {
+	width: 100%;
 	padding-top: 80px;
 	padding-bottom: 80px;
 }
@@ -3444,6 +3535,8 @@ ol {
 	border-bottom: 1px solid #ebebeb;
 	padding-bottom: 54px;
 	margin-top: 46px;
+	margin-left: 80px;
+	margin-right: 10px;
 }
 
 .blog-details-inner .tag-share .details-tag {
@@ -3457,7 +3550,7 @@ ol {
 	font-size: 12px;
 	font-weight: 700;
 	text-transform: uppercase;
-	margin-right: 16px;
+	margin-right: 10px;
 }
 
 .blog-details-inner .tag-share .details-tag ul li i {
@@ -3965,7 +4058,7 @@ ol {
 
 @media only screen and (min-width: 1200px) and (max-width: 1920px) {
 	.inner-header .advanced-search .input-group button {
-		right: -14px;
+		right: -165px;
 	}
 	.product-item .pi-pic ul li a {
 		padding: 16px 12px 12px 11px;
@@ -3977,7 +4070,7 @@ ol {
 
 @media only screen and (min-width: 1200px) {
 	.container {
-		max-width: 1080px;
+		max-width: 1000px;
 	}
 }
 
@@ -4259,7 +4352,7 @@ ol {
 		margin-right: 10px;
 	}
 	.blog-details-inner .tag-share .blog-share .social-links a {
-		margin-left: 15px;
+		margin-left: 80px;
 	}
 	.blog-details-inner .blog-detail-title p:before {
 		left: -135px;

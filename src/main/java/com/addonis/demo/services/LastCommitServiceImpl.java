@@ -1,5 +1,7 @@
 package com.addonis.demo.services;
 
+import com.addonis.demo.exceptions.DuplicateEntityException;
+import com.addonis.demo.exceptions.EntityNotFoundException;
 import com.addonis.demo.models.LastCommit;
 import com.addonis.demo.repository.contracts.LastCommitRepository;
 import com.addonis.demo.services.contracts.LastCommitService;
@@ -29,6 +31,9 @@ public class LastCommitServiceImpl implements LastCommitService {
 
     @Override
     public LastCommit getById(Integer integer) {
+        if (!existsById(integer)) {
+            throw new EntityNotFoundException("Last commit", String.valueOf(integer));
+        }
         return lastCommitRepository.getOne(integer);
     }
 
@@ -45,5 +50,10 @@ public class LastCommitServiceImpl implements LastCommitService {
     @Override
     public LastCommit create(LastCommit lastCommit) {
         return lastCommitRepository.save(lastCommit);
+    }
+
+    @Override
+    public boolean existsById(int id) {
+        return lastCommitRepository.existsById(id);
     }
 }

@@ -10,6 +10,7 @@ import lombok.Setter;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Set;
 
@@ -24,7 +25,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "addons")
-@Where(clause = "status = 'APPROVED'")
+//@Where(clause = "status = 'APPROVED'")
 @JsonSerialize
 public class Addon{
 
@@ -74,8 +75,9 @@ public class Addon{
     @Column(name = "picture")
     private Byte[] picture;
 
-    @JsonIgnore
-    @Lob
     @Column(name = "content")
-    private Byte[] content;
+    private int binaryFile;
+
+    @Column(name = "readme")
+    private int readmeId;
 }

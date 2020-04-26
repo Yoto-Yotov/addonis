@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LastCommitRepository extends BaseRepository<LastCommit, Integer> {
+
+    boolean existsById(int id);
 }

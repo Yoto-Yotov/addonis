@@ -20,6 +20,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static com.addonis.demo.utils.Constants.ROLE_ADMIN;
+import static com.addonis.demo.utils.Constants.USER;
+
 /**
  * UserServiceImpl
  * CRUD operation for user.
@@ -59,7 +62,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User create(User user) {
         if (userRepository.existsByUsername(user.getUsername())) {
-            throw new DuplicateEntityException("user");
+            throw new DuplicateEntityException(USER);
         }
         return userRepository.save(user);
     }
@@ -74,7 +77,7 @@ public class UserServiceImpl implements UserService {
     public User getUserByName(String userName) {
         User user =  userRepository.findUserByUsername(userName);
         if(user == null) {
-            throw new EntityNotFoundException("user", userName);
+            throw new EntityNotFoundException(USER, userName);
         }
         return user;
     }
@@ -82,14 +85,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<Authorities> getUserAuthorities(String userName) {
         if (!userRepository.existsByUsername(userName)) {
-            throw new EntityNotFoundException("user", userName);
+            throw new EntityNotFoundException(USER, userName);
         }
         return authorityRepository.getByUsername(userName);
     }
 
     @Override
     public boolean isAdmin(String userName) {
-        return getUserAuthorities(userName).stream().map(Authorities::getAuthority).anyMatch(authority -> authority.equals("ROLE_ADMIN"));
+        return getUserAuthorities(userName).stream().map(Authorities::getAuthority).anyMatch(authority -> authority.equals(ROLE_ADMIN));
     }
 
 }

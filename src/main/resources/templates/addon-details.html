@@ -41,63 +41,77 @@
             <div class="col-lg-12">
                 <div class="blog-details-inner">
                     <div class="blog-detail-title">
-                        <h2>Welcome to yor admin portal</h2>
+                        <h2  th:text="'Information about ' + ${addon.name}">information</h2>
                         <p>ADDONIS<span></span></p>
                     </div>
-                    <div class="blog-large-pic">
-                        <div class="pi-pic">
-                            <img th:if="${admin.profileImage == null || admin.profileImage == ''}" src="/img/blank-profile-picture-973460_640.png" alt=""
-                                 height="295" width="263" align="left" hspace="80">
-                            <img th:unless="${admin.profileImage == null || admin.profileImage == ''}"
-                                 th:href="@{'/my-account/' + ${admin.id} + '/userimage'}"
-                                 th:src="@{'/my-account/' + ${admin.id} + '/userimage'}" alt=""
-                                 height="295" width="263" align="left" hspace="80">
+                    <div class="splitLeft">
+                        <div class="blog-large-pic">
+                            <img th:href="@{'/addon/' + ${addon.name} + '/image'}"
+                                 th:src="@{'/addon/' + ${addon.name} + '/image'}" id="addPic" alt=""
+                                 height="300" width="300" align="left" hspace="80">
+                        </div>
+                        <div class="splitLeft1">
+                            <div class="tag-share">
+                                <div class="details-tag">
+                                    <ul>
+                                        <li><i class="fa fa-tags"></i></li>
+                                        <li>Travel</li>
+                                        <li>Beauty</li>
+                                        <li>Fashion</li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="cell">
-                        <a id="profileName">Username:</a>
-                        <a id="profileName1" th:text="${admin.name}"></a>
-                    </div>
-                    <div class="cell">
-                        <a id="email1">Email:</a>
-                        <a th:text="${admin.email}"></a>
-                    </div>
-                    <div class="cell">
-                        <a id="firstname">First name:</a>
-                        <a th:if="${admin.firstName == null}">Not given</a>
-                        <a th:unless="${admin.firstName == null}" th:text="${admin.firstName}"></a>
-                    </div>
-                    <div class="cell">
-                        <a id="lastname">Last name:</a>
-                        <a th:if="${admin.lastName == null}">Not given</a>
-                        <a th:unless="${admin.lastName == null}" th:text="${admin.lastName}"></a>
-                    </div>
-                    </br>
-                    <div class="cell">
-                        <a th:href="@{/admin/users}" type="submit" class="primary-btn">
-                            See users </a>
-                        <a th:href="@{/addons/pending}" type="submit" class="primary-btn">
-                            Pending addons </a>
-                    </div>
-                    </br>
-                    <div class="cell">
-                        <a th:href="@{/my-account/edit}" type="submit" class="primary-btn">
-                            Edit Profile </a>
-                        <a th:href="@{/my-account/password-change}" type="submit" class="primary-btn">
-                            Change Password </a>
-                    </div>
-                    <div class="tag-share">
-                        <div class="details-tag">
-                            <ul>
-                                <li><i class="fa fa-tags"></i></li>
-                                <li>Travel</li>
-                                <li>Beauty</li>
-                                <li>Fashion</li>
-                            </ul>
+                    <div class="splitRight">
+                        <div class="cell">
+                            <a id="profileName">Name:</a>
+                            <a id="profileName1" th:text="${addon.name}"></a>
                         </div>
+                        <div class="cell">
+                            <a id="addonDesc">Description:</a>
+                            <a th:text="${addon.description}"></a>
+                        </div>
+                        <div class="cell">
+                            <a id="pullsCount">Pulls count:</a>
+                            <a th:text="${addon.pullsCount}"></a>
+                        </div>
+                        <div class="cell">
+                            <a id="downCount">Downloads count:</a>
+                            <a th:text="${addon.downloadsCount}"></a>
+                        </div>
+                        <div class="cell">
+                            <a id="issuesCount">Issues count:</a>
+                            <a th:text="${addon.issuesCount}"></a>
+                        </div>
+                        <div class="cell">
+                            <a id="gitLink">GitHub link:</a>
+                            <a id="gitLink1" th:href="${addon.originLink}" th:text="${addon.originLink}"></a>
+                        </div>
+                        <div class="cell">
+                            <a id="creator1">Last commit title:</a>
+                            <a th:text="${addon.lastCommit.title}"></a>
+                        </div>
+                        <div class="cell">
+                            <a id="creator2">Last commit date:</a>
+                            <a th:text="${addon.lastCommit.date}"></a>
+                        </div>
+                        <div class="cell">
+                            <a id="creator">Creator:</a>
+                            <a th:text="${addon.userInfo.name}"></a>
+                        </div>
+                        </br>
+                        <form th:action="@{'/addons/download/' + ${addon.id}}">
+                            <button type="submit" class="site-btn register-btn" style="align-items: center">DOWNLOAD</button>
+                        </form>
                     </div>
                 </div>
             </div>
+        </div>
+        </br>
+        </br>
+        <div class="split" th:each="line : ${readme}">
+            <span th:text="${line}">Test</span> <br/>
         </div>
     </div>
 </section>

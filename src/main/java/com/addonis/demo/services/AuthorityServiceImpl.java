@@ -28,13 +28,13 @@ public class AuthorityServiceImpl implements AuthorityService {
     }
 
     @Override
-    public Authorities getById(String s) {
-        return authorityRepository.getOne(s);
+    public Authorities getById(Integer id) {
+        return authorityRepository.getOne(id);
     }
 
     @Override
-    public void deleteById(String s) {
-        authorityRepository.deleteById(s);
+    public void deleteById(Integer id) {
+        authorityRepository.deleteById(id);
     }
 
     @Override
