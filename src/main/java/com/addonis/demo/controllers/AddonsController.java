@@ -1,6 +1,7 @@
 package com.addonis.demo.controllers;
 
 import com.addonis.demo.exceptions.DuplicateEntityException;
+import com.addonis.demo.exceptions.InvalidDataException;
 import com.addonis.demo.models.Addon;
 import com.addonis.demo.models.AddonDTO;
 import com.addonis.demo.models.BinaryContent;
@@ -83,7 +84,7 @@ public class AddonsController {
             addonDto.setCreator(creator);
             addonToCreate = AddonUtils.mapDtoToAddon(addonDto, binaryContentService);
             addonService.create(addonToCreate);
-        } catch (DuplicateEntityException | IOException e) {
+        } catch (DuplicateEntityException | IOException | InvalidDataException e) {
             model.addAttribute("error", e.getMessage());
             model.addAttribute("addon", new AddonDTO());
             return "addons";
