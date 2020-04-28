@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html class="no-js" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Fashi Template">
+    <meta name="keywords" content="Fashi, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>My profile</title>
+    <link rel="shortcut icon" type="image/x-icon" href="img/addonis1.png">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" href="/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}" href="/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/themify-icons.css}" href="/css/themify-icons.css" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/elegant-icons.css}" href="/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}" href="/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/nice-select.css}" href="/css/nice-select.css">
+    <link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}" href="/css/jquery-ui.min.css">
+    <link rel="stylesheet" th:href="@{/css/slicknav.min.css}" href="/css/slicknav.min.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="/css/style.css">
+</head>
+
+<body>
+<!-- Page Preloder -->
+<div id="preloder">
+    <div class="loader"></div>
+</div>
+<header th:insert="index.html :: header"></header>
+
+
+<!-- Blog Details Section Begin -->
+<section class="blog-details spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="blog-details-inner">
+                    <div class="blog-detail-title">
+                        <h2  th:text="'Information about ' + ${addon.name}">information</h2>
+                        <p>ADDONIS<span></span></p>
+                    </div>
+                    <div class="splitLeft">
+                        <div class="blog-large-pic">
+                            <img th:href="@{'/addon/' + ${addon.name} + '/image'}"
+                                 th:src="@{'/addon/' + ${addon.name} + '/image'}" id="addPic" alt=""
+                                 height="300" width="300" align="left" hspace="80">
+                        </div>
+                        <div class="splitLeft1">
+                            <div class="tag-share">
+                                <div class="details-tag">
+                                    <ul>
+                                        <li><i class="fa fa-tags"></i></li>
+                                        <li>Travel</li>
+                                        <li>Beauty</li>
+                                        <li>Fashion</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="splitRight">
+                        <div class="cell">
+                            <a id="profileName">Name:</a>
+                            <a id="profileName1" th:text="${addon.name}"></a>
+                        </div>
+                        <div class="cell">
+                            <a id="addonDesc">Description:</a>
+                            <a th:text="${addon.description}"></a>
+                        </div>
+                        <div class="cell">
+                            <a id="pullsCount">Pulls count:</a>
+                            <a th:text="${addon.pullsCount}"></a>
+                        </div>
+                        <div class="cell">
+                            <a id="downCount">Downloads count:</a>
+                            <a th:text="${addon.downloadsCount}"></a>
+                        </div>
+                        <div class="cell">
+                            <a id="issuesCount">Issues count:</a>
+                            <a th:text="${addon.issuesCount}"></a>
+                        </div>
+                        <div class="cell">
+                            <a id="gitLink">GitHub link:</a>
+                            <a id="gitLink1" th:href="${addon.originLink}" th:text="${addon.originLink}"></a>
+                        </div>
+                        <div class="cell">
+                            <a id="creator1">Last commit title:</a>
+                            <a th:text="${addon.lastCommit.title}"></a>
+                        </div>
+                        <div class="cell">
+                            <a id="creator2">Last commit date:</a>
+                            <a th:text="${addon.lastCommit.date}"></a>
+                        </div>
+                        <div class="cell">
+                            <a id="creator">Creator:</a>
+                            <a th:text="${addon.userInfo.name}"></a>
+                        </div>
+                        </br>
+                        <form th:action="@{'/addons/download/' + ${addon.id}}">
+                            <button type="submit" class="site-btn register-btn" style="align-items: center">DOWNLOAD</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </br>
+        </br>
+        <div class="split" th:each="line : ${readme}">
+            <span th:text="${line}">Test</span> <br/>
+        </div>
+    </div>
+</section>
+<!-- Blog Details Section End -->
+
+<!-- Partner Logo Section Begin -->
+<div class="partner-logo">
+    <div class="container">
+        <div class="logo-carousel owl-carousel">
+            <div class="logo-item">
+                <div class="tablecell-inner">
+                    <img src="img/logo-carousel/logo-1.png" alt="">
+                </div>
+            </div>
+            <div class="logo-item">
+                <div class="tablecell-inner">
+                    <img src="img/logo-carousel/logo-2.png" alt="">
+                </div>
+            </div>
+            <div class="logo-item">
+                <div class="tablecell-inner">
+                    <img src="img/logo-carousel/logo-3.png" alt="">
+                </div>
+            </div>
+            <div class="logo-item">
+                <div class="tablecell-inner">
+                    <img src="img/logo-carousel/logo-4.png" alt="">
+                </div>
+            </div>
+            <div class="logo-item">
+                <div class="tablecell-inner">
+                    <img src="img/logo-carousel/logo-5.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Partner Logo Section End -->
+
+<footer th:insert="index.html :: footer"></footer>
+
+<!-- Js Plugins -->
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery-ui.min.js"></script>
+<script src="/js/jquery.countdown.min.js"></script>
+<script src="/js/jquery.nice-select.min.js"></script>
+<script src="/js/jquery.zoom.min.js"></script>
+<script src="/js/jquery.dd.min.js"></script>
+<script src="/js/jquery.slicknav.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/pin-header.js"></script>
+</body>
+
+</html>

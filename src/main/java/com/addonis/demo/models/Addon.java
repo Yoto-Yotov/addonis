@@ -3,13 +3,11 @@ package com.addonis.demo.models;
 import com.addonis.demo.models.enums.Status;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Set;
 
@@ -22,9 +20,11 @@ import java.util.Set;
  */
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
+@Builder
 @Table(name = "addons")
-@Where(clause = "status = 'APPROVED'")
+//@Where(clause = "status = 'APPROVED'")
 @JsonSerialize
 public class Addon{
 
@@ -74,8 +74,9 @@ public class Addon{
     @Column(name = "picture")
     private Byte[] picture;
 
-    @JsonIgnore
-    @Lob
     @Column(name = "content")
-    private Byte[] content;
+    private int binaryFile;
+
+    @Column(name = "readme")
+    private int readmeId;
 }

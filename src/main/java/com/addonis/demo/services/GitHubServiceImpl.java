@@ -1,18 +1,25 @@
 package com.addonis.demo.services;
 
 import com.addonis.demo.exceptions.InvalidDataException;
+import com.addonis.demo.models.Readme;
 import com.addonis.demo.models.commitresponse.LastCommitResponse;
 import com.addonis.demo.models.enums.EPParam;
 import com.addonis.demo.services.contracts.GitHubService;
 import com.addonis.demo.utils.APIUtils;
+import com.addonis.demo.utils.Constants;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.DataInput;
 import java.io.IOException;
+import java.util.Base64;
 
 import static com.addonis.demo.utils.UrlParser.parseUrl;
+import static com.addonis.demo.utils.UrlParser.parseUrlReadme;
 
 /**
  * GitHubServiceImpl
@@ -40,7 +47,7 @@ public class GitHubServiceImpl implements GitHubService {
         try {
             jsonArr = APIUtils.requestDataFromAPI(url);
         } catch (IOException e) {
-            throw new InvalidDataException("url");
+            throw new InvalidDataException(Constants.URL);
         }
         return jsonArr.length();
     }
@@ -52,8 +59,22 @@ public class GitHubServiceImpl implements GitHubService {
         try {
             jsonArr = APIUtils.requestDataFromAPI(url);
         } catch (IOException e) {
-            throw new InvalidDataException("url");
+            throw new InvalidDataException(Constants.URL);
         }
         return jsonArr.length();
+    }
+
+    @Override
+    public Readme getReadme(String url) throws IOException {
+        url = parseUrl(url, EPParam.README);
+        JSONObject obj = null;
+        try {
+            obj = APIUtils.requestDataObject(url);
+        } catch (IOException e) {
+            throw new InvalidDataException("url");
+        }
+        Readme readme = new Readme();
+        readme.setText(obj.getString("content").getBytes());
+        return readme;
     }
 }
