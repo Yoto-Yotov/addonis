@@ -7,7 +7,6 @@ import com.addonis.demo.models.commitresponse.LastCommitResponse;
 import com.addonis.demo.models.enums.Status;
 import com.addonis.demo.repository.contracts.AddonRepository;
 import com.addonis.demo.repository.contracts.ReadmeRepository;
-import com.addonis.demo.repository.contracts.UserInfoRepository;
 import com.addonis.demo.services.contracts.AddonService;
 import com.addonis.demo.services.contracts.GitHubService;
 import com.addonis.demo.services.contracts.LastCommitService;
@@ -17,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.addonis.demo.utils.Constants.ADDON;
 import static com.addonis.demo.utils.LastCommitMapper.mapLastCommitResponseToLastCommit;
@@ -87,12 +85,12 @@ public class AddonServiceImpl implements AddonService {
 
     @Override
     public List<Addon> getNewest() {
-        return addonRepository.findTop6ByOrderByIdDesc();
+        return addonRepository.findTop6ByStatusOrderByIdDesc(Status.APPROVED);
     }
 
     @Override
     public List<Addon> getTopByDownloads() {
-        return addonRepository.findTop6ByOrderByDownloadsCountDesc();
+        return addonRepository.findTop6ByStatusOrderByDownloadsCountDesc(Status.APPROVED);
     }
 
     @Override
