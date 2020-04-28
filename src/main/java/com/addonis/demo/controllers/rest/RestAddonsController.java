@@ -6,6 +6,7 @@ import com.addonis.demo.exceptions.NotAuthorizedException;
 import com.addonis.demo.models.Addon;
 import com.addonis.demo.models.AddonDTO;
 import com.addonis.demo.models.UserInfo;
+import com.addonis.demo.models.enums.Sortby;
 import com.addonis.demo.services.contracts.*;
 import com.addonis.demo.utils.AddonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,7 +95,7 @@ public class RestAddonsController {
 
     @GetMapping("")
     public List<Addon> getAllSortBy(@RequestParam("v") String sortBy) {
-        return addonService.getAllSortBy(sortBy);
+        return addonService.getAllSortBy("ASC",Sortby.getByParam(sortBy));
     }
 
     @GetMapping("/featured")

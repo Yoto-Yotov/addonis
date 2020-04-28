@@ -4423,6 +4423,11 @@ ol {
 	.product-show-option .select-option .sorting.nice-select {
 		margin-bottom: 10px;
 	}
+
+	.sorting .nice-select {
+		box-sizing: content-box;
+	}
+
 	.product-details .quantity .primary-btn.pd-cart {
 		padding: 14px 20px 10px;
 	}

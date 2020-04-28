@@ -6,6 +6,7 @@ import com.addonis.demo.models.Addon;
 import com.addonis.demo.models.AddonDTO;
 import com.addonis.demo.models.BinaryContent;
 import com.addonis.demo.models.UserInfo;
+import com.addonis.demo.models.enums.Sortby;
 import com.addonis.demo.services.contracts.*;
 import com.addonis.demo.utils.AddonUtils;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
@@ -27,6 +28,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.Principal;
+import java.util.List;
 
 /**
  * AddonController
@@ -56,9 +58,9 @@ public class AddonsController {
         this.readmeService = readmeService;
     }
 
-    @GetMapping("/addons")
-    public String showAddons(Model model) {
-        model.addAttribute("addons", addonService.getAllApprovedAddons());
+    @GetMapping("/addons/search")
+    public String showAddons(@RequestParam(required = false, value = "sr", defaultValue = "") String search , Model model) {
+        model.addAttribute("addons", addonService.findByNameContaining(search));
         return "addons";
     }
 
@@ -165,5 +167,15 @@ public class AddonsController {
         int readmeId = addon.getReadmeId();
         model.addAttribute("readme", readmeService.gerReadmeString(readmeId));
         return "readme";
+    }
+
+    @GetMapping("/addons")
+    public String getAllSortBy(@RequestParam(required = false, value = "sort", defaultValue = "name") String sortBy,
+                               @RequestParam(required = false, value = "order", defaultValue = "ASC") String direction, Model model) {
+        model.addAttribute("addons", addonService.getAllSortBy(direction, Sortby.getByParam(sortBy)));
+        model.addAttribute("selsort", sortBy);
+        model.addAttribute("ordersort", direction);
+
+        return "addons";
     }
 }

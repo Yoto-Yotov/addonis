@@ -57,52 +57,20 @@
                 <div class="filter-widget">
                     <h4 class="fw-title">IDE</h4>
                     <div class="fw-brand-check">
+
                         <div class="bc-item">
-                            <label for="bc-calvin">
-                                Calvin Klein
-                                <input type="checkbox" id="bc-calvin">
-                                <span class="checkmark"></span>
-                            </label>
+                                <input type="radio" name="ide" id="eclipse">
+                            <label for="eclipse">Eclipse</label>
                         </div>
+
                         <div class="bc-item">
-                            <label for="bc-diesel">
-                                Diesel
-                                <input type="checkbox" id="bc-diesel">
-                                <span class="checkmark"></span>
-                            </label>
+                                <input type="radio" name="ide" id="intellij">
+                            <label for="intellij">IntelliJ</label>
                         </div>
-                        <div class="bc-item">
-                            <label for="bc-polo">
-                                Polo
-                                <input type="checkbox" id="bc-polo">
-                                <span class="checkmark"></span>
-                            </label>
-                        </div>
-                        <div class="bc-item">
-                            <label for="bc-tommy">
-                                Tommy Hilfiger
-                                <input type="checkbox" id="bc-tommy">
-                                <span class="checkmark"></span>
-                            </label>
-                        </div>
+
                     </div>
                 </div>
                 <div class="filter-widget">
-                    <h4 class="fw-title">Price</h4>
-                    <div class="filter-range-wrap">
-                        <div class="range-slider">
-                            <div class="price-input">
-                                <input type="text" id="minamount">
-                                <input type="text" id="maxamount">
-                            </div>
-                        </div>
-                        <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
-                             data-min="33" data-max="98">
-                            <div class="ui-slider-range ui-corner-all ui-widget-header"></div>
-                            <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
-                            <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
-                        </div>
-                    </div>
                     <a href="#" class="filter-btn">Filter</a>
                 </div>
 
@@ -123,17 +91,21 @@
                 <div class="product-show-option">
                     <div class="row">
                         <div class="col-lg-7 col-md-7">
+                            <form th:action="@{'/addons'}" method="get">
                             <div class="select-option">
-                                <select class="sorting">
-                                    <option value="">Default Sorting</option>
+                                <select id="select-sort" name="sort" class="sorting" style="width: 200px;">
+                                    <option selected value="name">Name</option>
+                                    <option value="downloadsCount">Downloads</option>
+                                    <option value="id">Uploaded</option>
+                                    <option value="date">Last Commit Date</option>
                                 </select>
-                                <select class="p-show">
-                                    <option value="">Show:</option>
+                                <select id="select-order" name="order" class="sorting">
+                                    <option value="ASC">Ascending</option>
+                                    <option value="DESC">Descending</option>
                                 </select>
+                                <input type="submit" class="site-btn login-btn" value="Sort">
                             </div>
-                        </div>
-                        <div class="col-lg-5 col-md-5 text-right">
-                            <p>Show 01- 09 Of 36 Product</p>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -146,9 +118,6 @@
                                         <img th:href="@{'/addon/' + ${addon.name} + '/image'}"
                                              th:src="@{'/addon/' + ${addon.name} + '/image'}" alt=""
                                              height="250" width="263" style="background-size: contain">
-                                        <div class="icon">
-                                            <i class="icon_heart_alt"></i>
-                                        </div>
                                     </div>
                                     <div class="pi-text">
                                         <div class="catagory-name" th:text="${addon.name}">
@@ -204,6 +173,16 @@
 <!-- Partner Logo Section End -->
 
 <footer th:insert="index.html :: footer"></footer>
+
+<script>
+    selectElement('select-sort', "[[${selsort}]]");
+    selectElement('select-order', "[[${ordersort}]]");
+    console.log("select " + [[${selsort}]]);
+    function selectElement(id, valueToSelect) {
+        let element = document.getElementById(id);
+        element.value = valueToSelect;
+    }
+</script>
 
 <!-- Js Plugins -->
 <script src="/js/jquery-3.3.1.min.js"></script>

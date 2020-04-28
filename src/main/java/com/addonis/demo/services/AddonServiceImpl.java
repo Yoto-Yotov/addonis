@@ -4,6 +4,7 @@ import com.addonis.demo.exceptions.DuplicateEntityException;
 import com.addonis.demo.exceptions.EntityNotFoundException;
 import com.addonis.demo.models.*;
 import com.addonis.demo.models.commitresponse.LastCommitResponse;
+import com.addonis.demo.models.enums.Sortby;
 import com.addonis.demo.models.enums.Status;
 import com.addonis.demo.repository.contracts.AddonRepository;
 import com.addonis.demo.repository.contracts.ReadmeRepository;
@@ -100,6 +101,11 @@ public class AddonServiceImpl implements AddonService {
     }
 
     @Override
+    public List<Addon> findByNameContaining(String name) {
+        return addonRepository.findAllByStatusAndNameContaining(Status.APPROVED, name);
+    }
+
+    @Override
     public void deleteById(Integer integer) {
         addonRepository.deleteById(integer);
     }
@@ -137,11 +143,8 @@ public class AddonServiceImpl implements AddonService {
         return addonRepository.existsById(addonId);
     }
 
-    public List<Addon> getAllSortBy(String sortBy) { //enum
-        if (sortBy.equals("date")) {
-            sortBy = "lastCommit.date";
-        }
-        return addonRepository.findAll(Sort.by(Sort.Direction.DESC, sortBy));
+    public List<Addon> getAllSortBy(String direction, Sortby sortBy) {
+        return addonRepository.findAllByStatus(Status.APPROVED, Sort.by(Sort.Direction.valueOf(direction), sortBy.getParam()));
     }
 
     @Override
