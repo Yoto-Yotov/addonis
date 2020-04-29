@@ -50,6 +50,21 @@
                                  th:src="@{'/addon/' + ${addon.name} + '/image'}" id="addPic" alt=""
                                  height="300" width="300" align="left" hspace="80">
                         </div>
+                        <div>
+                            <p>
+                                <i th:if="${error != null}" th:text="${error}" class="error"/>
+                            </p>
+                            <form sec:authorize="isAuthenticated()" th:action="@{'/addons/' + ${addon.id}}" method="post">
+                                <select th:name="rating">
+                                    <option th:value=1 th:text="1"></option>
+                                    <option th:value=2 th:text="2"></option>
+                                    <option th:value=3 th:text="3"></option>
+                                    <option th:value=4 th:text="4"></option>
+                                    <option th:value=5 th:text="5"></option>
+                                </select>
+                                <button type="submit" class="site-btn register-btn" style="align-items: center">Rate</button>
+                            </form>
+                        </div>
                         <div class="splitLeft1">
                             <div class="tag-share">
                                 <div class="details-tag">

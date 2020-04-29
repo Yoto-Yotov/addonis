@@ -1,11 +1,9 @@
 package com.addonis.demo.controllers;
 
 import com.addonis.demo.exceptions.DuplicateEntityException;
+import com.addonis.demo.exceptions.EntityNotFoundException;
 import com.addonis.demo.exceptions.InvalidDataException;
-import com.addonis.demo.models.Addon;
-import com.addonis.demo.models.AddonDTO;
-import com.addonis.demo.models.BinaryContent;
-import com.addonis.demo.models.UserInfo;
+import com.addonis.demo.models.*;
 import com.addonis.demo.services.contracts.*;
 import com.addonis.demo.utils.AddonUtils;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
@@ -131,6 +129,7 @@ public class AddonsController {
         String[] readmeFile = readmeService.gerReadmeString(readmeId).split("(\\*)|(\\#)");
         model.addAttribute("readme", readmeFile);
         model.addAttribute("addon", addon);
+        model.addAttribute("rating", new RatingDTO());
         return "addon-details";
     }
 
@@ -166,4 +165,5 @@ public class AddonsController {
         model.addAttribute("readme", readmeService.gerReadmeString(readmeId));
         return "readme";
     }
+
 }
