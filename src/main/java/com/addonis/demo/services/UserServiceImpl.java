@@ -75,6 +75,7 @@ public class UserServiceImpl implements UserService {
             throw new EntityNotFoundException(USER, username);
         }
         user.setEnabled(0);
+        userRepository.save(user);
     }
 
     @Override

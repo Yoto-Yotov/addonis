@@ -1,4 +1,4 @@
-package com.addonis.demo.utils;
+package com.addonis.demo.merge;
 
 import com.addonis.demo.models.UserChangeDTO;
 import com.addonis.demo.models.UserDTO;
@@ -52,13 +52,4 @@ public class UserUtils {
         return userInfo;
     }
 
-    public static boolean isValidEmailAddress(String email) {
-        String emailRegex = "([a-zA-Z0-9/_/./-]+@[a-zA-Z]+.[a-z]+)";
-
-        Pattern pat = Pattern.compile(emailRegex);
-        if (email == null) {
-            return false;
-        }
-        return !pat.matcher(email).matches();
-    }
 }

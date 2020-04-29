@@ -5,9 +5,8 @@ import com.addonis.demo.exceptions.DuplicateEntityException;
 import com.addonis.demo.exceptions.InvalidDataException;
 import com.addonis.demo.models.UserDTO;
 import com.addonis.demo.services.contracts.UserInfoService;
-import com.addonis.demo.services.contracts.UserService;
 
-import static com.addonis.demo.utils.UserUtils.isValidEmailAddress;
+import static com.addonis.demo.validation.EmailValidator.isValidEmailAddress;
 
 public class UserDtoValidator {
 

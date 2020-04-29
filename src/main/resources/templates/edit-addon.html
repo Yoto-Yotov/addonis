@@ -44,50 +44,59 @@
                         <h2>Here is your personal data</h2>
                         <p>ADDONIS<span></span></p>
                     </div>
-                    <form th:action="@{'/addon/edit/' + ${oldAddon.name}}" th:object="${newAddon}" enctype="multipart/form-data" th:method="put">
+                    <div class="splitLeft">
                         <div class="blog-large-pic">
                             <img id="profileImage" th:href="@{'/addon/' + ${oldAddon.name} + '/image'}"
                                  th:src="@{'/addon/' + ${oldAddon.name} + '/image'}" alt=""
                                  height="300" width="300" align="left" hspace="80">
                         </div>
-                        <div class="cell">
-                            <a id="profileName">Addon name:</a>
-                            <a id="profileName1" th:text="${oldAddon.name}"></a>
+                        <div class="splitLeft1">
+                            <div class="tag-share">
+                                <div class="details-tag">
+                                    <ul>
+                                        <li><i class="fa fa-tags"></i></li>
+                                        <li>Travel</li>
+                                        <li>Beauty</li>
+                                        <li>Fashion</li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
-                        <div class="group-input">
-                            <label for="emailnew">New name: </label>
-                            <input th:field="${newAddon.name}" type="text" id="emailnew">
-                        </div>
-                        <div class="cell">
-                            <a id="firstname">Current description:</a>
-                            <a th:if="${oldAddon.description == null}">Not given</a>
-                            <a th:unless="${oldAddon.description == null}" th:text="${oldAddon.description}"></a>
-                        </div>
-                        <div class="group-input">
-                            <label for="newfirtname">Change description: </label>
-                            <input th:field="${newAddon.description}" type="text" id="newfirtname">
-                        </div>
-                        </br>
-                        <div>
-                            <label for="newimage">Change addon image</label>
-                            <input id="newimage" name="imagefile" type="file" class="file" value="Upload File">
-                        </div>
-                        </br>
-                        <div>
-                            <label for="binaryFile">Change addon content</label>
-                            <input id="binaryFile" name="binaryFile" type="file" class="file" value="Upload File">
-                        </div>
-                        <button type="submit" class="site-btn login-btn">EDIT</button>
-                    </form>
-                    <div class="tag-share">
-                        <div class="details-tag">
-                            <ul>
-                                <li><i class="fa fa-tags"></i></li>
-                                <li>Travel</li>
-                                <li>Beauty</li>
-                                <li>Fashion</li>
-                            </ul>
-                        </div>
+                    </div>
+                    <div class="splitRight">
+                        <form th:action="@{'/addon/edit/' + ${oldAddon.name}}" th:object="${newAddon}" enctype="multipart/form-data" th:method="put">
+                            <div class="cell">
+                                <a id="profileName">Addon name:</a>
+                                <a id="profileName1" th:text="${oldAddon.name}"></a>
+                            </div>
+                            <div class="group-input">
+                                <label for="emailnew">New name: </label>
+                                <input th:field="${newAddon.name}" type="text" id="emailnew">
+                            </div>
+                            <div class="cell">
+                                <a id="firstname">Current description:</a>
+                                <a th:if="${oldAddon.description == null}">Not given</a>
+                                <a th:unless="${oldAddon.description == null}" th:text="${oldAddon.description}"></a>
+                            </div>
+                            <div class="group-input">
+                                <label for="newfirtname">Change description: </label>
+                                <input th:field="${newAddon.description}" type="text" id="newfirtname">
+                            </div>
+                            </br>
+                            <div>
+                                <label for="newimage">Change addon image</label>
+                                </br>
+                                <input id="newimage" name="imagefile" type="file" class="file" value="Upload File">
+                            </div>
+                            </br>
+                            <div>
+                                <label for="binaryFile">Change addon content</label>
+                                </br>
+                                <input id="binaryFile" name="binaryFile" type="file" class="file" value="Upload File">
+                            </div>
+                            <br>
+                            <button type="submit" class="site-btn login-btn" style="float: left">EDIT</button>
+                        </form>
                     </div>
                 </div>
             </div>
