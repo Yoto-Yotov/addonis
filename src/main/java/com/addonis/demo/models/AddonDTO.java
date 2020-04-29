@@ -34,4 +34,6 @@ public class AddonDTO {
     private Byte[] addonPicture;
 
     private MultipartFile file;
+
+    private String addonIde;
 }

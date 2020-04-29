@@ -58,9 +58,10 @@ public class AddonsController {
     private ReadmeService readmeService;
     private TagService tagService;
     private RatingService ratingService;
+    private IdeService ideService;
 
     @Autowired
-    public AddonsController(AddonService addonService, UserInfoService userInfoService, ImageService imageService, BinaryContentService binaryContentService, ReadmeService readmeService, TagService tagService, RatingService ratingService) {
+    public AddonsController(AddonService addonService, UserInfoService userInfoService, ImageService imageService, BinaryContentService binaryContentService, ReadmeService readmeService, TagService tagService, RatingService ratingService, IdeService ideService) {
         this.addonService = addonService;
         this.userInfoService = userInfoService;
         this.imageService = imageService;
@@ -68,6 +69,7 @@ public class AddonsController {
         this.readmeService = readmeService;
         this.tagService = tagService;
         this.ratingService = ratingService;
+        this.ideService = ideService;
     }
 
     @GetMapping("/addons/search")
@@ -97,6 +99,7 @@ public class AddonsController {
             UserInfo creator = userInfoService.getUserByUsername(user.getName());
             addonDto.setCreator(creator);
             addonToCreate = AddonUtils.mapDtoToAddon(addonDto, binaryContentService);
+            addonToCreate.setIdeId(ideService.getByName(addonDto.getAddonIde()));
             addonService.create(addonToCreate);
         } catch (DuplicateEntityException | IOException | InvalidDataException e) {
             model.addAttribute("error", e.getMessage());
