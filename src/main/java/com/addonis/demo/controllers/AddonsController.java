@@ -11,6 +11,7 @@ import com.addonis.demo.models.Addon;
 import com.addonis.demo.models.AddonDTO;
 import com.addonis.demo.models.BinaryContent;
 import com.addonis.demo.models.UserInfo;
+import com.addonis.demo.models.enums.Sortby;
 import com.addonis.demo.services.contracts.*;
 import com.addonis.demo.utils.AddonUtils;
 import com.github.rjeschke.txtmark.Processor;
@@ -37,6 +38,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.Principal;
+import java.util.List;
 
 import static com.addonis.demo.utils.MergeAddons.mergeTwoAddons;
 import static com.addonis.demo.utils.UserUtils.mergeTwoUsers;
@@ -71,10 +73,9 @@ public class AddonsController {
         this.tagService = tagService;
     }
 
-    @GetMapping("/addons")
-    public String showAddons(Model model) {
-        model.addAttribute("addons", addonService.getAllApprovedAddons());
-        model.addAttribute("tags", tagService.getAll());
+    @GetMapping("/addons/search")
+    public String showAddons(@RequestParam(required = false, value = "sr", defaultValue = "") String search , Model model) {
+        model.addAttribute("addons", addonService.findByNameContaining(search));
         return "addons";
     }
 
@@ -242,4 +243,13 @@ public class AddonsController {
         return  "redirect:/addons/my-addons";
     }
 
+    @GetMapping("/addons")
+    public String getAllSortBy(@RequestParam(required = false, value = "sort", defaultValue = "name") String sortBy,
+                               @RequestParam(required = false, value = "order", defaultValue = "ASC") String direction, Model model) {
+        model.addAttribute("addons", addonService.getAllSortBy(direction, Sortby.getByParam(sortBy)));
+        model.addAttribute("selsort", sortBy);
+        model.addAttribute("ordersort", direction);
+
+        return "addons";
+    }
 }

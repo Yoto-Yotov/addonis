@@ -4118,7 +4118,7 @@ ol {
 
 @media only screen and (min-width: 1200px) {
 	.container {
-		max-width: 1000px;
+		max-width: 1190px;
 	}
 }
 
@@ -4471,6 +4471,11 @@ ol {
 	.product-show-option .select-option .sorting.nice-select {
 		margin-bottom: 10px;
 	}
+
+	.sorting .nice-select {
+		box-sizing: content-box;
+	}
+
 	.product-details .quantity .primary-btn.pd-cart {
 		padding: 14px 20px 10px;
 	}
