@@ -14,12 +14,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.DataInput;
 import java.io.IOException;
-import java.util.Base64;
 
 import static com.addonis.demo.utils.UrlParser.parseUrl;
-import static com.addonis.demo.utils.UrlParser.parseUrlReadme;
 
 /**
  * GitHubServiceImpl

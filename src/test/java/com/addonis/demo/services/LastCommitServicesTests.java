@@ -48,6 +48,7 @@ public class LastCommitServicesTests {
     public void getLastCommitById_Should_ReturnUser_WhenExist() {
         //Arrange
         LastCommit lastCommit = LastCommit.builder().title("LastCommit").lastCommitId(1).build();
+        Mockito.when(lastCommitService.existsById(1)).thenReturn(true);
         Mockito.when(lastCommitRepository.getOne(1)).thenReturn(lastCommit);
 
         //Act

@@ -143,7 +143,7 @@
                             <div class="product-item">
                                 <form th:action="@{'/addons/enable/' + ${addon.name}}" method="post">
                                     <div class="pi-pic">
-                                        <img th:href="@{'/addon/' + ${addon.name} + '/image'}"
+                                        <img th:href="@{'/addons/details/' + ${addon.name}}"
                                              th:src="@{'/addon/' + ${addon.name} + '/image'}" alt=""
                                              height="250" width="263" style="background-size: contain">
                                         <div class="icon">
@@ -154,7 +154,7 @@
                                         <div class="catagory-name" th:text="${addon.name}">
                                         </div>
                                         <a href="#">
-                                            <h5><a th:text="${addon.name}"></a></h5>
+                                            <h5><a th:text="${addon.name}" th:href="@{'/addons/details/' + ${addon.name}}"></a></h5>
                                         </a>
                                         <button type="submit" class="site-btn login-btn">APPROVE</button>
                                     </div>

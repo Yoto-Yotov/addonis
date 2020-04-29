@@ -34,6 +34,10 @@ public interface AddonRepository extends BaseRepository<Addon, Integer> {
     @Query("select a from Addon a where a.name = :name")
     Addon getByName(@Param("name") String name);
 
+    @Modifying
+    @Query("UPDATE Addon set enabled = 0 where name = :name")
+    void softDeleteAddonInfo(@Param("name") String name);
+
     boolean existsByName(String name);
 
 }
