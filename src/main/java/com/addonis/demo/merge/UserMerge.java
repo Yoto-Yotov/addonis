@@ -14,9 +14,7 @@ import java.util.Properties;
 import java.util.regex.Pattern;
 
 /**
- * UserUtils
- * Merging DTOs to UserInfo
- * Send method for sending email when registering.
+ * UserUtils- Merging DTOs to UserInfo in order a user to be created or updated
  */
 @Component
 public class UserMerge {

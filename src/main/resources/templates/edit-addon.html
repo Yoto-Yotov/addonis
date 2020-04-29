@@ -79,8 +79,9 @@
                                 <a th:unless="${oldAddon.description == null}" th:text="${oldAddon.description}"></a>
                             </div>
                             <div class="group-input">
-                                <label for="newfirtname">Change description: </label>
-                                <input th:field="${newAddon.description}" type="text" id="newfirtname">
+                                <a id="newfirtname">Current description:</a>
+<!--                                <label for="newfirtname">Change description: </label>-->
+                                <input th:field="${newAddon.description}" type="text" id="newfirtname1">
                             </div>
                             </br>
                             <div>

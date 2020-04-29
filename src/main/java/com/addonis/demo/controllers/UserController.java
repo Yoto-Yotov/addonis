@@ -9,7 +9,6 @@ import com.addonis.demo.services.contracts.ImageService;
 import com.addonis.demo.services.contracts.UserInfoService;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Controller;
@@ -28,9 +27,7 @@ import java.security.Principal;
 import static com.addonis.demo.merge.UserMerge.mergeTwoUsers;
 
 /**
- * UserController
- * Page MyAccount. Show users count. Authentication needed - user.
- * Page MyAccountEdit. Edit account - first name, last name, email, picture. Authentication needed.
+ * UserController - users pages, with user information, option to create and manage addons.
  */
 @Controller
 public class UserController {

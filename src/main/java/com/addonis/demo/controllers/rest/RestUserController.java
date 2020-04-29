@@ -18,13 +18,7 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * UserRestController
- * CRUD operations
- * Create - create user. No authentication needed.
- * Read - see all users. Authentication needed - admin.
- * Update - update user profile details. Authentication needed - user.
- * Delete - delete user / disable user. Authentication needed - admin.
- * See all addons created by the user. Authentication needed - user.
+ * UserRestController is responsible for CRUD operations with users
  */
 @RestController
 @RequestMapping("api/user")

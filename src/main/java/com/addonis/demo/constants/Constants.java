@@ -1,5 +1,8 @@
 package com.addonis.demo.constants;
 
+/**
+ * Constants for exceptions
+ */
 public class Constants {
     public static final String TAG = "tag";
     public static final String ADDON = "addon";

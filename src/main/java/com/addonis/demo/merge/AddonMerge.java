@@ -5,6 +5,9 @@ import com.addonis.demo.services.contracts.BinaryContentService;
 
 import java.io.IOException;
 
+/**
+ *
+ */
 public class AddonMerge {
 
     public static Addon mergeTwoAddons(Addon oldAddon, AddonChangeDTO newAddon, BinaryContentService binaryContentService) throws IOException {

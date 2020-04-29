@@ -5,9 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 /**
- * RatingController
- * Show addon average rating.
- * Rate an addon. Authentication needed - user or admin
+ * RatingController - visualization of average rating and option to rate addon (authentication)
  */
 @Controller
 public class RatingController {

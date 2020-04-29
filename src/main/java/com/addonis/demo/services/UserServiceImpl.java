@@ -64,9 +64,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public void softDeleteUser(String username) {
         User user = userRepository.getByName(username);
-        if (user == null) {
-            throw new EntityNotFoundException(USER, username);
-        }
         user.setEnabled(0);
         userRepository.save(user);
     }

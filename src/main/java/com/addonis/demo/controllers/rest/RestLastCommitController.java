@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 /**
- * LastCommit RestController
- * Get lastCommit
+ * LastCommit RestController for getting last commit information
  */
 @RestController
 @RequestMapping("api/lastcommit")

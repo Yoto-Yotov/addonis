@@ -7,6 +7,9 @@ import com.addonis.demo.services.contracts.BinaryContentService;
 
 import java.io.IOException;
 
+/**
+ * AddonMapper maps existing addon with the new fields
+ */
 public class AddonMapper {
 
 

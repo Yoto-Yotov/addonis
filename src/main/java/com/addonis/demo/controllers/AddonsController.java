@@ -39,15 +39,7 @@ import static com.addonis.demo.merge.AddonMapper.mapDtoToAddon;
 import static com.addonis.demo.merge.AddonMerge.mergeTwoAddons;
 
 /**
- * AddonController
- * Visualization - see all ACTIVE addons.
- * Create addon. Authentication needed - user
- * Update addon. Authentication needed - user or admin
- * Show all pending addons. Authentication need - admin.
- * Show all addons of user (active and pending). Authentication needed - user.
- * Addon page - visualization of addon details. No authentication needed.
- * Button to add tag. Authentication needed - user or admin.
- * Button to edin addon. Authentication needed - user or admin.
+ * AddonController is responsible for all visualized operations with the addons. For some of them is authentication is needed.
  */
 @Controller
 public class AddonsController {

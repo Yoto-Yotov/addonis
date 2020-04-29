@@ -29,10 +29,7 @@ import static com.addonis.demo.merge.UserMerge.mergeUserInfo;
 
 
 /**
- * RegistrationController
- * Show registration page. Needed information for registration - username, email, first name (not required), last name (not required), password, confirm password, image (not requiered).
- * For registering using UserDTO
- * Page for successful registration
+ * RegistrationController - register user and set main information + picture
  */
 @Controller
 public class RegistrationController {

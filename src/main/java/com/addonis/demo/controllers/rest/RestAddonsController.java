@@ -22,13 +22,7 @@ import static com.addonis.demo.merge.AddonMapper.mapDtoToAddon;
 import static com.addonis.demo.merge.AddonMerge.mergeTwoAddons;
 
 /**
- * Rest controller for addons
- * Get all addons with details - name, creater, last commit information, addon tags. No authentication needed
- * Create addon - authentication needed (user or admin)
- * Update addon - authentication needed (user or addon)
- * Upload content - upload binary file
- * Add tag to addon - authentication needed (user or admin)
- * Delete addon - authentication needed (user or admin)
+ * Rest controller for addons - CRUD operations
  */
 @RestController
 @RequestMapping("/api/addons")
@@ -114,12 +108,16 @@ public class RestAddonsController {
     public Addon uploadAddon(@PathVariable int id, @RequestParam MultipartFile file,
                              @RequestHeader(name = "Authorization") String authorization) {
         try {
+            Addon addon = addonService.getById(id);
+            userService.checkRights(authorization, addon);
             if(file.isEmpty()) {
                 fileService.saveAddonFile(id, file);
             }
             return addonService.getById(id);
-        } catch (InvalidDataException e) {
+        } catch (InvalidDataException | EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        } catch (NotAuthorizedException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         }
     }
 
@@ -153,9 +151,6 @@ public class RestAddonsController {
 
     @GetMapping("/approved")
     public List<Addon> getApprovedAddons(@RequestHeader(name = "Authorization") String username) {
-        if (!userService.isAdmin(username)) {
-            throw new NotAuthorizedException(username);
-        }
         return addonService.getAllApprovedAddons();
     }
 
