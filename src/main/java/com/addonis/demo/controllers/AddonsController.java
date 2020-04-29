@@ -6,7 +6,6 @@ import com.addonis.demo.exceptions.InvalidDataException;
 import com.addonis.demo.exceptions.NotAuthorizedException;
 import com.addonis.demo.models.*;
 
-import com.addonis.demo.exceptions.InvalidDataException;
 import com.addonis.demo.models.Addon;
 import com.addonis.demo.models.AddonDTO;
 import com.addonis.demo.models.BinaryContent;
@@ -20,7 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -29,7 +27,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,10 +35,8 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.Principal;
-import java.util.List;
 
 import static com.addonis.demo.utils.MergeAddons.mergeTwoAddons;
-import static com.addonis.demo.utils.UserUtils.mergeTwoUsers;
 
 /**
  * AddonController
@@ -61,15 +56,17 @@ public class AddonsController {
     private ImageService imageService;
     private BinaryContentService binaryContentService;
     private ReadmeService readmeService;
+    private UserService userService;
     private TagService tagService;
 
     @Autowired
-    public AddonsController(AddonService addonService, UserInfoService userInfoService, ImageService imageService, BinaryContentService binaryContentService, ReadmeService readmeService, TagService tagService) {
+    public AddonsController(AddonService addonService, UserInfoService userInfoService, ImageService imageService, BinaryContentService binaryContentService, ReadmeService readmeService, UserService userService, TagService tagService) {
         this.addonService = addonService;
         this.userInfoService = userInfoService;
         this.imageService = imageService;
         this.binaryContentService = binaryContentService;
         this.readmeService = readmeService;
+        this.userService = userService;
         this.tagService = tagService;
     }
 
