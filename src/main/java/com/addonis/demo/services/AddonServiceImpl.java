@@ -93,6 +93,11 @@ public class AddonServiceImpl implements AddonService {
     }
 
     @Override
+    public void softDeleteAddon(String name) {
+        addonRepository.softDeleteAddonInfo(name);
+    }
+
+    @Override
     public void deleteById(Integer integer) {
         addonRepository.deleteById(integer);
     }

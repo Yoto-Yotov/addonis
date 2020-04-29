@@ -18,7 +18,6 @@ public class AddonUtils {
         addon.setPicture(addonDto.getAddonPicture());
         addon.setUserInfo(addonDto.getCreator());
 
-        //TODO in other method
         BinaryContent binaryContent = new BinaryContent();
         binaryContent.setDocName(addonDto.getFile().getOriginalFilename());
         binaryContent.setType(addonDto.getFile().getContentType());

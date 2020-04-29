@@ -143,12 +143,9 @@
                             <div class="product-item">
                                 <form th:action="@{'/addons/details/' + ${addon.name}}">
                                     <div class="pi-pic">
-                                        <img th:href="@{'/addon/' + ${addon.name} + '/image'}"
+                                        <img class="imageAddon" th:href="@{'/addon/' + ${addon.name} + '/image'}"
                                              th:src="@{'/addon/' + ${addon.name} + '/image'}" alt=""
                                              height="250" width="263" style="background-size: contain">
-                                        <div class="icon">
-                                            <i class="icon_heart_alt"></i>
-                                        </div>
                                     </div>
                                     <div class="pi-text">
                                         <div class="catagory-name" th:text="${addon.name}">

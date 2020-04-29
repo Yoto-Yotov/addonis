@@ -52,20 +52,21 @@ public class RestAddonsController {
     public List<Addon> getAll() {
         return addonService.getAll();
     }
-    
-    @PostMapping(value = "/create")
-    public Addon createAddon(@RequestBody AddonDTO addonDto,
-                             @RequestHeader(name = "Authorization") String username) {
-        try {
-            UserInfo userInfo = userInfoService.gerUserByUsername(username);
-            addonDto.setCreator(userInfo);
-            Addon addonToCreate = AddonUtils.mapDtoToAddon(addonDto, binaryContentService);
-            addonService.create(addonToCreate);
-            return addonService.getById(addonToCreate.getId());
-        } catch (DuplicateEntityException | IOException e) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
-        }
-    }
+
+    //ToDo
+//    @PostMapping(value = "/create")
+//    public Addon createAddon(@RequestBody AddonDTO addonDto,
+//                             @RequestHeader(name = "Authorization") String username) {
+//        try {
+//            UserInfo userInfo = userInfoService.gerUserByUsername(username);
+//            addonDto.setCreator(userInfo);
+//            Addon addonToCreate = AddonUtils.mapDtoToAddon(addonDto, binaryContentService);
+//            addonService.create(addonToCreate);
+//            return addonService.getById(addonToCreate.getId());
+//        } catch (DuplicateEntityException | IOException e) {
+//            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
+//        }
+//    }
 
     @GetMapping("/{addonId}")
     public Addon getAddonById(@PathVariable int addonId) {
