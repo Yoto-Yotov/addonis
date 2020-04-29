@@ -12,7 +12,7 @@ import javax.transaction.Transactional;
 
 @Repository
 @Transactional
-public interface UserRepository extends BaseRepository<User, String>{
+public interface UserRepository extends BaseRepository<User, Integer>{
 
     @Query("select u from User u where u.username = :name")
     User getByName(@Param("name") String name);

@@ -6,6 +6,7 @@ import com.addonis.demo.exceptions.NotAuthorizedException;
 import com.addonis.demo.models.Addon;
 import com.addonis.demo.models.AddonDTO;
 import com.addonis.demo.models.UserInfo;
+import com.addonis.demo.models.enums.Sortby;
 import com.addonis.demo.services.contracts.*;
 import com.addonis.demo.utils.AddonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
@@ -54,7 +56,7 @@ public class RestAddonsController {
     }
     
     @PostMapping(value = "/create")
-    public Addon createAddon(@RequestBody AddonDTO addonDto,
+    public Addon createAddon(@RequestBody @Valid AddonDTO addonDto,
                              @RequestHeader(name = "Authorization") String username) {
         try {
             UserInfo userInfo = userInfoService.getUserByUsername(username);
@@ -69,13 +71,13 @@ public class RestAddonsController {
 
     @GetMapping("/{addonId}")
     public Addon getAddonById(@PathVariable int addonId) {
-        return addonService.getAddonById(addonId);
+        return addonService.getById(addonId);
     }
 
     @PostMapping(value = "/upload/{id}", consumes = "multipart/form-data")
     public Addon uploadAddon(@PathVariable int id, @RequestParam MultipartFile file) {
         try {
-            if(file != null) {
+            if(file.isEmpty()) {
                 fileService.saveAddonFile(id, file);
             }
             return addonService.getById(id);
@@ -90,6 +92,11 @@ public class RestAddonsController {
             throw new NotAuthorizedException(username);
         }
         return addonService.getAllPendingAddons();
+    }
+
+    @GetMapping("")
+    public List<Addon> getAllSortBy(@RequestParam("v") String sortBy) {
+        return addonService.getAllSortBy("ASC",Sortby.getByParam(sortBy));
     }
 
     @GetMapping("/featured")

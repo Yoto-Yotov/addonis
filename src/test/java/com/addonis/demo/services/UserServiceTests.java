@@ -52,10 +52,10 @@ public class UserServiceTests {
     public void getUserById_Should_ReturnUser_WhenExist() {
         //Arrange
         User originalUser = User.builder().username("teo").password("123456").build();
-        Mockito.when(userRepository.getOne("1")).thenReturn(originalUser);
+        Mockito.when(userRepository.getOne(1)).thenReturn(originalUser);
 
         //Act
-        User returnUser = userService.getById("1");
+        User returnUser = userService.getById(1);
 
         //Assert
         Assert.assertSame(originalUser, returnUser);
@@ -67,10 +67,10 @@ public class UserServiceTests {
         User originalUser = User.builder().username("teo").password("123456").build();
 
         //Act
-        userService.deleteById(originalUser.getUsername());
+        userService.deleteById(originalUser.getId());
 
         Mockito.verify(userRepository,
-                times(1)).deleteById(originalUser.getUsername());
+                times(1)).deleteById(originalUser.getId());
     }
 
     @Test

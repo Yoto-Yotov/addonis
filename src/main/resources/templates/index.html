@@ -47,34 +47,34 @@
                     +359 888.888.888
                 </div>
             </div>
-            </div>
-            <div class="ht-right">
-                <form th:action="@{/login}" sec:authorize="isAuthenticated()" method="post">
-                    <a href="#" th:href="@{/logout}" class="login-panel">Log out</a>
-                    <a href="№" th:href="@{/admin}" sec:authorize="hasRole('ADMIN')" class="login-panel">Admin Portal</a>
-                    <a href="#" th:href="@{/addon-create}" sec:authorize="hasRole('USER') && !hasRole('ADMIN')" class="login-panel"></i>Create addon</a>
-                    <a href="#" th:href="@{/addons/my-addons}" sec:authorize="hasRole('USER') && !hasRole('ADMIN')" class="login-panel"></i>My addons</a>
-                    <a href="#" th:href="@{/my-account}" sec:authorize="hasRole('USER') && !hasRole('ADMIN')" class="login-panel"></i>My account</a>
-                    <a href="#" th:href="@{/login}" sec:authorize="!isAuthenticated()" class="login-panel"><i class="fa fa-user"></i>Login</a>
-                    <div class="top-social">
-                        <a href="https://www.facebook.com/Addonis-109059887435247/?modal=admin_todo_tour"><i class="ti-facebook"></i></a>
-                        <a href="#"><i class="ti-twitter-alt"></i></a>
-                        <a href="#"><i class="ti-linkedin"></i></a>
-                        <a href="https://www.pinterest.com/addonisteam/tried/"><i class="ti-pinterest"></i></a>
-                    </div>
-                </form>
-                <form th:action="@{/login}" sec:authorize="!isAuthenticated()" method="post">
-                    <a href="#" th:href="@{/login}" sec:authorize="!isAuthenticated()" class="login-panel"><i class="fa fa-user"></i>Login</a>
-                    <div class="top-social">
-                        <a href="https://www.facebook.com/Addonis-109059887435247/?modal=admin_todo_tour"><i class="ti-facebook"></i></a>
-                        <a href="#"><i class="ti-twitter-alt"></i></a>
-                        <a href="#"><i class="ti-linkedin"></i></a>
-                        <a href="https://www.pinterest.com/addonisteam/tried/"><i class="ti-pinterest"></i></a>
-                    </div>
-                    <a href="#" th:href="@{/register}" sec:authorize="!isAuthenticated()" class="login-panel"><i class="far fa-registered"></i>Register</a>
-                </form>
-            </div>
         </div>
+        <div class="ht-right">
+            <form th:action="@{/login}" sec:authorize="isAuthenticated()" method="post">
+                <a href="#" th:href="@{/logout}" class="login-panel">Log out</a>
+                <a href="№" th:href="@{/admin}" sec:authorize="hasRole('ADMIN')" class="login-panel">Admin Portal</a>
+                <a href="#" th:href="@{/addon-create}" sec:authorize="hasRole('USER') && !hasRole('ADMIN')" class="login-panel"></i>Create addon</a>
+                <a href="#" th:href="@{/addons/my-addons}" sec:authorize="hasRole('USER') && !hasRole('ADMIN')" class="login-panel"></i>My addons</a>
+                <a href="#" th:href="@{/my-account}" sec:authorize="hasRole('USER') && !hasRole('ADMIN')" class="login-panel"></i>My account</a>
+                <a href="#" th:href="@{/login}" sec:authorize="!isAuthenticated()" class="login-panel"><i class="fa fa-user"></i>Login</a>
+                <div class="top-social">
+                    <a href="https://www.facebook.com/Addonis-109059887435247/?modal=admin_todo_tour"><i class="ti-facebook"></i></a>
+                    <a href="#"><i class="ti-twitter-alt"></i></a>
+                    <a href="#"><i class="ti-linkedin"></i></a>
+                    <a href="https://www.pinterest.com/addonisteam/tried/"><i class="ti-pinterest"></i></a>
+                </div>
+            </form>
+            <form th:action="@{/login}" sec:authorize="!isAuthenticated()" method="post">
+                <a href="#" th:href="@{/login}" sec:authorize="!isAuthenticated()" class="login-panel"><i class="fa fa-user"></i>Login</a>
+                <div class="top-social">
+                    <a href="https://www.facebook.com/Addonis-109059887435247/?modal=admin_todo_tour"><i class="ti-facebook"></i></a>
+                    <a href="#"><i class="ti-twitter-alt"></i></a>
+                    <a href="#"><i class="ti-linkedin"></i></a>
+                    <a href="https://www.pinterest.com/addonisteam/tried/"><i class="ti-pinterest"></i></a>
+                </div>
+                <a href="#" th:href="@{/register}" sec:authorize="!isAuthenticated()" class="login-panel"><i class="far fa-registered"></i>Register</a>
+            </form>
+        </div>
+    </div>
     </div>
     <div class="container">
         <div class="inner-header" >
@@ -87,12 +87,14 @@
                     </div>
                 </div>
                 <div class="col-lg-7 col-md-7">
+                    <form th:action="@{'/addons/search?sr='}" method="get">
                     <div class="advanced-search">
                         <div class="input-group">
-                            <input type="text" placeholder="What are you searching for?">
-                            <button type="button"><i class="ti-search"></i></button>
+                            <input type="text" name="sr" style="color:black" placeholder="What are you searching for?">
+                            <button type="submit"><i class="ti-search"></i></button>
                         </div>
                     </div>
+                    </form>
                 </div>
                 <div class="col-lg-3 text-right col-md-3">
                     <ul class="nav-right">
@@ -107,13 +109,6 @@
                 <ul>w
                     <li class="active"><a th:href="@{/}">Home</a></li>
                     <li><a th:href="@{/addons}">Addons</a></li>
-                    <li><a href="#">Collection</a>
-                        <ul class="dropdown">
-                            <li><a href="#">Men's</a></li>
-                            <li><a href="#">Women's</a></li>
-                            <li><a href="#">Kid's</a></li>
-                        </ul>
-                    </li>
                     <li><a href="/blog.html">Blog</a></li>
                     <li><a th:href="@{/contact}">Contact</a></li>
                     <li><a href="#" th:href="@{/about}">About</a></li>
@@ -125,90 +120,32 @@
 </header>
 <!-- Header End -->
 
-<!-- Women Banner Section Begin -->
+<!-- Featured Addons Section Start -->
 <section class="women-banner spad">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-8 offset-lg-1">
+            <div class="col-lg-99 offset-lg-1">
                 <div class="filter-control">
                     <h5 align="left">Featured</h5>
                 </div>
                 <div class="product-slider owl-carousel">
-                    <div class="product-item">
-                        <div class="pi-pic">
-                            <img src="img/download.png" alt="">
-                            <div class="icon">
-                                <i class="icon_heart_alt"></i>
-                            </div>
-                        </div>
-                        <div class="pi-text">
-                            <div class="catagory-name">Coat</div>
-                            <a href="#">
-                                <h5>Pure Pineapple</h5>
-                            </a>
-                            <div class="product-price">
-                                $14.00
-                                <span>$35.00</span>
-                            </div>
+
+                    <div class="card" style="width: auto" th:each="addon : ${featured}">
+                        <img class="card-img-top" height="192" width="234" th:href="@{'/addon/' + ${addon.name} + '/image'}"
+                             th:src="@{'/addon/' + ${addon.name} + '/image'}" alt="Card image cap">
+                        <div class="card-body">                                                  <!--  <td th:text="${teacher.active} ? 'ACTIVE' : 'RETIRED'" />   -->
+                            <a class="card-title" th:href="@{'/addons/details/' + ${addon.name}}" th:text="${addon.name.length() > 15 ? addon.name.substring(0,15) : addon.name}">Addon name</a>
+                            <a href="#" class="btn cbutton btn-primary" th:href="@{'/addons/download/' + ${addon.id}}">Download</a>
                         </div>
                     </div>
-                    <div class="product-item">
-                        <div class="pi-pic">
-                            <img src="img/IntelliJ_IDEA_Logo.svg.png" alt="">
-                            <div class="icon">
-                                <i class="icon_heart_alt"></i>
-                            </div>
-                        </div>
-                        <div class="pi-text">
-                            <div class="catagory-name">Shoes</div>
-                            <a href="#">
-                                <h5>Guangzhou sweater</h5>
-                            </a>
-                            <div class="product-price">
-                                $13.00
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-item">
-                        <div class="pi-pic">
-                            <img src="img/1469205431Logo-Google-Drive.jpg" alt="">
-                            <div class="icon">
-                                <i class="icon_heart_alt"></i>
-                            </div>
-                        </div>
-                        <div class="pi-text">
-                            <div class="catagory-name">Towel</div>
-                            <a href="#">
-                                <h5>Pure Pineapple</h5>
-                            </a>
-                            <div class="product-price">
-                                $34.00
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-item">
-                        <div class="pi-pic">
-                            <img src="img/unnamed.png" alt="">
-                            <div class="icon">
-                                <i class="icon_heart_alt"></i>
-                            </div>
-                        </div>
-                        <div class="pi-text">
-                            <div class="catagory-name">Towel</div>
-                            <a href="#">
-                                <h5>Converse Shoes</h5>
-                            </a>
-                            <div class="product-price">
-                                $34.00
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>
     </div>
 </section>
-<!-- Women Banner Section End -->
+<!-- Featured Addons Section End -->
+
 
 <!-- New Addons Section Begin -->
 <section class="women-banner spad">
@@ -219,66 +156,16 @@
                     <h5 align="left">New</h5>
                 </div>
                 <div class="product-slider owl-carousel">
-                    <div class="product-item">
-                        <div class="pi-pic">
-                            <img src="img/products/women-1.jpg" alt="">
-                            <div class="icon">
-                                <i class="icon_heart_alt"></i>
-                            </div>
-                        </div>
-                        <div class="pi-text">
-                            <div class="catagory-name">Coat</div>
-                            <a href="#">
-                                <h5>Pure Pineapple</h5>
-                            </a>
-<!--                            <div class="product-price">-->
-<!--                                $14.00-->
-<!--                                <span>$35.00</span>-->
-<!--                            </div>-->
+
+                    <div class="card" style="width: auto" th:each="addon : ${newest}">
+                        <img class="card-img-top" height="192" width="234" th:href="@{'/addon/' + ${addon.name} + '/image'}"
+                             th:src="@{'/addon/' + ${addon.name} + '/image'}" alt="Card image cap">
+                        <div class="card-body">
+                            <a class="card-title" th:href="@{'/addons/details/' + ${addon.name}}" th:text="${addon.name.length() > 15 ? addon.name.substring(0,15) : addon.name}">Addon name</a>
+                            <a href="#" class="btn cbutton btn-primary" th:href="@{'/addons/download/' + ${addon.id}}">Download</a>
                         </div>
                     </div>
-                    <div class="product-item">
-                        <div class="pi-pic">
-                            <img src="img/products/women-2.jpg" alt="">
-                            <div class="icon">
-                                <i class="icon_heart_alt"></i>
-                            </div>
-                        </div>
-                        <div class="pi-text">
-                            <div class="catagory-name">Shoes</div>
-                            <a href="#">
-                                <h5>Guangzhou sweater</h5>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="product-item">
-                        <div class="pi-pic">
-                            <img src="img/products/women-3.jpg" alt="">
-                            <div class="icon">
-                                <i class="icon_heart_alt"></i>
-                            </div>
-                        </div>
-                        <div class="pi-text">
-                            <div class="catagory-name">Towel</div>
-                            <a href="#">
-                                <h5>Pure Pineapple</h5>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="product-item">
-                        <div class="pi-pic">
-                            <img src="img/products/women-4.jpg" alt="">
-                            <div class="icon">
-                                <i class="icon_heart_alt"></i>
-                            </div>
-                        </div>
-                        <div class="pi-text">
-                            <div class="catagory-name">Towel</div>
-                            <a href="#">
-                                <h5>Converse Shoes</h5>
-                            </a>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -295,87 +182,22 @@
                     <h5 align="left">Popular</h5>
                 </div>
                 <div class="product-slider owl-carousel">
-                    <div class="product-item">
-                        <div class="pi-pic">
-                            <img src="img/products/women-1.jpg" alt="">
-                            <div class="icon">
-                                <i class="icon_heart_alt"></i>
-                            </div>
-                        </div>
-                        <div class="pi-text">
-                            <div class="catagory-name">Coat</div>
-                            <a href="#">
-                                <h5>Pure Pineapple</h5>
-                            </a>
-                            <div class="product-price">
-                                $14.00
-                                <span>$35.00</span>
-                            </div>
+
+                    <div class="card" style="width: auto" th:each="addon : ${popular}">
+                        <img class="card-img-top" height="192" width="234" th:href="@{'/addon/' + ${addon.name} + '/image'}"
+                             th:src="@{'/addon/' + ${addon.name} + '/image'}" alt="Card image cap">
+                        <div class="card-body">                                                  <!--  <td th:text="${teacher.active} ? 'ACTIVE' : 'RETIRED'" />   -->
+                            <a class="card-title" th:href="@{'/addons/details/' + ${addon.name}}" th:text="${addon.name.length() > 15 ? addon.name.substring(0,15) : addon.name}">Addon name</a>
+                            <a href="#" class="btn cbutton btn-primary" th:href="@{'/addons/download/' + ${addon.id}}">Download</a>
                         </div>
                     </div>
-                    <div class="product-item">
-                        <div class="pi-pic">
-                            <img src="img/products/women-2.jpg" alt="">
-                            <div class="icon">
-                                <i class="icon_heart_alt"></i>
-                            </div>
-                        </div>
-                        <div class="pi-text">
-                            <div class="catagory-name">Shoes</div>
-                            <a href="#">
-                                <h5>Guangzhou sweater</h5>
-                            </a>
-                            <div class="product-price">
-                                $13.00
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-item">
-                        <div class="pi-pic">
-                            <img src="img/products/women-3.jpg" alt="">
-                            <div class="icon">
-                                <i class="icon_heart_alt"></i>
-                            </div>
-                        </div>
-                        <div class="pi-text">
-                            <div class="catagory-name">Towel</div>
-                            <a href="#">
-                                <h5>Pure Pineapple</h5>
-                            </a>
-                            <div class="product-price">
-                                $34.00
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-item">
-                        <div class="pi-pic">
-                            <img src="img/products/women-4.jpg" alt="">
-                            <div class="icon">
-                                <i class="icon_heart_alt"></i>
-                            </div>
-<!--                            <ul>-->
-<!--                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>-->
-<!--                                <li class="quick-view"><a href="#">+ Quick View</a></li>-->
-<!--                                <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>-->
-<!--                            </ul>-->
-                        </div>
-                        <div class="pi-text">
-                            <div class="catagory-name">Towel</div>
-                            <a href="#">
-                                <h5>Converse Shoes</h5>
-                            </a>
-                            <div class="product-price">
-                                $34.00
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>
     </div>
 </section>
 <!-- Popular Addons Section End -->
-
 
 <!-- Deal Of The Week Section Begin-->
 <section class="deal-of-week set-bg spad" data-setbg="img/silver-laptop-in-white-wooden-table-3759098.jpg">

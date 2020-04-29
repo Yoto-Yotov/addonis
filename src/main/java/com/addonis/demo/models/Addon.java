@@ -24,7 +24,7 @@ import java.util.Set;
 @Entity
 @Builder
 @Table(name = "addons")
-//@Where(clause = "status = 'APPROVED'")
+@Where(clause = "enabled = 1")
 @JsonSerialize
 public class Addon{
 
@@ -32,6 +32,9 @@ public class Addon{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "addon_id")
     private int id;
+
+    @Column(name = "enabled")
+    private Integer enabled = 1;
 
     @ManyToOne
     @JoinColumn(name = "creator_id")
@@ -47,7 +50,7 @@ public class Addon{
     private int downloadsCount;
 
     @OneToOne
-    @JoinColumn(name = "ide_name")
+    @JoinColumn(name = "ide_id")
     private IDE ideId;
 
     @Column(name = "origin_link")

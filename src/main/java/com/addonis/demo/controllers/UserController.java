@@ -85,7 +85,7 @@ public class UserController {
 
     @PostMapping("/my-account/edit")
     public String updateUser(@Valid @ModelAttribute("newuser") UserChangeDTO newuser, Principal principal, BindingResult errors, Model model,
-                             @RequestParam("imagefile") MultipartFile file, Authentication authentication) {
+                             @RequestParam("imagefile") MultipartFile file) {
 
         if(errors.hasErrors()) {
             model.addAttribute("error", errors.getAllErrors().get(0));

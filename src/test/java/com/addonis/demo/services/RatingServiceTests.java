@@ -47,7 +47,7 @@ public class RatingServiceTests {
         //Arrange
         UserInfo john = UserInfo.builder().id(1).name("john").build();
         Mockito.when(userInfoService.getUserByUsername("john")).thenReturn(john);
-        Mockito.when(addonService.getAddonById(1)).thenThrow(EntityNotFoundException.class);
+        Mockito.when(addonService.getById(1)).thenThrow(EntityNotFoundException.class);
 
         //Act //Assert
         Assert.assertThrows(EntityNotFoundException.class, () -> ratingServiceImpl.rateAddon(1, "john", 4));
@@ -60,7 +60,7 @@ public class RatingServiceTests {
         Addon addon = Addon.builder().id(1).name("zoom").build();
 
         Mockito.when(userInfoService.getUserByUsername("john")).thenReturn(john);
-        Mockito.when(addonService.getAddonById(1)).thenReturn(addon);
+        Mockito.when(addonService.getById(1)).thenReturn(addon);
         Mockito.when(ratingRepository.getByUserInfoIdAndAddonId(1, 1)).thenReturn(null);
         Rating rating = Rating.builder().rating(4).userInfo(john).addon(addon).build();
 
@@ -79,7 +79,7 @@ public class RatingServiceTests {
         Rating rating = Rating.builder().rating(4).userInfo(john).addon(addon).build();
 
         Mockito.when(userInfoService.getUserByUsername("john")).thenReturn(john);
-        Mockito.when(addonService.getAddonById(1)).thenReturn(addon);
+        Mockito.when(addonService.getById(1)).thenReturn(addon);
         Mockito.when(ratingRepository.getByUserInfoIdAndAddonId(1, 1)).thenReturn(rating);
 
         //Act
@@ -112,7 +112,7 @@ public class RatingServiceTests {
         //Arrange
         UserInfo john = UserInfo.builder().id(1).name("john").build();
         Mockito.when(userInfoService.getUserByUsername("john")).thenReturn(john);
-        Mockito.when(addonService.getAddonById(1)).thenThrow(EntityNotFoundException.class);
+        Mockito.when(addonService.getById(1)).thenThrow(EntityNotFoundException.class);
 
         //Act //Assert
         Assert.assertThrows(EntityNotFoundException.class, () -> ratingServiceImpl.getUserRating(1, "john"));
@@ -124,7 +124,7 @@ public class RatingServiceTests {
         UserInfo john = UserInfo.builder().id(1).name("john").build();
         Addon addon = Addon.builder().id(1).name("addon").build();
         Mockito.when(userInfoService.getUserByUsername("john")).thenReturn(john);
-        Mockito.when(addonService.getAddonById(1)).thenReturn(addon);
+        Mockito.when(addonService.getById(1)).thenReturn(addon);
 
         //Act //Assert
         Assert.assertEquals(0, ratingServiceImpl.getUserRating(1, "john"), 1);
@@ -138,7 +138,7 @@ public class RatingServiceTests {
         Rating rating = Rating.builder().rating(4).userInfo(john).addon(addon).build();
 
         Mockito.when(userInfoService.getUserByUsername("john")).thenReturn(john);
-        Mockito.when(addonService.getAddonById(1)).thenReturn(addon);
+        Mockito.when(addonService.getById(1)).thenReturn(addon);
         Mockito.when(ratingRepository.getByUserInfoIdAndAddonId(1, 1)).thenReturn(rating);
 
         //Act //Assert

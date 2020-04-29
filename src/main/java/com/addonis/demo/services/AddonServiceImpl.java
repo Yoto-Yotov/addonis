@@ -4,22 +4,22 @@ import com.addonis.demo.exceptions.DuplicateEntityException;
 import com.addonis.demo.exceptions.EntityNotFoundException;
 import com.addonis.demo.models.*;
 import com.addonis.demo.models.commitresponse.LastCommitResponse;
+import com.addonis.demo.models.enums.Sortby;
 import com.addonis.demo.models.enums.Status;
 import com.addonis.demo.repository.contracts.AddonRepository;
 import com.addonis.demo.repository.contracts.ReadmeRepository;
-import com.addonis.demo.repository.contracts.UserInfoRepository;
 import com.addonis.demo.services.contracts.AddonService;
 import com.addonis.demo.services.contracts.GitHubService;
 import com.addonis.demo.services.contracts.LastCommitService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
-
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.addonis.demo.utils.Constants.ADDON;
+import static com.addonis.demo.utils.Constants.TAG;
 import static com.addonis.demo.utils.LastCommitMapper.mapLastCommitResponseToLastCommit;
 
 /**
@@ -55,13 +55,8 @@ public class AddonServiceImpl implements AddonService {
     }
 
     @Override
-    public Addon getById(Integer integer) {
-        return addonRepository.getOne(integer);
-    }
-
-    @Override
-    public Addon getAddonById(int addonId) {
-        return addonRepository.findById(addonId).orElseThrow(() -> new EntityNotFoundException(ADDON, addonId));
+    public Addon getById(Integer id) {
+        return addonRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(ADDON, id));
     }
 
     @Override
@@ -79,20 +74,32 @@ public class AddonServiceImpl implements AddonService {
         return addonRepository.getAddonByStatus(Status.APPROVED);
     }
 
-
     @Override
     public String getCreatorName(int addonId) {
-        return getAddonById(addonId).getUserInfo().getName();
+        return getById(addonId).getUserInfo().getName();
+    }
+
+    @Override
+    public void changeDownloadCount(int addonId) {
+        Addon addon = getById(addonId);
+        int downloadCount = addon.getDownloadsCount() + 1;
+        addon.setDownloadsCount(downloadCount);
+        update(addon);
+    }
+
+    @Override
+    public void softDeleteAddon(String name) {
+        addonRepository.softDeleteAddonInfo(name);
     }
 
     @Override
     public List<Addon> getNewest() {
-        return addonRepository.findTop6ByOrderByIdDesc();
+        return addonRepository.findTop6ByStatusOrderByIdDesc(Status.APPROVED);
     }
 
     @Override
     public List<Addon> getTopByDownloads() {
-        return addonRepository.findTop6ByOrderByDownloadsCountDesc();
+        return addonRepository.findTop6ByStatusOrderByDownloadsCountDesc(Status.APPROVED);
     }
 
     @Override
@@ -101,13 +108,25 @@ public class AddonServiceImpl implements AddonService {
     }
 
     @Override
-    public void deleteById(Integer integer) {
-        addonRepository.deleteById(integer);
+    public void deleteById(Integer id) {
+        try {
+            addonRepository.deleteById(id);
+        } catch (Exception e) {
+            throw new EntityNotFoundException(ADDON, id);
+        }
+    }
+
+    public List<Addon> findByNameContaining(String name) {
+        return addonRepository.findAllByStatusAndNameContaining(Status.APPROVED, name);
     }
 
     @Override
     public void update(Addon addon) {
-        addonRepository.save(addon);
+       try {
+            addonRepository.save(addon);
+        } catch (org.springframework.dao.DataIntegrityViolationException ex) {
+            throw new DuplicateEntityException(ADDON);
+        }
     }
 
     @Override
@@ -138,6 +157,10 @@ public class AddonServiceImpl implements AddonService {
         return addonRepository.existsById(addonId);
     }
 
+    public List<Addon> getAllSortBy(String direction, Sortby sortBy) {
+        return addonRepository.findAllByStatus(Status.APPROVED, Sort.by(Sort.Direction.valueOf(direction), sortBy.getParam()));
+    }
+
     @Override
     public boolean checkAddonExistsByName(String name) {
         return addonRepository.existsByName(name);
@@ -160,6 +183,5 @@ public class AddonServiceImpl implements AddonService {
         addon.setStatus(Status.APPROVED);
         addonRepository.save(addon);
     }
-
 
 }
