@@ -46,19 +46,22 @@ public class AddonsController {
     private ImageService imageService;
     private BinaryContentService binaryContentService;
     private ReadmeService readmeService;
+    private TagService tagService;
 
     @Autowired
-    public AddonsController(AddonService addonService, UserInfoService userInfoService, ImageService imageService, BinaryContentService binaryContentService, ReadmeService readmeService) {
+    public AddonsController(AddonService addonService, UserInfoService userInfoService, ImageService imageService, BinaryContentService binaryContentService, ReadmeService readmeService, TagService tagService) {
         this.addonService = addonService;
         this.userInfoService = userInfoService;
         this.imageService = imageService;
         this.binaryContentService = binaryContentService;
         this.readmeService = readmeService;
+        this.tagService = tagService;
     }
 
     @GetMapping("/addons")
     public String showAddons(Model model) {
         model.addAttribute("addons", addonService.getAllApprovedAddons());
+        model.addAttribute("tags", tagService.getAll());
         return "addons";
     }
 
