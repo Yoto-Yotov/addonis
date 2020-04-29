@@ -45,13 +45,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getById(String s) {
-        return userRepository.getOne(s);
+    public User getById(Integer id) {
+        return userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(USER, id));
     }
 
     @Override
-    public void deleteById(String s) {
-        userRepository.deleteById(s);
+    public void deleteById(Integer id) {
+        getById(id);
+        userRepository.deleteById(id);
     }
 
     @Override
@@ -70,13 +71,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public void softDeleteUser(String username) {
         User user = userRepository.getByName(username);
+        if (user == null) {
+            throw new EntityNotFoundException(USER, username);
+        }
         user.setEnabled(0);
     }
 
     @Override
     public User getUserByName(String userName) {
-        User user =  userRepository.findUserByUsername(userName);
-        if(user == null) {
+        User user = userRepository.findUserByUsername(userName);
+        if (user == null) {
             throw new EntityNotFoundException(USER, userName);
         }
         return user;

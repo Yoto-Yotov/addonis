@@ -109,13 +109,6 @@
                 <ul>
                     <li class="active"><a th:href="@{/}">Home</a></li>
                     <li><a th:href="@{/addons}">Addons</a></li>
-                    <li><a href="#">Collection</a>
-                        <ul class="dropdown">
-                            <li><a href="#">Men's</a></li>
-                            <li><a href="#">Women's</a></li>
-                            <li><a href="#">Kid's</a></li>
-                        </ul>
-                    </li>
                     <li><a href="/blog.html">Blog</a></li>
                     <li><a th:href="@{/contact}">Contact</a></li>
                     <li><a href="#" th:href="@{/about}">About</a></li>
@@ -127,90 +120,32 @@
 </header>
 <!-- Header End -->
 
-<!-- Women Banner Section Begin -->
+<!-- Featured Addons Section Start -->
 <section class="women-banner spad">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-8 offset-lg-1">
+            <div class="col-lg-99 offset-lg-1">
                 <div class="filter-control">
                     <h5 align="left">Featured</h5>
                 </div>
                 <div class="product-slider owl-carousel">
-                    <div class="product-item">
-                        <div class="pi-pic">
-                            <img src="img/download.png" alt="">
-                            <div class="icon">
-                                <i class="icon_heart_alt"></i>
-                            </div>
-                        </div>
-                        <div class="pi-text">
-                            <div class="catagory-name">Coat</div>
-                            <a href="#">
-                                <h5>Pure Pineapple</h5>
-                            </a>
-                            <div class="product-price">
-                                $14.00
-                                <span>$35.00</span>
-                            </div>
+
+                    <div class="card" style="width: auto" th:each="addon : ${featured}">
+                        <img class="card-img-top" height="192" width="234" th:href="@{'/addon/' + ${addon.name} + '/image'}"
+                             th:src="@{'/addon/' + ${addon.name} + '/image'}" alt="Card image cap">
+                        <div class="card-body">                                                  <!--  <td th:text="${teacher.active} ? 'ACTIVE' : 'RETIRED'" />   -->
+                            <a class="card-title" th:href="@{'/addons/details/' + ${addon.name}}" th:text="${addon.name.length() > 15 ? addon.name.substring(0,15) : addon.name}">Addon name</a>
+                            <a href="#" class="btn cbutton btn-primary" th:href="@{'/addons/download/' + ${addon.id}}">Download</a>
                         </div>
                     </div>
-                    <div class="product-item">
-                        <div class="pi-pic">
-                            <img src="img/IntelliJ_IDEA_Logo.svg.png" alt="">
-                            <div class="icon">
-                                <i class="icon_heart_alt"></i>
-                            </div>
-                        </div>
-                        <div class="pi-text">
-                            <div class="catagory-name">Shoes</div>
-                            <a href="#">
-                                <h5>Guangzhou sweater</h5>
-                            </a>
-                            <div class="product-price">
-                                $13.00
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-item">
-                        <div class="pi-pic">
-                            <img src="img/1469205431Logo-Google-Drive.jpg" alt="">
-                            <div class="icon">
-                                <i class="icon_heart_alt"></i>
-                            </div>
-                        </div>
-                        <div class="pi-text">
-                            <div class="catagory-name">Towel</div>
-                            <a href="#">
-                                <h5>Pure Pineapple</h5>
-                            </a>
-                            <div class="product-price">
-                                $34.00
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-item">
-                        <div class="pi-pic">
-                            <img src="img/unnamed.png" alt="">
-                            <div class="icon">
-                                <i class="icon_heart_alt"></i>
-                            </div>
-                        </div>
-                        <div class="pi-text">
-                            <div class="catagory-name">Towel</div>
-                            <a href="#">
-                                <h5>Converse Shoes</h5>
-                            </a>
-                            <div class="product-price">
-                                $34.00
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>
     </div>
 </section>
-<!-- Women Banner Section End -->
+<!-- Featured Addons Section End -->
+
 
 <!-- New Addons Section Begin -->
 <section class="women-banner spad">
@@ -221,66 +156,16 @@
                     <h5 align="left">New</h5>
                 </div>
                 <div class="product-slider owl-carousel">
-                    <div class="product-item">
-                        <div class="pi-pic">
-                            <img src="img/products/women-1.jpg" alt="">
-                            <div class="icon">
-                                <i class="icon_heart_alt"></i>
-                            </div>
-                        </div>
-                        <div class="pi-text">
-                            <div class="catagory-name">Coat</div>
-                            <a href="#">
-                                <h5>Pure Pineapple</h5>
-                            </a>
-<!--                            <div class="product-price">-->
-<!--                                $14.00-->
-<!--                                <span>$35.00</span>-->
-<!--                            </div>-->
+
+                    <div class="card" style="width: auto" th:each="addon : ${newest}">
+                        <img class="card-img-top" height="192" width="234" th:href="@{'/addon/' + ${addon.name} + '/image'}"
+                             th:src="@{'/addon/' + ${addon.name} + '/image'}" alt="Card image cap">
+                        <div class="card-body">
+                            <a class="card-title" th:href="@{'/addons/details/' + ${addon.name}}" th:text="${addon.name.length() > 15 ? addon.name.substring(0,15) : addon.name}">Addon name</a>
+                            <a href="#" class="btn cbutton btn-primary" th:href="@{'/addons/download/' + ${addon.id}}">Download</a>
                         </div>
                     </div>
-                    <div class="product-item">
-                        <div class="pi-pic">
-                            <img src="img/products/women-2.jpg" alt="">
-                            <div class="icon">
-                                <i class="icon_heart_alt"></i>
-                            </div>
-                        </div>
-                        <div class="pi-text">
-                            <div class="catagory-name">Shoes</div>
-                            <a href="#">
-                                <h5>Guangzhou sweater</h5>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="product-item">
-                        <div class="pi-pic">
-                            <img src="img/products/women-3.jpg" alt="">
-                            <div class="icon">
-                                <i class="icon_heart_alt"></i>
-                            </div>
-                        </div>
-                        <div class="pi-text">
-                            <div class="catagory-name">Towel</div>
-                            <a href="#">
-                                <h5>Pure Pineapple</h5>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="product-item">
-                        <div class="pi-pic">
-                            <img src="img/products/women-4.jpg" alt="">
-                            <div class="icon">
-                                <i class="icon_heart_alt"></i>
-                            </div>
-                        </div>
-                        <div class="pi-text">
-                            <div class="catagory-name">Towel</div>
-                            <a href="#">
-                                <h5>Converse Shoes</h5>
-                            </a>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -297,87 +182,22 @@
                     <h5 align="left">Popular</h5>
                 </div>
                 <div class="product-slider owl-carousel">
-                    <div class="product-item">
-                        <div class="pi-pic">
-                            <img src="img/products/women-1.jpg" alt="">
-                            <div class="icon">
-                                <i class="icon_heart_alt"></i>
-                            </div>
-                        </div>
-                        <div class="pi-text">
-                            <div class="catagory-name">Coat</div>
-                            <a href="#">
-                                <h5>Pure Pineapple</h5>
-                            </a>
-                            <div class="product-price">
-                                $14.00
-                                <span>$35.00</span>
-                            </div>
+
+                    <div class="card" style="width: auto" th:each="addon : ${popular}">
+                        <img class="card-img-top" height="192" width="234" th:href="@{'/addon/' + ${addon.name} + '/image'}"
+                             th:src="@{'/addon/' + ${addon.name} + '/image'}" alt="Card image cap">
+                        <div class="card-body">                                                  <!--  <td th:text="${teacher.active} ? 'ACTIVE' : 'RETIRED'" />   -->
+                            <a class="card-title" th:href="@{'/addons/details/' + ${addon.name}}" th:text="${addon.name.length() > 15 ? addon.name.substring(0,15) : addon.name}">Addon name</a>
+                            <a href="#" class="btn cbutton btn-primary" th:href="@{'/addons/download/' + ${addon.id}}">Download</a>
                         </div>
                     </div>
-                    <div class="product-item">
-                        <div class="pi-pic">
-                            <img src="img/products/women-2.jpg" alt="">
-                            <div class="icon">
-                                <i class="icon_heart_alt"></i>
-                            </div>
-                        </div>
-                        <div class="pi-text">
-                            <div class="catagory-name">Shoes</div>
-                            <a href="#">
-                                <h5>Guangzhou sweater</h5>
-                            </a>
-                            <div class="product-price">
-                                $13.00
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-item">
-                        <div class="pi-pic">
-                            <img src="img/products/women-3.jpg" alt="">
-                            <div class="icon">
-                                <i class="icon_heart_alt"></i>
-                            </div>
-                        </div>
-                        <div class="pi-text">
-                            <div class="catagory-name">Towel</div>
-                            <a href="#">
-                                <h5>Pure Pineapple</h5>
-                            </a>
-                            <div class="product-price">
-                                $34.00
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-item">
-                        <div class="pi-pic">
-                            <img src="img/products/women-4.jpg" alt="">
-                            <div class="icon">
-                                <i class="icon_heart_alt"></i>
-                            </div>
-<!--                            <ul>-->
-<!--                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>-->
-<!--                                <li class="quick-view"><a href="#">+ Quick View</a></li>-->
-<!--                                <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>-->
-<!--                            </ul>-->
-                        </div>
-                        <div class="pi-text">
-                            <div class="catagory-name">Towel</div>
-                            <a href="#">
-                                <h5>Converse Shoes</h5>
-                            </a>
-                            <div class="product-price">
-                                $34.00
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>
     </div>
 </section>
 <!-- Popular Addons Section End -->
-
 
 <!-- Deal Of The Week Section Begin-->
 <section class="deal-of-week set-bg spad" data-setbg="img/silver-laptop-in-white-wooden-table-3759098.jpg">

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
@@ -55,7 +56,7 @@ public class RestAddonsController {
     }
     
     @PostMapping(value = "/create")
-    public Addon createAddon(@RequestBody AddonDTO addonDto,
+    public Addon createAddon(@RequestBody @Valid AddonDTO addonDto,
                              @RequestHeader(name = "Authorization") String username) {
         try {
             UserInfo userInfo = userInfoService.getUserByUsername(username);
@@ -70,13 +71,13 @@ public class RestAddonsController {
 
     @GetMapping("/{addonId}")
     public Addon getAddonById(@PathVariable int addonId) {
-        return addonService.getAddonById(addonId);
+        return addonService.getById(addonId);
     }
 
     @PostMapping(value = "/upload/{id}", consumes = "multipart/form-data")
     public Addon uploadAddon(@PathVariable int id, @RequestParam MultipartFile file) {
         try {
-            if(file != null) {
+            if(file.isEmpty()) {
                 fileService.saveAddonFile(id, file);
             }
             return addonService.getById(id);

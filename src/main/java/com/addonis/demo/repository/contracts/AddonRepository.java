@@ -17,16 +17,11 @@ public interface AddonRepository extends BaseRepository<Addon, Integer> {
     @Query("select a from Addon a where a.originLink = :originLink")
     Addon findAddonByOriginLink(@Param("originLink") String originLink);
 
-    List<Addon> findAllByStatusAndNameContaining(Status status, String name);
+    List<Addon> findTop6ByStatusOrderByIdDesc(Status status);
 
-    @Query(value = "SELECT * FROM addons WHERE ide_name in (SELECT ide_id FROM ide WHERE ide_name = :ide)", nativeQuery = true)
-    List<Addon> getAllByIDE(@Param("ide") String ideName);
+    List<Addon> findTop6ByStatusOrderByDownloadsCountDesc(Status status);
 
-    List<Addon> findAllByIdeId_IdeName(String ideName);
-    List<Addon> findTop6ByOrderByIdDesc();
-    List<Addon> findTop6ByOrderByDownloadsCountDesc();
-
-    @Query(value = "SELECT * FROM addons ORDER BY RAND() LIMIT 6", nativeQuery = true)
+    @Query(value = "SELECT * FROM addons WHERE status = 'APPROVED' ORDER BY RAND() LIMIT 6", nativeQuery = true)
     List<Addon> get6Random();
 
     List<Addon> findAllByStatus(Status status, Sort sort);

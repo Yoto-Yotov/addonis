@@ -48,14 +48,16 @@ public class AddonsController {
     private ImageService imageService;
     private BinaryContentService binaryContentService;
     private ReadmeService readmeService;
+    private TagService tagService;
 
     @Autowired
-    public AddonsController(AddonService addonService, UserInfoService userInfoService, ImageService imageService, BinaryContentService binaryContentService, ReadmeService readmeService) {
+    public AddonsController(AddonService addonService, UserInfoService userInfoService, ImageService imageService, BinaryContentService binaryContentService, ReadmeService readmeService, TagService tagService) {
         this.addonService = addonService;
         this.userInfoService = userInfoService;
         this.imageService = imageService;
         this.binaryContentService = binaryContentService;
         this.readmeService = readmeService;
+        this.tagService = tagService;
     }
 
     @GetMapping("/addons/search")
@@ -152,7 +154,7 @@ public class AddonsController {
     //ToDo update download count
     @GetMapping("/addons/download/{addonId}")
     public ResponseEntity<Resource> downloadFileFromLocal(@PathVariable int addonId) {
-        Addon addon = addonService.getAddonById(addonId);
+        Addon addon = addonService.getById(addonId);
         BinaryContent fileToDownload = binaryContentService.getById(addon.getBinaryFile());
 
         return ResponseEntity.ok()
@@ -163,7 +165,7 @@ public class AddonsController {
 
     @GetMapping("/addon/{addonId}/readme")
     public String getReadme(@PathVariable int addonId, Model model) {
-        Addon addon = addonService.getAddonById(addonId);
+        Addon addon = addonService.getById(addonId);
         int readmeId = addon.getReadmeId();
         model.addAttribute("readme", readmeService.gerReadmeString(readmeId));
         return "readme";
