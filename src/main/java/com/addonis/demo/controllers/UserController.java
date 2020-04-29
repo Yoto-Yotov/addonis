@@ -25,7 +25,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.Principal;
 
-import static com.addonis.demo.merge.UserUtils.mergeTwoUsers;
+import static com.addonis.demo.merge.UserMerge.mergeTwoUsers;
 
 /**
  * UserController

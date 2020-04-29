@@ -1,14 +1,12 @@
 package com.addonis.demo.controllers.rest;
 
 import com.addonis.demo.exceptions.DuplicateEntityException;
+import com.addonis.demo.exceptions.EntityNotFoundException;
 import com.addonis.demo.exceptions.InvalidDataException;
 import com.addonis.demo.exceptions.NotAuthorizedException;
-import com.addonis.demo.models.Addon;
-import com.addonis.demo.models.AddonDTO;
-import com.addonis.demo.models.UserInfo;
+import com.addonis.demo.models.*;
 import com.addonis.demo.models.enums.Sortby;
 import com.addonis.demo.services.contracts.*;
-import com.addonis.demo.utils.AddonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +16,10 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
+
+import static com.addonis.demo.constants.Constants.DELETE_CONFIRMATION;
+import static com.addonis.demo.merge.AddonMapper.mapDtoToAddon;
+import static com.addonis.demo.merge.AddonMerge.mergeTwoAddons;
 
 /**
  * Rest controller for addons
@@ -61,7 +63,7 @@ public class RestAddonsController {
         try {
             UserInfo userInfo = userInfoService.getUserByUsername(username);
             addonDto.setCreator(userInfo);
-            Addon addonToCreate = AddonUtils.mapDtoToAddon(addonDto, binaryContentService);
+            Addon addonToCreate = mapDtoToAddon(addonDto, binaryContentService);
             addonService.create(addonToCreate);
             return addonService.getById(addonToCreate.getId());
         } catch (DuplicateEntityException | IOException e) {
@@ -69,13 +71,48 @@ public class RestAddonsController {
         }
     }
 
-    @GetMapping("/{addonId}")
-    public Addon getAddonById(@PathVariable int addonId) {
-        return addonService.getById(addonId);
+    @PutMapping(value = "/update/{addonId}")
+    public Addon updateAddon(@PathVariable int addonId, @RequestBody @Valid AddonChangeDTO addonDto,
+                             @RequestHeader(name = "Authorization") String username) {
+        try {
+            Addon addonToUpdate = addonService.getById(addonId);
+            mergeTwoAddons(addonToUpdate, addonDto, binaryContentService);
+            userService.checkRights(username, addonToUpdate);
+            addonService.update(addonToUpdate);
+            return addonService.getById(addonToUpdate.getId());
+        } catch (DuplicateEntityException | EntityNotFoundException | NotAuthorizedException | IOException e) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
+        }
     }
 
+    @DeleteMapping("/delete/{addonId}")
+    public String deleteAddon(@PathVariable int addonId,
+                              @RequestHeader(name = "Authorization") String username) {
+        try {
+            Addon addonToDelete = addonService.getById(addonId);
+            UserInfo user = userInfoService.getUserByUsername(username);
+            addonService.softDeleteAddon(addonToDelete.getName(), user);
+        } catch (EntityNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        } catch (NotAuthorizedException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+        }
+        return DELETE_CONFIRMATION;
+    }
+
+    @GetMapping("/{addonId}")
+    public Addon getAddonById(@PathVariable int addonId) {
+        try {
+            return addonService.getById(addonId);
+        } catch (EntityNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
+    //ToDo
     @PostMapping(value = "/upload/{id}", consumes = "multipart/form-data")
-    public Addon uploadAddon(@PathVariable int id, @RequestParam MultipartFile file) {
+    public Addon uploadAddon(@PathVariable int id, @RequestParam MultipartFile file,
+                             @RequestHeader(name = "Authorization") String authorization) {
         try {
             if(file.isEmpty()) {
                 fileService.saveAddonFile(id, file);
@@ -124,13 +161,21 @@ public class RestAddonsController {
 
     @GetMapping("/name/{name}")
     public Addon getByName(@PathVariable String name) {
-        return addonService.getAddonByName(name);
+        try {
+            return addonService.getAddonByName(name);
+        } catch (EntityNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
     }
 
     @GetMapping("my-addons")
     public List<Addon> getMyAddons(@RequestHeader(name = "Authorization") String username) {
-        UserInfo user = userInfoService.getUserByUsername(username);
-        return addonService.getMyAddons(user);
+        try {
+            UserInfo user = userInfoService.getUserByUsername(username);
+            return addonService.getMyAddons(user);
+        } catch (EntityNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
     }
 
     @GetMapping("readme/{id}")

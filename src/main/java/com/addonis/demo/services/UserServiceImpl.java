@@ -2,6 +2,8 @@ package com.addonis.demo.services;
 
 import com.addonis.demo.exceptions.DuplicateEntityException;
 import com.addonis.demo.exceptions.EntityNotFoundException;
+import com.addonis.demo.exceptions.NotAuthorizedException;
+import com.addonis.demo.models.Addon;
 import com.addonis.demo.models.Authorities;
 import com.addonis.demo.models.User;
 import com.addonis.demo.repository.contracts.AuthorityRepository;
@@ -12,8 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.addonis.demo.constants.Constants.ROLE_ADMIN;
-import static com.addonis.demo.constants.Constants.USER;
+import static com.addonis.demo.constants.Constants.*;
 
 /**
  * UserServiceImpl
@@ -90,6 +91,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean isAdmin(String userName) {
         return getUserAuthorities(userName).stream().map(Authorities::getAuthority).anyMatch(authority -> authority.equals(ROLE_ADMIN));
+    }
+
+    public void checkRights(String userName, Addon addon) {
+        if (!isAdmin(userName) && !addon.getUserInfo().getName().equals(userName)){
+            throw new NotAuthorizedException(USER_U);
+        }
     }
 
 }

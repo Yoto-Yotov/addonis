@@ -15,7 +15,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 
-import static com.addonis.demo.utils.UrlParser.parseUrl;
+import static com.addonis.demo.url.UrlParser.parseUrl;
 
 /**
  * GitHubServiceImpl

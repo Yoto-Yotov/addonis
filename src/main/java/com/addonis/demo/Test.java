@@ -9,7 +9,7 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.text.ParseException;
 
-import static com.addonis.demo.utils.LastCommitMapper.mapLastCommitResponseToLastCommit;
+import static com.addonis.demo.api.LastCommitMapper.mapLastCommitResponseToLastCommit;
 
 public class Test {
 

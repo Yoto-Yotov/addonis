@@ -11,4 +11,5 @@ public class Constants {
     public static final String ROLE_USER = "ROLE_USER";
     public static final String URL = "url";
     public static final String EMAIL = "email";
+    public static final String DELETE_CONFIRMATION = "Addon was deleted successfully";
 }

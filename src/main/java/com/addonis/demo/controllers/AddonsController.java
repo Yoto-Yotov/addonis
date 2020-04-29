@@ -12,7 +12,6 @@ import com.addonis.demo.models.BinaryContent;
 import com.addonis.demo.models.UserInfo;
 import com.addonis.demo.models.enums.Sortby;
 import com.addonis.demo.services.contracts.*;
-import com.addonis.demo.utils.AddonUtils;
 import com.github.rjeschke.txtmark.Processor;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +35,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.Principal;
 
-import static com.addonis.demo.utils.MergeAddons.mergeTwoAddons;
+import static com.addonis.demo.merge.AddonMapper.mapDtoToAddon;
+import static com.addonis.demo.merge.AddonMerge.mergeTwoAddons;
 
 /**
  * AddonController
@@ -84,7 +84,8 @@ public class AddonsController {
 
     @PostMapping("/addon-create")
     public String createAddon(@Valid @ModelAttribute("addon") AddonDTO addonDto, BindingResult errors, Model model, Principal user,
-                              @RequestParam("imagefile") MultipartFile imagefile, @RequestParam("binaryFile") MultipartFile binaryFile) {
+                              @RequestParam("imagefile") MultipartFile imagefile,
+                              @RequestParam("binaryFile") MultipartFile binaryFile) {
 
         if (errors.hasErrors()) {
             model.addAttribute("error", errors.getAllErrors().get(0));
@@ -96,7 +97,7 @@ public class AddonsController {
         try {
             UserInfo creator = userInfoService.getUserByUsername(user.getName());
             addonDto.setCreator(creator);
-            addonToCreate = AddonUtils.mapDtoToAddon(addonDto, binaryContentService);
+            addonToCreate = mapDtoToAddon(addonDto, binaryContentService);
             addonService.create(addonToCreate);
         } catch (DuplicateEntityException | IOException | InvalidDataException e) {
             model.addAttribute("error", e.getMessage());
@@ -208,7 +209,7 @@ public class AddonsController {
     }
 
     @PostMapping("/addon/edit/{addonName}")
-    public String updateUser(@PathVariable String addonName, @Valid @ModelAttribute("newAddon") AddonChangeDTO newAddon, BindingResult errors, Model model,
+    public String updateAddon(@PathVariable String addonName, @Valid @ModelAttribute("newAddon") AddonChangeDTO newAddon, BindingResult errors, Model model,
                              @RequestParam("imagefile") MultipartFile imagefile, @RequestParam("binaryFile") MultipartFile binaryFile) throws IOException {
 
         if(errors.hasErrors()) {

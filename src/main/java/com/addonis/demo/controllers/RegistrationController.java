@@ -25,7 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 
 import static com.addonis.demo.constants.Constants.ROLE_USER;
-import static com.addonis.demo.merge.UserUtils.mergeUserInfo;
+import static com.addonis.demo.merge.UserMerge.mergeUserInfo;
 
 
 /**
