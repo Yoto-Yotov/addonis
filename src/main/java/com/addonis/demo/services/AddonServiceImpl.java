@@ -80,7 +80,7 @@ public class AddonServiceImpl implements AddonService {
 
     @Override
     public void changeDownloadCount(int addonId) {
-        Addon addon = getAddonById(addonId);
+        Addon addon = getById(addonId);
         int downloadCount = addon.getDownloadsCount() + 1;
         addon.setDownloadsCount(downloadCount);
         update(addon);
