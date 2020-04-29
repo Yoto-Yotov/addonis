@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static com.addonis.demo.utils.Constants.ADDON;
+import static com.addonis.demo.utils.Constants.TAG;
 import static com.addonis.demo.utils.LastCommitMapper.mapLastCommitResponseToLastCommit;
 
 /**
@@ -53,13 +54,8 @@ public class AddonServiceImpl implements AddonService {
     }
 
     @Override
-    public Addon getById(Integer integer) {
-        return addonRepository.getOne(integer);
-    }
-
-    @Override
-    public Addon getAddonById(int addonId) {
-        return addonRepository.findById(addonId).orElseThrow(() -> new EntityNotFoundException(ADDON, addonId));
+    public Addon getById(Integer id) {
+        return addonRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(ADDON, id));
     }
 
     @Override
@@ -77,10 +73,9 @@ public class AddonServiceImpl implements AddonService {
         return addonRepository.getAddonByStatus(Status.APPROVED);
     }
 
-
     @Override
     public String getCreatorName(int addonId) {
-        return getAddonById(addonId).getUserInfo().getName();
+        return getById(addonId).getUserInfo().getName();
     }
 
     @Override
@@ -99,13 +94,21 @@ public class AddonServiceImpl implements AddonService {
     }
 
     @Override
-    public void deleteById(Integer integer) {
-        addonRepository.deleteById(integer);
+    public void deleteById(Integer id) {
+        try {
+            addonRepository.deleteById(id);
+        } catch (Exception e) {
+            throw new EntityNotFoundException(ADDON, id);
+        }
     }
 
     @Override
     public void update(Addon addon) {
-        addonRepository.save(addon);
+       try {
+            addonRepository.save(addon);
+        } catch (org.springframework.dao.DataIntegrityViolationException ex) {
+            throw new DuplicateEntityException(ADDON);
+        }
     }
 
     @Override

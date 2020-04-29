@@ -153,7 +153,7 @@ public class AddonsController {
     //ToDo update download count
     @GetMapping("/addons/download/{addonId}")
     public ResponseEntity<Resource> downloadFileFromLocal(@PathVariable int addonId) {
-        Addon addon = addonService.getAddonById(addonId);
+        Addon addon = addonService.getById(addonId);
         BinaryContent fileToDownload = binaryContentService.getById(addon.getBinaryFile());
 
         return ResponseEntity.ok()
@@ -164,7 +164,7 @@ public class AddonsController {
 
     @GetMapping("/addon/{addonId}/readme")
     public String getReadme(@PathVariable int addonId, Model model) {
-        Addon addon = addonService.getAddonById(addonId);
+        Addon addon = addonService.getById(addonId);
         int readmeId = addon.getReadmeId();
         model.addAttribute("readme", readmeService.gerReadmeString(readmeId));
         return "readme";

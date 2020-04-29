@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.List;
 
 public interface AddonService extends BaseServiceContract<Addon, Integer> {
-    Addon getAddonById(int addonId);
     List<Addon> getAllPendingAddons();
     List<Addon> getAllApprovedAddons();
     Addon getAddonByName(String name);
