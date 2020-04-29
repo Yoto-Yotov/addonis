@@ -41,6 +41,7 @@
 /*	font-size: 18px;*/
 /*	line-height: 250%;*/
 /*}*/
+
 .cbutton {
 	background-color:#38b6ff;
 	border-color: #38b6ff;
@@ -4118,7 +4119,7 @@ ol {
 
 @media only screen and (min-width: 1200px) {
 	.container {
-		max-width: 1190px;
+		max-width: 1000px;
 	}
 }
 
@@ -4540,4 +4541,9 @@ ol {
 
 .quick-view {
 	border: 1px solid black;
+}
+
+#addons-container {
+	max-width: 1200px !important;
+	width:1200px !important;
 }

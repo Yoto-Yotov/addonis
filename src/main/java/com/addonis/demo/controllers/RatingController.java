@@ -1,11 +1,13 @@
 package com.addonis.demo.controllers;
 
 import com.addonis.demo.exceptions.EntityNotFoundException;
+import com.addonis.demo.models.RatingDTO;
 import com.addonis.demo.services.contracts.AddonService;
 import com.addonis.demo.services.contracts.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -28,15 +30,18 @@ public class RatingController {
         this.addonService = addonService;
     }
 
-    @PostMapping("/addon/r")
-    public String rateAddon( Principal principal, Model model) {
-         String userName = principal.getName();
+    @PostMapping("/addons/r")
+    public String rateAddon(@ModelAttribute("ratingDto") RatingDTO ratingDTO, Model model) {
+         String userName = ratingDTO.getUsername();
+         int rating = ratingDTO.getRating();
+         int addonId = ratingDTO.getAddonID();
+
          try {
-             ratingService.rateAddon(rating, userName, addonId);
+             ratingService.rateAddon(addonId, userName, rating);
          } catch (EntityNotFoundException ex) {
              model.addAttribute("error", ex.getMessage());
          }
 
-         return "redirect:/addons/details/" + addonService.getAddonById(addonId).getName();
+         return "redirect:/addons/details/" + addonService.getById(addonId).getName();
     }
 }

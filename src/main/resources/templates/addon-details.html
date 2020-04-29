@@ -36,7 +36,7 @@
 
 <!-- Blog Details Section Begin -->
 <section class="blog-details spad">
-    <div class="container">
+    <div id="addons-container" class="container">
         <div class="row">
             <div class="col-lg-12">
                 <div class="blog-details-inner">
@@ -50,21 +50,7 @@
                                  th:src="@{'/addon/' + ${addon.name} + '/image'}" id="addPic" alt=""
                                  height="300" width="300" align="left" hspace="80">
                         </div>
-                        <div>
-                            <p>
-                                <i th:if="${error != null}" th:text="${error}" class="error"/>
-                            </p>
-                            <form sec:authorize="isAuthenticated()" th:action="@{'/addons/' + ${addon.id}}" method="post">
-                                <select th:name="rating">
-                                    <option th:value=1 th:text="1"></option>
-                                    <option th:value=2 th:text="2"></option>
-                                    <option th:value=3 th:text="3"></option>
-                                    <option th:value=4 th:text="4"></option>
-                                    <option th:value=5 th:text="5"></option>
-                                </select>
-                                <button type="submit" class="site-btn register-btn" style="align-items: center">Rate</button>
-                            </form>
-                        </div>
+
                         <div class="splitLeft1">
                             <div class="tag-share">
                                 <div class="details-tag">
@@ -144,6 +130,28 @@
                         <div class="cell">
                             <a id="creator">Creator:</a>
                             <a th:text="${addon.userInfo.name}"></a>
+                        </div>
+                        <div class="cell">
+                            <a id="rating">Rating:</a>
+                            <a th:text="${addonRating} + '/5'"></a>
+                        </div>
+                        <div>
+                            <p>
+                                <i th:if="${error != null}" th:text="${error}" class="error"/>
+                            </p>
+                            <form sec:authorize="isAuthenticated()" th:action="@{'/addons/r'}"
+                                  th:object="${ratingDto}"  method="post">
+                                <select th:name="rating">
+                                    <option th:value=1 th:text="1"></option>
+                                    <option th:value=2 th:text="2"></option>
+                                    <option th:value=3 th:text="3"></option>
+                                    <option th:value=4 th:text="4"></option>
+                                    <option th:value=5 th:text="5"></option>
+                                </select>
+                                <input th:type="hidden" th:value="${addon.id}" th:name="addonID">
+                                <input th:type="hidden" th:value="${#authentication.name}" th:name="username">
+                                <button type="submit" class="site-btn register-btn" style="align-items: center">Rate</button>
+                            </form>
                         </div>
                     </div>
                 </div>

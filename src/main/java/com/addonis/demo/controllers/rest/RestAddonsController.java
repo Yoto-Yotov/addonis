@@ -70,7 +70,7 @@ public class RestAddonsController {
     }
 
     @GetMapping("/{addonId}")
-    public Addon getAddonById(@PathVariable int addonId) {
+    public Addon getAddonById(@PathVariable int addonId) { //todo add exceptions handling
         return addonService.getById(addonId);
     }
 

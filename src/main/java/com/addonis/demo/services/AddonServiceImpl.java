@@ -61,7 +61,7 @@ public class AddonServiceImpl implements AddonService {
 
     @Override
     public Addon getAddonByName(String name) {
-        return addonRepository.getByName(name);
+        return addonRepository.getByName(name); //todo exception
     }
 
     @Override
@@ -109,7 +109,7 @@ public class AddonServiceImpl implements AddonService {
 
     @Override
     public void deleteById(Integer id) {
-        try {
+        try {  // todo check if addon exists
             addonRepository.deleteById(id);
         } catch (Exception e) {
             throw new EntityNotFoundException(ADDON, id);
@@ -122,7 +122,7 @@ public class AddonServiceImpl implements AddonService {
 
     @Override
     public void update(Addon addon) {
-       try {
+       try { //todo check user authorities
             addonRepository.save(addon);
         } catch (org.springframework.dao.DataIntegrityViolationException ex) {
             throw new DuplicateEntityException(ADDON);
@@ -147,7 +147,7 @@ public class AddonServiceImpl implements AddonService {
             readmeRepository.save(readme);
             addon.setReadmeId(readme.getReadmeId());
             return addonRepository.save(addon);
-        }  catch (DataIntegrityViolationException | IOException ex) {
+        }  catch (DataIntegrityViolationException | IOException ex) { //todo remove IOException
             throw new DuplicateEntityException(ADDON);
         }
     }

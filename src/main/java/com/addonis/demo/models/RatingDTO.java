@@ -6,7 +6,7 @@ public class RatingDTO {
 
     private String username;
 
-    private int beerID;
+    private int addonID;
 
     public RatingDTO() {
     }
@@ -27,11 +27,11 @@ public class RatingDTO {
         this.username = username;
     }
 
-    public int getBeerID() {
-        return beerID;
+    public int getAddonID() {
+        return addonID;
     }
 
-    public void setBeerID(int beerID) {
-        this.beerID = beerID;
+    public void setAddonID(int addonID) {
+        this.addonID = addonID;
     }
 }
