@@ -1,5 +1,6 @@
-package com.addonis.demo.utils;
+package com.addonis.demo.api;
 
+import com.addonis.demo.date.DateParser;
 import com.addonis.demo.models.LastCommit;
 import com.addonis.demo.models.commitresponse.LastCommitResponse;
 

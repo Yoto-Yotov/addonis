@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.addonis.demo.utils.Constants.*;
+import static com.addonis.demo.constants.Constants.*;
 
 /**
  * TagServiceImpl

@@ -18,8 +18,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.List;
 
-import static com.addonis.demo.utils.Constants.ADDON;
-import static com.addonis.demo.utils.Constants.TAG;
+import static com.addonis.demo.constants.Constants.ADDON;
 import static com.addonis.demo.utils.LastCommitMapper.mapLastCommitResponseToLastCommit;
 
 /**

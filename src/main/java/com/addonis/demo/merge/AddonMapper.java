@@ -1,4 +1,4 @@
-package com.addonis.demo.utils;
+package com.addonis.demo.merge;
 
 import com.addonis.demo.models.Addon;
 import com.addonis.demo.models.AddonDTO;
@@ -7,7 +7,7 @@ import com.addonis.demo.services.contracts.BinaryContentService;
 
 import java.io.IOException;
 
-public class AddonUtils {
+public class AddonMapper {
 
 
     public static Addon mapDtoToAddon(AddonDTO addonDto, BinaryContentService binaryContentService) throws IOException {

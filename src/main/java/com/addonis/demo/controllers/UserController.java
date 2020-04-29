@@ -25,7 +25,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.Principal;
 
-import static com.addonis.demo.utils.UserUtils.mergeTwoUsers;
+import static com.addonis.demo.merge.UserUtils.mergeTwoUsers;
 
 /**
  * UserController
@@ -41,7 +41,8 @@ public class UserController {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserController(UserInfoService userInfoService, ImageService imageService, UserDetailsManager userdetailsManager, PasswordEncoder passwordEncoder) {
+    public UserController(UserInfoService userInfoService, ImageService imageService,
+                          UserDetailsManager userdetailsManager, PasswordEncoder passwordEncoder) {
         this.userInfoService = userInfoService;
         this.imageService = imageService;
         this.userdetailsManager = userdetailsManager;

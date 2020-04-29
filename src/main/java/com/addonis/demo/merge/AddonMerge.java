@@ -1,11 +1,11 @@
-package com.addonis.demo.utils;
+package com.addonis.demo.merge;
 
 import com.addonis.demo.models.*;
 import com.addonis.demo.services.contracts.BinaryContentService;
 
 import java.io.IOException;
 
-public class MergeAddons {
+public class AddonMerge {
 
     public static Addon mergeTwoAddons(Addon oldAddon, AddonChangeDTO newAddon, BinaryContentService binaryContentService) throws IOException {
         oldAddon.setName(getNotNullValue(oldAddon.getName(), newAddon.getName()));

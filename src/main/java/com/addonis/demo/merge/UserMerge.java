@@ -19,12 +19,12 @@ import java.util.regex.Pattern;
  * Send method for sending email when registering.
  */
 @Component
-public class UserUtils {
+public class UserMerge {
 
     UserInfoService userInfoService;
 
     @Autowired
-    public UserUtils(UserInfoService userInfoService) {
+    public UserMerge(UserInfoService userInfoService) {
         this.userInfoService = userInfoService;
     }
 

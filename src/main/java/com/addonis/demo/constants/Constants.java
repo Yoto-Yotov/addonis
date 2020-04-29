@@ -1,4 +1,4 @@
-package com.addonis.demo.utils;
+package com.addonis.demo.constants;
 
 public class Constants {
     public static final String TAG = "tag";

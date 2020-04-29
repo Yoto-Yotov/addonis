@@ -1,4 +1,4 @@
-package com.addonis.demo.utils;
+package com.addonis.demo.send;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;

@@ -4,24 +4,16 @@ import com.addonis.demo.exceptions.DuplicateEntityException;
 import com.addonis.demo.exceptions.EntityNotFoundException;
 import com.addonis.demo.models.Authorities;
 import com.addonis.demo.models.User;
-
-import com.addonis.demo.models.UserInfo;
-
 import com.addonis.demo.repository.contracts.AuthorityRepository;
-
 import com.addonis.demo.repository.contracts.UserRepository;
 import com.addonis.demo.services.contracts.UserService;
-import com.addonis.demo.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
-import static com.addonis.demo.utils.Constants.ROLE_ADMIN;
-import static com.addonis.demo.utils.Constants.USER;
+import static com.addonis.demo.constants.Constants.ROLE_ADMIN;
+import static com.addonis.demo.constants.Constants.USER;
 
 /**
  * UserServiceImpl
