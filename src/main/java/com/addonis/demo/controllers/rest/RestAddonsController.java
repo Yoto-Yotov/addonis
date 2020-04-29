@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
@@ -52,31 +53,30 @@ public class RestAddonsController {
     public List<Addon> getAll() {
         return addonService.getAll();
     }
-
-    //ToDo
-//    @PostMapping(value = "/create")
-//    public Addon createAddon(@RequestBody AddonDTO addonDto,
-//                             @RequestHeader(name = "Authorization") String username) {
-//        try {
-//            UserInfo userInfo = userInfoService.gerUserByUsername(username);
-//            addonDto.setCreator(userInfo);
-//            Addon addonToCreate = AddonUtils.mapDtoToAddon(addonDto, binaryContentService);
-//            addonService.create(addonToCreate);
-//            return addonService.getById(addonToCreate.getId());
-//        } catch (DuplicateEntityException | IOException e) {
-//            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
-//        }
-//    }
+    
+    @PostMapping(value = "/create")
+    public Addon createAddon(@RequestBody @Valid AddonDTO addonDto,
+                             @RequestHeader(name = "Authorization") String username) {
+        try {
+            UserInfo userInfo = userInfoService.getUserByUsername(username);
+            addonDto.setCreator(userInfo);
+            Addon addonToCreate = AddonUtils.mapDtoToAddon(addonDto, binaryContentService);
+            addonService.create(addonToCreate);
+            return addonService.getById(addonToCreate.getId());
+        } catch (DuplicateEntityException | IOException e) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
+        }
+    }
 
     @GetMapping("/{addonId}")
     public Addon getAddonById(@PathVariable int addonId) {
-        return addonService.getAddonById(addonId);
+        return addonService.getById(addonId);
     }
 
     @PostMapping(value = "/upload/{id}", consumes = "multipart/form-data")
     public Addon uploadAddon(@PathVariable int id, @RequestParam MultipartFile file) {
         try {
-            if(file != null) {
+            if(file.isEmpty()) {
                 fileService.saveAddonFile(id, file);
             }
             return addonService.getById(id);
@@ -91,6 +91,21 @@ public class RestAddonsController {
             throw new NotAuthorizedException(username);
         }
         return addonService.getAllPendingAddons();
+    }
+
+    @GetMapping("/featured")
+    public List<Addon> getFeaturedAddons() {
+        return addonService.get6Random();
+    }
+
+    @GetMapping("/newest")
+    public List<Addon> getNewestAddons() {
+        return addonService.getNewest();
+    }
+
+    @GetMapping("/popular")
+    public List<Addon> getPopularAddons() {
+        return addonService.getTopByDownloads();
     }
 
     @GetMapping("/approved")
@@ -108,7 +123,7 @@ public class RestAddonsController {
 
     @GetMapping("my-addons")
     public List<Addon> getMyAddons(@RequestHeader(name = "Authorization") String username) {
-        UserInfo user = userInfoService.gerUserByUsername(username);
+        UserInfo user = userInfoService.getUserByUsername(username);
         return addonService.getMyAddons(user);
     }
 

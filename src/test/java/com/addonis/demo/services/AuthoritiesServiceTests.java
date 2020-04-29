@@ -6,6 +6,7 @@ import com.addonis.demo.repository.contracts.AuthorityRepository;
 import com.addonis.demo.repository.contracts.UserRepository;
 import com.addonis.demo.services.contracts.AuthorityService;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;
@@ -46,11 +47,11 @@ public class AuthoritiesServiceTests {
     @Test
     public void getUserById_Should_ReturnAuthority() {
         //Arrange
-        Authorities authority = Authorities.builder().username("teo").authority("ROLE_USER").build();
-        Mockito.when(authorityRepository.getOne("1")).thenReturn(authority);
+        Authorities authority = Authorities.builder().id(1).username("teo").authority("ROLE_USER").build();
+        Mockito.when(authorityRepository.getOne(1)).thenReturn(authority);
 
         //Act
-        Authorities returnAuthority = authorityService.getById("1");
+        Authorities returnAuthority = authorityService.getById(1);
 
         //Assert
         Assert.assertSame(authority, returnAuthority);
@@ -59,13 +60,13 @@ public class AuthoritiesServiceTests {
     @Test
     public void deleteAuthority_Should_ReturnTrue_WhenUserExist() {
         //Arrange
-        Authorities authority = Authorities.builder().username("teo").authority("ROLE_USER").build();
+        Authorities authority = Authorities.builder().id(1).username("teo").authority("ROLE_USER").build();
 
         //Act
-        authorityService.deleteById(authority.getUsername());
+        authorityService.deleteById(1);
 
         Mockito.verify(authorityRepository,
-                times(1)).deleteById(authority.getUsername());
+                times(1)).deleteById(1);
     }
 
     @Test

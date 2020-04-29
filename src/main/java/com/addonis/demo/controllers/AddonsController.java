@@ -5,6 +5,12 @@ import com.addonis.demo.exceptions.EntityNotFoundException;
 import com.addonis.demo.exceptions.InvalidDataException;
 import com.addonis.demo.exceptions.NotAuthorizedException;
 import com.addonis.demo.models.*;
+
+import com.addonis.demo.exceptions.InvalidDataException;
+import com.addonis.demo.models.Addon;
+import com.addonis.demo.models.AddonDTO;
+import com.addonis.demo.models.BinaryContent;
+import com.addonis.demo.models.UserInfo;
 import com.addonis.demo.services.contracts.*;
 import com.addonis.demo.utils.AddonUtils;
 import com.github.rjeschke.txtmark.Processor;
@@ -53,19 +59,22 @@ public class AddonsController {
     private ImageService imageService;
     private BinaryContentService binaryContentService;
     private ReadmeService readmeService;
+    private TagService tagService;
 
     @Autowired
-    public AddonsController(AddonService addonService, UserInfoService userInfoService, ImageService imageService, BinaryContentService binaryContentService, ReadmeService readmeService) {
+    public AddonsController(AddonService addonService, UserInfoService userInfoService, ImageService imageService, BinaryContentService binaryContentService, ReadmeService readmeService, TagService tagService) {
         this.addonService = addonService;
         this.userInfoService = userInfoService;
         this.imageService = imageService;
         this.binaryContentService = binaryContentService;
         this.readmeService = readmeService;
+        this.tagService = tagService;
     }
 
     @GetMapping("/addons")
     public String showAddons(Model model) {
         model.addAttribute("addons", addonService.getAllApprovedAddons());
+        model.addAttribute("tags", tagService.getAll());
         return "addons";
     }
 
@@ -87,11 +96,11 @@ public class AddonsController {
 
         Addon addonToCreate;
         try {
-            UserInfo creator = userInfoService.gerUserByUsername(user.getName());
+            UserInfo creator = userInfoService.getUserByUsername(user.getName());
             addonDto.setCreator(creator);
             addonToCreate = AddonUtils.mapDtoToAddon(addonDto, binaryContentService);
             addonService.create(addonToCreate);
-        } catch (DuplicateEntityException | IOException e) {
+        } catch (DuplicateEntityException | IOException | InvalidDataException e) {
             model.addAttribute("error", e.getMessage());
             model.addAttribute("addon", new AddonDTO());
             return "addons";
@@ -143,7 +152,7 @@ public class AddonsController {
 
     @GetMapping("/addons/my-addons")
     public String getMyAddons(Model model, Principal user) {
-        UserInfo userInfo = userInfoService.gerUserByUsername(user.getName());
+        UserInfo userInfo = userInfoService.getUserByUsername(user.getName());
         model.addAttribute("myAddons", addonService.getMyAddons(userInfo));
         return "my-addons";
     }
@@ -170,7 +179,7 @@ public class AddonsController {
     //ToDo update download count
     @GetMapping("/addons/download/{addonId}")
     public ResponseEntity<Resource> downloadFileFromLocal(@PathVariable int addonId) {
-        Addon addon = addonService.getAddonById(addonId);
+        Addon addon = addonService.getById(addonId);
         BinaryContent fileToDownload = binaryContentService.getById(addon.getBinaryFile());
         addonService.changeDownloadCount(addonId);
 
@@ -182,7 +191,7 @@ public class AddonsController {
 
     @GetMapping("/addon/{addonId}/readme")
     public String getReadme(@PathVariable int addonId, Model model) {
-        Addon addon = addonService.getAddonById(addonId);
+        Addon addon = addonService.getById(addonId);
         int readmeId = addon.getReadmeId();
         String result = Processor.process(readmeService.gerReadmeString(readmeId));
         model.addAttribute("readme", result);

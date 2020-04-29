@@ -9,8 +9,9 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
+import java.util.List;
+
 public interface AddonService extends BaseServiceContract<Addon, Integer> {
-    Addon getAddonById(int addonId);
     List<Addon> getAllPendingAddons();
     List<Addon> getAllApprovedAddons();
     Addon getAddonByName(String name);
@@ -23,4 +24,7 @@ public interface AddonService extends BaseServiceContract<Addon, Integer> {
     void changeDownloadCount(int addonId);
 
     void softDeleteAddon(String name);
+    List<Addon> getNewest();
+    List<Addon> getTopByDownloads();
+    List<Addon> get6Random();
 }

@@ -108,14 +108,8 @@
 
                 <div class="filter-widget">
                     <h4 class="fw-title">Tags</h4>
-                    <div class="fw-tags">
-                        <a href="#">Towel</a>
-                        <a href="#">Shoes</a>
-                        <a href="#">Coat</a>
-                        <a href="#">Dresses</a>
-                        <a href="#">Trousers</a>
-                        <a href="#">Men's hats</a>
-                        <a href="#">Backpack</a>
+                    <div class="fw-tags" th:each="tag : ${tags}">
+                        <a href="#" th:text="${tag.tagName}">Tag</a>
                     </div>
                 </div>
             </div>
@@ -151,7 +145,7 @@
                                         <div class="catagory-name" th:text="${addon.name}">
                                         </div>
                                         <a href="#">
-                                            <h5><a th:text="${addon.name}"></a></h5>
+                                            <h5><a th:text="${addon.name.length() > 20 ? addon.name.substring(0,20) : addon.name}"></a></h5>
                                         </a>
                                         <button type="submit" class="site-btn login-btn">VIEW</button>
                                     </div>

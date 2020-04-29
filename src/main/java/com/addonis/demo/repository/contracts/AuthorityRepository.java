@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface AuthorityRepository extends BaseRepository<Authorities, String> {
+public interface AuthorityRepository extends BaseRepository<Authorities, Integer> {
 
     @Query("select u.authority from Authorities u where u.username = :name")
     List<Authorities> getUserAuthority(@Param("name") String name);

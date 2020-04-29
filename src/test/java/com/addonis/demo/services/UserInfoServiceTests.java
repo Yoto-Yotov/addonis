@@ -146,7 +146,7 @@ public class UserInfoServiceTests {
         Mockito.when(userInfoRepository.getByUserName(originalUser.getName())).thenReturn(originalUser);
 
         //Act
-        UserInfo returnUser = userInfoService.gerUserByUsername(originalUser.getName());
+        UserInfo returnUser = userInfoService.getUserByUsername(originalUser.getName());
 
         //Assert
         Assert.assertSame(originalUser, returnUser);
@@ -161,7 +161,7 @@ public class UserInfoServiceTests {
         doThrow(new EntityNotFoundException("User", updateUser.getName()))
                 .when(userInfoRepository).save(updateUser);
 
-        userInfoService.gerUserByUsername("Teo1");
+        userInfoService.getUserByUsername("Teo1");
 
     }
 }

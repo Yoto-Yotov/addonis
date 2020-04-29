@@ -10,8 +10,6 @@ import com.addonis.demo.services.contracts.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 /**
  * RatingServiceImpl
  * Provides informaiton about the average rating. No authentication needed
@@ -34,8 +32,8 @@ public class RatingServiceImpl implements RatingService {
 
     @Override
     public void rateAddon(int addonId, String username, int rating) {
-        UserInfo userInfo = userInfoService.gerUserByUsername(username);
-        Addon addon = addonService.getAddonById(addonId);
+        UserInfo userInfo = userInfoService.getUserByUsername(username);
+        Addon addon = addonService.getById(addonId);
 
         Rating ratingObj = ratingRepository.getByUserInfoIdAndAddonId(userInfo.getId(), addonId); //returns null if not exist //returns rating if exists
 
@@ -51,8 +49,8 @@ public class RatingServiceImpl implements RatingService {
 
     @Override
     public double getUserRating(int addonId, String username) {
-        UserInfo userInfo = userInfoService.gerUserByUsername(username);
-        Addon addon = addonService.getAddonById(addonId);
+        UserInfo userInfo = userInfoService.getUserByUsername(username);
+        Addon addon = addonService.getById(addonId);
 
         Rating rating = ratingRepository.getByUserInfoIdAndAddonId(userInfo.getId(), addon.getId());
         if(rating == null) {

@@ -8,7 +8,7 @@ import com.addonis.demo.services.base.BaseServiceContract;
 import java.util.List;
 import java.util.Set;
 
-public interface UserService extends BaseServiceContract<User, String> {
+public interface UserService extends BaseServiceContract<User, Integer> {
 
     void softDeleteUser(String name);
     User getUserByName(String userName);

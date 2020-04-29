@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 
+import static com.addonis.demo.utils.Constants.ROLE_USER;
 import static com.addonis.demo.utils.UserUtils.mergeUserInfo;
 
 /**
@@ -80,7 +81,7 @@ public class RegistrationController {
 
         Authorities authority = new Authorities();
         authority.setUsername(userDto.getName());
-        authority.setAuthority("ROLE_USER");
+        authority.setAuthority(ROLE_USER);
 
         try {
             userService.create(user);

@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.addonis.demo.utils.Constants.*;
+
 /**
  * TagServiceImpl
  * Get all tags. No authentication needed
@@ -41,13 +43,13 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public Tag getById(Integer tagId) {
-        return tagRepository.findById(tagId).orElseThrow(() -> new EntityNotFoundException("tag", tagId));
+        return tagRepository.findById(tagId).orElseThrow(() -> new EntityNotFoundException(TAG, tagId));
     }
 
     @Override
     public void deleteById(Integer tagId) {
         if(!tagRepository.existsById(tagId)) {
-            throw new EntityNotFoundException("tag", tagId);
+            throw new EntityNotFoundException(TAG, tagId);
         }
         tagRepository.deleteTagFromAllAddons(tagId);
         tagRepository.deleteById(tagId);
@@ -61,7 +63,7 @@ public class TagServiceImpl implements TagService {
     @Override
     public Tag create(Tag tag) {
         if(tagRepository.existsByTagName(tag.getTagName())) {
-            throw new DuplicateEntityException("tag", "name", tag.getTagName());
+            throw new DuplicateEntityException(TAG, NAME, tag.getTagName());
         }
         return tagRepository.save(tag);
     }
@@ -73,7 +75,7 @@ public class TagServiceImpl implements TagService {
         }
         Tag tagToDelete = tagRepository.getTagByTagName(name);
         if(tagToDelete == null) {
-            throw new EntityNotFoundException("tag", name);
+            throw new EntityNotFoundException(TAG, name);
         }
         tagRepository.deleteTagFromAllAddons(tagToDelete.getTagId());
         tagRepository.deleteTagByName(name);
@@ -94,13 +96,13 @@ public class TagServiceImpl implements TagService {
         }
 
         if(!addonService.checkAddonExistsById(addonId)) {
-            throw new EntityNotFoundException("Addon", addonId);
+            throw new EntityNotFoundException(ADDON_A, addonId);
         }
 
         try {
             tagRepository.addTagToAddon(addonId, tagToAdd.getTagId());
         } catch (org.springframework.dao.DataIntegrityViolationException ex) {
-            throw new DuplicateEntityException("addon", "tag");
+            throw new DuplicateEntityException(ADDON, TAG);
         }
 
         return tagToAdd;
@@ -123,9 +125,9 @@ public class TagServiceImpl implements TagService {
         Tag tagToUpdate = tagRepository.getOne(tagId);
         tagToUpdate.setTagName(tagName);
         try {
-            update(tagToUpdate);
+            tagRepository.save(tagToUpdate);
         } catch (org.springframework.dao.DataIntegrityViolationException ex) {
-            throw new DuplicateEntityException("tag", "name", tagName);
+            throw new DuplicateEntityException(TAG, NAME, tagName);
         }
     }
 

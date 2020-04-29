@@ -41,6 +41,10 @@
 /*	font-size: 18px;*/
 /*	line-height: 250%;*/
 /*}*/
+.cbutton {
+	background-color:#38b6ff;
+	border-color: #38b6ff;
+}
 
 .form2 {
 	display: inline-block;
@@ -1241,6 +1245,7 @@ ol {
 	padding-left: 65px;
 	padding-top: 0;
 	padding-bottom: 80px;
+	margin-top: 30px;
 }
 
 .product-large {
@@ -4520,4 +4525,14 @@ ol {
 		padding-left: 15px;
 		padding-right: 15px;
 	}
+}
+.about_us_content h5 {
+	margin-top: 30px;
+}
+.about_us {
+	margin-bottom: 60px;
+}
+
+.quick-view {
+	border: 1px solid black;
 }
