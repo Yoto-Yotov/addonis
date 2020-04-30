@@ -5,6 +5,9 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
+/**
+ * EmailSend is a class used for sending emails when users are registering.
+ */
 public class EmailSend {
     public static void send_2(String emailRecipient, String userName) {
         final String username = "addonis.team@gmail.com";

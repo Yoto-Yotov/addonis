@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * BinaryContentServiceImpl is used for uploading and downloading content.
+ */
 @Service
 public class BinaryContentServiceImpl implements BinaryContentService {
 

@@ -9,8 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * AuthorityServiceImpl
- * Service for checking users permissions.
+ * AuthorityServiceImpl - Service for checking users permissions.
  */
 @Service
 public class AuthorityServiceImpl implements AuthorityService {

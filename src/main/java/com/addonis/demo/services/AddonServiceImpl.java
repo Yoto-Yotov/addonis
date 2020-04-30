@@ -25,14 +25,7 @@ import static com.addonis.demo.api.LastCommitMapper.mapLastCommitResponseToLastC
 import static com.addonis.demo.constants.Constants.*;
 
 /**
- * AddonServiceImpl
- * Service for Addon
- * Takes information from LastCommitService, AddonRepository, GitHubService
- * Provides methods for getting all Addons. No authentication needed,
- * Get addon by id. No authentication needed.
- * Delete addon. Authentication needed - user or admin.
- * Update addon. Authentication needed - user or admin.
- * Create addon + create last commit. Authentication needed - user or admin.
+ * AddonServiceImpl - used for business logic of the addons. All CRUD operation and validations.
  */
 @Service
 public class AddonServiceImpl implements AddonService {

@@ -10,6 +10,9 @@ import static com.addonis.demo.constants.Constants.EMAIL;
 import static com.addonis.demo.constants.Constants.USER_U;
 import static com.addonis.demo.validation.EmailValidator.isValidEmailAddress;
 
+/**
+ * Validates the user information provided by user creation.
+ */
 public class UserDtoValidator {
 
     public static void validateDto(UserDTO userDto, UserInfoService userInfoService) {

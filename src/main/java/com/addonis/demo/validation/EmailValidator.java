@@ -2,6 +2,9 @@ package com.addonis.demo.validation;
 
 import java.util.regex.Pattern;
 
+/**
+ * Validates the email provided from the user
+ */
 public class EmailValidator {
 
     public static boolean isValidEmailAddress(String email) {

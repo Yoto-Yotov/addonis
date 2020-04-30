@@ -17,8 +17,7 @@ import java.util.List;
 import static com.addonis.demo.constants.Constants.*;
 
 /**
- * UserServiceImpl
- * CRUD operation for user.
+ * UserServiceImpl - CRUD operation for user.
  */
 @Service
 public class UserServiceImpl implements UserService {

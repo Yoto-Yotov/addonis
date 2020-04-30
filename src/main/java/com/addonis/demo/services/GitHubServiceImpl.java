@@ -18,9 +18,7 @@ import java.io.IOException;
 import static com.addonis.demo.url.UrlParser.parseUrl;
 
 /**
- * GitHubServiceImpl
- * Service that takes needed information form GitHub using the origin link of the addon.
- * The link is being parsed in parseUtils and build depending on the needed information.
+ * GitHubServiceImpl is a class used for taking the information about the addon from gitHub.
  */
 @Service
 public class GitHubServiceImpl implements GitHubService {
