@@ -123,6 +123,11 @@
 	width: 50%;
 }
 
+#newfirtnameEditAddon {
+	color: #38b6ff;
+	font-size: 18px;
+	line-height: 250%;
+}
 
 #download {
 	color: #38b6ff;
@@ -4131,7 +4136,7 @@ ol {
 
 @media only screen and (min-width: 1200px) {
 	.container {
-		max-width: 1190px;
+		max-width: 1000px;
 	}
 }
 

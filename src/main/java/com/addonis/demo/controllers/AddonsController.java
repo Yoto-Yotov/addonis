@@ -1,9 +1,6 @@
 package com.addonis.demo.controllers;
 
-import com.addonis.demo.exceptions.DuplicateEntityException;
-import com.addonis.demo.exceptions.EntityNotFoundException;
-import com.addonis.demo.exceptions.InvalidDataException;
-import com.addonis.demo.exceptions.NotAuthorizedException;
+import com.addonis.demo.exceptions.*;
 import com.addonis.demo.models.*;
 
 import com.addonis.demo.models.Addon;
@@ -12,6 +9,8 @@ import com.addonis.demo.models.BinaryContent;
 import com.addonis.demo.models.UserInfo;
 import com.addonis.demo.models.enums.Sortby;
 import com.addonis.demo.services.contracts.*;
+import com.addonis.demo.validation.AddonValidator;
+import com.addonis.demo.validation.UserDtoValidator;
 import com.github.rjeschke.txtmark.Processor;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +36,7 @@ import java.security.Principal;
 
 import static com.addonis.demo.merge.AddonMapper.mapDtoToAddon;
 import static com.addonis.demo.merge.AddonMerge.mergeTwoAddons;
+import static com.addonis.demo.validation.AddonValidator.validateAddonDto;
 
 /**
  * AddonController is responsible for all visualized operations with the addons. For some of them is authentication is needed.
@@ -75,14 +75,21 @@ public class AddonsController {
     }
 
     @PostMapping("/addon-create")
-    public String createAddon(@Valid @ModelAttribute("addon") AddonDTO addonDto, BindingResult errors, Model model, Principal user,
+    public String createAddon(@Valid @ModelAttribute("addonDto") AddonDTO addonDto, BindingResult errors, Model model, Principal user,
                               @RequestParam("imagefile") MultipartFile imagefile,
                               @RequestParam("binaryFile") MultipartFile binaryFile) {
 
-        if (errors.hasErrors()) {
-            model.addAttribute("error", errors.getAllErrors().get(0));
-            return "addons";
+        try {
+            AddonValidator.validateAddonDto(addonDto, addonService);
+        } catch (DuplicateEntityException | InvalidDataException e) {
+            model.addAttribute("error", e.getMessage());
+            return "addon";
         }
+
+//        if (errors.hasErrors()) {
+//            model.addAttribute("error", errors.getAllErrors().get(0));
+//            return "addon";
+//        }
         addonDto.setFile(binaryFile);
 
         Addon addonToCreate;

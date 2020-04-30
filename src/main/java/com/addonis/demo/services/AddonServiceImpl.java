@@ -143,7 +143,7 @@ public class AddonServiceImpl implements AddonService {
     @Override
     public Addon create(Addon addon) {
         if (checkAddonExistsByName(addon.getName())) {
-            throw new DuplicateEntityException("Addon", "name", addon.getName());
+            throw new DuplicateEntityException(ADDON_A, addon.getName(), addon.getName());
         }
         String url = addon.getOriginLink();
         try {
