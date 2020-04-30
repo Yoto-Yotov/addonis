@@ -10,9 +10,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 /**
- * User
- * This model is used for authorising users with username and password.
- * Users can be enabled or disabled.
+ * User is a class used for authorising users with username and password.
  */
 @Entity
 @Data

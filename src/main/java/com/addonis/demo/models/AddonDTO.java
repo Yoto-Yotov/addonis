@@ -1,15 +1,17 @@
 package com.addonis.demo.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.Column;
 import javax.persistence.Lob;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+/**
+ * AddonDTO is a class used for creating an addon. Represents the information needed to create addon.
+ */
 
 @Data
 @NoArgsConstructor

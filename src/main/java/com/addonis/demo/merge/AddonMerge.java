@@ -6,7 +6,7 @@ import com.addonis.demo.services.contracts.BinaryContentService;
 import java.io.IOException;
 
 /**
- *
+ *AddonMerge is a class used for updating addon - to map old addon and new addon.
  */
 public class AddonMerge {
 
