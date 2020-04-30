@@ -24,7 +24,7 @@ public interface AddonRepository extends BaseRepository<Addon, Integer> {
     @Query(value = "SELECT * FROM addons WHERE ide_id in (SELECT ide_id FROM ide WHERE ide_name = :ide)", nativeQuery = true)
     List<Addon> getAllByIDE(@Param("ide") String ideName);
 
-    List<Addon> findAllByIdeId_IdeName(String ideName);
+    List<Addon> findAllByStatusAndIdeId_IdeName(Status status, String ideName);
 
     List<Addon> findTop6ByStatusOrderByDownloadsCountDesc(Status status);
 

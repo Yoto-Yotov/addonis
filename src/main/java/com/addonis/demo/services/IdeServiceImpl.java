@@ -6,6 +6,8 @@ import com.addonis.demo.services.contracts.IdeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class IdeServiceImpl implements IdeService {
 
@@ -28,5 +30,10 @@ public class IdeServiceImpl implements IdeService {
     public void createIde(String name) {
         IDE ide = IDE.builder().ideName(name.toLowerCase()).build();
         ideRepository.save(ide);
+    }
+
+    @Override
+    public List<IDE> getAll() {
+        return ideRepository.findAll();
     }
 }

@@ -76,6 +76,7 @@ public class AddonsController {
     @GetMapping("/addons/search")
     public String showAddons(@RequestParam(required = false, value = "sr", defaultValue = "") String search , Model model) {
         model.addAttribute("addons", addonService.findByNameContaining(search));
+        model.addAttribute("tags", tagService.getAll());
         return "addons";
     }
 
@@ -256,6 +257,18 @@ public class AddonsController {
         model.addAttribute("addons", addonService.getAllSortBy(direction, Sortby.getByParam(sortBy)));
         model.addAttribute("selsort", sortBy);
         model.addAttribute("ordersort", direction);
+        model.addAttribute("tags", tagService.getAll());
+        model.addAttribute("ides", ideService.getAll());
+
+        return "addons";
+    }
+
+    @GetMapping("/addons/ide/{ideName}")
+    public String getAllFilterByIde(@PathVariable("ideName") String ideName, Model model) {
+        model.addAttribute("addons", addonService.getAllFilterByIdeName(ideName));
+
+        model.addAttribute("tags", tagService.getAll());
+        model.addAttribute("ides", ideService.getAll());
 
         return "addons";
     }

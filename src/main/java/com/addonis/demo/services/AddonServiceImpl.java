@@ -121,6 +121,11 @@ public class AddonServiceImpl implements AddonService {
     }
 
     @Override
+    public List<Addon> getAllFilterByIdeName(String ideName) {
+        return addonRepository.findAllByStatusAndIdeId_IdeName(Status.APPROVED, ideName);
+    }
+
+    @Override
     public void update(Addon addon) {
        try { //todo check user authorities
             addonRepository.save(addon);

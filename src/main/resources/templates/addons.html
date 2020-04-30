@@ -54,32 +54,21 @@
     <div style="width: 1200px" class="container">
         <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-8 order-2 order-lg-1 produts-sidebar-filter">
+
                 <div class="filter-widget">
                     <h4 class="fw-title">IDE</h4>
-                    <div class="fw-brand-check">
-
-                        <div class="bc-item">
-                                <input type="radio" name="ide" id="eclipse">
-                            <label for="eclipse">Eclipse</label>
-                        </div>
-
-                        <div class="bc-item">
-                                <input type="radio" name="ide" id="intellij">
-                            <label for="intellij">IntelliJ</label>
-                        </div>
-
+                    <div style="display: inline" class="fw-tags" th:each="ide : ${ides}">
+                        <a th:href="@{'/addons/ide/' + ${ide.ideName}}" th:text="${ide.ideName}">Ide</a>
                     </div>
-                </div>
-                <div class="filter-widget">
-                    <a href="#" class="filter-btn">Filter</a>
                 </div>
 
                 <div class="filter-widget">
                     <h4 class="fw-title">Tags</h4>
-                    <div class="fw-tags" th:each="tag : ${tags}">
+                    <div style="display: inline" class="fw-tags" th:each="tag : ${tags}">
                         <a href="#" th:text="${tag.tagName}">Tag</a>
                     </div>
                 </div>
+
             </div>
             <div class="col-lg-101 order-1 order-lg-2">
                 <div class="product-show-option">
