@@ -160,12 +160,6 @@
 	line-height: 250%;
 }
 
-#newfirtname{
-	color: #38b6ff;
-	font-size: 18px;
-	line-height: 250%;
-}
-
 #gitLink1{
 	color: #1d2124;
 }
@@ -693,7 +687,7 @@ ol {
 }
 
 .inner-header .advanced-search .input-group {
-	max-width: 70%;
+	max-width: 80%;
 	height: 100%;
 }
 
