@@ -3,6 +3,7 @@ package com.addonis.demo.controllers;
 import com.addonis.demo.exceptions.DuplicateEntityException;
 import com.addonis.demo.exceptions.EntityNotFoundException;
 import com.addonis.demo.exceptions.InvalidDataException;
+import com.addonis.demo.logger.Logger;
 import com.addonis.demo.models.*;
 import com.addonis.demo.exceptions.NotAuthorizedException;
 
@@ -90,6 +91,9 @@ public class AddonsController {
 
         if (errors.hasErrors()) {
             model.addAttribute("error", errors.getAllErrors().get(0));
+            // Log if any errors appear
+            Logger.getLogger().warning("Ops error appeared on addon-create: " + errors.getAllErrors().get(0));
+
             return "addons";
         }
         addonDto.setFile(binaryFile);
