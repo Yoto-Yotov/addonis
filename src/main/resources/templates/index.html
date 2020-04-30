@@ -24,6 +24,7 @@
     <link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}" href="/css/jquery-ui.min.css">
     <link rel="stylesheet" th:href="@{/css/slicknav.min.css}" href="/css/slicknav.min.css">
     <link rel="stylesheet" th:href="@{/css/style.css}" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -71,7 +72,7 @@
                     <a href="#"><i class="ti-linkedin"></i></a>
                     <a href="https://www.pinterest.com/addonisteam/tried/"><i class="ti-pinterest"></i></a>
                 </div>
-                <a href="#" th:href="@{/register}" sec:authorize="!isAuthenticated()" class="login-panel"><i class="far fa-registered"></i>Register</a>
+                <a href="#" th:href="@{/register}" sec:authorize="!isAuthenticated()" class="login-panel"><i class="fa fa-drivers-license"></i>Register</a>
             </form>
         </div>
     </div>
