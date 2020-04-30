@@ -79,6 +79,16 @@
                         </div>
                         <button type="submit" class="site-btn login-btn">EDIT</button>
                     </form>
+                    <form sec:authorize="isAuthenticated()" th:object="${addonTagDto}"
+                          th:action="@{/addon/tag}" th:method="post">
+                        <input type="hidden" th:value="${#authentication.name}" th:name="userName">
+                        <input type="text" name="tagName" placeholder="Tag name" th:name="tagName">
+                        <input type="hidden" th:value="${oldAddon.id}" th:name="addonId">
+                        <input type="submit" class="site-btn login-btn" value ="Add Tag">
+                    </form>
+                    <p>
+                        <i th:if="${error != null}" th:text="${error}" class="error"/>
+                    </p>
                     <div class="tag-share">
                         <div class="details-tag">
                             <ul>

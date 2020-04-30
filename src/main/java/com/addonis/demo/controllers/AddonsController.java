@@ -213,6 +213,7 @@ public class AddonsController {
         newAddon.setDescription(oldAddon.getDescription());
         model.addAttribute("newAddon", newAddon);
         model.addAttribute("oldAddon", oldAddon);
+        model.addAttribute("addonTagDto", new AddonTagDto());
         return "edit-addon";
     }
 
