@@ -8,6 +8,7 @@ import com.addonis.demo.models.enums.Sortby;
 import com.addonis.demo.models.enums.Status;
 import com.addonis.demo.repository.contracts.AddonRepository;
 import com.addonis.demo.repository.contracts.ReadmeRepository;
+import com.addonis.demo.repository.contracts.TagRepository;
 import com.addonis.demo.services.contracts.AddonService;
 import com.addonis.demo.services.contracts.GitHubService;
 import com.addonis.demo.services.contracts.LastCommitService;
@@ -46,7 +47,7 @@ public class AddonServiceImpl implements AddonService {
         this.addonRepository = addonRepository;
         this.lastCommitService = lastCommitService;
         this.githubService = githubService;
-        this.readmeRepository =readmeRepository;
+        this.readmeRepository = readmeRepository;
     }
 
     @Override
@@ -123,6 +124,11 @@ public class AddonServiceImpl implements AddonService {
     @Override
     public List<Addon> getAllFilterByIdeName(String ideName) {
         return addonRepository.findAllByStatusAndIdeId_IdeName(Status.APPROVED, ideName);
+    }
+
+    @Override
+    public List<Addon> getAllFilterByTagName(String tagName) {
+        return addonRepository.getAllByTagName(Status.APPROVED, tagName);
     }
 
     @Override

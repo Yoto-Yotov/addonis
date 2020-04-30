@@ -32,4 +32,5 @@ public interface AddonService extends BaseServiceContract<Addon, Integer> {
     List<Addon> get6Random();
     List<Addon> findByNameContaining(String name);
     List<Addon> getAllFilterByIdeName(String ideName);
+    List<Addon> getAllFilterByTagName(String tagName);
 }

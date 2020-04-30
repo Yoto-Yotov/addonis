@@ -265,7 +265,19 @@ public class AddonsController {
 
     @GetMapping("/addons/ide/{ideName}")
     public String getAllFilterByIde(@PathVariable("ideName") String ideName, Model model) {
+
         model.addAttribute("addons", addonService.getAllFilterByIdeName(ideName));
+
+        model.addAttribute("tags", tagService.getAll());
+        model.addAttribute("ides", ideService.getAll());
+
+        return "addons";
+    }
+
+    @GetMapping("/addons/tag/{tagName}")
+    public String getAllFilterByTag(@PathVariable("tagName") String tagName, Model model) {
+
+        model.addAttribute("addons", addonService.getAllFilterByTagName(tagName));
 
         model.addAttribute("tags", tagService.getAll());
         model.addAttribute("ides", ideService.getAll());

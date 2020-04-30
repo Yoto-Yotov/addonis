@@ -65,7 +65,7 @@
                 <div class="filter-widget">
                     <h4 class="fw-title">Tags</h4>
                     <div style="display: inline" class="fw-tags" th:each="tag : ${tags}">
-                        <a href="#" th:text="${tag.tagName}">Tag</a>
+                        <a th:href="@{'/addons/tag/' + ${tag.tagName}}" th:text="${tag.tagName}">Tag</a>
                     </div>
                 </div>
 

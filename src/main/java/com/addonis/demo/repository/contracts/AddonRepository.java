@@ -1,6 +1,7 @@
 package com.addonis.demo.repository.contracts;
 
 import com.addonis.demo.models.Addon;
+import com.addonis.demo.models.Tag;
 import com.addonis.demo.models.UserInfo;
 import com.addonis.demo.models.enums.Status;
 import com.addonis.demo.repository.base.BaseRepository;
@@ -47,4 +48,7 @@ public interface AddonRepository extends BaseRepository<Addon, Integer> {
     void softDeleteAddonInfo(@Param("name") String name);
 
     boolean existsByName(String name);
+
+    @Query(value = "SELECT a FROM Addon a JOIN a.tags b WHERE b.tagName = :tagName AND a.status = :status")
+    List<Addon> getAllByTagName(@Param("status") Status status, @Param("tagName") String tagName);
 }
