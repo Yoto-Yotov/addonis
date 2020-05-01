@@ -70,13 +70,17 @@
                                 </div>
                                 <div class="pi-text">
                                     <div class="cell">
-                                        <h3><a id="name3" th:text="${user.name}"></a></h3>
+                                        <h3><a id="name4" th:text="${user.name}"></a></h3>
                                     </div>
                                     <a id="adminUserEmail" th:text="${user.email}">abv.bg</a>
                                     <form action="#" th:action="@{'/admin/users/d/' + ${user.name}}" method="post"
                                           enctype="multipart/form-data">
-                                        <button id="but11" type="submit" class="site-btn register-btn">Disable</button>
+                                        <button id="but1" type="submit" class="site-btn register-btn">Disable</button>
                                     </form>
+
+                                    <button id="but11" class="site-btn register-btn">AJAX</button>
+                                    <input id="name3" type="hidden" name="email" th:value="${user.name}"/>
+
                                 </div>
                             </div>
                         </div>
@@ -127,12 +131,12 @@
 
 <script>
 
-    $("#but11").click(function () {
+    $("#but11").onclick(function () {
         var r = confirm("Are you sure ?");
         var username1 =  $("#name3").val();
         if (r === true) {
             $.ajax({
-                url: 'http://localhost:8080/admin/users/d/',
+                url: 'http://localhost:8080/admin/users/d/' + username1,
                 type: 'POST',
                 data: {"username" : username1},
                 dataType: "json",
