@@ -77,6 +77,8 @@ public class AddonsController {
     public String showAddons(@RequestParam(required = false, value = "sr", defaultValue = "") String search , Model model) {
         model.addAttribute("addons", addonService.findByNameContaining(search));
         model.addAttribute("tags", tagService.getAll());
+        model.addAttribute("ides", ideService.getAll());
+
         return "addons";
     }
 
