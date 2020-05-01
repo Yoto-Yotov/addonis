@@ -106,7 +106,7 @@ public class AddonsController {
                 model.addAttribute("error", e.getMessage());
 
                 // Log if any errors appear
-                Logger.getLogger().warning("Ops error appeared on addon-create: " + errors.getAllErrors().get(0));
+                //Logger.getLogger().warning("Ops error appeared on addon-create: " + errors.getAllErrors().get(0));
 
                 return "addon";
             }
