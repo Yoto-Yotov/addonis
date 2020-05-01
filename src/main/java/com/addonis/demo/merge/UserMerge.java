@@ -1,17 +1,11 @@
 package com.addonis.demo.merge;
 
-import com.addonis.demo.models.UserChangeDTO;
-import com.addonis.demo.models.UserDTO;
-import com.addonis.demo.models.UserInfo;
-import com.addonis.demo.services.contracts.UserInfoService;
+import com.addonis.demo.firstDB.models.UserChangeDTO;
+import com.addonis.demo.firstDB.models.UserDTO;
+import com.addonis.demo.firstDB.models.UserInfo;
+import com.addonis.demo.firstDB.services.contracts.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import java.util.Properties;
-import java.util.regex.Pattern;
 
 /**
  * UserUtils- Merging DTOs to UserInfo in order a user to be created or updated

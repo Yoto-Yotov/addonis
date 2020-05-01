@@ -1,9 +1,9 @@
 package com.addonis.demo.controllers;
 
-import com.addonis.demo.models.UserInfo;
-import com.addonis.demo.services.contracts.AddonService;
-import com.addonis.demo.services.contracts.UserInfoService;
-import com.addonis.demo.services.contracts.UserService;
+import com.addonis.demo.firstDB.models.UserInfo;
+import com.addonis.demo.firstDB.services.contracts.AddonService;
+import com.addonis.demo.firstDB.services.contracts.UserInfoService;
+import com.addonis.demo.firstDB.services.contracts.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

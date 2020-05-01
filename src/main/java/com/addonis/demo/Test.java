@@ -1,9 +1,9 @@
 package com.addonis.demo;
 
-import com.addonis.demo.models.LastCommit;
-import com.addonis.demo.models.commitresponse.LastCommitResponse;
-import com.addonis.demo.services.GitHubServiceImpl;
-import com.addonis.demo.services.contracts.GitHubService;
+import com.addonis.demo.firstDB.models.LastCommit;
+import com.addonis.demo.firstDB.models.commitresponse.LastCommitResponse;
+import com.addonis.demo.firstDB.services.GitHubServiceImpl;
+import com.addonis.demo.firstDB.services.contracts.GitHubService;
 import org.json.JSONException;
 
 import java.io.IOException;

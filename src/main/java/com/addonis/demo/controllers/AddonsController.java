@@ -1,16 +1,17 @@
 package com.addonis.demo.controllers;
 
-import com.addonis.demo.exceptions.*;
-import com.addonis.demo.models.*;
-
-import com.addonis.demo.models.Addon;
-import com.addonis.demo.models.AddonDTO;
-import com.addonis.demo.models.BinaryContent;
-import com.addonis.demo.models.UserInfo;
-import com.addonis.demo.models.enums.Sortby;
-import com.addonis.demo.services.contracts.*;
+import com.addonis.demo.exceptions.DuplicateEntityException;
+import com.addonis.demo.exceptions.EntityNotFoundException;
+import com.addonis.demo.exceptions.InvalidDataException;
+import com.addonis.demo.exceptions.NotAuthorizedException;
+import com.addonis.demo.firstDB.models.Addon;
+import com.addonis.demo.firstDB.models.AddonChangeDTO;
+import com.addonis.demo.firstDB.models.AddonDTO;
+import com.addonis.demo.firstDB.models.UserInfo;
+import com.addonis.demo.firstDB.services.contracts.*;
+import com.addonis.demo.secondDB.secondModels.BinaryContent;
+import com.addonis.demo.secondDB.secondServices.contracts.BinaryContentService;
 import com.addonis.demo.validation.AddonValidator;
-import com.addonis.demo.validation.UserDtoValidator;
 import com.github.rjeschke.txtmark.Processor;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,6 @@ import java.security.Principal;
 
 import static com.addonis.demo.merge.AddonMapper.mapDtoToAddon;
 import static com.addonis.demo.merge.AddonMerge.mergeTwoAddons;
-import static com.addonis.demo.validation.AddonValidator.validateAddonDto;
 
 /**
  * AddonController is responsible for all visualized operations with the addons. For some of them is authentication is needed.
@@ -52,7 +52,9 @@ public class AddonsController {
     private TagService tagService;
 
     @Autowired
-    public AddonsController(AddonService addonService, UserInfoService userInfoService, ImageService imageService, BinaryContentService binaryContentService, ReadmeService readmeService, UserService userService, TagService tagService) {
+    public AddonsController(AddonService addonService, UserInfoService userInfoService,
+                            ImageService imageService, BinaryContentService binaryContentService,
+                            ReadmeService readmeService, UserService userService, TagService tagService) {
         this.addonService = addonService;
         this.userInfoService = userInfoService;
         this.imageService = imageService;
@@ -174,10 +176,10 @@ public class AddonsController {
         }
     }
 
-    //ToDo update download count
     @GetMapping("/addons/download/{addonId}")
     public ResponseEntity<Resource> downloadFileFromLocal(@PathVariable int addonId) {
         Addon addon = addonService.getById(addonId);
+//        int id = addon.getBinaryFile();
         BinaryContent fileToDownload = binaryContentService.getById(addon.getBinaryFile());
         addonService.changeDownloadCount(addonId);
 
@@ -243,7 +245,7 @@ public class AddonsController {
     @GetMapping("/addons")
     public String getAllSortBy(@RequestParam(required = false, value = "sort", defaultValue = "name") String sortBy,
                                @RequestParam(required = false, value = "order", defaultValue = "ASC") String direction, Model model) {
-        model.addAttribute("addons", addonService.getAllSortBy(direction, Sortby.getByParam(sortBy)));
+        model.addAttribute("addons", addonService.getAllSortBy(direction, com.addonis.demo.models.enums.Sortby.getByParam(sortBy)));
         model.addAttribute("selsort", sortBy);
         model.addAttribute("ordersort", direction);
 

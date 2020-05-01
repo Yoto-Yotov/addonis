@@ -2,11 +2,11 @@ package com.addonis.demo.controllers;
 
 import com.addonis.demo.exceptions.DuplicateEntityException;
 import com.addonis.demo.exceptions.InvalidDataException;
-import com.addonis.demo.models.ChangePassword;
-import com.addonis.demo.models.UserChangeDTO;
-import com.addonis.demo.models.UserInfo;
-import com.addonis.demo.services.contracts.ImageService;
-import com.addonis.demo.services.contracts.UserInfoService;
+import com.addonis.demo.firstDB.models.ChangePassword;
+import com.addonis.demo.firstDB.models.UserChangeDTO;
+import com.addonis.demo.firstDB.models.UserInfo;
+import com.addonis.demo.firstDB.services.contracts.ImageService;
+import com.addonis.demo.firstDB.services.contracts.UserInfoService;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;

@@ -1,8 +1,8 @@
 package com.addonis.demo.api;
 
 import com.addonis.demo.date.DateParser;
-import com.addonis.demo.models.LastCommit;
-import com.addonis.demo.models.commitresponse.LastCommitResponse;
+import com.addonis.demo.firstDB.models.LastCommit;
+import com.addonis.demo.firstDB.models.commitresponse.LastCommitResponse;
 
 /**
  * LastCommitMapper

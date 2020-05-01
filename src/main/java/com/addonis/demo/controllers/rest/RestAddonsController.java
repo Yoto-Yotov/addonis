@@ -4,9 +4,13 @@ import com.addonis.demo.exceptions.DuplicateEntityException;
 import com.addonis.demo.exceptions.EntityNotFoundException;
 import com.addonis.demo.exceptions.InvalidDataException;
 import com.addonis.demo.exceptions.NotAuthorizedException;
-import com.addonis.demo.models.*;
+import com.addonis.demo.firstDB.models.Addon;
+import com.addonis.demo.firstDB.models.AddonChangeDTO;
+import com.addonis.demo.firstDB.models.AddonDTO;
+import com.addonis.demo.firstDB.models.UserInfo;
+import com.addonis.demo.firstDB.services.contracts.*;
 import com.addonis.demo.models.enums.Sortby;
-import com.addonis.demo.services.contracts.*;
+import com.addonis.demo.secondDB.secondServices.contracts.BinaryContentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +23,7 @@ import java.util.List;
 
 import static com.addonis.demo.constants.Constants.DELETE_CONFIRMATION;
 import static com.addonis.demo.merge.AddonMapper.mapDtoToAddon;
-import static com.addonis.demo.merge.AddonMerge.mergeTwoAddons;
+import static com.addonis.demo.merge.AddonMerger.mergeTwoAddons;
 
 /**
  * Rest controller for addons - CRUD operations

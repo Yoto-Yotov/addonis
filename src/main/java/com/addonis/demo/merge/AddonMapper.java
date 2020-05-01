@@ -1,9 +1,9 @@
 package com.addonis.demo.merge;
 
-import com.addonis.demo.models.Addon;
-import com.addonis.demo.models.AddonDTO;
-import com.addonis.demo.models.BinaryContent;
-import com.addonis.demo.services.contracts.BinaryContentService;
+import com.addonis.demo.firstDB.models.Addon;
+import com.addonis.demo.firstDB.models.AddonDTO;
+import com.addonis.demo.secondDB.secondModels.BinaryContent;
+import com.addonis.demo.secondDB.secondServices.contracts.BinaryContentService;
 
 import java.io.IOException;
 

@@ -1,8 +1,8 @@
 package com.addonis.demo.controllers.rest;
 
 import com.addonis.demo.exceptions.DuplicateEntityException;
-import com.addonis.demo.models.LastCommit;
-import com.addonis.demo.services.contracts.LastCommitService;
+import com.addonis.demo.firstDB.models.LastCommit;
+import com.addonis.demo.firstDB.services.contracts.LastCommitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;

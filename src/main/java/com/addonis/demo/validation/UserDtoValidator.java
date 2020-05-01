@@ -3,8 +3,8 @@ package com.addonis.demo.validation;
 import com.addonis.demo.exceptions.DataConflictException;
 import com.addonis.demo.exceptions.DuplicateEntityException;
 import com.addonis.demo.exceptions.InvalidDataException;
-import com.addonis.demo.models.UserDTO;
-import com.addonis.demo.services.contracts.UserInfoService;
+import com.addonis.demo.firstDB.models.UserDTO;
+import com.addonis.demo.firstDB.services.contracts.UserInfoService;
 
 import static com.addonis.demo.constants.Constants.EMAIL;
 import static com.addonis.demo.constants.Constants.USER_U;

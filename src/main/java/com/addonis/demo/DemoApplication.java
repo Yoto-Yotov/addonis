@@ -6,9 +6,9 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-@EnableJpaRepositories(basePackages = "com.addonis.demo.repository")
+//@EnableJpaRepositories(basePackages = {"com.addonis.demo.firstDB.repository", "com.addonis.demo.secondDB.secondRepository"})
 @EnableTransactionManagement
-@EntityScan(basePackages = "com.addonis.demo.models")
+//@EntityScan(basePackages = {"com.addonis.demo.firstDB.models"})
 @SpringBootApplication
 public class DemoApplication {
 

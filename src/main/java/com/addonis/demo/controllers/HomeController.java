@@ -1,6 +1,6 @@
 package com.addonis.demo.controllers;
 
-import com.addonis.demo.services.contracts.AddonService;
+import com.addonis.demo.firstDB.services.contracts.AddonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
