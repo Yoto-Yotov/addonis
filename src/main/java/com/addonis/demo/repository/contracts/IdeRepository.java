@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface IdeRepository extends BaseRepository<IDE, Integer> {
     boolean existsByIdeNameIgnoreCase(String name);
+
     IDE findByIdeNameIgnoreCase(String name);
 }

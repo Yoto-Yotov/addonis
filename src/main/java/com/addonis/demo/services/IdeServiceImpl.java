@@ -20,7 +20,7 @@ public class IdeServiceImpl implements IdeService {
 
     @Override
     public IDE getByName(String ideName) {
-        if(!ideRepository.existsByIdeNameIgnoreCase(ideName)) {
+        if (!ideRepository.existsByIdeNameIgnoreCase(ideName)) {
             createIde(ideName);
         }
         return ideRepository.findByIdeNameIgnoreCase(ideName);

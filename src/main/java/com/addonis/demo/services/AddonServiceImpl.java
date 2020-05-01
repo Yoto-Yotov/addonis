@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -133,7 +134,7 @@ public class AddonServiceImpl implements AddonService {
 
     @Override
     public void update(Addon addon) {
-       try { //todo check user authorities
+        try { //todo check user authorities
             addonRepository.save(addon);
         } catch (org.springframework.dao.DataIntegrityViolationException ex) {
             throw new DuplicateEntityException(ADDON);
@@ -158,7 +159,7 @@ public class AddonServiceImpl implements AddonService {
             readmeRepository.save(readme);
             addon.setReadmeId(readme.getReadmeId());
             return addonRepository.save(addon);
-        }  catch (DataIntegrityViolationException | IOException ex) { //todo remove IOException
+        } catch (DataIntegrityViolationException | IOException ex) { //todo remove IOException
             throw new DuplicateEntityException(ADDON);
         }
     }
