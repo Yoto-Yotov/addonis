@@ -9,6 +9,7 @@ import com.addonis.demo.models.enums.Sortby;
 import com.addonis.demo.models.enums.Status;
 import com.addonis.demo.repository.contracts.AddonRepository;
 import com.addonis.demo.repository.contracts.ReadmeRepository;
+import com.addonis.demo.repository.contracts.TagRepository;
 import com.addonis.demo.services.contracts.AddonService;
 import com.addonis.demo.services.contracts.GitHubService;
 import com.addonis.demo.services.contracts.LastCommitService;
@@ -44,6 +45,7 @@ public class AddonServiceImpl implements AddonService {
         this.lastCommitService = lastCommitService;
         this.githubService = githubService;
         this.readmeRepository = readmeRepository;
+
         this.userService = userService;
     }
 
@@ -120,7 +122,7 @@ public class AddonServiceImpl implements AddonService {
 
     @Override
     public void deleteById(Integer id) {
-        try {
+        try {  // todo check if addon exists
             addonRepository.deleteById(id);
         } catch (Exception e) {
             throw new EntityNotFoundException(ADDON, id);
@@ -129,6 +131,16 @@ public class AddonServiceImpl implements AddonService {
 
     public List<Addon> findByNameContaining(String name) {
         return addonRepository.findAllByStatusAndNameContaining(Status.APPROVED, name);
+    }
+
+    @Override
+    public List<Addon> getAllFilterByIdeName(String ideName) {
+        return addonRepository.findAllByStatusAndIdeId_IdeName(Status.APPROVED, ideName);
+    }
+
+    @Override
+    public List<Addon> getAllFilterByTagName(String tagName) {
+        return addonRepository.getAllByTagName(Status.APPROVED, tagName);
     }
 
     @Override
@@ -158,6 +170,7 @@ public class AddonServiceImpl implements AddonService {
             readmeRepository.save(readme);
             addon.setReadmeId(readme.getReadmeId());
             return addonRepository.save(addon);
+
         } catch (DataIntegrityViolationException | IOException ex) {
             throw new DuplicateEntityException(ADDON);
         }

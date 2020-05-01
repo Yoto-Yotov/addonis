@@ -51,35 +51,24 @@
 
 <!-- Product Shop Section Begin -->
 <section class="product-shop spad">
-    <div class="container">
+    <div style="width: 1200px" class="container">
         <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-8 order-2 order-lg-1 produts-sidebar-filter">
+
                 <div class="filter-widget">
                     <h4 class="fw-title">IDE</h4>
-                    <div class="fw-brand-check">
-
-                        <div class="bc-item">
-                                <input type="radio" name="ide" id="eclipse">
-                            <label for="eclipse">Eclipse</label>
-                        </div>
-
-                        <div class="bc-item">
-                                <input type="radio" name="ide" id="intellij">
-                            <label for="intellij">IntelliJ</label>
-                        </div>
-
+                    <div style="display: inline" class="fw-tags" th:each="ide : ${ides}">
+                        <a th:href="@{'/addons/ide/' + ${ide.ideName}}" th:text="${ide.ideName}">Ide</a>
                     </div>
-                </div>
-                <div class="filter-widget">
-                    <a href="#" class="filter-btn">Filter</a>
                 </div>
 
                 <div class="filter-widget">
                     <h4 class="fw-title">Tags</h4>
-                    <div class="fw-tags" th:each="tag : ${tags}">
-                        <a href="#" th:text="${tag.tagName}">Tag</a>
+                    <div style="display: inline" class="fw-tags" th:each="tag : ${tags}">
+                        <a th:href="@{'/addons/tag/' + ${tag.tagName}}" th:text="${tag.tagName}">Tag</a>
                     </div>
                 </div>
+
             </div>
             <div class="col-lg-101 order-1 order-lg-2">
                 <div class="product-show-option">
@@ -113,14 +102,16 @@
                                              th:src="@{'/addon/' + ${addon.name} + '/image'}" alt=""
                                              height="250" width="263" style="background-size: contain; padding:55px">
                                     </div>
+
                                     <div class="card-body">
-                                        <div class="catagory-name" th:text="${addon.name}" style="align-items: center">
+                                        <div class="catagory-name" th:text="${addon.ideId.ideName}" style="align-items: center">
                                         </div>
                                         <a href="#">
                                             <h5><a th:text="${addon.name.length() > 20 ? addon.name.substring(0,20) : addon.name}"></a></h5>
                                         </a>
                                         <button type="submit" class="site-btn login-btn" style="align-items: center">VIEW</button>
                                     </div>
+                                    
                                 </form>
                             </div>
                         </div>

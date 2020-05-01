@@ -1,7 +1,12 @@
 package com.addonis.demo.controllers;
 
+import com.addonis.demo.exceptions.DuplicateEntityException;
+import com.addonis.demo.exceptions.EntityNotFoundException;
+import com.addonis.demo.exceptions.InvalidDataException;
+import com.addonis.demo.logger.Logger;
 import com.addonis.demo.exceptions.*;
 import com.addonis.demo.models.*;
+import com.addonis.demo.exceptions.NotAuthorizedException;
 
 import com.addonis.demo.models.Addon;
 import com.addonis.demo.models.AddonDTO;
@@ -50,9 +55,14 @@ public class AddonsController {
     private ReadmeService readmeService;
     private UserService userService;
     private TagService tagService;
+    private RatingService ratingService;
+    private IdeService ideService;
 
     @Autowired
-    public AddonsController(AddonService addonService, UserInfoService userInfoService, ImageService imageService, BinaryContentService binaryContentService, ReadmeService readmeService, UserService userService, TagService tagService) {
+    public AddonsController(AddonService addonService, UserInfoService userInfoService, ImageService imageService,
+                            BinaryContentService binaryContentService, UserService userService,ReadmeService readmeService,
+                            TagService tagService, RatingService ratingService, IdeService ideService) {
+
         this.addonService = addonService;
         this.userInfoService = userInfoService;
         this.imageService = imageService;
@@ -60,11 +70,16 @@ public class AddonsController {
         this.readmeService = readmeService;
         this.userService = userService;
         this.tagService = tagService;
+        this.ratingService = ratingService;
+        this.ideService = ideService;
     }
 
     @GetMapping("/addons/search")
     public String showAddons(@RequestParam(required = false, value = "sr", defaultValue = "") String search , Model model) {
         model.addAttribute("addons", addonService.findByNameContaining(search));
+        model.addAttribute("tags", tagService.getAll());
+        model.addAttribute("ides", ideService.getAll());
+
         return "addons";
     }
 
@@ -79,39 +94,49 @@ public class AddonsController {
                               @RequestParam("imagefile") MultipartFile imagefile,
                               @RequestParam("binaryFile") MultipartFile binaryFile) {
 
-        try {
-            AddonValidator.validateAddonDto(addonDto, addonService);
-        } catch (DuplicateEntityException | InvalidDataException e) {
-            model.addAttribute("error", e.getMessage());
-            return "addon";
+        if (errors.hasErrors()) {
+            model.addAttribute("error", errors.getAllErrors().get(0));
+            return "addons";
         }
+            try {
+                AddonValidator.validateAddonDto(addonDto, addonService);
+            } catch (DuplicateEntityException | InvalidDataException e) {
+                model.addAttribute("error", e.getMessage());
+
+                // Log if any errors appear
+                Logger.getLogger().warning("Ops error appeared on addon-create: " + errors.getAllErrors().get(0));
+
+                return "addon";
+            }
 
 //        if (errors.hasErrors()) {
 //            model.addAttribute("error", errors.getAllErrors().get(0));
 //            return "addon";
 //        }
-        addonDto.setFile(binaryFile);
+            addonDto.setFile(binaryFile);
 
-        Addon addonToCreate;
-        try {
-            UserInfo creator = userInfoService.getUserByUsername(user.getName());
-            addonDto.setCreator(creator);
-            addonToCreate = mapDtoToAddon(addonDto, binaryContentService);
-            addonService.create(addonToCreate);
-        } catch (DuplicateEntityException | IOException | InvalidDataException e) {
-            model.addAttribute("error", e.getMessage());
-            model.addAttribute("addon", new AddonDTO());
-            return "addons";
+            Addon addonToCreate;
+            try {
+                UserInfo creator = userInfoService.getUserByUsername(user.getName());
+                addonDto.setCreator(creator);
+                addonToCreate = mapDtoToAddon(addonDto, binaryContentService);
+                addonToCreate.setIdeId(ideService.getByName(addonDto.getAddonIde()));
+                addonService.create(addonToCreate);
+            } catch (DuplicateEntityException | IOException | InvalidDataException e) {
+                model.addAttribute("error", e.getMessage());
+                model.addAttribute("addon", new AddonDTO());
+                return "addons";
+            }
+
+            try {
+                imageService.saveImageFileToAddon(addonToCreate.getId(), imagefile);
+            } catch (IllegalStateException ex) {
+                model.addAttribute("error", "Image cant't be uploaded. Please try again!");
+                return "addons";
+            }
+            return "redirect:/addons";
         }
 
-        try {
-            imageService.saveImageFileToAddon(addonToCreate.getId(), imagefile);
-        } catch (IllegalStateException ex) {
-            model.addAttribute("error", "Image cant't be uploaded. Please try again!");
-            return "addons";
-        }
-        return "redirect:/addons";
-    }
 
 
     @GetMapping("/addon/{addonName}/image")
@@ -145,6 +170,8 @@ public class AddonsController {
         String result = Processor.process(readmeService.gerReadmeString(readmeId));
         model.addAttribute("readmeFile", result);
         model.addAttribute("addon", addon);
+        model.addAttribute("ratingDto", new RatingDTO());
+        model.addAttribute("addonRating", ratingService.getAddonRating(addon.getId()));
         return "addon-details";
     }
 
@@ -204,6 +231,7 @@ public class AddonsController {
         newAddon.setDescription(oldAddon.getDescription());
         model.addAttribute("newAddon", newAddon);
         model.addAttribute("oldAddon", oldAddon);
+        model.addAttribute("addonTagDto", new AddonTagDto());
         return "edit-addon";
     }
 
@@ -246,6 +274,26 @@ public class AddonsController {
         model.addAttribute("addons", addonService.getAllSortBy(direction, Sortby.getByParam(sortBy)));
         model.addAttribute("selsort", sortBy);
         model.addAttribute("ordersort", direction);
+        model.addAttribute("tags", tagService.getAll());
+        model.addAttribute("ides", ideService.getAll());
+
+        return "addons";
+    }
+
+    @GetMapping("/addons/ide/{ideName}")
+    public String getAllFilterByIde(@PathVariable("ideName") String ideName, Model model) {
+        model.addAttribute("addons", addonService.getAllFilterByIdeName(ideName));
+        model.addAttribute("tags", tagService.getAll());
+        model.addAttribute("ides", ideService.getAll());
+
+        return "addons";
+    }
+
+    @GetMapping("/addons/tag/{tagName}")
+    public String getAllFilterByTag(@PathVariable("tagName") String tagName, Model model) {
+        model.addAttribute("addons", addonService.getAllFilterByTagName(tagName));
+        model.addAttribute("tags", tagService.getAll());
+        model.addAttribute("ides", ideService.getAll());
 
         return "addons";
     }

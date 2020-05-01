@@ -95,6 +95,7 @@ public class RestAddonsController {
     }
 
     @GetMapping("/{addonId}")
+
     public Addon getAddonById(@PathVariable int addonId) {
         try {
             return addonService.getById(addonId);
