@@ -107,12 +107,11 @@
     <div class="nav-item" id="myHeader">
         <div class="container">
             <nav class="nav-menu mobile-menu">
-                <ul>w
+                <ul>
                     <li class="active"><a th:href="@{/}">Home</a></li>
                     <li><a th:href="@{/addons}">Addons</a></li>
-                    <li><a href="/blog.html">Blog</a></li>
                     <li><a th:href="@{/contact}">Contact</a></li>
-                    <li><a href="#" th:href="@{/about}">About</a></li>
+                    <li><a th:href="@{/about}">About</a></li>
                 </ul>
             </nav>
             <div id="mobile-menu-wrap"></div>
@@ -201,41 +200,41 @@
 <!-- Popular Addons Section End -->
 
 <!-- Deal Of The Week Section Begin-->
-<section class="deal-of-week set-bg spad" data-setbg="img/silver-laptop-in-white-wooden-table-3759098.jpg">
-    <div class="container">
-        <div class="col-lg-6 text-center">
-            <div class="section-title">
-                <h2>Our downloads</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed<br/> do ipsum dolor sit amet,
-                    consectetur adipisicing elit </p>
-                <div class="product-price">
-                    $35.00
-                    <span>/ HanBag</span>
-                </div>
-            </div>
-            <div class="countdown-timer" id="countdown">
-                <div class="cd-item">
-                    <span>56</span>
-                    <p>Days</p>
-                </div>
-                <div class="cd-item">
-                    <span>12</span>
-                    <p>Hrs</p>
-                </div>
-                <div class="cd-item">
-                    <span>40</span>
-                    <p>Mins</p>
-                </div>
-                <div class="cd-item">
-                    <span>52</span>
-                    <p>Secs</p>
-                </div>
-            </div>
-            <a th:href="@{/addons}" class="primary-btn">See addons</a>
-        </div>
-    </div>
-</section>
-</br></br>
+<!--<section class="deal-of-week set-bg spad" data-setbg="img/silver-laptop-in-white-wooden-table-3759098.jpg">-->
+<!--    <div class="container">-->
+<!--        <div class="col-lg-6 text-center">-->
+<!--            <div class="section-title">-->
+<!--                <h2>Our downloads</h2>-->
+<!--                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed<br/> do ipsum dolor sit amet,-->
+<!--                    consectetur adipisicing elit </p>-->
+<!--                <div class="product-price">-->
+<!--                    $35.00-->
+<!--                    <span>/ HanBag</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="countdown-timer" id="countdown">-->
+<!--                <div class="cd-item">-->
+<!--                    <span>56</span>-->
+<!--                    <p>Days</p>-->
+<!--                </div>-->
+<!--                <div class="cd-item">-->
+<!--                    <span>12</span>-->
+<!--                    <p>Hrs</p>-->
+<!--                </div>-->
+<!--                <div class="cd-item">-->
+<!--                    <span>40</span>-->
+<!--                    <p>Mins</p>-->
+<!--                </div>-->
+<!--                <div class="cd-item">-->
+<!--                    <span>52</span>-->
+<!--                    <p>Secs</p>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <a th:href="@{/addons}" class="primary-btn">See addons</a>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</section>-->
+<!--</br></br>-->
 <!-- Deal Of The Week Section End -->
 
 
@@ -255,7 +254,7 @@
     </div>
 </div>
 <!-- Instagram Section End -->
-
+<div style="text-align:center; background-color:#303030"><h3 style="color:#ebebeb">Our sponsors</h3></div>
 <!-- Partner Logo Section Begin -->
 <div class="partner-logo">
     <div class="container">
@@ -316,23 +315,13 @@
                 <div class="footer-widget">
                     <h5>Information</h5>
                     <ul>
-                        <li><a th:href="@{/addons}">About Us</a></li>
+                        <li><a th:href="@{/about}">About Us</a></li>
                         <li><a th:href="@{/contact}">Contact</a></li>
-                        <li><a href="#">Serivius</a></li>
+                        <li><a th:href="@{/addons}">Addons</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="col-lg-2">
-                <div class="footer-widget">
-                    <h5>My Account</h5>
-                    <ul>
-                        <li><a href="#">My Account</a></li>
-                        <li><a th:href="@{/contact}">Contact</a></li>
-                        <li><a href="#">Shopping Cart</a></li>
-                        <li><a href="#">Shop</a></li>
-                    </ul>
-                </div>
-            </div>
+
             <div class="col-lg-4">
                 <div class="newslatter-item">
                     <h5>Join Our Newsletter Now</h5>

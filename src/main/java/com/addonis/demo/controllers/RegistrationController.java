@@ -56,12 +56,14 @@ public class RegistrationController {
         return "register";
     }
 
-    //ToDo Check Validations
     @PostMapping("/register")
-    public String registerUser(@Valid @ModelAttribute(name = "userDto") UserDTO userDto, Model model,
-                               BindingResult bindingResult,
-                               @RequestParam("imagefile") MultipartFile file) {
+    public String registerUser(@Valid @ModelAttribute(name = "userDto") UserDTO userDto, BindingResult bindingResult,
+                               Model model, @RequestParam("imagefile") MultipartFile file) {
 
+        if(bindingResult.hasErrors()) {
+            model.addAttribute("error", bindingResult.getAllErrors().get(0).getDefaultMessage());
+            return "register";
+        }
         try {
             UserDtoValidator.validateDto(userDto, userInfoService);
         } catch (DuplicateEntityException | DataConflictException | InvalidDataException e) {
