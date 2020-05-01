@@ -36,7 +36,7 @@ import java.io.InputStream;
 import java.security.Principal;
 
 import static com.addonis.demo.merge.AddonMapper.mapDtoToAddon;
-import static com.addonis.demo.merge.AddonMerge.mergeTwoAddons;
+import static com.addonis.demo.merge.AddonMerger.mergeTwoAddons;
 
 /**
  * AddonController is responsible for all visualized operations with the addons. For some of them is authentication is needed.
