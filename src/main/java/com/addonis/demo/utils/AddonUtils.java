@@ -3,7 +3,6 @@ package com.addonis.demo.utils;
 import com.addonis.demo.models.Addon;
 import com.addonis.demo.models.AddonDTO;
 import com.addonis.demo.models.BinaryContent;
-import com.addonis.demo.models.IDE;
 import com.addonis.demo.services.contracts.BinaryContentService;
 
 import java.io.IOException;
