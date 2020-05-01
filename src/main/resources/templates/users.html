@@ -25,6 +25,7 @@
     <link rel="stylesheet" th:href="@{/css/slicknav.min.css}" href="/css/slicknav.min.css">
     <link rel="stylesheet" th:href="@{/css/style.css}" href="/css/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 </head>
 
 <body>
@@ -73,13 +74,10 @@
                                         <h3><a id="name4" th:text="${user.name}"></a></h3>
                                     </div>
                                     <a id="adminUserEmail" th:text="${user.email}">abv.bg</a>
-                                    <form action="#" th:action="@{'/admin/users/d/' + ${user.name}}" method="post"
+                                    <form onsubmit="return confirm('Are you sure ?')" th:action="@{'/admin/users/d/' + ${user.name}}" method="post"
                                           enctype="multipart/form-data">
                                         <button id="but1" type="submit" class="site-btn register-btn">Disable</button>
                                     </form>
-
-                                    <button id="but11" class="site-btn register-btn">AJAX</button>
-                                    <input id="name3" type="hidden" name="email" th:value="${user.name}"/>
 
                                 </div>
                             </div>
@@ -128,28 +126,6 @@
 <footer th:insert="index.html :: footer"></footer>
 
 <!-- Js Plugins -->
-
-<script>
-
-    $("#but11").onclick(function () {
-        var r = confirm("Are you sure ?");
-        var username1 =  $("#name3").val();
-        if (r === true) {
-            $.ajax({
-                url: 'http://localhost:8080/admin/users/d/' + username1,
-                type: 'POST',
-                data: {"username" : username1},
-                dataType: "json",
-                async: false,
-                success: setTimeout(function() { window.location.href = "/users"}, 1000)
-            });
-        } else {
-            alert($("#name3").val() + " fail");
-        }
-    })
-
-
-</script>
 
 <script src="/js/jquery-3.3.1.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
