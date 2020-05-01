@@ -54,11 +54,9 @@
                         <div class="splitLeft1">
                             <div class="tag-share">
                                 <div class="details-tag">
-                                    <ul>
+                                    <ul >
                                         <li><i class="fa fa-tags"></i></li>
-                                        <li>Travel</li>
-                                        <li>Beauty</li>
-                                        <li>Fashion</li>
+                                        <li th:each="tag : ${addon.tags}" th:text="${tag.tagName}"></li>
                                     </ul>
                                 </div>
                             </div>
