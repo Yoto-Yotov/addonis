@@ -77,6 +77,8 @@ public class AddonsController {
     public String showAddons(@RequestParam(required = false, value = "sr", defaultValue = "") String search , Model model) {
         model.addAttribute("addons", addonService.findByNameContaining(search));
         model.addAttribute("tags", tagService.getAll());
+        model.addAttribute("ides", ideService.getAll());
+
         return "addons";
     }
 
@@ -265,9 +267,7 @@ public class AddonsController {
 
     @GetMapping("/addons/ide/{ideName}")
     public String getAllFilterByIde(@PathVariable("ideName") String ideName, Model model) {
-
         model.addAttribute("addons", addonService.getAllFilterByIdeName(ideName));
-
         model.addAttribute("tags", tagService.getAll());
         model.addAttribute("ides", ideService.getAll());
 
@@ -276,9 +276,7 @@ public class AddonsController {
 
     @GetMapping("/addons/tag/{tagName}")
     public String getAllFilterByTag(@PathVariable("tagName") String tagName, Model model) {
-
         model.addAttribute("addons", addonService.getAllFilterByTagName(tagName));
-
         model.addAttribute("tags", tagService.getAll());
         model.addAttribute("ides", ideService.getAll());
 
