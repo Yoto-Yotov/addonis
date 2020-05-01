@@ -62,7 +62,7 @@ public class AddonServiceImpl implements AddonService {
     @Override
     public Addon getAddonByName(String name) {
         if (addonRepository.getByName(name) == null) {
-            throw new EntityNotFoundException(USER_U, name);
+            throw new EntityNotFoundException(ADDON_A, name);
         }
         return addonRepository.getByName(name);
     }
