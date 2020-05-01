@@ -5,24 +5,18 @@ import com.addonis.demo.exceptions.EntityNotFoundException;
 import com.addonis.demo.exceptions.InvalidDataException;
 import com.addonis.demo.models.UserInfo;
 import com.addonis.demo.repository.contracts.UserInfoRepository;
+import com.addonis.demo.send.EmailSend;
 import com.addonis.demo.services.contracts.UserInfoService;
-import com.addonis.demo.utils.EmailSend;
-import com.addonis.demo.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.addonis.demo.utils.Constants.*;
-import static com.addonis.demo.utils.UserUtils.isValidEmailAddress;
+import static com.addonis.demo.constants.Constants.*;
+import static com.addonis.demo.validation.EmailValidator.isValidEmailAddress;
 
 /**
- * UserInfoServiceImpl
- * Takes information about a user. Authentication needed - user
- * Create user. No authentication needed.
- * Get user by id. No authentication needed.
- * Delete user. (Hard delete + soft delete) Authentication needed - admin.
- * Update user. Authentication needed - user
+ * UserInfoServiceImpl - all operation with users + checking existence.
  */
 @Service
 public class UserInfoServiceImpl implements UserInfoService {

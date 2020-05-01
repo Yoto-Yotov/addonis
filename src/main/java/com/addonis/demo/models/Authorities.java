@@ -8,9 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 /**
- * Authorities
- * Model used for managing user role.
- * User can be either admin, registered user or just user (no permissions and no Authority)
+ * Authorities is a class representing the user roles and rights.
  */
 
 @Entity

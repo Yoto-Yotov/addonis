@@ -11,9 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * RatingServiceImpl
- * Provides informaiton about the average rating. No authentication needed
- * Rates an addon. Authentication needed - user or admin.
+ * RatingServiceImpl provides information about the average rating and responsible for rating an addon.
  */
 
 @Service

@@ -1,4 +1,4 @@
-package com.addonis.demo.utils;
+package com.addonis.demo.date;
 
 import com.addonis.demo.exceptions.InvalidDataException;
 
@@ -8,8 +8,7 @@ import java.time.LocalDate;
 import java.util.Date;
 
 /**
- * DateParser
- * Takes date form GitHub and parses it.
+ * DateParser - Takes date form GitHub and parses it.
  */
 public class DateParser {
 

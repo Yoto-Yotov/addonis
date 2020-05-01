@@ -95,21 +95,23 @@
                 <div class="product-list">
                     <div class="row">
                         <div class="col-lg-41 col-sm-6" th:each="addon : ${addons}">
-                            <div class="product-item">
+                            <div class="card">
                                 <form th:action="@{'/addons/details/' + ${addon.name}}">
                                     <div class="pi-pic">
-                                        <img class="imageAddon" th:href="@{'/addon/' + ${addon.name} + '/image'}"
+                                        <img class="card-img-top" th:href="@{'/addon/' + ${addon.name} + '/image'}"
                                              th:src="@{'/addon/' + ${addon.name} + '/image'}" alt=""
-                                             height="250" width="263" style="background-size: contain; padding:45px">
+                                             height="250" width="263" style="background-size: contain; padding:55px">
                                     </div>
-                                    <div class="pi-text">
-                                        <div class="catagory-name" th:text="${addon.ideId.ideName}">
+
+                                    <div class="card-body">
+                                        <div class="catagory-name" th:text="${addon.ideId.ideName}" style="align-items: center">
                                         </div>
                                         <a href="#">
                                             <h5><a th:text="${addon.name.length() > 20 ? addon.name.substring(0,20) : addon.name}"></a></h5>
                                         </a>
-                                        <button type="submit" class="site-btn login-btn">VIEW</button>
+                                        <button type="submit" class="site-btn login-btn" style="align-items: center">VIEW</button>
                                     </div>
+                                    
                                 </form>
                             </div>
                         </div>

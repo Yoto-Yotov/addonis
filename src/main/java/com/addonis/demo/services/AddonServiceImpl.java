@@ -2,6 +2,7 @@ package com.addonis.demo.services;
 
 import com.addonis.demo.exceptions.DuplicateEntityException;
 import com.addonis.demo.exceptions.EntityNotFoundException;
+import com.addonis.demo.exceptions.NotAuthorizedException;
 import com.addonis.demo.models.*;
 import com.addonis.demo.models.commitresponse.LastCommitResponse;
 import com.addonis.demo.models.enums.Sortby;
@@ -12,6 +13,7 @@ import com.addonis.demo.repository.contracts.TagRepository;
 import com.addonis.demo.services.contracts.AddonService;
 import com.addonis.demo.services.contracts.GitHubService;
 import com.addonis.demo.services.contracts.LastCommitService;
+import com.addonis.demo.services.contracts.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -20,19 +22,11 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.List;
 
-import static com.addonis.demo.utils.Constants.ADDON;
-import static com.addonis.demo.utils.Constants.TAG;
-import static com.addonis.demo.utils.LastCommitMapper.mapLastCommitResponseToLastCommit;
+import static com.addonis.demo.api.LastCommitMapper.mapLastCommitResponseToLastCommit;
+import static com.addonis.demo.constants.Constants.*;
 
 /**
- * AddonServiceImpl
- * Service for Addon
- * Takes information from LastCommitService, AddonRepository, GitHubService
- * Provides methods for getting all Addons. No authentication needed,
- * Get addon by id. No authentication needed.
- * Delete addon. Authentication needed - user or admin.
- * Update addon. Authentication needed - user or admin.
- * Create addon + create last commit. Authentication needed - user or admin.
+ * AddonServiceImpl - used for business logic of the addons. All CRUD operation and validations.
  */
 @Service
 public class AddonServiceImpl implements AddonService {
@@ -41,14 +35,18 @@ public class AddonServiceImpl implements AddonService {
     LastCommitService lastCommitService;
     GitHubService githubService;
     ReadmeRepository readmeRepository;
+    UserService userService;
 
     @Autowired
     public AddonServiceImpl(AddonRepository addonRepository, LastCommitService lastCommitService,
-                            GitHubService githubService, ReadmeRepository readmeRepository) {
+                            GitHubService githubService, ReadmeRepository readmeRepository,
+                            UserService userService) {
         this.addonRepository = addonRepository;
         this.lastCommitService = lastCommitService;
         this.githubService = githubService;
         this.readmeRepository = readmeRepository;
+
+        this.userService = userService;
     }
 
     @Override
@@ -63,7 +61,10 @@ public class AddonServiceImpl implements AddonService {
 
     @Override
     public Addon getAddonByName(String name) {
-        return addonRepository.getByName(name); //todo exception
+        if (addonRepository.getByName(name) == null) {
+            throw new EntityNotFoundException(USER_U, name);
+        }
+        return addonRepository.getByName(name);
     }
 
     @Override
@@ -90,7 +91,17 @@ public class AddonServiceImpl implements AddonService {
     }
 
     @Override
-    public void softDeleteAddon(String name) {
+    public void softDeleteAddon(String name, UserInfo user) {
+        try {
+            addonRepository.existsByName(name);
+        } catch (EntityNotFoundException e) {
+            throw new EntityNotFoundException(ADDON_A, name);
+        }
+        Addon addon = addonRepository.getByName(name);
+        if (!userService.isAdmin(user.getName()) ||
+                !userService.getUserByName(name).getUsername().equals(addon.getUserInfo().getName())) {
+            throw new NotAuthorizedException(user.getName());
+        }
         addonRepository.softDeleteAddonInfo(name);
     }
 
@@ -134,7 +145,7 @@ public class AddonServiceImpl implements AddonService {
 
     @Override
     public void update(Addon addon) {
-        try { //todo check user authorities
+        try {
             addonRepository.save(addon);
         } catch (org.springframework.dao.DataIntegrityViolationException ex) {
             throw new DuplicateEntityException(ADDON);
@@ -144,7 +155,7 @@ public class AddonServiceImpl implements AddonService {
     @Override
     public Addon create(Addon addon) {
         if (checkAddonExistsByName(addon.getName())) {
-            throw new DuplicateEntityException("Addon", "name", addon.getName());
+            throw new DuplicateEntityException(ADDON_A, addon.getName(), addon.getName());
         }
         String url = addon.getOriginLink();
         try {
@@ -159,7 +170,8 @@ public class AddonServiceImpl implements AddonService {
             readmeRepository.save(readme);
             addon.setReadmeId(readme.getReadmeId());
             return addonRepository.save(addon);
-        } catch (DataIntegrityViolationException | IOException ex) { //todo remove IOException
+
+        } catch (DataIntegrityViolationException | IOException ex) {
             throw new DuplicateEntityException(ADDON);
         }
     }

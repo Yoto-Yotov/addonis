@@ -45,58 +45,64 @@
                         <p>ADDONIS<span></span></p>
                     </div>
                     <form th:action="@{/my-account/edit}" th:object="${newuser}" enctype="multipart/form-data" th:method="put">
-                        <div class="blog-large-pic">
-                            <img id="profileImage" th:href="@{'/my-account/' + ${olduser.id} + '/userimage'}"
-                                 th:src="@{'/my-account/' + ${olduser.id} + '/userimage'}" alt=""
-                                 height="300" width="300" align="left" hspace="80">
+                        <div class="splitLeft">
+                            <div class="blog-large-pic">
+                                <img id="profileImage" th:href="@{'/my-account/' + ${olduser.id} + '/userimage'}"
+                                     th:src="@{'/my-account/' + ${olduser.id} + '/userimage'}" alt=""
+                                     height="300" width="300" align="left" hspace="80">
+                            </div>
+                            <div class="splitLeft1">
+                                <div class="tag-share">
+                                    <div class="details-tag">
+                                        <ul>
+                                            <li><i class="fa fa-tags"></i></li>
+                                            <li>Travel</li>
+                                            <li>Beauty</li>
+                                            <li>Fashion</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="cell">
-                            <a id="profileName">Username:</a>
-                            <a id="profileName1" th:text="${olduser.name}"></a>
+                        <div class="splitRight">
+                            <div class="cell">
+                                <a id="profileName">Username:</a>
+                                <a id="profileName1" th:text="${olduser.name}"></a>
+                            </div>
+                            <div class="cell">
+                                <a id="email1">Email:</a>
+                                <a th:text="${olduser.email}"></a>
+                            </div>
+                            <div class="group-input">
+                                <label for="emailnew">New email: </label>
+                                <input th:field="${newuser.email}" type="text" id="emailnew">
+                            </div>
+                            <div class="cell">
+                                <a id="firstname">First name:</a>
+                                <a th:if="${olduser.firstName == null}">Not given</a>
+                                <a th:unless="${olduser.firstName == null}" th:text="${olduser.firstName}"></a>
+                            </div>
+                            <div class="group-input">
+                                <label for="newfirtname">New first name: </label>
+                                <input th:field="${newuser.firstName}" type="text" id="newfirtname">
+                            </div>
+                            <div class="cell">
+                                <a id="lastname">Last name:</a>
+                                <a th:if="${olduser.lastName == null}">Not given</a>
+                                <a th:unless="${olduser.lastName == null}" th:text="${olduser.lastName}"></a>
+                            </div>
+                            <div class="group-input">
+                                <label for="newlastname">New last name: </label>
+                                <input th:field="${newuser.lastName}" type="text" id="newlastname">
+                            </div>
+                            </br>
+                            <div>
+                                <label for="newimage">Change your profile image</label>
+                                <input id="newimage" name="imagefile" type="file" class="file" value="Upload File">
+                            </div>
+                            <button type="submit" class="site-btn login-btn">EDIT</button>
                         </div>
-                        <div class="cell">
-                            <a id="email1">Email:</a>
-                            <a th:text="${olduser.email}"></a>
-                        </div>
-                        <div class="group-input">
-                            <label for="emailnew">New email: </label>
-                            <input th:field="${newuser.email}" type="text" id="emailnew">
-                        </div>
-                        <div class="cell">
-                            <a id="firstname">First name:</a>
-                            <a th:if="${olduser.firstName == null}">Not given</a>
-                            <a th:unless="${olduser.firstName == null}" th:text="${olduser.firstName}"></a>
-                        </div>
-                        <div class="group-input">
-                            <label for="newfirtname">New first name: </label>
-                            <input th:field="${newuser.firstName}" type="text" id="newfirtname">
-                        </div>
-                        <div class="cell">
-                            <a id="lastname">Last name:</a>
-                            <a th:if="${olduser.lastName == null}">Not given</a>
-                            <a th:unless="${olduser.lastName == null}" th:text="${olduser.lastName}"></a>
-                        </div>
-                        <div class="group-input">
-                            <label for="newlastname">New last name: </label>
-                            <input th:field="${newuser.lastName}" type="text" id="newlastname">
-                        </div>
-                        </br>
-                        <div>
-                            <label for="newimage">Change your profile image</label>
-                            <input id="newimage" name="imagefile" type="file" class="file" value="Upload File">
-                        </div>
-                        <button type="submit" class="site-btn login-btn">EDIT</button>
                     </form>
-                    <div class="tag-share">
-                        <div class="details-tag">
-                            <ul>
-                                <li><i class="fa fa-tags"></i></li>
-                                <li>Travel</li>
-                                <li>Beauty</li>
-                                <li>Fashion</li>
-                            </ul>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

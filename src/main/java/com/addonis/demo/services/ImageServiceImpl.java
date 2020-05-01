@@ -12,8 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
 /**
- * ImageServiceImpl
- * Takes the uploaded file. Makes it to Byte[] and saves it in the data base.
+ * ImageServiceImpl takes the uploaded file. Makes it to Byte[] and saves it in the data base.
  */
 @Service
 public class ImageServiceImpl implements ImageService {

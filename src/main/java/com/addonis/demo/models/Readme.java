@@ -1,13 +1,13 @@
 package com.addonis.demo.models;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+/**
+ * Readme is class that represents the addon github readme.
+ */
 @Entity
 @Data
 @NoArgsConstructor

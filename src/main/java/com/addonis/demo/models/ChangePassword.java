@@ -7,6 +7,9 @@ import org.springframework.stereotype.Component;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+/**
+ * ChangePassword is a class used for updating users passwords.
+ */
 @Data
 @NoArgsConstructor
 @Component

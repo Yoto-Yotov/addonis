@@ -13,13 +13,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 /**
- * TagController
- * CRUD operations
- * Create - create tag + add a tag to addon. Authentication needed
- * Read - see all addon tags. No authentication needed.
- * Update - update tag. Authentication needed - admin only
- * Delete - delete addon. Authentication needed.
- * Remove tag from addon
+ * TagController for tag CRUD operations
  */
 @RestController
 @RequestMapping("api/tag")

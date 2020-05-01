@@ -8,9 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 /**
- * Rating
- * Every addon has rating. Defaut rating value by creation - 0.
- * User that are registered and admin can rate addon. Once.
+ * Rating is a class that represents addons rating. Addon can be rated and visualize the average rating.
  */
 @Entity
 @Data

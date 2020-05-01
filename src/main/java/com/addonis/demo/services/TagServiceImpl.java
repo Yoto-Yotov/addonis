@@ -14,13 +14,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.addonis.demo.utils.Constants.*;
+import static com.addonis.demo.constants.Constants.*;
 
 /**
- * TagServiceImpl
- * Get all tags. No authentication needed
- * Get all tags of an addon. No authentication needed.
- * Create and add tag to addon. Authentication needed - user or admin.
+ * TagServiceImpl is a class for getting all tags and adding tags.
  */
 @Service
 public class TagServiceImpl implements TagService {

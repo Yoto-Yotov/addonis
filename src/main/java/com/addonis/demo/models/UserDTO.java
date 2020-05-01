@@ -10,9 +10,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
- * UserDTO
- * This model is needed for registering users.
- * Information needed for registering - username, email, password, confirm password, first name, last name, picture. Last 3 are not required.
+ * UserDTO is needed for registering users. Creating user with all needed information.
  */
 @Data
 @NoArgsConstructor

@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import java.util.Base64;
 import java.util.List;
 
+/**
+ * ReadmeServiceImpl takes information from GitHub and represents it.
+ */
 @Service
 public class ReadmeServiceImpl implements ReadmeService {
 

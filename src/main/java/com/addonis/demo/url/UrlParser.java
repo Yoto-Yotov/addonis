@@ -1,4 +1,4 @@
-package com.addonis.demo.utils;
+package com.addonis.demo.url;
 
 import com.addonis.demo.models.enums.EPParam;
 

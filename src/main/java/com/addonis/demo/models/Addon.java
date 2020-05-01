@@ -12,11 +12,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 /**
- * Addon
- * Addon - main product
- * Contains id, creator, description, name, downloads count, IDE, origin link (GitHub), issues count, pulls count, last commit, status and set of tags
- * This information will be taken from Git: downloads count, issues count, pulls count, last commit (other model)
- * Information that the user should provide for creating adddon: name, description, IDE, origin link (GitHub)
+ * Addon  - this is the main product. Has name, description, IDE, origin link (GitHub). The other informaton is taken from GIT
  */
 @Data
 @NoArgsConstructor
