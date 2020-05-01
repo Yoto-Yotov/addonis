@@ -29,5 +29,4 @@ public class AddonUtils {
         return addon;
     }
 
-
 }
