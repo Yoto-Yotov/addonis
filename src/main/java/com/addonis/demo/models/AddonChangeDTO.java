@@ -7,6 +7,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.Lob;
 
+/**
+ * AddonChangeDTO is a class used for addon update. Represents the needed for update information.
+ */
 @Component
 @Data
 public class AddonChangeDTO {

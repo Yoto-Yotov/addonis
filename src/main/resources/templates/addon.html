@@ -56,6 +56,9 @@
             <div class="col-lg-6 offset-lg-3">
                 <div class="register-form">
                     <h2>Create addon</h2>
+                    <p>
+                        <i th:if="${error != null}" th:text="${error}" class="error"/>
+                    </p>
                     <form action="#" th:action="@{/addon-create}" th:object="${addonDto}" method="post"
                           enctype="multipart/form-data" multiple="multiple">
                         <div class="group-input">
@@ -67,7 +70,7 @@
                             <input th:field="*{description}" type="text" id="email2">
                         </div>
                         <div class="group-input">
-                            <label for="username">GitHub link</label>
+                            <label for="username">GitHub link *</label>
                             <input th:field="*{link}" type="text" id="fist_name">
                         </div>
                         <div>

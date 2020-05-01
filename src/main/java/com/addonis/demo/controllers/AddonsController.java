@@ -1,26 +1,22 @@
 package com.addonis.demo.controllers;
 
-import com.addonis.demo.exceptions.DuplicateEntityException;
-import com.addonis.demo.exceptions.EntityNotFoundException;
-import com.addonis.demo.exceptions.InvalidDataException;
-import com.addonis.demo.exceptions.NotAuthorizedException;
+import com.addonis.demo.exceptions.*;
 import com.addonis.demo.models.*;
 
-import com.addonis.demo.exceptions.InvalidDataException;
 import com.addonis.demo.models.Addon;
 import com.addonis.demo.models.AddonDTO;
 import com.addonis.demo.models.BinaryContent;
 import com.addonis.demo.models.UserInfo;
 import com.addonis.demo.models.enums.Sortby;
 import com.addonis.demo.services.contracts.*;
-import com.addonis.demo.utils.AddonUtils;
+import com.addonis.demo.validation.AddonValidator;
+import com.addonis.demo.validation.UserDtoValidator;
 import com.github.rjeschke.txtmark.Processor;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -29,7 +25,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,21 +33,13 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.Principal;
-import java.util.List;
 
-import static com.addonis.demo.utils.MergeAddons.mergeTwoAddons;
-import static com.addonis.demo.utils.UserUtils.mergeTwoUsers;
+import static com.addonis.demo.merge.AddonMapper.mapDtoToAddon;
+import static com.addonis.demo.merge.AddonMerge.mergeTwoAddons;
+import static com.addonis.demo.validation.AddonValidator.validateAddonDto;
 
 /**
- * AddonController
- * Visualization - see all ACTIVE addons.
- * Create addon. Authentication needed - user
- * Update addon. Authentication needed - user or admin
- * Show all pending addons. Authentication need - admin.
- * Show all addons of user (active and pending). Authentication needed - user.
- * Addon page - visualization of addon details. No authentication needed.
- * Button to add tag. Authentication needed - user or admin.
- * Button to edin addon. Authentication needed - user or admin.
+ * AddonController is responsible for all visualized operations with the addons. For some of them is authentication is needed.
  */
 @Controller
 public class AddonsController {
@@ -61,15 +48,17 @@ public class AddonsController {
     private ImageService imageService;
     private BinaryContentService binaryContentService;
     private ReadmeService readmeService;
+    private UserService userService;
     private TagService tagService;
 
     @Autowired
-    public AddonsController(AddonService addonService, UserInfoService userInfoService, ImageService imageService, BinaryContentService binaryContentService, ReadmeService readmeService, TagService tagService) {
+    public AddonsController(AddonService addonService, UserInfoService userInfoService, ImageService imageService, BinaryContentService binaryContentService, ReadmeService readmeService, UserService userService, TagService tagService) {
         this.addonService = addonService;
         this.userInfoService = userInfoService;
         this.imageService = imageService;
         this.binaryContentService = binaryContentService;
         this.readmeService = readmeService;
+        this.userService = userService;
         this.tagService = tagService;
     }
 
@@ -86,20 +75,28 @@ public class AddonsController {
     }
 
     @PostMapping("/addon-create")
-    public String createAddon(@Valid @ModelAttribute("addon") AddonDTO addonDto, BindingResult errors, Model model, Principal user,
-                              @RequestParam("imagefile") MultipartFile imagefile, @RequestParam("binaryFile") MultipartFile binaryFile) {
+    public String createAddon(@Valid @ModelAttribute("addonDto") AddonDTO addonDto, BindingResult errors, Model model, Principal user,
+                              @RequestParam("imagefile") MultipartFile imagefile,
+                              @RequestParam("binaryFile") MultipartFile binaryFile) {
 
-        if (errors.hasErrors()) {
-            model.addAttribute("error", errors.getAllErrors().get(0));
-            return "addons";
+        try {
+            AddonValidator.validateAddonDto(addonDto, addonService);
+        } catch (DuplicateEntityException | InvalidDataException e) {
+            model.addAttribute("error", e.getMessage());
+            return "addon";
         }
+
+//        if (errors.hasErrors()) {
+//            model.addAttribute("error", errors.getAllErrors().get(0));
+//            return "addon";
+//        }
         addonDto.setFile(binaryFile);
 
         Addon addonToCreate;
         try {
             UserInfo creator = userInfoService.getUserByUsername(user.getName());
             addonDto.setCreator(creator);
-            addonToCreate = AddonUtils.mapDtoToAddon(addonDto, binaryContentService);
+            addonToCreate = mapDtoToAddon(addonDto, binaryContentService);
             addonService.create(addonToCreate);
         } catch (DuplicateEntityException | IOException | InvalidDataException e) {
             model.addAttribute("error", e.getMessage());
@@ -211,7 +208,7 @@ public class AddonsController {
     }
 
     @PostMapping("/addon/edit/{addonName}")
-    public String updateUser(@PathVariable String addonName, @Valid @ModelAttribute("newAddon") AddonChangeDTO newAddon, BindingResult errors, Model model,
+    public String updateAddon(@PathVariable String addonName, @Valid @ModelAttribute("newAddon") AddonChangeDTO newAddon, BindingResult errors, Model model,
                              @RequestParam("imagefile") MultipartFile imagefile, @RequestParam("binaryFile") MultipartFile binaryFile) throws IOException {
 
         if(errors.hasErrors()) {

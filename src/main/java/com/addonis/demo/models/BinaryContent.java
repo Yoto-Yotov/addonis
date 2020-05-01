@@ -4,6 +4,9 @@ import lombok.Data;
 
 import javax.persistence.*;
 
+/**
+ * BinaryContent class is used for the content of the addon. (update and download)
+ */
 @Entity
 @Data
 @Table(name = "binary_content")

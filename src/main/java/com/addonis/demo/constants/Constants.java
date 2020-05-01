@@ -1,5 +1,8 @@
-package com.addonis.demo.utils;
+package com.addonis.demo.constants;
 
+/**
+ * Constants for exceptions
+ */
 public class Constants {
     public static final String TAG = "tag";
     public static final String ADDON = "addon";
@@ -11,4 +14,5 @@ public class Constants {
     public static final String ROLE_USER = "ROLE_USER";
     public static final String URL = "url";
     public static final String EMAIL = "email";
+    public static final String DELETE_CONFIRMATION = "Addon was deleted successfully";
 }

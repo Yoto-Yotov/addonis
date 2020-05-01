@@ -2,30 +2,22 @@ package com.addonis.demo.services;
 
 import com.addonis.demo.exceptions.DuplicateEntityException;
 import com.addonis.demo.exceptions.EntityNotFoundException;
+import com.addonis.demo.exceptions.NotAuthorizedException;
+import com.addonis.demo.models.Addon;
 import com.addonis.demo.models.Authorities;
 import com.addonis.demo.models.User;
-
-import com.addonis.demo.models.UserInfo;
-
 import com.addonis.demo.repository.contracts.AuthorityRepository;
-
 import com.addonis.demo.repository.contracts.UserRepository;
 import com.addonis.demo.services.contracts.UserService;
-import com.addonis.demo.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
-import static com.addonis.demo.utils.Constants.ROLE_ADMIN;
-import static com.addonis.demo.utils.Constants.USER;
+import static com.addonis.demo.constants.Constants.*;
 
 /**
- * UserServiceImpl
- * CRUD operation for user.
+ * UserServiceImpl - CRUD operation for user.
  */
 @Service
 public class UserServiceImpl implements UserService {
@@ -71,10 +63,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public void softDeleteUser(String username) {
         User user = userRepository.getByName(username);
-        if (user == null) {
-            throw new EntityNotFoundException(USER, username);
-        }
         user.setEnabled(0);
+        userRepository.save(user);
     }
 
     @Override
@@ -97,6 +87,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean isAdmin(String userName) {
         return getUserAuthorities(userName).stream().map(Authorities::getAuthority).anyMatch(authority -> authority.equals(ROLE_ADMIN));
+    }
+
+    public void checkRights(String userName, Addon addon) {
+        if (!isAdmin(userName) && !addon.getUserInfo().getName().equals(userName)){
+            throw new NotAuthorizedException(USER_U);
+        }
     }
 
 }

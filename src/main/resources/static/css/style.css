@@ -41,6 +41,19 @@
 /*	font-size: 18px;*/
 /*	line-height: 250%;*/
 /*}*/
+
+.form1{
+	display: inline-block;
+}
+
+.form3 {
+	display: inline-block;
+}
+
+.form2 {
+	display: inline-block;
+}
+
 .cbutton {
 	background-color:#38b6ff;
 	border-color: #38b6ff;
@@ -110,6 +123,11 @@
 	width: 50%;
 }
 
+#newfirtnameEditAddon {
+	color: #38b6ff;
+	font-size: 18px;
+	line-height: 250%;
+}
 
 #download {
 	color: #38b6ff;
@@ -674,7 +692,7 @@ ol {
 }
 
 .inner-header .advanced-search .input-group {
-	max-width: 70%;
+	max-width: 80%;
 	height: 100%;
 }
 
@@ -4118,7 +4136,7 @@ ol {
 
 @media only screen and (min-width: 1200px) {
 	.container {
-		max-width: 1190px;
+		max-width: 1000px;
 	}
 }
 

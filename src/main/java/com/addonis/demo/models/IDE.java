@@ -6,8 +6,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 /**
- * IDE
- * Type of the IDE that the addon will work on.
+ * IDE - class representing the IDE of each addon.
  */
 @Entity
 @Data

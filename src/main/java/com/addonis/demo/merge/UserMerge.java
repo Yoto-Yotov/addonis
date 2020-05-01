@@ -1,4 +1,4 @@
-package com.addonis.demo.utils;
+package com.addonis.demo.merge;
 
 import com.addonis.demo.models.UserChangeDTO;
 import com.addonis.demo.models.UserDTO;
@@ -14,17 +14,15 @@ import java.util.Properties;
 import java.util.regex.Pattern;
 
 /**
- * UserUtils
- * Merging DTOs to UserInfo
- * Send method for sending email when registering.
+ * UserUtils- Merging DTOs to UserInfo in order a user to be created or updated
  */
 @Component
-public class UserUtils {
+public class UserMerge {
 
     UserInfoService userInfoService;
 
     @Autowired
-    public UserUtils(UserInfoService userInfoService) {
+    public UserMerge(UserInfoService userInfoService) {
         this.userInfoService = userInfoService;
     }
 
@@ -52,13 +50,4 @@ public class UserUtils {
         return userInfo;
     }
 
-    public static boolean isValidEmailAddress(String email) {
-        String emailRegex = "([a-zA-Z0-9/_/./-]+@[a-zA-Z]+.[a-z]+)";
-
-        Pattern pat = Pattern.compile(emailRegex);
-        if (email == null) {
-            return false;
-        }
-        return !pat.matcher(email).matches();
-    }
 }

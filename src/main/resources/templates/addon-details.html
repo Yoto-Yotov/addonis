@@ -79,19 +79,14 @@
                             </div>
                         </div>
                         </br>
-                        <form class="form1" th:action="@{'/addons/download/' + ${addon.id}}">
-                            <button type="submit" class="site-btn primary-btn" style="align-items: center">DOWNLOAD</button>
-                        </form>
-                        </br>
-                        <form class="form2" th:if="${addon.userInfo.name} == ${#authentication.getName()}" th:action="@{'/addon/edit/' + ${addon.name}}">
-                            <button type="submit" class="site-btn primary-btn" style="align-items: center">Edit addon
-                            </button>
-                        </form>
-                        </br>
-                        <form th:if="${addon.userInfo.name} == ${#authentication.getName()}" th:action="@{'/addon/delete?addonName=' + ${addon.name}}" th:method="post">
-                            <button type="submit" class="site-btn primary-btn" style="align-items: center">Delete
-                            </button>
-                        </form>
+                        <a th:href="@{'/addons/download/' + ${addon.id}}" type="submit" class="primary-btn">
+                            DOWNLOAD </a>
+                        <a th:if="${#authentication.name == addon.userInfo.getName() || #authorization.expression('hasRole(''ADMIN'')')}"
+                           th:href="@{'/addon/edit/' + ${addon.name}}" type="submit" class="primary-btn">
+                            EDIT ADDON </a>
+                        <a th:if="${#authentication.name == addon.userInfo.getName() || #authorization.expression('hasRole(''ADMIN'')')}"
+                           th:href="@{'/addon/delete?addonName=' + ${addon.name}}" type="submit" class="primary-btn">
+                            DELETE </a>
                     </div>
                     <div class="splitRight">
                         <div class="cell">
