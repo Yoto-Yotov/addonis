@@ -39,6 +39,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.Principal;
 
+import static com.addonis.demo.constants.Constants.ROLE_ADMIN;
+import static com.addonis.demo.constants.Constants.ROLE_USER;
 import static com.addonis.demo.merge.AddonMapper.mapDtoToAddon;
 import static com.addonis.demo.merge.AddonMerge.mergeTwoAddons;
 import static com.addonis.demo.validation.AddonValidator.validateAddonDto;
@@ -157,15 +159,24 @@ public class AddonsController {
     }
 
     @GetMapping("/addons/pending")
-    public String getPending(Model model) {
+    public String getPending(Model model, HttpServletRequest request) {
+        if (!request.isUserInRole(ROLE_ADMIN)) {
+            model.addAttribute("error", "You are not authorized");
+            return "error";
+        }
         model.addAttribute("addons", addonService.getAllPendingAddons());
         return "pending";
     }
 
     @GetMapping("/addons/details/{addonName}")
-    public String showAddinDetails(@PathVariable String addonName,
+    public String showAddonDetails(@PathVariable String addonName,
                                    Model model, Principal user) {
-        Addon addon = addonService.getAddonByName(addonName);
+        Addon addon = null;
+        try {
+            addon = addonService.getAddonByName(addonName);
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("error", e.getMessage());
+        }
         int readmeId = addon.getReadmeId();
         String result = Processor.process(readmeService.gerReadmeString(readmeId));
         model.addAttribute("readmeFile", result);
@@ -177,21 +188,37 @@ public class AddonsController {
 
     @GetMapping("/addons/my-addons")
     public String getMyAddons(Model model, Principal user) {
-        UserInfo userInfo = userInfoService.getUserByUsername(user.getName());
+        UserInfo userInfo = null;
+        try {
+            userInfo = userInfoService.getUserByUsername(user.getName());
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("error", e.getMessage());
+            return "error";
+        }
         model.addAttribute("myAddons", addonService.getMyAddons(userInfo));
         return "my-addons";
     }
 
     @PostMapping("/addons/enable/{addonName}")
-    public String enableAddon(@PathVariable String addonName) {
+    public String enableAddon(@PathVariable String addonName, HttpServletRequest request, Model model) {
+        if (!request.isUserInRole(ROLE_ADMIN)) {
+            model.addAttribute("error", "You are not authorized");
+            return "error";
+        }
         addonService.enableAddon(addonName);
         return "redirect:/addons/pending";
     }
 
     @PostMapping("addon/delete")
-    public String deleteBeer(@RequestParam("addonName") String addonName, Model model, Authentication authentication, HttpServletRequest request) {
+    public String deleteAddon(@RequestParam("addonName") String addonName, Model model, Authentication authentication,
+                              HttpServletRequest request, Principal user) {
         try {
             Addon addon = addonService.getAddonByName(addonName);
+            String name = addonService.getCreatorName(addon.getId());
+            if (!request.isUserInRole(ROLE_ADMIN) || !user.getName().equals(name)) {
+                model.addAttribute("error", "You are not authorized");
+                return "error";
+            }
             addon.setEnabled(0);
             addonService.update(addon);
             return "redirect:/addons";
@@ -200,8 +227,7 @@ public class AddonsController {
             return "addon-details";
         }
     }
-
-    //ToDo update download count
+    
     @GetMapping("/addons/download/{addonId}")
     public ResponseEntity<Resource> downloadFileFromLocal(@PathVariable int addonId) {
         Addon addon = addonService.getById(addonId);
@@ -226,6 +252,16 @@ public class AddonsController {
     @GetMapping("/addon/edit/{addonName}")
     public String editAccountEdit(@PathVariable String addonName, Model model, Principal principal) {
         Addon oldAddon = addonService.getAddonByName(addonName);
+        try {
+            UserInfo userInfo = userInfoService.getUserByUsername(principal.getName());
+            String creatorName = addonService.getCreatorName(oldAddon.getId());
+            if (!userInfo.getName().equals(creatorName)) {
+                model.addAttribute("error", "You are not authorized!");
+                return "error";
+            }
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("error", e.getMessage());
+        }
         AddonChangeDTO newAddon = new AddonChangeDTO();
         newAddon.setName(oldAddon.getName());
         newAddon.setDescription(oldAddon.getDescription());
@@ -236,8 +272,10 @@ public class AddonsController {
     }
 
     @PostMapping("/addon/edit/{addonName}")
-    public String updateAddon(@PathVariable String addonName, @Valid @ModelAttribute("newAddon") AddonChangeDTO newAddon, BindingResult errors, Model model,
-                             @RequestParam("imagefile") MultipartFile imagefile, @RequestParam("binaryFile") MultipartFile binaryFile) throws IOException {
+    public String updateAddon(@PathVariable String addonName, @Valid @ModelAttribute("newAddon") AddonChangeDTO newAddon,
+                              BindingResult errors, Model model,
+                             @RequestParam("imagefile") MultipartFile imagefile,
+                              @RequestParam("binaryFile") MultipartFile binaryFile) throws IOException {
 
         if(errors.hasErrors()) {
             model.addAttribute("error", errors.getAllErrors().get(0));
