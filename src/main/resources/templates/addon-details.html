@@ -69,11 +69,9 @@
                         <div class="splitLeft1">
                             <div class="tag-share">
                                 <div class="details-tag">
-                                    <ul>
+                                    <ul >
                                         <li><i class="fa fa-tags"></i></li>
-                                        <li>Travel</li>
-                                        <li>Beauty</li>
-                                        <li>Fashion</li>
+                                        <li th:each="tag : ${addon.tags}" th:text="${tag.tagName}"></li>
                                     </ul>
                                 </div>
                             </div>
@@ -95,7 +93,7 @@
                             </div>
                         </div>
                         </br>
-                        <a th:href="@{'/addons/download/' + ${addon.id}}" type="submit" class="primary-btn">
+                        <a th:if="${addon.status == T(com.addonis.demo.models.enums.Status).APPROVED}" th:href="@{'/addons/download/' + ${addon.id}}" type="submit" class="primary-btn">
                             DOWNLOAD </a>
                         <a th:if="${#authentication.name == addon.userInfo.getName() || #authorization.expression('hasRole(''ADMIN'')')}"
                            th:href="@{'/addon/edit/' + ${addon.name}}" type="submit" class="primary-btn">

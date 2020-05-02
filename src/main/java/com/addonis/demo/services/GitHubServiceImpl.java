@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import static com.addonis.demo.constants.Constants.URL;
 
 import java.io.IOException;
 
@@ -65,7 +66,7 @@ public class GitHubServiceImpl implements GitHubService {
         try {
             obj = APIUtils.requestDataObject(url);
         } catch (IOException e) {
-            throw new InvalidDataException("url");
+            throw new InvalidDataException(URL);
         }
         Readme readme = new Readme();
         readme.setText(obj.getString("content").getBytes());

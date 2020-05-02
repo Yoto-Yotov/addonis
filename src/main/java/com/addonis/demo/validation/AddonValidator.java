@@ -16,11 +16,5 @@ public class AddonValidator {
         if (addonDTO.getDescription() == null) {
             throw new InvalidDataException("description");
         }
-//        if (addonDTO.getAddonPicture().length == 0) {
-//            throw new InvalidDataException("picture");
-//        }
-//        if (addonDTO.getFile().isEmpty()) {
-//            throw new InvalidDataException("binary file");
-//        }
     }
 }

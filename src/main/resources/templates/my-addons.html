@@ -54,87 +54,10 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-8 order-2 order-lg-1 produts-sidebar-filter">
-                <div class="filter-widget">
-                    <h4 class="fw-title">IDE</h4>
-                    <div class="fw-brand-check">
-                        <div class="bc-item">
-                            <label for="bc-calvin">
-                                Calvin Klein
-                                <input type="checkbox" id="bc-calvin">
-                                <span class="checkmark"></span>
-                            </label>
-                        </div>
-                        <div class="bc-item">
-                            <label for="bc-diesel">
-                                Diesel
-                                <input type="checkbox" id="bc-diesel">
-                                <span class="checkmark"></span>
-                            </label>
-                        </div>
-                        <div class="bc-item">
-                            <label for="bc-polo">
-                                Polo
-                                <input type="checkbox" id="bc-polo">
-                                <span class="checkmark"></span>
-                            </label>
-                        </div>
-                        <div class="bc-item">
-                            <label for="bc-tommy">
-                                Tommy Hilfiger
-                                <input type="checkbox" id="bc-tommy">
-                                <span class="checkmark"></span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <div class="filter-widget">
-                    <h4 class="fw-title">Price</h4>
-                    <div class="filter-range-wrap">
-                        <div class="range-slider">
-                            <div class="price-input">
-                                <input type="text" id="minamount">
-                                <input type="text" id="maxamount">
-                            </div>
-                        </div>
-                        <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
-                             data-min="33" data-max="98">
-                            <div class="ui-slider-range ui-corner-all ui-widget-header"></div>
-                            <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
-                            <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
-                        </div>
-                    </div>
-                    <a href="#" class="filter-btn">Filter</a>
-                </div>
 
-                <div class="filter-widget">
-                    <h4 class="fw-title">Tags</h4>
-                    <div class="fw-tags">
-                        <a href="#">Towel</a>
-                        <a href="#">Shoes</a>
-                        <a href="#">Coat</a>
-                        <a href="#">Dresses</a>
-                        <a href="#">Trousers</a>
-                        <a href="#">Men's hats</a>
-                        <a href="#">Backpack</a>
-                    </div>
-                </div>
             </div>
             <div class="col-lg-101 order-1 order-lg-2">
                 <div class="product-show-option">
-                    <div class="row">
-                        <div class="col-lg-7 col-md-7">
-                            <div class="select-option">
-                                <select class="sorting">
-                                    <option value="">Default Sorting</option>
-                                </select>
-                                <select class="p-show">
-                                    <option value="">Show:</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-5 col-md-5 text-right">
-                            <p>Show 01- 09 Of 36 Product</p>
-                        </div>
                     </div>
                 </div>
                 <div class="product-list">
@@ -147,12 +70,10 @@
                                              th:src="@{'/addon/' + ${myAdd.name} + '/image'}" alt=""
                                              height="250" width="263" style="background-size: contain">
                                         <div th:if="${myAdd.status == T(com.addonis.demo.models.enums.Status).PENDING}" class="sale pp-sale">PENDING</div>
-                                        <div class="icon">
-                                            <i class="icon_heart_alt"></i>
-                                        </div>
+
                                     </div>
                                     <div class="pi-text">
-                                        <div class="catagory-name" th:text="${myAdd.name}">
+                                        <div class="catagory-name" th:text="${myAdd.ideId.ideName}">
                                         </div>
                                         <a href="#">
                                             <h5><a th:text="${myAdd.name}"></a></h5>
