@@ -133,14 +133,14 @@
                         </div>
                         <div class="cell">
                             <a id="creator2">Last commit date:</a>
-                            <a th:text="${addon.lastCommit.date}"></a>
+                            <a th:text="${addon.lastCommit.date.toString().substring(0,10)}"></a>
                         </div>
                         <div class="cell">
                             <a id="creator">Creator:</a>
                             <a th:text="${addon.userInfo.name}"></a>
                         </div>
                         <div class="cell">
-                            <a id="rating">Rating:</a>
+                            <a id="rating111">Rating:</a>
                             <a th:text="${addonRating} + '/5'"></a>
                         </div>
                         <div>
