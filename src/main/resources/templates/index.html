@@ -35,7 +35,7 @@
 
 <!-- Header Section Begin -->
 <header class="header-section">
-    <div class="header-top">
+    <div class="header-top" id="myHeader">
         <div class="container">
             <div class="ht-left">
                 <div class="mail-service">
@@ -104,15 +104,15 @@
             </div>
         </div>
     </div>
-    <div class="nav-item" id="myHeader">
+    <div class="nav-item" id="myHeader1">
         <div class="container">
             <nav class="nav-menu mobile-menu">
-                <ul>w
+                <ul>
                     <li class="active"><a th:href="@{/}">Home</a></li>
-                    <li><a th:href="@{/addons}">Addons</a></li>
-                    <li><a href="/blog.html">Blog</a></li>
-                    <li><a th:href="@{/contact}">Contact</a></li>
-                    <li><a href="#" th:href="@{/about}">About</a></li>
+                    <li class="hov"><a th:href="@{/addons}">Addons</a></li>
+                    <li class="hov"><a href="/blog.html">Blog</a></li>
+                    <li class="hov"><a th:href="@{/contact}">Contact</a></li>
+                    <li class="hov"><a href="#" th:href="@{/about}">About</a></li>
                 </ul>
             </nav>
             <div id="mobile-menu-wrap"></div>
@@ -135,7 +135,7 @@
                         <img class="card-img-top" height="192" width="234" th:href="@{'/addon/' + ${addon.name} + '/image'}"
                              th:src="@{'/addon/' + ${addon.name} + '/image'}" alt="Card image cap">
                         <div class="card-body">                                                  <!--  <td th:text="${teacher.active} ? 'ACTIVE' : 'RETIRED'" />   -->
-                            <a class="card-title" th:href="@{'/addons/details/' + ${addon.name}}" th:text="${addon.name.length() > 15 ? addon.name.substring(0,15) : addon.name}">Addon name</a>
+                            <a class="card-title" th:href="@{'/addons/details/' + ${addon.name}}" th:text="${addon.name.length() > 15 ? addon.name.substring(0,15) : addon.name}">Addon name</a><br>
                             <a href="#" class="btn cbutton btn-primary" th:href="@{'/addons/download/' + ${addon.id}}">Download</a>
                         </div>
                     </div>
@@ -367,6 +367,7 @@
 <!-- Footer Section End -->
 
 <!-- Js Plugins -->
+
 <script src="/js/jquery-3.3.1.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/jquery-ui.min.js"></script>
@@ -378,6 +379,8 @@
 <script src="/js/owl.carousel.min.js"></script>
 <script src="/js/main.js"></script>
 <script src="/js/pin-header.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+<!--<script src="/js/pin-header2.js"></script>-->
 </body>
 
 </html>

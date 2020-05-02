@@ -8,11 +8,13 @@
     <meta name="keywords" content="Fashi, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="google-signin-client_id" content="627250134636-3aj3khs6m0h3jjbhtmeiij1her7bd7lu.apps.googleusercontent.com">
     <title>Addonis</title>
     <link rel="shortcut icon" type="image/x-icon" href="img/addonis1.png">
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 
     <!-- Css Styles -->
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" href="/css/bootstrap.min.css" type="text/css">
@@ -41,7 +43,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumb-text">
-                        <a href="#"><i class="fa fa-home"></i> Home</a>
+                        <a th:href="@{/}"><i class="fa fa-home"></i> Home</a>
                         <span>Login</span>
                     </div>
                 </div>
@@ -57,6 +59,7 @@
                 <div class="col-lg-6 offset-lg-3">
                     <div class="login-form">
                         <h2>Login</h2>
+                        <div class="g-signin2" data-onsuccess="onSignIn"></div>
 <!--                        <a id="github-button" class="btn btn-block btn-social btn-github">-->
 <!--                            <i class="fa fa-github"></i> Sign in with Github-->
 <!--                        </a>-->

@@ -32,7 +32,92 @@
         <div class="loader"></div>
     </div>
 
-    <header th:insert="index.html :: header"></header>
+    <!-- Header Section Begin -->
+    <header class="header-section">
+        <div class="header-top">
+            <div class="container">
+                <div class="ht-left">
+                    <div class="mail-service">
+                        <i class=" fa fa-envelope"></i>
+                        <a id="email" href="mailto:addonis.team@gmail.com?Subject=Hello%20again"
+                           target="_top">addonis.team@gmail.com </a>
+                    </div>
+                    <div class="phone-service">
+                        <i class=" fa fa-phone"></i>
+                        +359 888.888.888
+                    </div>
+                </div>
+            </div>
+            <div class="ht-right">
+                <form th:action="@{/login}" sec:authorize="isAuthenticated()" method="post">
+                    <a href="#" th:href="@{/logout}" class="login-panel">Log out</a>
+                    <a href="№" th:href="@{/admin}" sec:authorize="hasRole('ADMIN')" class="login-panel">Admin Portal</a>
+                    <a href="#" th:href="@{/addon-create}" sec:authorize="hasRole('USER') && !hasRole('ADMIN')" class="login-panel"></i>Create addon</a>
+                    <a href="#" th:href="@{/addons/my-addons}" sec:authorize="hasRole('USER') && !hasRole('ADMIN')" class="login-panel"></i>My addons</a>
+                    <a href="#" th:href="@{/my-account}" sec:authorize="hasRole('USER') && !hasRole('ADMIN')" class="login-panel"></i>My account</a>
+                    <a href="#" th:href="@{/login}" sec:authorize="!isAuthenticated()" class="login-panel"><i class="fa fa-user"></i>Login</a>
+                    <div class="top-social">
+                        <a href="https://www.facebook.com/Addonis-109059887435247/?modal=admin_todo_tour"><i class="ti-facebook"></i></a>
+                        <a href="#"><i class="ti-twitter-alt"></i></a>
+                        <a href="#"><i class="ti-linkedin"></i></a>
+                        <a href="https://www.pinterest.com/addonisteam/tried/"><i class="ti-pinterest"></i></a>
+                    </div>
+                </form>
+                <form th:action="@{/login}" sec:authorize="!isAuthenticated()" method="post">
+                    <a href="#" th:href="@{/login}" sec:authorize="!isAuthenticated()" class="login-panel"><i class="fa fa-user"></i>Login</a>
+                    <div class="top-social">
+                        <a href="https://www.facebook.com/Addonis-109059887435247/?modal=admin_todo_tour"><i class="ti-facebook"></i></a>
+                        <a href="#"><i class="ti-twitter-alt"></i></a>
+                        <a href="#"><i class="ti-linkedin"></i></a>
+                        <a href="https://www.pinterest.com/addonisteam/tried/"><i class="ti-pinterest"></i></a>
+                    </div>
+                    <a href="#" th:href="@{/register}" sec:authorize="!isAuthenticated()" class="login-panel"><i class="fa fa-drivers-license"></i>Register</a>
+                </form>
+            </div>
+        </div>
+        </div>
+        <div class="container">
+            <div class="inner-header" >
+                <div class="row">
+                    <div class="col-lg-2 col-md-2">
+                        <div class="logo">
+                            <a href="index.html" th:href="@{/}">
+                                <img src="img/addonis.PNG" alt="">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-7 col-md-7">
+                        <form th:action="@{'/addons/search?sr='}" method="get">
+                            <div class="advanced-search">
+                                <div class="input-group">
+                                    <input type="text" name="sr" style="color:black" placeholder="What are you searching for?">
+                                    <button type="submit"><i class="ti-search"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-lg-3 text-right col-md-3">
+                        <ul class="nav-right">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="nav-item" id="myHeader">
+            <div class="container">
+                <nav class="nav-menu mobile-menu">
+                    <ul>
+                        <li><a th:href="@{/}">Home</a></li>
+                        <li><a th:href="@{/addons}">Addons</a></li>
+                        <li class="active"><a th:href="@{/contact}">Contact</a></li>
+                        <li><a href="#" th:href="@{/about}">About</a></li>
+                    </ul>
+                </nav>
+                <div id="mobile-menu-wrap"></div>
+            </div>
+        </div>
+    </header>
+    <!-- Header End -->
 
     <!-- Breadcrumb Section Begin -->
     <div class="breacrumb-section">
@@ -40,7 +125,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumb-text">
-                        <a href="#"><i class="fa fa-home"></i> Home</a>
+                        <a th:href="@{/}"><i class="fa fa-home"></i> Home</a>
                         <span>Contact</span>
                     </div>
                 </div>

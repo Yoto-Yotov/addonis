@@ -8158,7 +8158,6 @@ a.bg-dark:focus, a.bg-dark:hover, button.bg-dark:focus, button.bg-dark:hover {
 
 @supports ((position:-webkit-sticky) or (position:sticky)) {
     .sticky-top {
-        position: -webkit-sticky;
         position: sticky;
         top: 0;
         z-index: 1020

@@ -37,6 +37,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable().authorizeRequests()
                 .antMatchers("/my-account/**")
                 .hasRole("USER")
+                .antMatchers("/create-addon")
+                .hasRole("USER")
                 .antMatchers("/addon/edit/**")
                 .hasRole("USER")
                 .antMatchers("/addons/my-addons")

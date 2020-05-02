@@ -42,6 +42,43 @@
 /*	line-height: 250%;*/
 /*}*/
 
+.rating {
+	display: flex;
+	flex-direction: row-reverse;
+	justify-content: center
+}
+
+.rating>input {
+	display: none
+}
+
+.rating>label {
+	position: relative;
+	/*width: 10px;*/
+	font-size: 50px;
+	color: #FFD600;
+	cursor: pointer
+}
+
+.rating>label::before {
+	content: "\2605";
+	position: absolute;
+	opacity: 0
+}
+
+.rating>label:hover:before,
+.rating>label:hover~label:before {
+	opacity: 1 !important
+}
+
+.rating>input:checked~label:before {
+	opacity: 1
+}
+
+.rating:hover>input:checked~label:before {
+	opacity: 0.4
+}
+
 .form1{
 	display: inline-block;
 }
@@ -246,11 +283,15 @@
 
 /* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
 .sticky {
-	padding-top: 60px;
+	padding-top: 0px;
+}
+
+#myHeader1 {
+	z-index: 9980;
 }
 
 #myHeader {
-	z-index: 9999;
+	z-index: 9999 !important;
 }
 
 #email {
@@ -565,6 +606,7 @@ ol {
 	display: -ms-flexbox;
 	display: flex;
 	border-bottom: 1px solid #e5e5e5;
+	background-color: #ffffff;
 }
 
 .header-top .ht-left {
