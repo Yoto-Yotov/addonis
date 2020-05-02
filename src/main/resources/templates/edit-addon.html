@@ -41,7 +41,7 @@
             <div class="col-lg-12">
                 <div class="blog-details-inner">
                     <div class="blog-detail-title">
-                        <h2 th:text="'Here is  ' + ${oldAddon.name} + 'information'">information</h2>
+                        <h2 th:text="'Here is  ' + ${oldAddon.name} + ' information'">information</h2>
                         <p>ADDONIS<span></span></p>
                     </div>
                     <div class="splitLeft">
@@ -57,9 +57,7 @@
                                 <div class="details-tag">
                                     <ul>
                                         <li><i class="fa fa-tags"></i></li>
-                                        <li>Travel</li>
-                                        <li>Beauty</li>
-                                        <li>Fashion</li>
+                                        <li th:each="tag : ${oldAddon.tags}" th:text="${tag.tagName}"></li>
                                     </ul>
                                 </div>
                             </div>
