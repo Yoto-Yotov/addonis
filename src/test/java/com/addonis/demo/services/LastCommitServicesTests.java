@@ -46,9 +46,9 @@ public class LastCommitServicesTests {
         //Assert
         Assert.assertSame(lastCommitList, lastCommitListToReturn);
     }
-    @Ignore
+
     @Test
-    public void getLastCommitById_Should_ReturnUser_WhenExist() {
+    public void getLastCommitById_Should_ReturnCommit_WhenExist() {
         //Arrange
         LastCommit lastCommit = LastCommit.builder().title("LastCommit").lastCommitId(1).build();
         Mockito.when(lastCommitService.existsById(1)).thenReturn(true);
@@ -62,7 +62,7 @@ public class LastCommitServicesTests {
     }
 
     @Test
-    public void deleteUser_Should_ReturnTrue_WhenUserExist() {
+    public void deleteCommit_Should_ReturnTrue_WhenUserExist() {
         //Arrange
         LastCommit lastCommit = LastCommit.builder().title("LastCommit").lastCommitId(1).build();
 
@@ -74,7 +74,7 @@ public class LastCommitServicesTests {
     }
 
     @Test
-    public void updateLastCommit_Should_ReturnUpdatedUser_WhenExist() {
+    public void updateLastCommit_Should_ReturnUpdatedContent_WhenExist() {
         //Arrange
         LastCommit lastCommit = LastCommit.builder().title("LastCommit").lastCommitId(1).build();
         LastCommit lastCommitUpdate = LastCommit.builder().title("LastCommit New").lastCommitId(1).build();
