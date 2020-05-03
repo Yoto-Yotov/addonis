@@ -47,9 +47,4 @@ public class FileServiceImpl implements FileService {
         }
     }
 
-
-    public Byte[] getFile(int addonId) {
-        return addonService.getContent(addonId);
-    }
-
 }

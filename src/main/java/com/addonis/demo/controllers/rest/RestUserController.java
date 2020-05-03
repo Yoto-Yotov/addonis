@@ -63,7 +63,11 @@ public class RestUserController {
 
     @DeleteMapping("/delete/{id}")
     public String deleteUser(@PathVariable int id) {
-        userInfoService.deleteById(id);
+        try {
+            userInfoService.deleteById(id);
+        } catch (EntityNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
         return String.format("User with id %d successfully deleted", id);
     }
 
