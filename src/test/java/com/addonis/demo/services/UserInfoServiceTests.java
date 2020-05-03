@@ -193,11 +193,9 @@ public class UserInfoServiceTests {
 
     }
 
-    @Ignore
     @Test
     public void softDelete_ShouldDisableUser_WhenExist() {
         UserInfo user = UserInfo.builder().name("Teo").id(1).email("teo@abv.bg").build();
-        user.setEnabled(0);
 
         Mockito.when(userInfoRepository.getByUserName("Teo"))
                 .thenReturn(user);
@@ -205,7 +203,7 @@ public class UserInfoServiceTests {
         userInfoService.softDeleteUserInfo(user.getName());
 
         Mockito.verify(userInfoRepository,
-                times(1)).softDeleteUserInfo(user.getName());
+                times(1)).save(user);
     }
 
     @Test
