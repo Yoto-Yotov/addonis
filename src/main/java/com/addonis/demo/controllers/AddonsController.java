@@ -254,10 +254,12 @@ public class AddonsController {
         try {
             UserInfo userInfo = userInfoService.getUserByUsername(principal.getName());
             String creatorName = addonService.getCreatorName(oldAddon.getId());
-//            if (!userInfo.getName().equals(creatorName)) {
-//                model.addAttribute("error", "You are not authorized!");
-//                return "error";
-//            }
+
+            if (!userInfo.getName().equals(creatorName) && !userService.isAdmin(principal.getName())) {
+                model.addAttribute("error", "You are not authorized!");
+                return "error";
+            }
+
         } catch (EntityNotFoundException e) {
             model.addAttribute("error", e.getMessage());
         }
@@ -302,7 +304,7 @@ public class AddonsController {
             return "edit-addon";
         }
 
-        return  "redirect:/addons/my-addons";
+        return  "redirect:/addon/edit/" + oldAddon.getName();
     }
 
     @GetMapping("/addons")

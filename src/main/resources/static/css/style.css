@@ -297,11 +297,11 @@
 }
 
 #myHeader1 {
-	z-index: 9980;
+	z-index: 9990;
 }
 
 #myHeader {
-	z-index: 9999 !important;
+	z-index: 9980;
 }
 
 #email {
