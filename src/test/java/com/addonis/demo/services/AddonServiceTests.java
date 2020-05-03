@@ -1,5 +1,6 @@
 package com.addonis.demo.services;
 
+import com.addonis.demo.exceptions.DuplicateEntityException;
 import com.addonis.demo.exceptions.EntityNotFoundException;
 import com.addonis.demo.exceptions.NotAuthorizedException;
 import com.addonis.demo.models.Addon;
@@ -18,6 +19,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import java.util.ArrayList;
 
@@ -245,11 +247,83 @@ public class AddonServiceTests {
     }
 
     @Test
-    public void findByNameContaining_Should_CallRepositiry_When_Called(){
+    public void findByNameContaining_Should_CallRepository_When_Called() {
     //Arrange
+        Mockito.when(addonRepository.findAllByStatusAndNameContaining(Status.APPROVED, "tes")).thenReturn(new ArrayList<>());
 
     //Act
+        addonService.findByNameContaining("tes");
 
     //Assert
+        Mockito.verify(addonRepository, times(1)).findAllByStatusAndNameContaining(Status.APPROVED, "tes");
+    }
+
+    @Test
+    public void getAllFilterByIdeName_Should_CallRepository_When_Called() {
+        //Arrange
+        Mockito.when(addonRepository.findAllByStatusAndIdeId_IdeName(Status.APPROVED, "ide")).thenReturn(new ArrayList<>());
+
+        //Act
+        addonService.getAllFilterByIdeName("ide");
+
+        //Assert
+        Mockito.verify(addonRepository, times(1)).findAllByStatusAndIdeId_IdeName(Status.APPROVED, "ide");
+    }
+
+    @Test
+    public void getAllFilterByTagName_Should_CallRepository_When_Called() {
+    //Arrange
+        Mockito.when(addonRepository.getAllByTagName(Status.APPROVED, "tag")).thenReturn(new ArrayList<>());
+    //Act
+        addonService.getAllFilterByTagName("tag");
+
+    //Assert
+        Mockito.verify(addonRepository, times(1)).getAllByTagName(Status.APPROVED, "tag");
+    }
+
+    @Test
+    public void update_Should_Throw_Exception_When_AddonIsDuplicate() {
+    //Arrange
+        Addon addon = Addon.builder().name("test1").build();
+        Mockito.when(addonRepository.save(addon)).thenThrow(org.springframework.dao.DataIntegrityViolationException.class);
+
+    //Act   //Assert
+        Assert.assertThrows(DuplicateEntityException.class, () -> addonService.update(addon));
+    }
+
+    @Test
+    public void checkAddonExistById_Should_ReturnFalse_When_AddonNotExist() {
+    //Arrange
+        Mockito.when(addonRepository.existsById(1)).thenReturn(false);
+
+    //Act
+    //Assert
+        Assert.assertFalse(addonService.checkAddonExistsById(1));
+    }
+
+    @Test
+    public void enableAddon_Should_EnableAddon_When_InputIsValid() {
+    //Arrange
+        Addon addon = Addon.builder().id(1).name("test").build();
+        Mockito.when(addonRepository.getByName("test")).thenReturn(addon);
+
+    //Act
+        addonService.enableAddon("test");
+
+    //Assert
+        Mockito.verify(addonRepository, times(1)).save(addon);
+    }
+
+    @Test
+    public void getMyAddon_Should_returnUserAddons_When_InputIsValid() {
+    //Arrange
+        UserInfo userInfo = UserInfo.builder().name("john").build();
+        Mockito.when(addonRepository.getMyAddons(userInfo)).thenReturn(new ArrayList<>());
+
+    //Act
+        addonService.getMyAddons(userInfo);
+
+    //Assert
+        Mockito.verify(addonRepository, times(1)).getMyAddons(userInfo)
     }
 }

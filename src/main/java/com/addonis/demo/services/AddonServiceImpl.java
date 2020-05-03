@@ -92,7 +92,7 @@ public class AddonServiceImpl implements AddonService {
 
     @Override
     public void softDeleteAddon(String name, UserInfo user) {
-        if(!addonRepository.existsByName(name)) {
+        if (!addonRepository.existsByName(name)) {
             throw new EntityNotFoundException(ADDON_A, name);
         }
         Addon addon = addonRepository.getByName(name);
