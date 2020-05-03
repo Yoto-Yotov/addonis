@@ -1,5 +1,7 @@
 package com.addonis.demo.services;
 
+import com.addonis.demo.exceptions.DuplicateEntityException;
+import com.addonis.demo.exceptions.EntityNotFoundException;
 import com.addonis.demo.models.LastCommit;
 import com.addonis.demo.models.User;
 import com.addonis.demo.repository.contracts.LastCommitRepository;
@@ -18,6 +20,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 
 @RunWith(MockitoJUnitRunner.Silent.class)
@@ -82,7 +85,6 @@ public class LastCommitServicesTests {
                 times(1)).save(lastCommitUpdate);
     }
 
-    @Ignore
     @Test
     public void createLastCommit_ShouldCreateCommit() {
         //Arrange
@@ -96,5 +98,42 @@ public class LastCommitServicesTests {
         //Assert
         Assertions.assertEquals(lastCommitToReturn.getLastCommitId(), lastCommit.getLastCommitId());
         Assertions.assertEquals(lastCommitToReturn.getTitle(), lastCommit.getTitle());
+    }
+
+    @Test
+    public void existsById_ShouldReturn_LastCommit_WhenExist() {
+        //Arrange
+        LastCommit lastCommit = LastCommit.builder().title("LastCommit").lastCommitId(1).build();
+
+        Mockito.when(lastCommitRepository.existsById(1))
+                .thenReturn(true);
+
+        Assert.assertTrue(lastCommitService.existsById(lastCommit.getLastCommitId()));
+    }
+
+    @Test
+    public void getById_ShouldReturn_LastCommit_WhenExist() {
+        LastCommit lastCommit = LastCommit.builder().title("LastCommit").lastCommitId(1).build();
+
+        Mockito.when(lastCommitRepository.existsById(1))
+                .thenReturn(true);
+        Mockito.when(lastCommitRepository.getOne(lastCommit.getLastCommitId()))
+                .thenReturn(lastCommit);
+
+        LastCommit lastCommitToReturn = lastCommitService.getById(1);
+
+        Assertions.assertEquals(lastCommitToReturn.getTitle(), lastCommit.getTitle());
+    }
+
+    @Test
+    public void getById_ShouldThrow_WhenExist_LsatCommit_NotExist() {
+        LastCommit lastCommit = LastCommit.builder().title("LastCommit").lastCommitId(1).build();
+
+        //Arrange
+        Mockito.when(lastCommitRepository.existsById(2))
+                .thenReturn(false);
+        //Act, Assert
+        Assertions.assertThrows(EntityNotFoundException.class,
+                () -> lastCommitService.getById(2));
     }
 }

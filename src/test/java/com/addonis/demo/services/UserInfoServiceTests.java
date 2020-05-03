@@ -2,6 +2,7 @@ package com.addonis.demo.services;
 
 import com.addonis.demo.exceptions.DuplicateEntityException;
 import com.addonis.demo.exceptions.EntityNotFoundException;
+import com.addonis.demo.exceptions.InvalidDataException;
 import com.addonis.demo.models.UserInfo;
 import com.addonis.demo.repository.contracts.UserInfoRepository;
 import org.junit.Assert;
@@ -16,6 +17,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.addonis.demo.constants.Constants.USER_U;
+import static com.addonis.demo.validation.EmailValidator.isValidEmailAddress;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.Silent.class)
@@ -26,20 +29,6 @@ public class UserInfoServiceTests {
 
     @InjectMocks
     UserInfoServiceImpl userInfoService;
-
-
-    @Test
-    public void getUserById_Should_ReturnUser_WhenExist() {
-        //Arrange
-        UserInfo originalUser = UserInfo.builder().name("Teo").id(1).email("teo@abv.bg").build();
-        Mockito.when(userInfoRepository.getOne(1)).thenReturn(originalUser);
-
-        //Act
-        UserInfo returnUser = userInfoService.getById(1);
-
-        //Assert
-        Assert.assertSame(originalUser, returnUser);
-    }
 
     @Test
     public void getAll_Should_ReturnAllUsers() {
@@ -56,8 +45,33 @@ public class UserInfoServiceTests {
         Assert.assertSame(userInfoList, userListToReturn);
     }
 
+    @Test
+    public void getUserById_Should_ReturnUser_WhenExist() {
+        //Arrange
+        UserInfo originalUser = UserInfo.builder().name("Teo").id(1).email("teo@abv.bg").build();
+        Mockito.when(userInfoRepository.getOne(1)).thenReturn(originalUser);
+
+        //Act
+        Mockito.when(userInfoRepository.existsById(1)).thenReturn(true);
+        UserInfo returnUser = userInfoService.getById(1);
+
+        //Assert
+        Assert.assertSame(originalUser, returnUser);
+    }
+
     @Test(expected = EntityNotFoundException.class)
-    public void deleteBeer_Should_ThrowException_WhenBeerNotExist() {
+    public void getUserById_Should_ThrowException_WhenNotExist() {
+        //Arrange
+        UserInfo originalUser = UserInfo.builder().name("Teo").id(1).email("teo@abv.bg").build();
+
+        //Act
+        doThrow(EntityNotFoundException.class).when(userInfoRepository).getOne(15);
+
+        userInfoService.getById(15);
+    }
+
+    @Test(expected = EntityNotFoundException.class)
+    public void deletUser_Should_ThrowException_WhenUserNotExist() {
         UserInfo originalUser = UserInfo.builder().name("Teo").id(1).email("teo@abv.bg").build();
         UserInfo userToDel = UserInfo.builder().name("Teo").id(2).email("teo@abv.bg").build();
 
@@ -95,7 +109,7 @@ public class UserInfoServiceTests {
     }
 
     @Test
-    public void updateBeer_Should_ReturnUpdatedBeer_WhenExist() {
+    public void updateUser_Should_ReturnUpdatedUser_WhenExist() {
         //Arrange
         UserInfo user = UserInfo.builder().name("Teo").id(1).email("teo@abv.bg").build();
         UserInfo updateUser = UserInfo.builder().name("Teo").id(5).email("teo@abv.bg").build();
@@ -125,11 +139,24 @@ public class UserInfoServiceTests {
     }
 
     @Test
-    public void createShould_ThrowException_WhenBeerAlreadyExist() {
+    public void createShould_ThrowException_WhenUserAlreadyExist() {
         UserInfo user = UserInfo.builder().name("Teo").id(1).email("teo@abv.bg").build();
 
         //Arrange
         Mockito.when(userInfoRepository.existsByEmail(anyString()))
+                .thenReturn(true);
+        //Act, Assert
+        Assertions.assertThrows(DuplicateEntityException.class,
+                () -> userInfoService.create(user));
+
+    }
+
+    @Test
+    public void createShould_ThrowException_WhensUserExistByName() {
+        UserInfo user = UserInfo.builder().name("Teo").id(1).email("teo@abv.bg").build();
+
+        //Arrange
+        Mockito.when(userInfoRepository.existsByName(anyString()))
                 .thenReturn(true);
         //Act, Assert
         Assertions.assertThrows(DuplicateEntityException.class,
@@ -163,5 +190,41 @@ public class UserInfoServiceTests {
 
         userInfoService.getUserByUsername("Teo1");
 
+    }
+
+    @Test
+    public void softDelete_ShouldDisableUser_WhenExist() {
+        UserInfo user = UserInfo.builder().name("Teo").id(1).email("teo@abv.bg").build();
+        user.setEnabled(0);
+
+        Mockito.when(userInfoRepository.getByUserName("Teo"))
+                .thenReturn(user);
+
+        userInfoService.softDeleteUserInfo(user.getName());
+
+        Mockito.verify(userInfoRepository,
+                times(1)).softDeleteUserInfo(user.getName());
+    }
+
+    @Test
+    public void checkIfUserExist_ByName() {
+        //Arrange
+        UserInfo user = UserInfo.builder().name("Teo").id(1).email("teo@abv.bg").build();
+
+        Mockito.when(userInfoRepository.existsByName("Teo"))
+                .thenReturn(true);
+
+        Assert.assertTrue(userInfoService.checkUserExistByName(user.getName()));
+    }
+
+    @Test
+    public void checkIfUserExist_ByEmail() {
+        //Arrange
+        UserInfo user = UserInfo.builder().name("Teo").id(1).email("teo@abv.bg").build();
+
+        Mockito.when(userInfoRepository.existsByEmail("teo@abv.bg"))
+                .thenReturn(true);
+
+        Assert.assertTrue(userInfoService.checkUserExistByEmail(user.getEmail()));
     }
 }

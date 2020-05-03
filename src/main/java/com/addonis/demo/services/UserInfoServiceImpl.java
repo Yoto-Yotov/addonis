@@ -35,6 +35,9 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Override
     public UserInfo getById(Integer integer) {
+        if (!userInfoRepository.existsById(integer)) {
+            throw new EntityNotFoundException(USER_U, integer);
+        }
         return userInfoRepository.getOne(integer);
     }
 
@@ -81,7 +84,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     public void softDeleteUserInfo(String name) {
         UserInfo userInfo = userInfoRepository.getByUserName(name);
         userInfo.setEnabled(0);
-//                userInfoRepository.softDeleteUserInfo(name);
+        userInfoRepository.save(userInfo);
     }
 
     public boolean checkUserExistByName(String name) {
