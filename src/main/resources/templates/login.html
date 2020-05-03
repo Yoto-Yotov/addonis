@@ -59,10 +59,6 @@
                 <div class="col-lg-6 offset-lg-3">
                     <div class="login-form">
                         <h2>Login</h2>
-                        <div class="g-signin2" data-onsuccess="onSignIn"></div>
-<!--                        <a id="github-button" class="btn btn-block btn-social btn-github">-->
-<!--                            <i class="fa fa-github"></i> Sign in with Github-->
-<!--                        </a>-->
                         <form  th:action="@{/authenticate}" method="post">
                             <p>
                                 <i th:if="${param.error}" class="error"> Wrong username or password. </i>

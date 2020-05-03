@@ -254,7 +254,7 @@ public class AddonsController {
         try {
             UserInfo userInfo = userInfoService.getUserByUsername(principal.getName());
             String creatorName = addonService.getCreatorName(oldAddon.getId());
-            if (!userInfo.getName().equals(creatorName)) {
+            if (!userInfo.getName().equals(creatorName) && !userService.isAdmin(principal.getName())) {
                 model.addAttribute("error", "You are not authorized!");
                 return "error";
             }
@@ -302,7 +302,7 @@ public class AddonsController {
             return "edit-addon";
         }
 
-        return  "redirect:/addons/my-addons";
+        return  "redirect:/addon/edit/" + oldAddon.getName();
     }
 
     @GetMapping("/addons")

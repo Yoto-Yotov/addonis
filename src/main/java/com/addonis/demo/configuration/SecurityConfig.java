@@ -41,6 +41,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .hasRole("USER")
                 .antMatchers("/addon/edit/**")
                 .hasRole("USER")
+                .antMatchers("/addon/edit/**")
+                .hasRole("ADMIN")
                 .antMatchers("/addons/my-addons")
                 .hasRole("USER")
                 .antMatchers("/admin/**")
