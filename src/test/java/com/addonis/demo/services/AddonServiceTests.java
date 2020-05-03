@@ -7,6 +7,7 @@ import com.addonis.demo.models.Addon;
 import com.addonis.demo.models.Authorities;
 import com.addonis.demo.models.User;
 import com.addonis.demo.models.UserInfo;
+import com.addonis.demo.models.enums.Sortby;
 import com.addonis.demo.models.enums.Status;
 import com.addonis.demo.repository.contracts.AddonRepository;
 import com.addonis.demo.repository.contracts.UserRepository;
@@ -20,6 +21,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Sort;
 
 import java.util.ArrayList;
 
@@ -324,6 +326,41 @@ public class AddonServiceTests {
         addonService.getMyAddons(userInfo);
 
     //Assert
-        Mockito.verify(addonRepository, times(1)).getMyAddons(userInfo)
+        Mockito.verify(addonRepository, times(1)).getMyAddons(userInfo);
+    }
+
+    @Test
+    public void checkExistByName_Should_ReturnFalse_When_AddonNotExist() {
+        //Arrange
+            Mockito.when(addonRepository.existsByName("test")).thenReturn(false);
+
+        //Act
+            addonService.checkAddonExistsByName("test");
+
+        //Assert
+            Mockito.verify(addonRepository, times(1)).existsByName("test");
+    }
+
+    @Test
+    public void getAllSortBy_Should_CallRepository_When_Called() {
+    //Arrange
+        Mockito.when(addonRepository.findAllByStatus(Status.APPROVED, Sort.by(Sort.Direction.valueOf("ASC"), "name"))).thenReturn(new ArrayList<>());
+
+    //Act
+        addonService.getAllSortBy("ASC", Sortby.getByParam("name"));
+
+    //Assert
+        Mockito.verify(addonRepository, times(1)).findAllByStatus(Status.APPROVED, Sort.by(Sort.Direction.valueOf("ASC"), "name"));
+    }
+
+    @Test
+    public void create_Should_ThrowException_When_AddonWIthSameNameExists() {
+    //Arrange
+        Addon addon = Addon.builder().name("test").build();
+        Mockito.when(addonRepository.existsByName("test")).thenReturn(true);
+
+    //Act
+    //Assert
+        Assert.assertThrows(DuplicateEntityException.class, () -> addonService.create(addon));
     }
 }
