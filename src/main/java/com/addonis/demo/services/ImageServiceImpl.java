@@ -43,7 +43,7 @@ public class ImageServiceImpl implements ImageService {
             userInfoRepository.save(user);
 
         } catch (IOException ex) {
-            ex.printStackTrace();
+            throw new IllegalStateException(ex.getMessage());
         }
     }
 
@@ -64,7 +64,7 @@ public class ImageServiceImpl implements ImageService {
             addonRepository.save(addon);
 
         } catch (IOException ex) {
-            ex.printStackTrace();
+            throw new IllegalStateException(ex.getMessage());
         }
     }
 }

@@ -51,7 +51,7 @@ public class TagServiceTests {
     }
 
     @Test
-    public void getUserById_Should_GetUser_WhenUserExists() {
+    public void getTagById_Should_GetTag_WhenTagExists() {
         //Arrange
         Tag tag = Tag.builder().tagName("test").build();
         Mockito.when(tagRepository.findById(anyInt())).thenReturn(java.util.Optional.ofNullable(tag));
@@ -61,7 +61,7 @@ public class TagServiceTests {
     }
 
     @Test
-    public void getUserById_Should_ThrowException_WhenUserDoesNotExist() {
+    public void getTagById_Should_ThrowException_WhenTagDoesNotExist() {
         //Arrange
         Tag tag = Tag.builder().tagName("test").build();
         Mockito.when(tagRepository.findById(anyInt())).thenThrow(EntityNotFoundException.class);

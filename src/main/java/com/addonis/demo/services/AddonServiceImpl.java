@@ -92,14 +92,12 @@ public class AddonServiceImpl implements AddonService {
 
     @Override
     public void softDeleteAddon(String name, UserInfo user) {
-        try {
-            addonRepository.existsByName(name);
-        } catch (EntityNotFoundException e) {
+        if (!addonRepository.existsByName(name)) {
             throw new EntityNotFoundException(ADDON_A, name);
         }
         Addon addon = addonRepository.getByName(name);
-        if (!userService.isAdmin(user.getName()) ||
-                !userService.getUserByName(name).getUsername().equals(addon.getUserInfo().getName())) {
+        if (!userService.isAdmin(user.getName()) &&
+                !userService.getUserByName(user.getName()).getUsername().equals(addon.getUserInfo().getName())) {
             throw new NotAuthorizedException(user.getName());
         }
         addonRepository.softDeleteAddonInfo(name);
@@ -122,11 +120,10 @@ public class AddonServiceImpl implements AddonService {
 
     @Override
     public void deleteById(Integer id) {
-        try {  // todo check if addon exists
-            addonRepository.deleteById(id);
-        } catch (Exception e) {
+        if (!addonRepository.existsById(id)) {
             throw new EntityNotFoundException(ADDON, id);
         }
+        addonRepository.deleteById(id);
     }
 
     public List<Addon> findByNameContaining(String name) {
@@ -193,12 +190,6 @@ public class AddonServiceImpl implements AddonService {
     @Override
     public List<Addon> getMyAddons(UserInfo user) {
         return addonRepository.getMyAddons(user);
-    }
-
-    @Override
-    public Byte[] getContent(int id) {
-//        return addonRepository.getFile(id);
-        return null;
     }
 
     @Override

@@ -21,7 +21,6 @@ public interface AddonService extends BaseServiceContract<Addon, Integer> {
     boolean checkAddonExistsById(int addonId);
     boolean checkAddonExistsByName(String name);
     List<Addon> getMyAddons(UserInfo user);
-    Byte[] getContent(int id);
     void enableAddon(String name);
     String getCreatorName(int addonId);
     void changeDownloadCount(int addonId);

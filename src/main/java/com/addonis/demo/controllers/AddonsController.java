@@ -254,10 +254,12 @@ public class AddonsController {
         try {
             UserInfo userInfo = userInfoService.getUserByUsername(principal.getName());
             String creatorName = addonService.getCreatorName(oldAddon.getId());
+
             if (!userInfo.getName().equals(creatorName) && !userService.isAdmin(principal.getName())) {
                 model.addAttribute("error", "You are not authorized!");
                 return "error";
             }
+
         } catch (EntityNotFoundException e) {
             model.addAttribute("error", e.getMessage());
         }
