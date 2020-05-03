@@ -45,7 +45,7 @@
 .rating {
 	display: flex;
 	flex-direction: row-reverse;
-	justify-content: center
+	justify-content: flex-end;
 }
 
 .rating>input {
@@ -211,6 +211,12 @@
 }
 
 #creator {
+	color: #38b6ff;
+	font-size: 18px;
+	line-height: 250%;
+}
+
+#rating {
 	color: #38b6ff;
 	font-size: 18px;
 	line-height: 250%;

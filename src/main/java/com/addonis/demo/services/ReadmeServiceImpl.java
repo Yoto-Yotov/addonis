@@ -30,7 +30,6 @@ public class ReadmeServiceImpl implements ReadmeService {
     @Override
     public Readme getById(Integer integer) {
         Readme readme = readmeRepository.getOne(integer);
-
         return readmeRepository.getOne(integer);
     }
 
