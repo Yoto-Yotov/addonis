@@ -18,7 +18,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Builder
 @Table(name = "users")
-@Where(clause = "enabled = 1")
+//@Where(clause = "enabled = 1")
 public class User implements Serializable {
 
     @Id

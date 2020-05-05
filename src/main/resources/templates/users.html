@@ -59,8 +59,11 @@
             <div class="col-lg-9 order-1 order-lg-2">
                 <div class="product-list">
                     <div class="row">
+                        <p>
+                            <i th:if="${error != null}" th:text="${error}" class="error"/>
+                        </p>
                         <div class="col-lg-4 col-sm-6" th:each="user : ${users}">
-                            <div class="product-item">
+                            <div class="product-item" >
                                 <div class="pi-pic">
                                     <img th:if="${user.profileImage == null || user.profileImage == ''}" src="/img/blank-profile-picture-973460_640.png" alt=""
                                          height="295" width="263" style="background-size: contain">
@@ -74,9 +77,14 @@
                                         <h3><a id="name4" th:text="${user.name}"></a></h3>
                                     </div>
                                     <a id="adminUserEmail" th:text="${user.email}">abv.bg</a>
-                                    <form onsubmit="return confirm('Are you sure ?')" th:action="@{'/admin/users/d/' + ${user.name}}" method="post"
+                                    <form onsubmit="return confirm('Are you sure ?')" th:if="${user.enabled == 1}" th:action="@{'/admin/users/d/' + ${user.name}}" method="post"
                                           enctype="multipart/form-data">
-                                        <button id="but1" type="submit" class="site-btn register-btn">Disable</button>
+                                        <button style="background-color: red" id="but1" type="submit" class="disable site-btn register-btn">Disable</button>
+                                    </form>
+
+                                    <form onsubmit="return confirm('Are you sure ?')" th:if="${user.enabled == 0}" th:action="@{'/admin/users/e/' + ${user.name}}" method="post"
+                                          enctype="multipart/form-data">
+                                        <button id="but11" type="submit" class="site-btn register-btn">Enable</button>
                                     </form>
 
                                 </div>

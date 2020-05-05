@@ -12,6 +12,7 @@ import java.util.Set;
 public interface UserService extends BaseServiceContract<User, Integer> {
 
     void softDeleteUser(String name);
+    void restoreUser(String name);
     User getUserByName(String userName);
     List<Authorities> getUserAuthorities(String userName);
     boolean isAdmin(String userName);

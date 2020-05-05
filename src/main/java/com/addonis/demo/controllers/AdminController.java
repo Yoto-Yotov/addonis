@@ -1,5 +1,6 @@
 package com.addonis.demo.controllers;
 
+import com.addonis.demo.exceptions.EntityNotFoundException;
 import com.addonis.demo.models.UserInfo;
 import com.addonis.demo.services.contracts.AddonService;
 import com.addonis.demo.services.contracts.UserInfoService;
@@ -41,13 +42,36 @@ public class AdminController {
     @GetMapping("/admin/users")
     public String showUsersToPortal(Model model, Principal principal) {
         model.addAttribute("users", userInfoService.getAll());
+        model.addAttribute("usersUser", userService);
         return "users";
     }
 
     @PostMapping("/admin/users/d/{username}")
-    public String disableUser(@PathVariable String username) {
-        UserInfo userToDel = userInfoService.getUserByUsername(username);
-        userService.softDeleteUser(userToDel.getName());
+    public String disableUser(@PathVariable String username, Model model) {
+        try {
+            UserInfo userToDel = userInfoService.getUserByUsername(username);
+            userService.softDeleteUser(userToDel.getName());
+            userInfoService.softDeleteUserInfo(userToDel.getName());
+        }  catch (EntityNotFoundException e) {
+            model.addAttribute("users", userInfoService.getAll());
+            model.addAttribute("usersUser", userService);
+            model.addAttribute("error", e.getMessage());
+        }
+        return "redirect:/admin/users";
+    }
+
+    @PostMapping("/admin/users/e/{username}")
+    public String enableUser(@PathVariable String username, Model model) {
+        try {
+            UserInfo userToRestore = userInfoService.getUserByUsername(username);
+            userService.restoreUser(userToRestore.getName());
+            userInfoService.restoreUser(userToRestore.getName());
+        } catch (EntityNotFoundException e) {
+            model.addAttribute("users", userInfoService.getAll());
+            model.addAttribute("usersUser", userService);
+            model.addAttribute("error", e.getMessage());
+            return "users";
+        }
         return "redirect:/admin/users";
     }
 }

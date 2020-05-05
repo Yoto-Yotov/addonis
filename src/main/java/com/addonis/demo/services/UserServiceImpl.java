@@ -68,6 +68,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void restoreUser(String name) {
+        User user = userRepository.getByName(name);
+        user.setEnabled(1);
+        userRepository.save(user);
+    }
+
+    @Override
     public User getUserByName(String userName) {
         User user = userRepository.findUserByUsername(userName);
         if (user == null) {

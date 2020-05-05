@@ -87,6 +87,13 @@ public class UserInfoServiceImpl implements UserInfoService {
         userInfoRepository.save(userInfo);
     }
 
+    @Override
+    public void restoreUser(String username) {
+        UserInfo userInfo = userInfoRepository.getByUserName(username);
+        userInfo.setEnabled(1);
+        userInfoRepository.save(userInfo);
+    }
+
     public boolean checkUserExistByName(String name) {
         return userInfoRepository.existsByName(name);
     }
