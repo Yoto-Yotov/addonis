@@ -47,7 +47,6 @@ public class AdminController {
     @PostMapping("/admin/users/d/{username}")
     public String disableUser(@PathVariable String username) {
         UserInfo userToDel = userInfoService.getUserByUsername(username);
-        userInfoService.softDeleteUserInfo(userToDel.getName());
         userService.softDeleteUser(userToDel.getName());
         return "redirect:/admin/users";
     }

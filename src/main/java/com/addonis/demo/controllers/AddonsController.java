@@ -109,7 +109,7 @@ public class AddonsController {
             model.addAttribute("addon", new AddonDTO());
             return "addon";
         }
-        
+
         return "redirect:/addons";
     }
 
@@ -188,7 +188,7 @@ public class AddonsController {
         try {
             Addon addon = addonService.getAddonByName(addonName);
             String name = addonService.getCreatorName(addon.getId());
-            if (!request.isUserInRole(ROLE_ADMIN) || !user.getName().equals(name)) {
+            if (!request.isUserInRole(ROLE_ADMIN) && !user.getName().equals(name)) {
                 model.addAttribute("error", "You are not authorized");
                 return "error";
             }

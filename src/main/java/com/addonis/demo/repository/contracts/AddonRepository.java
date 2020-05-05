@@ -27,7 +27,7 @@ public interface AddonRepository extends BaseRepository<Addon, Integer> {
 
     List<Addon> findTop6ByStatusOrderByDownloadsCountDesc(Status status);
 
-    @Query(value = "SELECT * FROM addons WHERE status = 'APPROVED' ORDER BY RAND() LIMIT 6", nativeQuery = true)
+    @Query(value = "SELECT * FROM addons WHERE status = 'APPROVED' AND enabled = '1' ORDER BY RAND() LIMIT 6", nativeQuery = true)
     List<Addon> get6Random();
 
     List<Addon> findAllByStatus(Status status, Sort sort);
