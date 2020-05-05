@@ -5,10 +5,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.Lob;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 import static com.addonis.demo.constants.Constants.*;
 
@@ -33,6 +30,7 @@ public class AddonDTO {
 
     @NotNull(message = LINK_NOT_BLANK)
     @NotBlank(message = LINK_NOT_BLANK)
+    @Pattern(regexp = "https:[/][/]github.com[/][a-zA-Z0-9/-]+[/][a-zA-Z0-9/-]+", message = "Invalid Link")
     private String link;
 
     @Lob
