@@ -6,8 +6,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.Lob;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import static com.addonis.demo.constants.Constants.*;
 
 /**
  * AddonDTO is a class used for creating an addon. Represents the information needed to create addon.
@@ -17,19 +20,19 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 public class AddonDTO {
 
-    @NotNull
-    @NotBlank
+    @NotNull(message = NAME_NOT_BLANK)
+    @NotBlank(message = NAME_NOT_BLANK)
     @Size(min = 2, max = 50, message = "Addon name length should be between 2 and 50 symbols")
     private String name;
 
-    @NotNull
-    @NotBlank
+    @NotNull(message = DESCRIPTION_NOT_BLANK)
+    @NotBlank(message = DESCRIPTION_NOT_BLANK)
     private String description;
 
     private UserInfo creator;
 
-    @NotNull
-    @NotBlank
+    @NotNull(message = LINK_NOT_BLANK)
+    @NotBlank(message = LINK_NOT_BLANK)
     private String link;
 
     @Lob

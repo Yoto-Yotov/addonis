@@ -18,4 +18,10 @@ public class Constants {
     public static final String PASS_NOT_BLANK = "Password must not be blank";
     public static final String NAME_NOT_BLANK = "Name must not be blank";
     public static final String EMAIL_NOT_BLANK = "Email must not be blank";
+    public static final String DESCRIPTION_NOT_BLANK = "Description must not be blank";
+    public static final String LINK_NOT_BLANK = "Link must not be blank";
+    public static final String FILE_NOT_BLANK = "file must not be blank";
+    public static final String BINARY = "Binary";
+    public static final String PICTURE = "Picture";
+    public static final String FAIL_TO_UPLOAD_IMAGE = "Failed to upload image";
 }

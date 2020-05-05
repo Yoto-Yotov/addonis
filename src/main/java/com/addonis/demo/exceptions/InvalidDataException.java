@@ -10,4 +10,8 @@ public class InvalidDataException extends RuntimeException {
         super(String.format("Invalid %s", type));
     }
 
+    public InvalidDataException(String type, String message) {
+        super(String.format("%s %s", type, message));
+    }
+
 }

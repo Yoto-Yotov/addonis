@@ -3,8 +3,6 @@ package com.addonis.demo.controllers;
 import com.addonis.demo.exceptions.DuplicateEntityException;
 import com.addonis.demo.exceptions.EntityNotFoundException;
 import com.addonis.demo.exceptions.InvalidDataException;
-import com.addonis.demo.logger.Logger;
-import com.addonis.demo.exceptions.*;
 import com.addonis.demo.models.*;
 import com.addonis.demo.exceptions.NotAuthorizedException;
 
@@ -14,8 +12,6 @@ import com.addonis.demo.models.BinaryContent;
 import com.addonis.demo.models.UserInfo;
 import com.addonis.demo.models.enums.Sortby;
 import com.addonis.demo.services.contracts.*;
-import com.addonis.demo.validation.AddonValidator;
-import com.addonis.demo.validation.UserDtoValidator;
 import com.github.rjeschke.txtmark.Processor;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +20,6 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,10 +36,8 @@ import java.io.InputStream;
 import java.security.Principal;
 
 import static com.addonis.demo.constants.Constants.ROLE_ADMIN;
-import static com.addonis.demo.constants.Constants.ROLE_USER;
 import static com.addonis.demo.merge.AddonMapper.mapDtoToAddon;
 import static com.addonis.demo.merge.AddonMerge.mergeTwoAddons;
-import static com.addonis.demo.validation.AddonValidator.validateAddonDto;
 
 /**
  * AddonController is responsible for all visualized operations with the addons. For some of them is authentication is needed.
@@ -63,7 +56,7 @@ public class AddonsController {
 
     @Autowired
     public AddonsController(AddonService addonService, UserInfoService userInfoService, ImageService imageService,
-                            BinaryContentService binaryContentService, UserService userService,ReadmeService readmeService,
+                            BinaryContentService binaryContentService, UserService userService, ReadmeService readmeService,
                             TagService tagService, RatingService ratingService, IdeService ideService) {
 
         this.addonService = addonService;
@@ -78,7 +71,7 @@ public class AddonsController {
     }
 
     @GetMapping("/addons/search")
-    public String showAddons(@RequestParam(required = false, value = "sr", defaultValue = "") String search , Model model) {
+    public String showAddons(@RequestParam(required = false, value = "sr", defaultValue = "") String search, Model model) {
         model.addAttribute("addons", addonService.findByNameContaining(search));
         model.addAttribute("tags", tagService.getAll());
         model.addAttribute("ides", ideService.getAll());
@@ -98,47 +91,27 @@ public class AddonsController {
                               @RequestParam("binaryFile") MultipartFile binaryFile) {
 
         if (errors.hasErrors()) {
-            model.addAttribute("error", errors.getAllErrors().get(0));
-            return "addons";
+            model.addAttribute("error", errors.getAllErrors().get(0).getDefaultMessage());
+            return "addon";
         }
+
+        Addon addonToCreate;
         try {
-            AddonValidator.validateAddonDto(addonDto, addonService);
-        } catch (DuplicateEntityException | InvalidDataException e) {
+            UserInfo creator = userInfoService.getUserByUsername(user.getName());
+            addonDto.setCreator(creator);
+            addonToCreate = mapDtoToAddon(addonDto, binaryFile, binaryContentService);
+            addonToCreate.setIdeId(ideService.getByName(addonDto.getAddonIde()));
+            imageService.checkIfImageExists(imagefile);
+            addonService.create(addonToCreate);
+            imageService.saveImageFileToAddon(addonToCreate.getId(), imagefile);
+        } catch (DuplicateEntityException | IOException | InvalidDataException | IllegalStateException e) {
             model.addAttribute("error", e.getMessage());
-            // Log if any errors appear
-//            Logger.getLogger().warning("Ops error appeared on addon-create: " + errors.getAllErrors().get(0));
-
-                return "addon";
-            }
-
-//        if (errors.hasErrors()) {
-//            model.addAttribute("error", errors.getAllErrors().get(0));
-//            return "addon";
-//        }
-            addonDto.setFile(binaryFile);
-
-            Addon addonToCreate;
-            try {
-                UserInfo creator = userInfoService.getUserByUsername(user.getName());
-                addonDto.setCreator(creator);
-                addonToCreate = mapDtoToAddon(addonDto, binaryContentService);
-                addonToCreate.setIdeId(ideService.getByName(addonDto.getAddonIde()));
-                addonService.create(addonToCreate);
-            } catch (DuplicateEntityException | IOException | InvalidDataException e) {
-                model.addAttribute("error", e.getMessage());
-                model.addAttribute("addon", new AddonDTO());
-                return "addons";
-            }
-
-            try {
-                imageService.saveImageFileToAddon(addonToCreate.getId(), imagefile);
-            } catch (IllegalStateException ex) {
-                model.addAttribute("error", "Image cant't be uploaded. Please try again!");
-                return "addons";
-            }
-            return "redirect:/addons";
+            model.addAttribute("addon", new AddonDTO());
+            return "addon";
         }
-
+        
+        return "redirect:/addons";
+    }
 
 
     @GetMapping("/addon/{addonName}/image")
@@ -227,7 +200,7 @@ public class AddonsController {
             return "addon-details";
         }
     }
-    
+
     @GetMapping("/addons/download/{addonId}")
     public ResponseEntity<Resource> downloadFileFromLocal(@PathVariable int addonId) {
         Addon addon = addonService.getById(addonId);
@@ -276,10 +249,10 @@ public class AddonsController {
     @PostMapping("/addon/edit/{addonName}")
     public String updateAddon(@PathVariable String addonName, @Valid @ModelAttribute("newAddon") AddonChangeDTO newAddon,
                               BindingResult errors, Model model,
-                             @RequestParam("imagefile") MultipartFile imagefile,
+                              @RequestParam("imagefile") MultipartFile imagefile,
                               @RequestParam("binaryFile") MultipartFile binaryFile) throws IOException {
 
-        if(errors.hasErrors()) {
+        if (errors.hasErrors()) {
             model.addAttribute("error", errors.getAllErrors().get(0));
             return "edit-addon";
         }
@@ -289,7 +262,7 @@ public class AddonsController {
 
         mergeTwoAddons(oldAddon, newAddon, binaryContentService);
 
-        if(imagefile.getSize() > 2) {
+        if (imagefile.getSize() > 2) {
             try {
                 imageService.saveImageFileToAddon(oldAddon.getId(), imagefile);
             } catch (IllegalStateException | IllegalArgumentException ex) {
@@ -305,7 +278,7 @@ public class AddonsController {
             return "edit-addon";
         }
 
-        return  "redirect:/addon/edit/" + oldAddon.getName();
+        return "redirect:/addon/edit/" + oldAddon.getName();
     }
 
     @GetMapping("/addons")

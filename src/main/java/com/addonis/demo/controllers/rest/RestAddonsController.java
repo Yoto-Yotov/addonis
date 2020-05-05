@@ -4,6 +4,7 @@ import com.addonis.demo.exceptions.DuplicateEntityException;
 import com.addonis.demo.exceptions.EntityNotFoundException;
 import com.addonis.demo.exceptions.InvalidDataException;
 import com.addonis.demo.exceptions.NotAuthorizedException;
+import com.addonis.demo.merge.AddonMapper;
 import com.addonis.demo.models.*;
 import com.addonis.demo.models.enums.Sortby;
 import com.addonis.demo.services.contracts.*;
@@ -18,7 +19,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static com.addonis.demo.constants.Constants.DELETE_CONFIRMATION;
-import static com.addonis.demo.merge.AddonMapper.mapDtoToAddon;
+import static com.addonis.demo.merge.AddonMapper.*;
 import static com.addonis.demo.merge.AddonMerge.mergeTwoAddons;
 
 /**
@@ -29,17 +30,15 @@ import static com.addonis.demo.merge.AddonMerge.mergeTwoAddons;
 public class RestAddonsController {
 
     private AddonService addonService;
-    private FileService fileService;
     private UserInfoService userInfoService;
     private UserService userService;
     private BinaryContentService binaryContentService;
     private ReadmeService readmeService;
 
     @Autowired
-    public RestAddonsController(AddonService addonService, FileService fileService, UserInfoService userInfoService,
+    public RestAddonsController(AddonService addonService, UserInfoService userInfoService,
                                 BinaryContentService binaryContentService, UserService userService, ReadmeService readmeService) {
         this.addonService = addonService;
-        this.fileService = fileService;
         this.userInfoService = userInfoService;
         this.binaryContentService = binaryContentService;
         this.userService = userService;
@@ -57,10 +56,10 @@ public class RestAddonsController {
         try {
             UserInfo userInfo = userInfoService.getUserByUsername(username);
             addonDto.setCreator(userInfo);
-            Addon addonToCreate = mapDtoToAddon(addonDto, binaryContentService);
+            Addon addonToCreate = mapAddonDtoToAddon(addonDto);
             addonService.create(addonToCreate);
             return addonService.getById(addonToCreate.getId());
-        } catch (DuplicateEntityException | IOException e) {
+        } catch (DuplicateEntityException e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
         }
     }
@@ -106,13 +105,14 @@ public class RestAddonsController {
 
     //ToDo
     @PostMapping(value = "/upload/{id}", consumes = "multipart/form-data")
-    public Addon uploadAddon(@PathVariable int id, @RequestParam MultipartFile file,
-                             @RequestHeader(name = "Authorization") String authorization) {
+    public Addon uploadAddon(@PathVariable int id, @RequestParam() MultipartFile file,
+                             @RequestHeader(name = "Authorization") String authorization) throws IOException {
         try {
             Addon addon = addonService.getById(id);
             userService.checkRights(authorization, addon);
-            if(file.isEmpty()) {
-                fileService.saveAddonFile(id, file);
+            if(!file.isEmpty()) {
+                addBinaryContent(file, binaryContentService, addon);
+                addonService.update(addon);
             }
             return addonService.getById(id);
         } catch (InvalidDataException | EntityNotFoundException e) {
