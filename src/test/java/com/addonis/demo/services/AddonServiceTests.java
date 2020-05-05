@@ -146,7 +146,8 @@ public class AddonServiceTests {
         Mockito.when(addonRepository.existsByName("test")).thenReturn(false);
 
     //Act //Assert
-        Assert.assertThrows(EntityNotFoundException.class, () -> addonService.softDeleteAddon("test", user));
+        Assert.assertThrows(EntityNotFoundException.class,
+                () -> addonService.softDeleteAddon("test", user));
     }
 
     @Test

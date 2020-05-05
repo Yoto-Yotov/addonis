@@ -56,15 +56,18 @@ public class AddonServiceImpl implements AddonService {
 
     @Override
     public Addon getById(Integer id) {
-        return addonRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(ADDON, id));
+        return addonRepository
+                .findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(ADDON, id));
     }
 
     @Override
     public Addon getAddonByName(String name) {
-        if (addonRepository.getByName(name) == null) {
+        Addon a = addonRepository.getByName(name);
+        if (a == null) {
             throw new EntityNotFoundException(ADDON_A, name);
         }
-        return addonRepository.getByName(name);
+        return a;
     }
 
     @Override
@@ -96,11 +99,19 @@ public class AddonServiceImpl implements AddonService {
             throw new EntityNotFoundException(ADDON_A, name);
         }
         Addon addon = addonRepository.getByName(name);
-        if (!userService.isAdmin(user.getName()) &&
-                !userService.getUserByName(user.getName()).getUsername().equals(addon.getUserInfo().getName())) {
+        if (!isUserAdmin(user) && !isUserCreator(user, addon)) {
             throw new NotAuthorizedException(user.getName());
         }
         addonRepository.softDeleteAddonInfo(name);
+    }
+
+    private boolean isUserAdmin(UserInfo user) {
+        return userService.isAdmin(user.getName());
+    }
+
+    private boolean isUserCreator(UserInfo user, Addon addon) {
+        return userService.getUserByName(user.getName())
+                .getUsername().equals(addon.getUserInfo().getName());
     }
 
     @Override
@@ -179,7 +190,9 @@ public class AddonServiceImpl implements AddonService {
     }
 
     public List<Addon> getAllSortBy(String direction, Sortby sortBy) {
-        return addonRepository.findAllByStatus(Status.APPROVED, Sort.by(Sort.Direction.valueOf(direction), sortBy.getParam()));
+        return addonRepository
+                .findAllByStatus(Status.APPROVED,
+                        Sort.by(Sort.Direction.valueOf(direction), sortBy.getParam()));
     }
 
     @Override

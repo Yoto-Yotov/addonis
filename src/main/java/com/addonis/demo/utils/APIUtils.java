@@ -18,27 +18,14 @@ public final class APIUtils {
     private APIUtils() {}
 
     public static JSONArray requestDataFromAPI(String uri) throws IOException {
-        URL url = new URL(uri);
-        HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
-
-        connection.setRequestMethod("GET");
-        connection.setDoOutput(true);
-        StringBuilder sb = new StringBuilder();
-
-        try (BufferedReader br = new BufferedReader(
-                             new InputStreamReader(connection.getInputStream()))) {
-            String input = null;
-            while ((input = br.readLine()) != null){
-                sb.append(input);
-            }
-        }
-
-        String content = sb.toString();
-
-        return new JSONArray(content);
+        return new JSONArray(getContent(uri));
     }
 
     public static JSONObject requestDataObject(String uri) throws IOException {
+        return new JSONObject(getContent(uri));
+    }
+
+    private static String getContent(String uri) throws IOException {
         URL url1 = new URL(uri);
         HttpsURLConnection connection = (HttpsURLConnection) url1.openConnection();
 
@@ -54,8 +41,6 @@ public final class APIUtils {
             }
         }
 
-        String content = sb.toString();
-
-        return new JSONObject(content);
+        return sb.toString();
     }
 }
