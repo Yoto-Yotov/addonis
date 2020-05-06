@@ -22,6 +22,7 @@ Some of the possible actions it enables its users to do are:
 **Registration:**
 
 *In order to upload your own addon you need to register in the top right corner as shown in the picture below.*
+*For the registration you need to provide the following information: username and password*
 ![addonis1](/uploads/08ac3c6a43106a77c69da58ebfa362d1/addonis1.png)
 
 
