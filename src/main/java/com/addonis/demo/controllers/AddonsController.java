@@ -3,6 +3,7 @@ package com.addonis.demo.controllers;
 import com.addonis.demo.exceptions.DuplicateEntityException;
 import com.addonis.demo.exceptions.EntityNotFoundException;
 import com.addonis.demo.exceptions.InvalidDataException;
+import com.addonis.demo.logger.Logger;
 import com.addonis.demo.models.*;
 import com.addonis.demo.exceptions.NotAuthorizedException;
 
@@ -92,6 +93,7 @@ public class AddonsController {
 
         if (errors.hasErrors()) {
             model.addAttribute("error", errors.getAllErrors().get(0).getDefaultMessage());
+            Logger.getLogger().severe(errors.getAllErrors().get(0).getDefaultMessage());
             return "addon";
         }
 
@@ -107,6 +109,7 @@ public class AddonsController {
         } catch (DuplicateEntityException | IOException | InvalidDataException | IllegalStateException e) {
             model.addAttribute("error", e.getMessage());
             model.addAttribute("addon", new AddonDTO());
+            Logger.getLogger().severe(e.getMessage());
             return "addon";
         }
 
@@ -197,6 +200,7 @@ public class AddonsController {
             return "redirect:/addons";
         } catch (DuplicateEntityException | EntityNotFoundException | NotAuthorizedException e) {
             model.addAttribute("error", e.getMessage());
+            Logger.getLogger().severe(e.getMessage());
             return "addon-details";
         }
     }
