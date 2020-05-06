@@ -99,9 +99,9 @@
                            th:href="@{'/addon/edit/' + ${addon.name}}" type="submit" class="primary-btn">
                             EDIT ADDON </a>
 
-                        <form th:if="${#authentication.name == addon.userInfo.getName() || #authorization.expression('hasRole(''ADMIN'')')}"
+                        <form th:if="${#authentication.name  == addon.userInfo.getName() || #authorization.expression('hasRole(''ADMIN'')')}"
                            th:action="@{'/addon/delete?addonName=' + ${addon.name}}" onsubmit="return confirm('Are you sure ?')" method="post">
-                            <button type="submit" class="primary-btn">DELETE</button>
+                            <button style="margin-top: 20px" type="submit" class="btn btn-danger">DELETE</button>
                         </form>
 
 
