@@ -103,7 +103,6 @@ public class RestAddonsController {
         }
     }
 
-    //ToDo
     @PostMapping(value = "/upload/{id}", consumes = "multipart/form-data")
     public Addon uploadAddon(@PathVariable int id, @RequestParam() MultipartFile file,
                              @RequestHeader(name = "Authorization") String authorization) throws IOException {

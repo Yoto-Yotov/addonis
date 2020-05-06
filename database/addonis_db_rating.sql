@@ -1,0 +1,16 @@
+INSERT INTO addonis_db.rating (id, addon_id, user_id, rating) VALUES (4, 23, 8, 3);
+INSERT INTO addonis_db.rating (id, addon_id, user_id, rating) VALUES (5, 22, 8, 3);
+INSERT INTO addonis_db.rating (id, addon_id, user_id, rating) VALUES (6, 22, 10, 2);
+INSERT INTO addonis_db.rating (id, addon_id, user_id, rating) VALUES (7, 20, 8, 3);
+INSERT INTO addonis_db.rating (id, addon_id, user_id, rating) VALUES (8, 28, 10, 3);
+INSERT INTO addonis_db.rating (id, addon_id, user_id, rating) VALUES (9, 20, 10, 5);
+INSERT INTO addonis_db.rating (id, addon_id, user_id, rating) VALUES (10, 34, 10, 2);
+INSERT INTO addonis_db.rating (id, addon_id, user_id, rating) VALUES (11, 19, 8, 3);
+INSERT INTO addonis_db.rating (id, addon_id, user_id, rating) VALUES (12, 34, 8, 3);
+INSERT INTO addonis_db.rating (id, addon_id, user_id, rating) VALUES (13, 38, 8, 3);
+INSERT INTO addonis_db.rating (id, addon_id, user_id, rating) VALUES (14, 35, 8, 4);
+INSERT INTO addonis_db.rating (id, addon_id, user_id, rating) VALUES (15, 38, 7, 4);
+INSERT INTO addonis_db.rating (id, addon_id, user_id, rating) VALUES (16, 30, 8, 3);
+INSERT INTO addonis_db.rating (id, addon_id, user_id, rating) VALUES (17, 31, 7, 3);
+INSERT INTO addonis_db.rating (id, addon_id, user_id, rating) VALUES (18, 25, 8, 3);
+INSERT INTO addonis_db.rating (id, addon_id, user_id, rating) VALUES (19, 40, 16, 2);

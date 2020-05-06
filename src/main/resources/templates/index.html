@@ -134,7 +134,7 @@
                         <img class="card-img-top" height="192" width="234" th:href="@{'/addon/' + ${addon.name} + '/image'}"
                              th:src="@{'/addon/' + ${addon.name} + '/image'}" alt="Card image cap">
                         <div class="card-body">                                                  <!--  <td th:text="${teacher.active} ? 'ACTIVE' : 'RETIRED'" />   -->
-                            <a class="card-title" th:href="@{'/addons/details/' + ${addon.name}}" th:text="${addon.name.length() > 15 ? addon.name.substring(0,15) : addon.name}">Addon name</a>
+                            <a class="card-title" th:href="@{'/addons/details/' + ${addon.name}}" th:text="${addon.name.length() > 15 ? addon.name.substring(0,15) : addon.name}">Addon name</a><br>
                             <a href="#" class="btn cbutton btn-primary" th:href="@{'/addons/download/' + ${addon.id}}">Download</a>
                         </div>
                     </div>
@@ -161,7 +161,7 @@
                         <img class="card-img-top" height="192" width="234" th:href="@{'/addon/' + ${addon.name} + '/image'}"
                              th:src="@{'/addon/' + ${addon.name} + '/image'}" alt="Card image cap">
                         <div class="card-body">
-                            <a class="card-title" th:href="@{'/addons/details/' + ${addon.name}}" th:text="${addon.name.length() > 15 ? addon.name.substring(0,15) : addon.name}">Addon name</a>
+                            <a class="card-title" th:href="@{'/addons/details/' + ${addon.name}}" th:text="${addon.name.length() > 15 ? addon.name.substring(0,15) : addon.name}">Addon name</a><br>
                             <a href="#" class="btn cbutton btn-primary" th:href="@{'/addons/download/' + ${addon.id}}">Download</a>
                         </div>
                     </div>
@@ -187,7 +187,7 @@
                         <img class="card-img-top" height="192" width="234" th:href="@{'/addon/' + ${addon.name} + '/image'}"
                              th:src="@{'/addon/' + ${addon.name} + '/image'}" alt="Card image cap">
                         <div class="card-body">                                                  <!--  <td th:text="${teacher.active} ? 'ACTIVE' : 'RETIRED'" />   -->
-                            <a class="card-title" th:href="@{'/addons/details/' + ${addon.name}}" th:text="${addon.name.length() > 15 ? addon.name.substring(0,15) : addon.name}">Addon name</a>
+                            <a class="card-title" th:href="@{'/addons/details/' + ${addon.name}}" th:text="${addon.name.length() > 15 ? addon.name.substring(0,15) : addon.name}">Addon name</a><br>
                             <a href="#" class="btn cbutton btn-primary" th:href="@{'/addons/download/' + ${addon.id}}">Download</a>
                         </div>
                     </div>

@@ -1,0 +1,14 @@
+INSERT INTO addonis_db.addons_tags (addon_addon_id, tags_tag_id) VALUES (19, 19);
+INSERT INTO addonis_db.addons_tags (addon_addon_id, tags_tag_id) VALUES (19, 20);
+INSERT INTO addonis_db.addons_tags (addon_addon_id, tags_tag_id) VALUES (19, 22);
+INSERT INTO addonis_db.addons_tags (addon_addon_id, tags_tag_id) VALUES (19, 23);
+INSERT INTO addonis_db.addons_tags (addon_addon_id, tags_tag_id) VALUES (19, 24);
+INSERT INTO addonis_db.addons_tags (addon_addon_id, tags_tag_id) VALUES (20, 20);
+INSERT INTO addonis_db.addons_tags (addon_addon_id, tags_tag_id) VALUES (20, 28);
+INSERT INTO addonis_db.addons_tags (addon_addon_id, tags_tag_id) VALUES (25, 26);
+INSERT INTO addonis_db.addons_tags (addon_addon_id, tags_tag_id) VALUES (25, 27);
+INSERT INTO addonis_db.addons_tags (addon_addon_id, tags_tag_id) VALUES (38, 23);
+INSERT INTO addonis_db.addons_tags (addon_addon_id, tags_tag_id) VALUES (38, 24);
+INSERT INTO addonis_db.addons_tags (addon_addon_id, tags_tag_id) VALUES (38, 25);
+INSERT INTO addonis_db.addons_tags (addon_addon_id, tags_tag_id) VALUES (40, 27);
+INSERT INTO addonis_db.addons_tags (addon_addon_id, tags_tag_id) VALUES (40, 29);

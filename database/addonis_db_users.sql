@@ -1,0 +1,12 @@
+INSERT INTO addonis_db.users (username, enabled, password, id) VALUES ('john', 1, '$2a$10$jv.6qm//uFB3Fo4Qv4nkpehfJkwmlVpECU7RL2oc/3kNHXP5hEhrW', 3);
+INSERT INTO addonis_db.users (username, enabled, password, id) VALUES ('Someone', 0, '$2a$10$Rc57BkBRuQLZXQCSS.erNeJ1pnm/QG5ijxBiJWeB03zn0fI4vHnai', 10);
+INSERT INTO addonis_db.users (username, enabled, password, id) VALUES ('test', 0, '$2a$10$8IlnCLzj9Qe.FYqEFAVUpOWfmAlIOGFoqxsDVkX5tvnjHANP2DzOq', 11);
+INSERT INTO addonis_db.users (username, enabled, password, id) VALUES ('testuser1', 1, '$2a$10$zzwyAvqqCPi06vo0r/Bc5uVRScnlqHx48hSwzMzBVscnU/gedmvw2', 4);
+INSERT INTO addonis_db.users (username, enabled, password, id) VALUES ('testuser10', 0, '$2a$10$3ML9ZMh6nzHYY1on1FHePuoIDFWB7GppfNC2pDCLWE/J8Mgpz8K4e', 12);
+INSERT INTO addonis_db.users (username, enabled, password, id) VALUES ('testuser2', 1, '$2a$10$qlWjk257W5yYC9H3X2BaNuYmi4GFYb01Ws1ohV9/zXYb3C/SzbaZe', 5);
+INSERT INTO addonis_db.users (username, enabled, password, id) VALUES ('testuser3', 0, '$2a$10$Zs6P28AoC7h5THEMjy94kOpAMcNFSsS7n9waMk3MRGmDvFNxxYK7K', 6);
+INSERT INTO addonis_db.users (username, enabled, password, id) VALUES ('testuser4', 1, '$2a$10$kxw1G5XrUK2.q0XpaRZT7u2rnO/7G4MA3TVVfETWRHyDvP8pHy2D2', 7);
+INSERT INTO addonis_db.users (username, enabled, password, id) VALUES ('testuser8', 0, '$2a$10$Z/8urLrFmJ.t2WGIBzmHKOGEj9NIU3BuoYeVrgpi2aOvrU5siAXR.', 9);
+INSERT INTO addonis_db.users (username, enabled, password, id) VALUES ('testuserDelete', 0, '$2a$10$r1pW.XkRvu73OEbVdTmSbOl6H5lJmXuwDdlcGIXikBg.WfWafu3/K', 8);
+INSERT INTO addonis_db.users (username, enabled, password, id) VALUES ('yototo', 1, '$2a$10$F8NQKxFbjdio4Iz.WmhGkulkmdd6jHLcFEp01eb9l.6qus/KOXe4W', 1);
+INSERT INTO addonis_db.users (username, enabled, password, id) VALUES ('yotoyo', 0, '$2a$10$zzEXXliWQhkXLwzXx1gDXe7T.i9PTRV0ZaBRTC9rS7NK4ebgjNYRi', 2);

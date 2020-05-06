@@ -1,0 +1,11 @@
+INSERT INTO addonis_db.tags (tag_id, tag_name, user_id) VALUES (19, 'havoc', null);
+INSERT INTO addonis_db.tags (tag_id, tag_name, user_id) VALUES (20, 'iris', null);
+INSERT INTO addonis_db.tags (tag_id, tag_name, user_id) VALUES (21, 'intel', null);
+INSERT INTO addonis_db.tags (tag_id, tag_name, user_id) VALUES (22, 'bot', null);
+INSERT INTO addonis_db.tags (tag_id, tag_name, user_id) VALUES (23, 'Cool', null);
+INSERT INTO addonis_db.tags (tag_id, tag_name, user_id) VALUES (24, 'Ant', null);
+INSERT INTO addonis_db.tags (tag_id, tag_name, user_id) VALUES (25, 'black', null);
+INSERT INTO addonis_db.tags (tag_id, tag_name, user_id) VALUES (26, 'country', null);
+INSERT INTO addonis_db.tags (tag_id, tag_name, user_id) VALUES (27, 'awesome', null);
+INSERT INTO addonis_db.tags (tag_id, tag_name, user_id) VALUES (28, 'star', null);
+INSERT INTO addonis_db.tags (tag_id, tag_name, user_id) VALUES (29, 'green', null);

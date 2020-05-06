@@ -1,0 +1,1 @@
+INSERT INTO addonis_db.hibernate_sequence (next_val) VALUES (13);
