@@ -61,12 +61,12 @@
                         </div>
                         <div class="cell">
                             <a id="firstname">First name:</a>
-                            <a th:if="${userinfo.firstName == null or userinfo.lastName == ''}">Not given</a>
+<!--                            <a th:if="${userinfo.firstName == null or userinfo.lastName == ''}">Not given</a>-->
                             <a th:unless="${userinfo.firstName == null}" th:text="${userinfo.firstName}"></a>
                         </div>
                         <div class="cell">
                             <a id="lastname">Last name:</a>
-                            <a th:if="${userinfo.lastName == null or userinfo.lastName == ''}">Not given</a>
+<!--                            <a th:if="${userinfo.lastName == null or userinfo.lastName == ''}">Not given</a>-->
                             <a th:unless="${userinfo.lastName == null}" th:text="${userinfo.lastName}"></a>
                         </div>
                         </br>

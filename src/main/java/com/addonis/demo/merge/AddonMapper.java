@@ -40,7 +40,7 @@ public class AddonMapper {
             throw new InvalidDataException(BINARY, FILE_NOT_BLANK);
         }
         BinaryContent binaryContent = new BinaryContent();
-        binaryContent.setDocName(file.getName());
+        binaryContent.setDocName(file.getOriginalFilename());
         binaryContent.setType(file.getContentType());
         binaryContent.setFile(file.getBytes());
         binaryContentService.create(binaryContent);

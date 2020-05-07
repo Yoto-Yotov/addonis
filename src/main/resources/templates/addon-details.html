@@ -79,7 +79,7 @@
 
                         <!-- Trigger/Open The Modal -->
                         <div>
-                            <button id="myBtn" class="site-btn register-btn" style="align-items: center">README</button>
+                            <button id="myBtn" class="site-btn register-btn" style="margin-left: 80px">README</button>
 
                             <!-- The Modal -->
                             <div id="myModal" class="modal">
@@ -93,15 +93,16 @@
                             </div>
                         </div>
                         </br>
-                        <a th:if="${addon.status == T(com.addonis.demo.models.enums.Status).APPROVED}" th:href="@{'/addons/download/' + ${addon.id}}" type="submit" class="primary-btn">
+                        <a th:if="${addon.status == T(com.addonis.demo.models.enums.Status).APPROVED}" th:href="@{'/addons/download/' + ${addon.id}}"
+                           type="submit" class="primary-btn" style="margin-left: 80px">
                             DOWNLOAD </a>
                         <a th:if="${#authentication.name == addon.userInfo.getName() || #authorization.expression('hasRole(''ADMIN'')')}"
-                           th:href="@{'/addon/edit/' + ${addon.name}}" type="submit" class="primary-btn">
+                           th:href="@{'/addon/edit/' + ${addon.name}}" type="submit" class="primary-btn" style="margin-left: 80px">
                             EDIT ADDON </a>
 
                         <form th:if="${#authentication.name  == addon.userInfo.getName() || #authorization.expression('hasRole(''ADMIN'')')}"
                               th:action="@{'/addon/delete?addonName=' + ${addon.name}}" onsubmit="return confirm('Are you sure ?')" method="post">
-                            <button style="margin-top: 20px" type="submit" class="btn btn-danger">DELETE</button>
+                            <button style="margin-top: 20px; margin-left: 80px" type="submit" class="site-btn login-btn btn-danger">DELETE</button>
                         </form>
 
 
