@@ -5,6 +5,8 @@
 
 https://trello.com/b/3X849l4f/addonis
 
+https://addonis.herokuapp.com/
+
 Addonis is a plug-ins registry web application. 
 It is a new type of innovative technology showing the pulls count and open issues of the addon's repository on live time.
 The problem that our product solves that it gathers add-ons for all types of IDE's in a single place. 
@@ -46,5 +48,4 @@ Some of the possible actions it enables its users to do are:
 
 
 ## Licenses and copyright
-
-© Blue House Inc.
+Apache-2.0
